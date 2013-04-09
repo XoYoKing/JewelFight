@@ -71,14 +71,14 @@
     [super onEnterTransitionDidFinish];
 }
 
--(void) startLoading
+-(void) enterLoading
 {
     PvPFightLoadingLayer *loadingLayer = [[PvPFightLoadingLayer alloc] init];
     [self addChild:loadingLayer z:1 tag:kTagPvPFightLoadingLayer];
 }
 
-/// 开始战斗
--(void) startFight
+/// 进入战斗
+-(void) enterFight
 {
     // 删掉加载层
     [self removeChildByTag:kTagPvPFightLoadingLayer];
@@ -89,6 +89,7 @@
     [fightLayer release];
     
     // 初始化
+    
     
     
 }

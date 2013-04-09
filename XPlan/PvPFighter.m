@@ -6,8 +6,8 @@
 //  Copyright (c) 2013 Hex. All rights reserved.
 //
 
-#import "FighterUI.h"
+#import "PvPFighter.h"
 
-@implementation FighterUI
+@implementation PvPFighter
 
 @end

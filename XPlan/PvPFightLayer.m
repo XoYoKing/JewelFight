@@ -18,7 +18,7 @@
 
 @implementation PvPFightLayer
 
-@synthesize leftStonePanel,rightStonePanel,fighterUI;
+@synthesize leftStonePanel,rightStonePanel,portraitPanel,fighterPanel;
 
 -(id) init
 {
@@ -41,11 +41,6 @@
 {
     CCNode *node = [CCBReader nodeGraphFromFile:@"pvp_main.ccbi" owner:self];
     [self addChild:node];
-    
-}
-
--(FighterUI*) fighterUI
-{
     
 }
 

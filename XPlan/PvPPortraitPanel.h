@@ -9,15 +9,15 @@
 #import <Foundation/Foundation.h>
 #import "iPhoneGameKit.h"
 #import "FighterVo.h"
-#import "GPBar.h"
+#import "HonsterBar.h"
 
 /// 对战英雄面板
-@interface PvPPortraitPanel : CCNode
+@interface PvPPortraitPanel : CCLayer
 {
     CCSprite *playerFighterPortrait; // 玩家战士头像
     CCSprite *opponentFighterPortrait; // 对手战士头像
-    GPBar *playerFighterLifeBar; // 玩家战士血量条
-    GPBar *opponentFighterLifeBar; // 对手战士血量条
+    HonsterBar *playerFighterLifeBar; // 玩家战士血量条
+    HonsterBar *opponentFighterLifeBar; // 对手战士血量条
     CCSprite *playerHp;
     CCSprite *playerHpBg;
     CCSprite *playerHpMask;

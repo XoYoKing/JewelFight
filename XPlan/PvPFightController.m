@@ -11,6 +11,7 @@
 #import "PvPFightScene.h"
 #import "PvPFightLayer.h"
 #import "PvPFightHudLayer.h"
+#import "PvPFighterPanel.h"
 #import "GameController.h"
 #import "PlayerInfo.h"
 #import "FighterVo.h"
@@ -20,7 +21,7 @@
 #import "ViewStonePanel.h"
 #import "HeroVo.h"
 #import "FighterVo.h"
-#import "FighterUI.h"
+#import "PvPPortraitPanel.h"
 
 @interface PvPFightController()
 {
@@ -30,7 +31,7 @@
 
 @implementation PvPFightController
 
-@synthesize state,newState;
+@synthesize state,newState,portraitPanel,fighterPanel,playerStonePanel,opponentStonePanel;
 
 -(id) initWithScene:(PvPFightScene *)s
 {
@@ -70,7 +71,7 @@
     self.state = kPvPFightStateLoading;
     
     // 显示加载页面
-    [scene startLoading];
+    [scene enterLoading];
     
     // 注册加载侦听
     [self registerLoadingListener];
@@ -80,16 +81,10 @@
 /// 加载完成
 -(void) loadingDone
 {
-    // 离线模式
-    if (OFFLINE_MODE == 1)
-    {
-        // 离线模式,测试用
-        //
-        [self enterFight];
-        return;
-    }
-    /// 加载完成,请求战斗
-    [[GameController sharedController].server.fightCommand requestStartFight];
+    
+    // 进入战斗场景
+    [self enterFight];
+
 }
 
 -(void) registerLoadingListener
@@ -129,18 +124,34 @@
     // 取消加载侦听
     [self unregisterLoadingListener];
     
-    // 显示战斗画面
-    [scene startFight];
+    // 加载战斗场景
+    [scene enterFight];
+
+    // TODO: 显示等待旋转进度动画
     
     // 侦听战斗信号
     [self registerFightListener];
+    
+    [self changeState:kPvPFightStatePlay];
+    
+    // 关联面板引用
+    PvPFightLayer *fightLayer = [self getFightLayer];
+    playerStonePanel = (DoStonePanel*)(fightLayer.leftStonePanel.stonePanel);
+    opponentStonePanel = (ViewStonePanel*)(fightLayer.rightStonePanel.stonePanel);
+    portraitPanel = (PvPPortraitPanel*)(fightLayer.portraitPanel);
+    
+    // 向服务器请求开始战斗
+    [[GameController sharedController].server.fightCommand requestStartFight];
 }
 
 
 
 -(void) update:(ccTime)delta
 {
-    
+    if (self.state == kPvPFightStatePlay)
+    {
+        
+    }
 }
 
 /// 处理玩家出战英雄信息和对手出战英雄信息
@@ -153,22 +164,6 @@
     
 }
 
-
-/// 准备战斗
--(void) readyToFight
-{
-    // 关联面板引用
-    playerStonePanel = (DoStonePanel*)[self getFightLayer].leftStonePanel.stonePanel;
-    opponentStonePanel = (ViewStonePanel*)[self getFightLayer].rightStonePanel.stonePanel;
-    
-    // 关联战斗UI
-    fighterUI = (FighterUI*)[self getFightLayer].fighterUI;
-    
-    // 初始化宝石面板
-    
-    // 向服务器请求开始战斗
-    
-}
 
 -(PvPFightLayer*) getFightLayer
 {
@@ -239,7 +234,7 @@
         }
         case SERVER_ACTION_ID_PVP_START_FIGHT:
         {
-            [self enterFight];
+            [self startFight];
             break;
         }
         // 交换宝石

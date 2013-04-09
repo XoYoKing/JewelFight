@@ -8,7 +8,7 @@
 
 #import "FightAction.h"
 
-@class FighterUI;
+@class PvPFighter;
 
 /// 攻击指令
 @interface FightAttackAction : FightAction
@@ -16,7 +16,7 @@
     
 }
 
--(id) initWithFightGround:(FightArena*)_ground actor:(FighterUI*)_actor target:(FighterUI*)_target move:(int)_move distance:(float)_distance time:(float)_time;
+-(id) initWithFightGround:(FightArena*)_ground actor:(PvPFighter*)_actor target:(PvPFighter*)_target move:(int)_move distance:(float)_distance time:(float)_time;
 
 
 

@@ -18,8 +18,6 @@
 
 @class PvPFightScene,PvPFightHudLayer;
 
-
-
 /// 战斗层
 @interface PvPFightLayer : CCLayer
 {
@@ -35,7 +33,9 @@
 
 @property (readonly,nonatomic) FightStonePanel *rightStonePanel;
 
-@property (readonly,nonatomic) FighterUI *fighterUI;
+@property (readonly,nonatomic) PvPPortraitPanel *portraitPanel;
+
+@property (readonly,nonatomic) PvPFighterPanel *fighterPanel;
 
 /// 初始化
 -(void) initiaize;

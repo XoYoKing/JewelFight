@@ -9,15 +9,15 @@
 #import <Foundation/Foundation.h>
 #import "iPhoneGameKit.h"
 
-@class FighterUI,FightArena;
+@class PvPFighter,FightArena;
 
 /// 战斗指令
 @interface FightAction : NSObject
 {
     FightArena *ground; // 竞技场
     NSString *name; // 指令名称
-    FighterUI *actor; // 执行者标识
-    FighterUI *target; // 目标标识
+    PvPFighter *actor; // 执行者标识
+    PvPFighter *target; // 目标标识
     BOOL skipped; // 是否跳过
     int move; // 是否需要移动
     float distance; // 移动距离
@@ -29,10 +29,10 @@
 @property(readonly,nonatomic) NSString *name;
 
 /// 主角战士
-@property (readonly,nonatomic) FighterUI *actor;
+@property (readonly,nonatomic) PvPFighter *actor;
 
 /// 目标战士
-@property (readonly,nonatomic) FighterUI *target;
+@property (readonly,nonatomic) PvPFighter *target;
 
 /// 是否跳过
 @property (readonly,nonatomic) BOOL skipped;

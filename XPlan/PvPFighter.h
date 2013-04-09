@@ -18,16 +18,16 @@
 #define kFighterSideRight 1 // 站在右侧
 
 /// 战场战士 (英雄)
-@interface FighterUI : CCNode
+@interface PvPFighter : CCNode
 {
-    NSString *actorId; // 战士标识
+    NSString *heroId; // 战士标识
     FighterVo *vo; // 战士数据对象
     FightArena *arena; // 战场
     int side; // 站立位置
     int state; // 状态
 }
 
-@property (readonly,nonatomic) NSString *actorId;
+@property (readonly,nonatomic) NSString *heroId;
 
 /// 战士数据
 @property (readonly,nonatomic) FighterVo *vo;
@@ -36,7 +36,7 @@
 
 
 /// 攻击目标
--(void) attack:(FighterUI*)target;
+-(void) attack:(PvPFighter*)target;
 
 
 

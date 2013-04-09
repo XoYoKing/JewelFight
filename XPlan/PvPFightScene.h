@@ -42,9 +42,9 @@
 -(void) changeState:(int)newState;
 
 /// 开始加载
--(void) startLoading;
+-(void) enterLoading;
 
 /// 开始战斗
--(void) startFight;
+-(void) enterFight;
 
 @end

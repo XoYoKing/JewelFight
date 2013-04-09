@@ -8,11 +8,14 @@
 
 #import <Foundation/Foundation.h>
 #import "iPhoneGameKit.h"
-#import "GPBar.h"
+#import "HonsterBar.h"
 
 @interface PvPFightLoadingLayer : CCLayer
 {
-    GPBar *loadingBar; // 加载进度条
+    HonsterBar *loadingBar; // 加载进度条
+    CCSprite *loadingBgSprite;
+    CCSprite *loadingBarSprite;
+    CCSprite *loadingMaskSprite;
 }
 
 @end

@@ -9,6 +9,7 @@
 #import "PvPFightLoadingLayer.h"
 #import "PvPFightScene.h"
 #import "PvPFightController.h"
+#import "CCBReader.h"
 
 @interface PvPFightLoadingLayer()
 {
@@ -43,24 +44,15 @@
 
 -(void) initUI
 {
-    CGSize winSize = [KITApp winSize];
-    CCSprite *bg = [[CCSprite alloc] initWithFile:@"loadingBg.png"];
-    [self addChild:bg];
-    bg.anchorPoint = ccp(0.5f,0.5f);
-    bg.position = ccp(winSize.width/2,winSize.height/2);
-    [bg release];
+    CCNode *node = [CCBReader nodeGraphFromFile:@"pvp_loading.ccbi" owner:self];
+    [self addChild:node];
     
-    loadingBar = [[GPBar alloc] initBarWithBar:@"loadingBar.png" inset:@"loadingInset.png" mask:@"loadingMask.png"];
+    CGPoint barPos = loadingBgSprite.position;
+    
+    loadingBar = [[HonsterBar alloc] initBarWithBarSprite:loadingBarSprite insetSprite:loadingBgSprite maskSprite:loadingMaskSprite];
     [self addChild:loadingBar];
-    loadingBar.position = ccp(0,-[KITApp scale:78]);
+    loadingBar.position = barPos;
     loadingBar.progress = 0;
-    
-    // 初始化描述
-    CCLabelTTF *title = [[CCLabelTTF alloc] initWithString:@"加载中" fontName:@"MarkerFelt-Wide" fontSize:20];
-    title.anchorPoint=ccp(0.5f,0.5f);
-    title.position = ccp([KITApp scale:0],-[KITApp scale:100]);
-    [self addChild:title];
-    [title release];
 }
 
 -(void) setPercent:(float)value

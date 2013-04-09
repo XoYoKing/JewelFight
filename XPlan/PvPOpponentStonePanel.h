@@ -9,6 +9,6 @@
 #import <Foundation/Foundation.h>
 #import "iPhoneGameKit.h"
 
-@interface PvPOpponentStonePanel : CCNode
+@interface PvPOpponentStonePanel : CCLayer
 
 @end

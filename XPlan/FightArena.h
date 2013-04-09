@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "iPhoneGameKit.h"
 
-@class FighterUI;
+@class PvPFighter;
 /// 战斗场地
 @interface FightArena : CCNode
 {
@@ -19,7 +19,7 @@
 }
 
 /// 基于标识获取战场演员
--(FighterUI*) getActorById:(NSString*)actorId;
+-(PvPFighter*) getActorById:(NSString*)actorId;
 
 
 @end

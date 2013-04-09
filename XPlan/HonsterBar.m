@@ -1,33 +1,15 @@
-/*
- * Wrensation: http://www.wrensation.com/
- * Web-Geeks: http://www.web-geeks.com/
- *
- * Copyright (c) 2011 Wrensation + Web-Geeks
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- *
- */
+//
+//  HonsterBar.m
+//  XPlan
+//
+//  Created by Hex on 4/9/13.
+//  Copyright (c) 2013 Hex. All rights reserved.
+//
 
-#import "GPBar.h"
+#import "HonsterBar.h"
 
 
-@implementation GPBar
+@implementation HonsterBar
 @synthesize bar, inset, type, active, progress;
 
 +(id) barWithBar:(NSString *)b inset:(NSString *)i mask:(NSString *)m
@@ -42,28 +24,28 @@
         inset = [[NSString alloc] initWithString:i];
         mask = [[NSString alloc] initWithString:m];
         spritesheet = NO;
-		
-        screenSize = [[CCDirector sharedDirector] winSize];
         
-        screenMid = ccp(screenSize.width * 0.5f, screenSize.height * 0.5f);
+        insetSprite = [[CCSprite alloc] initWithFile:inset];
+        [self setContentSize:insetSprite.contentSize];
+        middle = ccp(self.contentSize.width * 0.5f, self.contentSize.height * 0.5f);
+        
+        insetSprite.anchorPoint = ccp(0.5,0.5);
+        insetSprite.position = middle;
+        [self addChild:insetSprite z:1];
         
         barSprite = [[CCSprite alloc] initWithFile:bar];
         barSprite.anchorPoint = ccp(0.5,0.5);
-        barSprite.position = screenMid;
+        barSprite.position = middle;
 		
-        insetSprite = [[CCSprite alloc] initWithFile:inset];
-        insetSprite.anchorPoint = ccp(0.5,0.5);
-        insetSprite.position = screenMid;
-        [self addChild:insetSprite z:1];
 		
         maskSprite = [[CCSprite alloc] initWithFile:mask];
         maskSprite.anchorPoint = ccp(1,0.5);
-        maskSprite.position = screenMid;
+        maskSprite.position = middle;
         
-        renderMasked = [[CCRenderTexture alloc] initWithWidth:screenSize.width height:screenSize.height pixelFormat:kCCTexture2DPixelFormat_RGBA8888];
+        renderMasked = [[CCRenderTexture alloc] initWithWidth:self.contentSize.width height:self.contentSize.height pixelFormat:kCCTexture2DPixelFormat_RGBA8888];
         [[renderMasked sprite] setBlendFunc: (ccBlendFunc) {GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA}];
         renderMasked.position = barSprite.position;
-        renderMaskNegative = [[CCRenderTexture alloc] initWithWidth:screenSize.width height:screenSize.height pixelFormat:kCCTexture2DPixelFormat_RGBA8888];
+        renderMaskNegative = [[CCRenderTexture alloc] initWithWidth:self.contentSize.width height:self.contentSize.height pixelFormat:kCCTexture2DPixelFormat_RGBA8888];
         [[renderMaskNegative sprite] setBlendFunc: (ccBlendFunc) {GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA}];
         renderMaskNegative.position = barSprite.position;
         
@@ -88,28 +70,27 @@
         inset = [[NSString alloc] initWithString:i];
         mask = [[NSString alloc] initWithString:m];
         spritesheet = YES;
-		
-		screenSize = [[CCDirector sharedDirector] winSize];
-        
-        screenMid = ccp(screenSize.width * 0.5f, screenSize.height * 0.5f);
+
+        insetSprite = [[CCSprite alloc] initWithSpriteFrameName:inset];
+        [self setContentSize:insetSprite.contentSize];
+        middle = ccp(self.contentSize.width * 0.5f, self.contentSize.height * 0.5f);
+        insetSprite.anchorPoint = ccp(0.5,0.5);
+        insetSprite.position = middle;
+        [self addChild:insetSprite z:1];
         
         barSprite = [[CCSprite alloc] initWithSpriteFrameName:bar];
         barSprite.anchorPoint = ccp(0.5,0.5);
-        barSprite.position = screenMid;
+        barSprite.position = middle;
 		
-        insetSprite = [[CCSprite alloc] initWithSpriteFrameName:inset];
-        insetSprite.anchorPoint = ccp(0.5,0.5);
-        insetSprite.position = screenMid;
-        [self addChild:insetSprite z:1];
 		
         maskSprite = [[CCSprite alloc] initWithSpriteFrameName:mask];
         maskSprite.anchorPoint = ccp(1,0.5);
-        maskSprite.position = screenMid;
+        maskSprite.position = middle;
         
-        renderMasked = [[CCRenderTexture alloc] initWithWidth:screenSize.width height:screenSize.height pixelFormat:kCCTexture2DPixelFormat_RGBA8888];
+        renderMasked = [[CCRenderTexture alloc] initWithWidth:self.contentSize.width height:self.contentSize.height pixelFormat:kCCTexture2DPixelFormat_RGBA8888];
         [[renderMasked sprite] setBlendFunc: (ccBlendFunc) {GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA}];
         renderMasked.position = barSprite.position;
-        renderMaskNegative = [[CCRenderTexture alloc] initWithWidth:screenSize.width height:screenSize.height pixelFormat:kCCTexture2DPixelFormat_RGBA8888];
+        renderMaskNegative = [[CCRenderTexture alloc] initWithWidth:self.contentSize.width height:self.contentSize.height pixelFormat:kCCTexture2DPixelFormat_RGBA8888];
         [[renderMaskNegative sprite] setBlendFunc: (ccBlendFunc) {GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA}];
         renderMaskNegative.position = barSprite.position;
         
@@ -131,30 +112,30 @@
 -(id) initBarWithBarSprite:(CCSprite *)b insetSprite:(CCSprite *)i maskSprite:(CCSprite *)m {
     if ((self = [super init])) {
         
-		screenSize = [[CCDirector sharedDirector] winSize];
-        
-        screenMid = ccp(screenSize.width * 0.5f, screenSize.height * 0.5f);
+        insetSprite = [i retain];
+        [i removeFromParentAndCleanup:YES];
+        [self setContentSize:insetSprite.contentSize];
+        middle = ccp(self.contentSize.width * 0.5f, self.contentSize.height * 0.5f);
+        insetSprite.anchorPoint = ccp(0.5,0.5);
+        insetSprite.position = middle;
+        [self addChild:insetSprite z:1];
         
         barSprite = [b retain];
         [b removeFromParentAndCleanup:YES];
         barSprite.anchorPoint = ccp(0.5,0.5);
-        barSprite.position = screenMid;
+        barSprite.position = middle;
 		
-        insetSprite = [i retain];
-        [i removeFromParentAndCleanup:YES];
-        insetSprite.anchorPoint = ccp(0.5,0.5);
-        insetSprite.position = screenMid;
-        [self addChild:insetSprite z:1];
+
 		
         maskSprite = [m retain];
         [m removeFromParentAndCleanup:YES];
         maskSprite.anchorPoint = ccp(1,0.5);
-        maskSprite.position = screenMid;
+        maskSprite.position = middle;
         
-        renderMasked = [[CCRenderTexture alloc] initWithWidth:screenSize.width height:screenSize.height pixelFormat:kCCTexture2DPixelFormat_RGBA8888];
+        renderMasked = [[CCRenderTexture alloc] initWithWidth:self.contentSize.width height:self.contentSize.height pixelFormat:kCCTexture2DPixelFormat_RGBA8888];
         [[renderMasked sprite] setBlendFunc: (ccBlendFunc) {GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA}];
         renderMasked.position = barSprite.position;
-        renderMaskNegative = [[CCRenderTexture alloc] initWithWidth:screenSize.width height:screenSize.height pixelFormat:kCCTexture2DPixelFormat_RGBA8888];
+        renderMaskNegative = [[CCRenderTexture alloc] initWithWidth:self.contentSize.width height:self.contentSize.height pixelFormat:kCCTexture2DPixelFormat_RGBA8888];
         [[renderMaskNegative sprite] setBlendFunc: (ccBlendFunc) {GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA}];
         renderMaskNegative.position = barSprite.position;
         
@@ -195,7 +176,7 @@
     [renderMaskNegative end];
     
     masked = renderMaskNegative.sprite;
-    masked.position = screenMid;
+    masked.position = middle;
     
     [masked setBlendFunc: (ccBlendFunc) { GL_ZERO, GL_ONE_MINUS_SRC_ALPHA }];
     [masked retain];
@@ -215,7 +196,7 @@
     [self drawLoadingBar];
 }
 -(void) drawLoadingBar {
-    maskSprite.position = ccp(((screenSize.width - maskSprite.boundingBox.size.width) / 2) + (progress / 100 * maskSprite.boundingBox.size.width), screenMid.y);
+    maskSprite.position = ccp(((self.contentSize.width - maskSprite.boundingBox.size.width) / 2) + (progress / 100 * maskSprite.boundingBox.size.width), middle.y);
     [self clearRender];
     [self maskBar];
 }

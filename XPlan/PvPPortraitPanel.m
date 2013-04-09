@@ -27,12 +27,12 @@
 
 -(void) initUI
 {
-    playerFighterLifeBar = [[GPBar alloc] initBarWithBarSprite:playerHp insetSprite:playerHpBg maskSprite:playerHpMask];
+    playerFighterLifeBar = [[HonsterBar alloc] initBarWithBarSprite:playerHp insetSprite:playerHpBg maskSprite:playerHpMask];
     [self addChild:playerFighterLifeBar];
     playerFighterLifeBar.position = ccp(170,23);
     playerFighterLifeBar.progress =70;
     
-    opponentFighterLifeBar = [[GPBar alloc] initBarWithBarSprite:opponentHp insetSprite:opponentHpBg maskSprite:opponentHpMask];
+    opponentFighterLifeBar = [[HonsterBar alloc] initBarWithBarSprite:opponentHp insetSprite:opponentHpBg maskSprite:opponentHpMask];
     [self addChild:opponentFighterLifeBar];
     opponentFighterLifeBar.position = ccp(594,23);
     opponentFighterLifeBar.progress = 70;

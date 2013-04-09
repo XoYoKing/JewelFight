@@ -7,7 +7,7 @@
 //
 
 #import "FightAction.h"
-#import "FighterUI.h"
+#import "PvPFighter.h"
 #import "FightArena.h"
 
 @implementation FightAction

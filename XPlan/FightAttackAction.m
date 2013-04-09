@@ -18,7 +18,7 @@
 
 @implementation FightAttackAction
 
--(id) initWithFightGround:(FightArena *)_ground actor:(FighterUI *)_actor target:(FighterUI *)_target move:(int)_move distance:(float)_distance time:(float)_time
+-(id) initWithFightGround:(FightArena *)_ground actor:(PvPFighter *)_actor target:(PvPFighter *)_target move:(int)_move distance:(float)_distance time:(float)_time
 {
     if ((self = [super initWithFightGround:_ground name:@"Attack"]))
     {
