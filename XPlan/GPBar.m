@@ -124,6 +124,52 @@
     }
     return self;
 }
+
++(id) barWithBarSprite:(CCSprite *)b insetSprite:(CCSprite *)i maskSprite:(CCSprite *)m {
+    return [[[self alloc] initBarWithBarSprite:b insetSprite:i maskSprite:m] autorelease];
+}
+-(id) initBarWithBarSprite:(CCSprite *)b insetSprite:(CCSprite *)i maskSprite:(CCSprite *)m {
+    if ((self = [super init])) {
+        
+		screenSize = [[CCDirector sharedDirector] winSize];
+        
+        screenMid = ccp(screenSize.width * 0.5f, screenSize.height * 0.5f);
+        
+        barSprite = [b retain];
+        [b removeFromParentAndCleanup:YES];
+        barSprite.anchorPoint = ccp(0.5,0.5);
+        barSprite.position = screenMid;
+		
+        insetSprite = [i retain];
+        [i removeFromParentAndCleanup:YES];
+        insetSprite.anchorPoint = ccp(0.5,0.5);
+        insetSprite.position = screenMid;
+        [self addChild:insetSprite z:1];
+		
+        maskSprite = [m retain];
+        [m removeFromParentAndCleanup:YES];
+        maskSprite.anchorPoint = ccp(1,0.5);
+        maskSprite.position = screenMid;
+        
+        renderMasked = [[CCRenderTexture alloc] initWithWidth:screenSize.width height:screenSize.height pixelFormat:kCCTexture2DPixelFormat_RGBA8888];
+        [[renderMasked sprite] setBlendFunc: (ccBlendFunc) {GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA}];
+        renderMasked.position = barSprite.position;
+        renderMaskNegative = [[CCRenderTexture alloc] initWithWidth:screenSize.width height:screenSize.height pixelFormat:kCCTexture2DPixelFormat_RGBA8888];
+        [[renderMaskNegative sprite] setBlendFunc: (ccBlendFunc) {GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA}];
+        renderMaskNegative.position = barSprite.position;
+        
+        [maskSprite setBlendFunc: (ccBlendFunc) {GL_ZERO, GL_ONE_MINUS_SRC_ALPHA}];
+        [maskSprite retain];
+        
+        [self clearRender];
+        
+        [self maskBar];
+        
+        [self addChild:renderMasked z:2];
+    }
+    return self;
+}
+
 -(void) clearRender {
     [renderMasked beginWithClear:0.0f g:0.0f b:0.0f a:0.0f];
     

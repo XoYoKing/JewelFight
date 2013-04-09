@@ -10,6 +10,7 @@
 #import "FightStonePanel.h"
 #import "PvPFightScene.h"
 #import "PvPFightController.h"
+#import "CCBReader.h"
 
 @interface PvPFightLayer()
 
@@ -38,18 +39,9 @@
 
 -(void) initUI
 {
-    CGSize winSize = [KITApp winSize];
+    CCNode *node = [CCBReader nodeGraphFromFile:@"pvp_main.ccbi" owner:self];
+    [self addChild:node];
     
-    // 设置玩家面板
-    leftStonePanel = [[FightStonePanel alloc] initWithTeam:0];
-    [self addChild:leftStonePanel z:0 tag:kTagLeftStonePanel];
-    leftStonePanel.anchorPoint = ccp(0,0);
-    leftStonePanel.position = ccp(0,[KITApp scale:20]);
-    
-    rightStonePanel = [[FightStonePanel alloc] initWithTeam:1];
-    [self addChild:rightStonePanel z:0 tag:kTagRightStonePanel];
-    rightStonePanel.position = ccp(winSize.height - rightStonePanel.width, [KITApp scale:20]);
-    rightStonePanel.anchorPoint = ccp(0,0);
 }
 
 -(FighterUI*) fighterUI

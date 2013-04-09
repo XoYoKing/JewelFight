@@ -11,8 +11,12 @@
 #import "FightArena.h"
 #import "StonePanel.h"
 #import "FightStonePanel.h"
+#import "PvPPlayerStonePanel.h"
+#import "PvPOpponentStonePanel.h"
+#import "PvPFighterPanel.h"
+#import "PvPPortraitPanel.h"
 
-@class PvPFightScene,PvPFightHudLayer,FighterUI;
+@class PvPFightScene,PvPFightHudLayer;
 
 
 
@@ -20,9 +24,10 @@
 @interface PvPFightLayer : CCLayer
 {
     FightArena *arena; // 战斗竞技场
-    FightStonePanel *leftStonePanel; // 左侧宝石面板
-    FightStonePanel *rightStonePanel; // 右侧宝石面板
-    FighterUI *fighterUI; // 战士战斗界面
+    PvPPlayerStonePanel *playerStonePanel; // 玩家宝石面板
+    PvPOpponentStonePanel *opponentStonePanel; // 对手宝石面板
+    PvPPortraitPanel *portraitPanel; // 战士信息面板
+    PvPFighterPanel *fighterPanel; // 战士战斗界面
     
 }
 

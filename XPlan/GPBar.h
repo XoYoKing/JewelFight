@@ -34,7 +34,7 @@ typedef enum{
 	kBarRectangle,
 } kBarTypes;
 
-@interface GPBar : CCLayer {
+@interface GPBar : CCNode {
     NSString *bar, *inset, *mask;
     CCSprite *barSprite, *maskSprite, *insetSprite, *masked;
     CCRenderTexture *renderMasked, *renderMaskNegative;
@@ -53,7 +53,8 @@ typedef enum{
 -(id) initBarWithBar:(NSString *)b inset:(NSString *)i mask:(NSString *)m;
 +(id) barWithBarFrame:(NSString *)b insetFrame:(NSString *)i maskFrame:(NSString *)m;
 -(id) initBarWithBarFrame:(NSString *)b insetFrame:(NSString *)i maskFrame:(NSString *)m;
-
++(id) barWithBarSprite:(CCSprite *)b insetSprite:(CCSprite *)i maskSprite:(CCSprite *)m;
+-(id) initBarWithBarSprite:(CCSprite *)b insetSprite:(CCSprite *)i maskSprite:(CCSprite *)m;
 -(void) hide;
 -(void) show;
 -(void) setTransparency:(float)trans;

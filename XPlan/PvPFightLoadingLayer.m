@@ -47,7 +47,7 @@
     CCSprite *bg = [[CCSprite alloc] initWithFile:@"loadingBg.png"];
     [self addChild:bg];
     bg.anchorPoint = ccp(0.5f,0.5f);
-    bg.position = ccp(winSize.height/2,winSize.width/2);
+    bg.position = ccp(winSize.width/2,winSize.height/2);
     [bg release];
     
     loadingBar = [[GPBar alloc] initBarWithBar:@"loadingBar.png" inset:@"loadingInset.png" mask:@"loadingMask.png"];

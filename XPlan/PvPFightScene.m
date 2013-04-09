@@ -88,11 +88,6 @@
     [self addChild:fightLayer z:0 tag:kTagPvPFightLayer];
     [fightLayer release];
     
-    // 显示Hud层
-    PvPFightHudLayer *hudLayer = [[PvPFightHudLayer alloc] init];
-    [self addChild:hudLayer z:1 tag:kTagHudLayer];
-    [hudLayer release];
-    
     // 初始化
     
     

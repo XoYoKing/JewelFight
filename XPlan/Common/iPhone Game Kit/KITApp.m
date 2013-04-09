@@ -295,22 +295,7 @@ void setupExternals();
 	
 	+(CGSize) winSize
 	{
-		// start with cocos2d's winsize
-		CGSize iSize = [[CCDirector sharedDirector] winSize];
-		
-		// make sure dimensions are correct for our preferred orientation
-		#if kKITLandscapeOrientation == 1
-		if( iSize.width < iSize.height )
-		#else
-		if( iSize.width > iSize.height )
-		#endif
-		{
-			float oldWidth = iSize.width;
-			iSize.width = iSize.height;
-			iSize.height = oldWidth;
-		}
-		
-		return iSize;
+		return [[CCDirector sharedDirector] winSize];
 	}
 	
 	+(float) scale:(float)f
