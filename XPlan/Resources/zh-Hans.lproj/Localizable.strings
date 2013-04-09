@@ -1,0 +1,17 @@
+/* 
+  Localizable.strings
+  XPlan
+
+  Created by Hex on 3/31/13.
+  Copyright (c) 2013 Hex. All rights reserved.
+*/
+
+"CHANNEL_NAME_ROOM" = "房间";
+"CHANNEL_NAME_FAMILY" = "公会";
+"CHANNEL_NAME_TEAM" = "队伍";
+"CHANNEL_NAME_NORMAL" = "当前";
+"CHANNEL_NAME_PRIVATE" = "私聊";
+"CHANNEL_NAME_HORN" = "大喇叭";
+"CHANNEL_NAME_WORLD" = "世界";
+"CHANNEL_NAME_SYSTEM" = "系统";
+"ACOUSTIC" = "";
