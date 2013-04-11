@@ -10,6 +10,6 @@
 #import "iPhoneGameKit.h"
 
 /// 战士对战面板
-@interface PvPFighterPanel : CCNode
+@interface PvPFighterPanel : CCLayer
 
 @end

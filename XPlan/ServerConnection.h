@@ -18,7 +18,7 @@
 - (void)connectionClosed:(ServerConnection*)connection;
 
 /// 连接获得数据
-- (void)connection:(ServerConnection*)connection receiveData:(NSData*)data;
+- (void)receiveData:(NSData*)data;
 
 @end
 

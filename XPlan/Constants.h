@@ -1,5 +1,12 @@
 
 
+/// 游戏状态
+typedef enum _GameStates
+{
+    kGameStateLoading = 0, // 加载状态
+    kGameStateHome = 1, // Home状态
+    kGameStatePvP = 2 // PvP状态
+}GameStates;
 
 // 表现层标签
 typedef enum _LayerTags
@@ -19,6 +26,10 @@ typedef enum _FightLayerTags
     kTagBottomUI // 底部UI
 }FightLayerTags;
 
+
+#define kTagPvPLoadingLayer 100 // pvp加载层
+#define kTagPvPLayer 101 // pvp战斗层
+#define kTagPvPHudLayer 102 // pvp Hud层
 
 // 技能类型
 #define kSkillTypeNormal 1 // 普通类型
@@ -51,31 +62,37 @@ typedef enum _FightLayerTags
 #define kChatChannelChuanYin 10 // 聊天频道: 传音
 
 // 服务器类别
-#define SERVER_TYPE_GAME @"game" // 战斗服务器
-#define SERVER_TYPE_LOGIN @"login" // 登录服务器
-#define SERVER_TYPE_CHAT @"chat" // 聊天服务器
+#define SERVER_GAME @"game" // 游戏主服务器
+#define SERVER_PVP @"pvp" // pvp服务器
+#define SERVER_LOGIN @"login" // 登录服务器
+#define SERVER_CHAT @"chat" // 聊天服务器
 
-// 服务器动作标识
-#define SERVER_ACTION_ID_PLAYER_INFO 1 // 玩家信息
-#define SERVER_ACTION_ID_UPDATE_HERO 20 // 更新英雄信息
-#define SERVER_ACTION_ID_STONE_COLUMN 2 //  宝石队列信息
-#define SERVER_ACTION_ID_SWAP_STONES 7 // 交换宝石
-#define SERVER_ACTION_ID_ADD_NEW_STONES 8 // 增加新的宝石
-#define SERVER_ACTION_ID_DEAD_STONE_COLUMN 9 // 死局获得新的宝石队列
-#define SERVER_ACTION_ID_CHANGE_INFO 10 // 怒气和血条的改变
-#define SERVER_ACTION_ID_ATTACK 12 // 服务器端返回的攻击数据
-#define SERVER_ACTION_ID_ALL_SKILL_INFO 14 // 所有技能信息
-#define SERVER_ACTION_ID_HOME_CONNECT 15 // 连接房间
-#define SERVER_ACTION_ID_QUIT_FIGHT 16 // 退出战斗
-#define SERVER_ACTION_ID_UPDATE_PLAYER_INFO 21 // 更新玩家信息
+// 向服务器请求动作标识
+#define CLIENT_ACTION_PVP_REQUEST_PVP 1 // 请求pvp
 
-// PVP Fight
-#define SERVER_ACTION_ID_PVP_OPPONENT_AND_FIGHTERS 800 // PVP战场对手及所有英雄战士信息列表
-#define SERVER_ACTION_ID_PVP_START_ENABLE 801 // 是否可以开始游戏,开始按钮高亮
-#define SERVER_ACTION_ID_PVP_START_FIGHT 802 // 开始战斗,进行战斗初始化操作
+// 服务器响应动作标识
+#define SERVER_ACTION_PLAYER_INFO 1 // 玩家信息
+#define SERVER_ACTION_UPDATE_HERO 20 // 更新英雄信息
+
+#define SERVER_ACTION_ALL_SKILL_INFO 14 // 所有技能信息
+#define SERVER_ACTION_HOME_CONNECT 15 // 连接房间
+#define SERVER_ACTION_QUIT_FIGHT 16 // 退出战斗
+#define SERVER_ACTION_UPDATE_PLAYER_INFO 21 // 更新玩家信息
+
+// PVP Fight start from 800
+#define SERVER_ACTION_PVP_OPPONENT_AND_FIGHTERS 800 // PVP战场对手及所有英雄战士信息列表
+#define SERVER_ACTION_PVP_INIT_STONES 801 //  初始化宝石队列信息
+#define SERVER_ACTION_PVP_FIGHT_START 802 // 开始战斗,进行战斗初始化操作
+#define SERVER_ACTION_PVP_SWAP_STONES 7 // 交换宝石
+#define SERVER_ACTION_PVP_ADD_NEW_STONES 8 // 增加新的宝石
+#define SERVER_ACTION_PVP_DEAD_STONE_COLUMN 9 // 死局获得新的宝石队列
+#define SERVER_ACTION_PVP_CHANGE_INFO 10 // 怒气和血条的改变
+#define SERVER_ACTION_PVP_ATTACK 12 // 服务器端返回的攻击数据
 
 
-#define SERVER_ACTION_ID_ERROR_MESSAGE 1000 // 错误信息
+
+#define SERVER_ACTION_ERROR_MESSAGE 1000 // 错误信息
+
 
 #ifdef __XPLAN__
 

@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "iPhoneGameKit.h"
 
-@class GameServer,GameCommand,BagCommand,PvPFightCommand,PlayerInfo;
+@class GameServer,GameCommand,BagCommand,PvPCommand,PlayerInfo;
 
 /// 游戏控制器
 @interface GameController : NSObject
@@ -34,6 +34,9 @@
 
 /// 
 +(GameController*) sharedController;
+
+/// 初始化服务器连接
+-(void) initServer;
 
 /// 执行首次运行场景
 -(void) runFirstRunScene;

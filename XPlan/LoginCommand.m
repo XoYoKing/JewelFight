@@ -34,7 +34,7 @@
     [encoder writeInt8:sex];
     [encoder release];
     
-    [[GameController sharedController].server send:SERVER_TYPE_GAME data:data];
+    [[GameController sharedController].server send:SERVER_GAME data:data];
 }
 
 

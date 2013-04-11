@@ -113,18 +113,18 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     if (tag == TAG_FIXED_LENGTH_HEADER)
     {
         // 获取数据包大小
-        int bodyLength;
-        [data getBytes:&bodyLength length:sizeof(int)];
+        int32_t bodyLength;
+        [data getBytes:&bodyLength length:sizeof(int32_t)];
         
         // 接收数据
         [sock readDataToLength:bodyLength withTimeout:-1 tag:TAG_RESPONSE_BODY];
     }
     else if (tag == TAG_RESPONSE_BODY)
     {
-        [delegate connection:self receiveData:data];
+        [delegate receiveData:data];
         
         // 接收下一条数据
-        [sock readDataToLength:sizeof(int) withTimeout:-1 tag:TAG_FIXED_LENGTH_HEADER];
+        [sock readDataToLength:sizeof(int32_t) withTimeout:-1 tag:TAG_FIXED_LENGTH_HEADER];
     }
 }
 

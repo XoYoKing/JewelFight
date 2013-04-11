@@ -11,7 +11,7 @@
 #import "HudBase.h"
 
 /// 战斗Hud层
-@interface PvPFightHudLayer : HudBase
+@interface PvPHudLayer : HudBase
 {
     
 }

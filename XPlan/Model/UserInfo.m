@@ -10,6 +10,6 @@
 
 @implementation UserInfo
 
-@synthesize silver,gold,diamond;
+@synthesize silver,gold,diamond,userId,name,sex,avatar,currentMap;
 
 @end

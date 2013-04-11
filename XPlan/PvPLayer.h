@@ -16,10 +16,10 @@
 #import "PvPFighterPanel.h"
 #import "PvPPortraitPanel.h"
 
-@class PvPFightScene,PvPFightHudLayer;
+@class PvPScene,PvPHudLayer;
 
 /// 战斗层
-@interface PvPFightLayer : CCLayer
+@interface PvPLayer : CCLayer
 {
     FightArena *arena; // 战斗竞技场
     PvPPlayerStonePanel *playerStonePanel; // 玩家宝石面板
@@ -29,9 +29,9 @@
     
 }
 
-@property (readonly,nonatomic) FightStonePanel *leftStonePanel;
+@property (readonly,nonatomic) PvPPlayerStonePanel *playerStonePanel;
 
-@property (readonly,nonatomic) FightStonePanel *rightStonePanel;
+@property (readonly,nonatomic) PvPOpponentStonePanel *opponentStonePanel;
 
 @property (readonly,nonatomic) PvPPortraitPanel *portraitPanel;
 
@@ -41,9 +41,9 @@
 -(void) initiaize;
 
 /// 获取所处PvP战斗场景
--(PvPFightScene*) getFightScene;
+-(PvPScene*) getFightScene;
 
 /// 获取PvP战斗Hud层
--(PvPFightHudLayer*) getHudLayer;
+-(PvPHudLayer*) getHudLayer;
 
 @end

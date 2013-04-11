@@ -20,7 +20,7 @@
 
 -(id) initWithData:(NSData *)d
 {
-    startByte = (char*)[data bytes];
+    startByte = (char*)[d bytes];
     
     // 空数据,返回错误
     if (!startByte)
@@ -83,10 +83,20 @@
     }
 }
 
+- (int8_t)readInt8
+{
+    int8_t int8;
+    memcpy(&int8, self.currentByte, sizeof(int8_t));
+    // Move the current byte pointer forward
+    self.currentByte = self.currentByte + sizeof(int8_t);
+    return int8;
+}
+
 - (int16_t)readInt16
 {
     int16_t int16;
     memcpy(&int16, self.currentByte, sizeof(int16_t));
+    int16 = CFSwapInt16BigToHost(int16);
     // Move the current byte pointer forward
     self.currentByte = self.currentByte + sizeof(int16_t);
     return int16;
@@ -97,6 +107,7 @@
 {
     int32_t int32;
     memcpy(&int32, self.currentByte, sizeof(int32_t));
+    int32 = CFSwapInt32BigToHost(int32);
     // Move the current byte pointer forward
     self.currentByte = self.currentByte + sizeof(int32_t);
     return int32;
@@ -107,6 +118,7 @@
 {
     int64_t int64;
     memcpy(&int64, self.currentByte, sizeof(int64_t));
+    int64 = CFSwapInt64BigToHost(int64);
     // Move the current byte pointer forward
     self.currentByte = self.currentByte + sizeof(int64_t);
     return int64;
@@ -121,7 +133,7 @@
     
     // Read the string
     NSString *string = [[[NSString alloc] initWithBytes:self.currentByte
-                                                 length:length - 1
+                                                 length:length
                                                encoding:NSUTF8StringEncoding] autorelease];
     
     // Move the current byte pointer forward

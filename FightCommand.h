@@ -12,6 +12,7 @@
 
 @interface FightCommand : BaseCommand
 
+
 /// 封装宝石信息
 +(void) populateStoneVo:(StoneVo*)stone data:(ServerDataDecoder*)data;
 

@@ -13,6 +13,7 @@
 @interface FighterVo : NSObject
 {
     long heroId; // 英雄标识
+    int heroType; // 英雄类型
     long userId; // 英雄隶属玩家标识
     NSString *name; // 英雄名称
     int sex; // 英雄性别
@@ -28,6 +29,9 @@
 
 /// 英雄标识
 @property (readwrite,nonatomic) long heroId;
+
+/// 英雄类型
+@property (readwrite,nonatomic) int heroType;
 
 /// 隶属玩家标识
 @property (readwrite,nonatomic) long userId;

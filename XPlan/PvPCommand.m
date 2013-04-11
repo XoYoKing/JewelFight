@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 Hex. All rights reserved.
 //
 
-#import "PvPFightCommand.h"
+#import "PvPCommand.h"
 #import "FightCommand.h"
 #import "FighterVo.h"
 #import "HeroVo.h"
@@ -18,24 +18,50 @@
 #import "GameServer.h"
 #import "GameCommand.h"
 #import "UserInfo.h"
+#import "PlayerInfo.h"
+#import "StoneVo.h"
 
 
 
-@implementation PvPFightCommand
+@implementation PvPCommand
 
 #pragma mark -
 #pragma mark Request
 
-/// 请求开战
--(void) requestStartFight
+/// 请求pvp
+-(void) requestPvP
 {
     NSMutableData *data = [NSMutableData data];
     ServerDataEncoder *encoder = [[ServerDataEncoder alloc] initWithData:data];
     [encoder writeInt16:101];
-    [encoder writeInt16:1200];
+    [encoder writeInt16:1110];
     [encoder writeInt8:1];
     [encoder release];
-    [[GameController sharedController].server send:SERVER_TYPE_GAME data:data];
+    [[GameController sharedController].server send:SERVER_GAME data:data];
+}
+
+/// 请求战斗
+-(void) requestFight
+{
+    NSMutableData *data = [NSMutableData data];
+    ServerDataEncoder *encoder = [[ServerDataEncoder alloc] initWithData:data];
+    [encoder writeInt16:101];
+    [encoder writeInt16:1110];
+    [encoder writeInt8:2];
+    [encoder release];
+    [[GameController sharedController].server send:SERVER_GAME data:data];
+}
+
+/// 请求开战
+-(void) requestFightStart
+{
+    NSMutableData *data = [NSMutableData data];
+    ServerDataEncoder *encoder = [[ServerDataEncoder alloc] initWithData:data];
+    [encoder writeInt16:101];
+    [encoder writeInt16:1110];
+    [encoder writeInt8:3];
+    [encoder release];
+    [[GameController sharedController].server send:SERVER_GAME data:data];
 }
 
 -(void) requestSwapStoneWithActionId:(long)actionId stoneId1:(NSString*)stoneId1 stoneId2:(NSString*)stoneId2
@@ -50,7 +76,7 @@
     [encoder writeUTF:stoneId2];
     [encoder release];
     
-    [[GameController sharedController].server send:SERVER_TYPE_GAME data:data];
+    [[GameController sharedController].server send:SERVER_GAME data:data];
 }
 
 
@@ -63,7 +89,7 @@
     [encoder writeInt16:1200];
     [encoder writeInt8:4];
     [encoder release];
-    [[GameController sharedController].server send:SERVER_TYPE_GAME data:data];
+    [[GameController sharedController].server send:SERVER_GAME data:data];
 }
 
 /// 加载完毕,准备战斗
@@ -75,7 +101,7 @@
     [encoder writeInt16:1200];
     [encoder writeInt8:6];
     
-    [[GameController sharedController].server send:SERVER_TYPE_GAME data:data];
+    [[GameController sharedController].server send:SERVER_GAME data:data];
 }
 
 /// 操作分数
@@ -90,7 +116,7 @@
     [encoder writeDouble:operate];
     [encoder release];
     
-    [[GameController sharedController].server send:SERVER_TYPE_GAME data:data];
+    [[GameController sharedController].server send:SERVER_GAME data:data];
 }
 
 /// 请求攻击
@@ -104,7 +130,7 @@
     [encoder writeInt32:value];
     [encoder release];
     
-    [[GameController sharedController].server send:SERVER_TYPE_GAME data:data];
+    [[GameController sharedController].server send:SERVER_GAME data:data];
 }
 
 /// 消除宝石
@@ -125,7 +151,7 @@
     }
     
     [encoder release];
-    [[GameController sharedController].server send:SERVER_TYPE_GAME data:data];
+    [[GameController sharedController].server send:SERVER_GAME data:data];
 }
 
 /// 请求时装技能
@@ -139,7 +165,7 @@
     [encoder writeInt32:skillId];
     [encoder release];
     
-    [[GameController sharedController].server send:SERVER_TYPE_GAME data:data];
+    [[GameController sharedController].server send:SERVER_GAME data:data];
 }
 
 /// 请求退出战斗
@@ -152,7 +178,7 @@
     [encoder writeInt8:7];
     [encoder release];
     
-    [[GameController sharedController].server send:SERVER_TYPE_GAME data:data];
+    [[GameController sharedController].server send:SERVER_GAME data:data];
 }
 
 
@@ -165,20 +191,61 @@
     switch (actionId)
     {
         // 接收PvP对手及英雄列表
-        case SERVER_ACTION_ID_PVP_OPPONENT_AND_FIGHTERS:
+        case SERVER_ACTION_PVP_OPPONENT_AND_FIGHTERS:
         {
             [self handlePvPOpponentAndFighters:data];
             break;
         }
-        // 开始战斗
-        case SERVER_ACTION_ID_PVP_START_FIGHT:
+        // 接收PvP宝石初始化信息 
+        case SERVER_ACTION_PVP_INIT_STONES:
         {
-            [self handlePvPStartFight:data];
+            [self handleInitStones:data];
             break;
+        }
+        // 开始战斗
+        case SERVER_ACTION_PVP_FIGHT_START:
+        {
+            [self handlePvPFightStart:data];
+            break;
+        }
+        // 交换宝石位置
+        case SERVER_ACTION_PVP_SWAP_STONES:
+        {
+            [self handleSwapStones:data];
         }
     }
 }
 
+
+/// 处理PvP初始化宝石队列
+-(void) handleInitStones:(ServerDataDecoder*)data
+{
+    // autorelease
+    NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithCapacity:2];
+    
+    // 先获取玩家宝石数量
+    // 数量
+    int amount = [data readInt32]; //
+    CCArray *playerStones = [[CCArray alloc] initWithCapacity:amount];
+    for (int i = 0;i < amount; i++)
+    {
+        StoneVo *stoneVo = [[StoneVo alloc] init];
+        [playerStones addObject:stoneVo];
+    }
+    [dict setObject:playerStones forKey:@"player_stones"];
+    
+    // 再获取对手宝石数量
+    amount = [data readInt32];
+    CCArray *opponentStones = [[CCArray alloc] initWithCapacity:amount];
+    for (int i = 0;i < amount; i++)
+    {
+        StoneVo *stoneVo = [[StoneVo alloc] init];
+        [opponentStones addObject:stoneVo];
+    }
+    [dict setObject:opponentStones forKey:@"opponent_stones"];
+    
+    [self responseToListenerWithActionId:SERVER_ACTION_PVP_INIT_STONES object:dict];
+}
 
 
 /// 获取战斗场景的对手及对手的全部战士信息
@@ -219,14 +286,34 @@
     
     [dict setObject:opponentFighters forKey:@"opponent_fighters"];
     
-    [self responseToListenerWithActionId:SERVER_ACTION_ID_PVP_OPPONENT_AND_FIGHTERS object:dict];
+    [self responseToListenerWithActionId:SERVER_ACTION_PVP_OPPONENT_AND_FIGHTERS object:dict];
 }
 
 /// 开始战斗
--(void) handlePvPStartFight:(ServerDataDecoder*)data
+-(void) handlePvPFightStart:(ServerDataDecoder*)data
 {
-    [self responseToListenerWithActionId:SERVER_ACTION_ID_PVP_START_FIGHT object:nil];
+    [self responseToListenerWithActionId:SERVER_ACTION_PVP_FIGHT_START object:nil];
 }
+
+
+/// 处理交换宝石位置
+-(void) handleSwapStones:(ServerDataDecoder*)data
+{
+    long userId = [data readInt64]; // 用户标识
+    long actionId = [data readInt64]; // 宝石动作标识
+    NSString *stone1 = [data readUTF];
+    NSString *stone2 = [data readUTF];
+    
+    // autorelease
+    NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithCapacity:4];
+    [dict setObject:userId forKey:@"userId"];
+    [dict setObject:actionId forKey:@"actionId"];
+    [dict setObject:stone1 forKey:@"stone1"];
+    [dict setObject:stone2 forKey:@"stone2"];
+    
+    [self responseToListenerWithActionId:SERVER_ACTION_PVP_SWAP_STONES object:dict];
+}
+
 
 
 @end

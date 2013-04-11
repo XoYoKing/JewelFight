@@ -22,7 +22,6 @@
     int gold; // 金币数量
     int diamond; // 钻石数量
     NSString *avatar; // 用户头像
-    HeroVo *figureHero; // 形象英雄信息
 }
 
 /// 用户唯一标识
@@ -45,6 +44,9 @@
 
 /// 钻石数量
 @property (readwrite,nonatomic) int diamond;
+
+/// avatar头像
+@property (readwrite,nonatomic,copy) NSString *avatar;
 
 @property (readwrite,nonatomic,retain) HeroVo *figureHero;
 

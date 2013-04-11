@@ -27,12 +27,13 @@
 +(void) populateFighterVo:(FighterVo*)fighter data:(ServerDataDecoder*)data
 {
     fighter.heroId = [data readInt64];
-    fighter.userId = fighter.heroId;
+    fighter.heroType = [data readInt32]; // 英雄类型
+    fighter.userId = [data readInt64];
     fighter.team = [data readInt32];
-    [data readByte];
     fighter.name = [data readUTF];
     fighter.sex = [data readInt16];
-    fighter.head = fighter.fashion = [data readInt32];
+    fighter.head = [data readInt32];
+    fighter.fashion = [data readInt32];
     fighter.maxHp = [data readInt32];
     fighter.maxAnger = [data readInt32];
 }

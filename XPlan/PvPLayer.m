@@ -6,19 +6,19 @@
 //  Copyright (c) 2013 Hex. All rights reserved.
 //
 
-#import "PvPFightLayer.h"
+#import "PvPLayer.h"
 #import "FightStonePanel.h"
-#import "PvPFightScene.h"
-#import "PvPFightController.h"
+#import "PvPScene.h"
+#import "PvPController.h"
 #import "CCBReader.h"
 
-@interface PvPFightLayer()
+@interface PvPLayer()
 
 @end
 
-@implementation PvPFightLayer
+@implementation PvPLayer
 
-@synthesize leftStonePanel,rightStonePanel,portraitPanel,fighterPanel;
+@synthesize playerStonePanel,opponentStonePanel,portraitPanel,fighterPanel;
 
 -(id) init
 {
@@ -30,6 +30,11 @@
     }
     
     return self;
+}
+
+- (void) didLoadFromCCB
+{
+    
 }
 
 -(void) dealloc

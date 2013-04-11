@@ -68,7 +68,7 @@
 
 -(void) responseToListenerWithActionId:(int)actionId object:(id)obj
 {
-    for (id<CommandListener> listener in listenersDict)
+    for (id<CommandListener> listener in [self getListeners:actionId])
     {
         [listener responseWithActionId:actionId object:obj];
     }

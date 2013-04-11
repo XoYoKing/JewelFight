@@ -54,7 +54,7 @@
     [encoder release];
     
     // 发出
-    [[GameController sharedController].server send:SERVER_TYPE_GAME data:data];
+    [[GameController sharedController].server send:SERVER_GAME data:data];
 }
 
 /// 点击准备按钮
@@ -67,7 +67,7 @@
     [encoder writeInt16:1100];
     [encoder writeInt8:2];
     
-    [[GameController sharedController].server send:SERVER_TYPE_GAME data:data];
+    [[GameController sharedController].server send:SERVER_GAME data:data];
 }
 
 /// 请求进入游戏
@@ -79,7 +79,7 @@
     [encoder writeInt32:[GameController sharedController].sessionId];
     [encoder release];
     
-    [[GameController sharedController].server send:SERVER_TYPE_GAME data:data];
+    [[GameController sharedController].server send:SERVER_GAME data:data];
 }
 
 /// 请求连接房间
@@ -93,7 +93,7 @@
     [encoder writeUTF:homeId];
     [encoder release];
     
-    [[GameController sharedController].server send:SERVER_TYPE_GAME data:data];
+    [[GameController sharedController].server send:SERVER_GAME data:data];
 }
 
 /// 请求退出房间
@@ -105,7 +105,7 @@
     [encoder writeInt16:1100];
     [encoder writeInt8:4];
     [encoder release];
-    [[GameController sharedController].server send:SERVER_TYPE_GAME data:data];
+    [[GameController sharedController].server send:SERVER_GAME data:data];
 }
 
 
@@ -122,20 +122,6 @@
     user.name = [data readUTF];
     user.currentMap = [data readUTF];
     user.sex = [data readInt16];
-    
-    // 封装用户形象英雄信息
-    user.figureHero = [[[HeroVo alloc] init] autorelease];
-    user.figureHero.userId = user.userId;
-    user.figureHero.heroId = user.userId; // 英雄标识
-    user.figureHero.name = user.name; // 英雄名称
-    user.figureHero.head = user.figureHero.fashion = [data readInt32];
-    user.figureHero.level = [data readInt16];
-    user.figureHero.exp = [data readInt64];
-    user.figureHero.maxExp = [data readInt64];
-    user.figureHero.energy = [data readInt32]; // physical
-    user.figureHero.maxEnergy = [data readInt32]; // max physical
-    
-    // 继续封用户信息
     user.diamond = [data readInt64];
     user.silver = [data readInt64];
     user.gold = [data readInt64];
@@ -174,7 +160,7 @@
     
     
     // 玩家信息获取完毕事件
-    [self responseToListenerWithActionId:SERVER_ACTION_ID_PLAYER_INFO object:playerVo];
+    [self responseToListenerWithActionId:SERVER_ACTION_PLAYER_INFO object:playerVo];
 }
 
 /// 更新玩家信息
@@ -186,70 +172,18 @@
     [self populatePlayerInfo:playerVo data:data];
     
     // 玩家信息更新完毕事件
-    [self responseToListenerWithActionId:SERVER_ACTION_ID_UPDATE_PLAYER_INFO object:playerVo];
+    [self responseToListenerWithActionId:SERVER_ACTION_UPDATE_PLAYER_INFO object:playerVo];
 }
 
-
-
-/// 处理宝石队列
--(void) handleStoneColumn:(ServerDataDecoder*)data
-{
-    // 玩家标识
-    long userId = [data readInt64];
-    
-    // 数量
-    int amount = [data readInt32]; //
-    CCArray *stoneList = [[[CCArray alloc] init] autorelease];
-    for (int i = 0;i < amount; i++)
-    {
-        StoneVo *stoneVo = [[StoneVo alloc] init];
-        [stoneList addObject:stoneVo];
-    }
-
-[self responseToListenerWithActionId:SERVER_ACTION_ID_STONE_COLUMN object0:userId object1:stoneList];
-}
-
-/// 处理开始战斗
--(void) handleStartEnable:(ServerDataDecoder*)data
-{
-    //只是通知
-    [self responseToListenerWithActionId:SERVER_ACTION_ID_PVP_START_ENABLE object:nil];
-}
-
-/// 处理交换宝石位置
--(void) handleSwapStones:(ServerDataDecoder*)data
-{
-    long userId = [data readInt64]; // 用户标识
-    long actionId = [data readInt64]; // 宝石动作标识
-    NSString *stone1 = [data readUTF];
-    NSString *stone2 = [data readUTF];
-    CCArray *params = [[[CCArray alloc] init] autorelease];
-    [params addObject:userId];
-    [params addObject:actionId];
-    [params addObject:stone1];
-    [params addObject:stone2];
-    
-    [self responseToListenerWithActionId:SERVER_ACTION_ID_SWAP_STONES object:params];
-}
 
 -(void) executeWithActionId:(int)actionId data:(ServerDataDecoder *)data
 {
     switch (actionId)
     {
         // 接收英雄信息
-        case SERVER_ACTION_ID_PLAYER_INFO:
+        case SERVER_ACTION_PLAYER_INFO:
         {
             [self handlePlayerInfo:data];
-            break;
-        }
-        case SERVER_ACTION_ID_STONE_COLUMN:
-        {
-            [self handleStoneColumn:data];
-            break;
-        }
-        case SERVER_ACTION_ID_PVP_START_ENABLE:
-        {
-            [self handleStartEnable:data];
             break;
         }
     }

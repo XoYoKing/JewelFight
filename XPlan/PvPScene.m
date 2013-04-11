@@ -6,24 +6,24 @@
 //  Copyright (c) 2013 Hex. All rights reserved.
 //
 
-#import "PvPFightScene.h"
+#import "PvPScene.h"
 #import "GameController.h"
 #import "GameServer.h"
 #import "Constants.h"
-#import "PvPFightController.h"
+#import "PvPController.h"
 #import "UserInfo.h"
 #import "HeroVo.h"
-#import "PvPFightLoadingLayer.h"
-#import "PvPFightLayer.h"
-#import "PvPFightHudLayer.h"
+#import "LoadingLayer.h"
+#import "PvPLayer.h"
+#import "PvPHudLayer.h"
 
-@interface PvPFightScene()
+@interface PvPScene()
 
 -(void) update:(ccTime)delta;
 
 @end
 
-@implementation PvPFightScene
+@implementation PvPScene
 
 @synthesize oppFightHeroList,oppUser,controller;
 
@@ -31,8 +31,11 @@
 {
     if ((self = [super init]))
     {
-        controller = [[PvPFightController alloc] initWithScene:self];
+        controller = [[PvPController alloc] initWithScene:self];
         state = 0;
+        
+        // schedule an update
+        [self schedule:@selector(update:) interval:[[CCDirector sharedDirector] animationInterval]];
     }
     
     return self;
@@ -71,27 +74,7 @@
     [super onEnterTransitionDidFinish];
 }
 
--(void) enterLoading
-{
-    PvPFightLoadingLayer *loadingLayer = [[PvPFightLoadingLayer alloc] init];
-    [self addChild:loadingLayer z:1 tag:kTagPvPFightLoadingLayer];
-}
 
-/// 进入战斗
--(void) enterFight
-{
-    // 删掉加载层
-    [self removeChildByTag:kTagPvPFightLoadingLayer];
-    
-    // 显示战斗层
-    PvPFightLayer *fightLayer = [[PvPFightLayer alloc] init];
-    [self addChild:fightLayer z:0 tag:kTagPvPFightLayer];
-    [fightLayer release];
-    
-    // 初始化
-    
-    
-    
-}
+
 
 @end

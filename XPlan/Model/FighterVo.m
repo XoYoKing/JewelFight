@@ -12,6 +12,8 @@
 /// 战斗者数据对象
 @implementation FighterVo
 
+@synthesize heroId,heroType,userId,name,sex,head,fashion,team,maxAnger,maxHp,hp,anger;
+
 -(id) init
 {
     if ((self = [super init]))

@@ -33,6 +33,8 @@
 // 读取布尔值
 - (BOOL)readBoolean;
 
+- (int8_t)readInt8;
+
 - (int16_t)readInt16;
 
 // 读取整形数

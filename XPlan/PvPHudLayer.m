@@ -6,10 +6,10 @@
 //  Copyright (c) 2013 Hex. All rights reserved.
 //
 
-#import "PvPFightHudLayer.h"
+#import "PvPHudLayer.h"
 #import "CCBReader.h"
 
-@implementation PvPFightHudLayer
+@implementation PvPHudLayer
 
 -(id) init
 {

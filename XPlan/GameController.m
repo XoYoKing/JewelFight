@@ -8,7 +8,8 @@
 
 #import "GameController.h"
 #import "GameServer.h"
-#import "PvPFightScene.h"
+#import "PvPScene.h"
+#import "MockGameServer.h"
 
 static GameController *_gameControllerInstance = nil;
 
@@ -50,7 +51,7 @@ static GameController *_gameControllerInstance = nil;
     if ((self = [super init]))
     {
         // 初始化服务器连接
-        [self initServer];
+        //[self initServer];
     }
     
     return self;
@@ -65,7 +66,7 @@ static GameController *_gameControllerInstance = nil;
 /// 初始化服务器连接
 -(void) initServer
 {
-    server = [[GameServer alloc] init];
+    server = [[MockGameServer alloc] init];
 }
 
 /// 获取宝石配置信息
@@ -78,7 +79,7 @@ static GameController *_gameControllerInstance = nil;
 /// 执行战斗场景
 -(void) runPvPFightScene
 {
-    PvPFightScene *scene = [[PvPFightScene alloc] init];
+    PvPScene *scene = [[PvPScene alloc] init];
     [[CCDirector sharedDirector] replaceScene:scene];
     [scene release];
 }

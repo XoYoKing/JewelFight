@@ -8,11 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		E20C36431707F12F00DE770E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E20C36451707F12F00DE770E /* Localizable.strings */; };
-		E24170FA170C6B1F003B6644 /* PvPFightCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = E24170F9170C6B1F003B6644 /* PvPFightCommand.m */; };
+		E24170FA170C6B1F003B6644 /* PvPCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = E24170F9170C6B1F003B6644 /* PvPCommand.m */; };
 		E24170FD170C6B30003B6644 /* ServerDataEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = E24170FC170C6B30003B6644 /* ServerDataEncoder.m */; };
 		E24308E817117344003A7595 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E24308E717117344003A7595 /* Security.framework */; };
 		E24308EA17117376003A7595 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E24308E917117376003A7595 /* CFNetwork.framework */; };
-		E24308F117117F2F003A7595 /* PvPFightLoadingLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = E24308F017117F2F003A7595 /* PvPFightLoadingLayer.m */; };
+		E24308F117117F2F003A7595 /* LoadingLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = E24308F017117F2F003A7595 /* LoadingLayer.m */; };
 		E24308F81711E056003A7595 /* ServerDataUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E24308F71711E056003A7595 /* ServerDataUtil.m */; };
 		E24B524B1711474500BD8CBC /* FightStonePanel.m in Sources */ = {isa = PBXBuildFile; fileRef = E24B524A1711474500BD8CBC /* FightStonePanel.m */; };
 		E24D35DB170B24820055D23E /* BagCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = E24D35DA170B24820055D23E /* BagCommand.m */; };
@@ -29,7 +29,10 @@
 		E2515799170D7FDD00BEC55F /* FightTopUI.m in Sources */ = {isa = PBXBuildFile; fileRef = E2515798170D7FDD00BEC55F /* FightTopUI.m */; };
 		E25E8A7D17145A0200DF4CD7 /* HonsterBar.m in Sources */ = {isa = PBXBuildFile; fileRef = E25E8A7C17145A0200DF4CD7 /* HonsterBar.m */; };
 		E25E8A7F1714638400DF4CD7 /* pvp_loading.ccbi in Resources */ = {isa = PBXBuildFile; fileRef = E25E8A7E1714638400DF4CD7 /* pvp_loading.ccbi */; };
-		E2832CB11712F54400F4F0E1 /* PvPFightController.m in Sources */ = {isa = PBXBuildFile; fileRef = E2832CB01712F54400F4F0E1 /* PvPFightController.m */; };
+		E277FD591715885F005E50C0 /* PvPLoadingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E277FD581715885F005E50C0 /* PvPLoadingManager.m */; };
+		E277FD5F1715A296005E50C0 /* PvPFightManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E277FD5E1715A296005E50C0 /* PvPFightManager.m */; };
+		E27A71721716AD3F00270DD5 /* MockGameServer.m in Sources */ = {isa = PBXBuildFile; fileRef = E27A71711716AD3F00270DD5 /* MockGameServer.m */; };
+		E2832CB11712F54400F4F0E1 /* PvPController.m in Sources */ = {isa = PBXBuildFile; fileRef = E2832CB01712F54400F4F0E1 /* PvPController.m */; };
 		E2832CCF1712FC9000F4F0E1 /* fireStones1.png in Resources */ = {isa = PBXBuildFile; fileRef = E2832CB51712FC9000F4F0E1 /* fireStones1.png */; };
 		E2832CD01712FC9000F4F0E1 /* fireStones2.png in Resources */ = {isa = PBXBuildFile; fileRef = E2832CB61712FC9000F4F0E1 /* fireStones2.png */; };
 		E2832CD11712FC9000F4F0E1 /* fireStones3.png in Resources */ = {isa = PBXBuildFile; fileRef = E2832CB71712FC9000F4F0E1 /* fireStones3.png */; };
@@ -108,9 +111,9 @@
 		E2D6C98F17085442008A38B2 /* FaceItem.m in Sources */ = {isa = PBXBuildFile; fileRef = E2D6C98E17085442008A38B2 /* FaceItem.m */; };
 		E2D6C9921708584A008A38B2 /* EffectSprite.m in Sources */ = {isa = PBXBuildFile; fileRef = E2D6C9911708584A008A38B2 /* EffectSprite.m */; };
 		E2D6C99817086CC3008A38B2 /* FacePopup.m in Sources */ = {isa = PBXBuildFile; fileRef = E2D6C99717086CC3008A38B2 /* FacePopup.m */; };
-		E2D6C99E17089D25008A38B2 /* PvPFightScene.m in Sources */ = {isa = PBXBuildFile; fileRef = E2D6C99D17089D25008A38B2 /* PvPFightScene.m */; };
-		E2D6C9A117089D7A008A38B2 /* PvPFightHudLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = E2D6C9A017089D79008A38B2 /* PvPFightHudLayer.m */; };
-		E2D6C9A417089D95008A38B2 /* PvPFightLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = E2D6C9A317089D95008A38B2 /* PvPFightLayer.m */; };
+		E2D6C99E17089D25008A38B2 /* PvPScene.m in Sources */ = {isa = PBXBuildFile; fileRef = E2D6C99D17089D25008A38B2 /* PvPScene.m */; };
+		E2D6C9A117089D7A008A38B2 /* PvPHudLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = E2D6C9A017089D79008A38B2 /* PvPHudLayer.m */; };
+		E2D6C9A417089D95008A38B2 /* PvPLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = E2D6C9A317089D95008A38B2 /* PvPLayer.m */; };
 		E2D6C9A71708BE33008A38B2 /* GameSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = E2D6C9A61708BE32008A38B2 /* GameSettings.m */; };
 		E2D6C9AA1708C3E6008A38B2 /* DeviceUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E2D6C9A91708C3E6008A38B2 /* DeviceUtil.m */; };
 		E2D6C9AD1708C578008A38B2 /* ResourceBar.m in Sources */ = {isa = PBXBuildFile; fileRef = E2D6C9AC1708C578008A38B2 /* ResourceBar.m */; };
@@ -332,14 +335,14 @@
 /* Begin PBXFileReference section */
 		E20C36441707F12F00DE770E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		E20C36461707F19600DE770E /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
-		E24170F8170C6B1F003B6644 /* PvPFightCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PvPFightCommand.h; path = XPlan/PvPFightCommand.h; sourceTree = SOURCE_ROOT; };
-		E24170F9170C6B1F003B6644 /* PvPFightCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PvPFightCommand.m; path = XPlan/PvPFightCommand.m; sourceTree = SOURCE_ROOT; };
+		E24170F8170C6B1F003B6644 /* PvPCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PvPCommand.h; path = XPlan/PvPCommand.h; sourceTree = SOURCE_ROOT; };
+		E24170F9170C6B1F003B6644 /* PvPCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PvPCommand.m; path = XPlan/PvPCommand.m; sourceTree = SOURCE_ROOT; };
 		E24170FB170C6B30003B6644 /* ServerDataEncoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ServerDataEncoder.h; path = XPlan/ServerDataEncoder.h; sourceTree = SOURCE_ROOT; };
 		E24170FC170C6B30003B6644 /* ServerDataEncoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ServerDataEncoder.m; path = XPlan/ServerDataEncoder.m; sourceTree = SOURCE_ROOT; };
 		E24308E717117344003A7595 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		E24308E917117376003A7595 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
-		E24308EF17117F2F003A7595 /* PvPFightLoadingLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PvPFightLoadingLayer.h; sourceTree = "<group>"; };
-		E24308F017117F2F003A7595 /* PvPFightLoadingLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PvPFightLoadingLayer.m; sourceTree = "<group>"; };
+		E24308EF17117F2F003A7595 /* LoadingLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadingLayer.h; sourceTree = "<group>"; };
+		E24308F017117F2F003A7595 /* LoadingLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadingLayer.m; sourceTree = "<group>"; };
 		E24308F61711E056003A7595 /* ServerDataUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ServerDataUtil.h; path = XPlan/ServerDataUtil.h; sourceTree = SOURCE_ROOT; };
 		E24308F71711E056003A7595 /* ServerDataUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ServerDataUtil.m; path = XPlan/ServerDataUtil.m; sourceTree = SOURCE_ROOT; };
 		E24B52491711474500BD8CBC /* FightStonePanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FightStonePanel.h; sourceTree = "<group>"; };
@@ -371,8 +374,14 @@
 		E25E8A7B17145A0200DF4CD7 /* HonsterBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HonsterBar.h; sourceTree = "<group>"; };
 		E25E8A7C17145A0200DF4CD7 /* HonsterBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HonsterBar.m; sourceTree = "<group>"; };
 		E25E8A7E1714638400DF4CD7 /* pvp_loading.ccbi */ = {isa = PBXFileReference; lastKnownFileType = file; path = pvp_loading.ccbi; sourceTree = "<group>"; };
-		E2832CAF1712F54400F4F0E1 /* PvPFightController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PvPFightController.h; sourceTree = "<group>"; };
-		E2832CB01712F54400F4F0E1 /* PvPFightController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PvPFightController.m; sourceTree = "<group>"; };
+		E277FD571715885F005E50C0 /* PvPLoadingManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PvPLoadingManager.h; sourceTree = "<group>"; };
+		E277FD581715885F005E50C0 /* PvPLoadingManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PvPLoadingManager.m; sourceTree = "<group>"; };
+		E277FD5D1715A296005E50C0 /* PvPFightManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PvPFightManager.h; sourceTree = "<group>"; };
+		E277FD5E1715A296005E50C0 /* PvPFightManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PvPFightManager.m; sourceTree = "<group>"; };
+		E27A71701716AD3F00270DD5 /* MockGameServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MockGameServer.h; sourceTree = SOURCE_ROOT; };
+		E27A71711716AD3F00270DD5 /* MockGameServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MockGameServer.m; sourceTree = SOURCE_ROOT; };
+		E2832CAF1712F54400F4F0E1 /* PvPController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PvPController.h; sourceTree = "<group>"; };
+		E2832CB01712F54400F4F0E1 /* PvPController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PvPController.m; sourceTree = "<group>"; };
 		E2832CB51712FC9000F4F0E1 /* fireStones1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fireStones1.png; sourceTree = "<group>"; };
 		E2832CB61712FC9000F4F0E1 /* fireStones2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fireStones2.png; sourceTree = "<group>"; };
 		E2832CB71712FC9000F4F0E1 /* fireStones3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fireStones3.png; sourceTree = "<group>"; };
@@ -472,12 +481,12 @@
 		E2D6C9911708584A008A38B2 /* EffectSprite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EffectSprite.m; path = Common/EffectSprite.m; sourceTree = "<group>"; };
 		E2D6C99617086CC3008A38B2 /* FacePopup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FacePopup.h; sourceTree = "<group>"; };
 		E2D6C99717086CC3008A38B2 /* FacePopup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FacePopup.m; sourceTree = "<group>"; };
-		E2D6C99C17089D25008A38B2 /* PvPFightScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PvPFightScene.h; sourceTree = "<group>"; };
-		E2D6C99D17089D25008A38B2 /* PvPFightScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PvPFightScene.m; sourceTree = "<group>"; };
-		E2D6C99F17089D79008A38B2 /* PvPFightHudLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PvPFightHudLayer.h; sourceTree = "<group>"; };
-		E2D6C9A017089D79008A38B2 /* PvPFightHudLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PvPFightHudLayer.m; sourceTree = "<group>"; };
-		E2D6C9A217089D95008A38B2 /* PvPFightLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PvPFightLayer.h; sourceTree = "<group>"; };
-		E2D6C9A317089D95008A38B2 /* PvPFightLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PvPFightLayer.m; sourceTree = "<group>"; };
+		E2D6C99C17089D25008A38B2 /* PvPScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PvPScene.h; sourceTree = "<group>"; };
+		E2D6C99D17089D25008A38B2 /* PvPScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PvPScene.m; sourceTree = "<group>"; };
+		E2D6C99F17089D79008A38B2 /* PvPHudLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PvPHudLayer.h; sourceTree = "<group>"; };
+		E2D6C9A017089D79008A38B2 /* PvPHudLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PvPHudLayer.m; sourceTree = "<group>"; };
+		E2D6C9A217089D95008A38B2 /* PvPLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PvPLayer.h; sourceTree = "<group>"; };
+		E2D6C9A317089D95008A38B2 /* PvPLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PvPLayer.m; sourceTree = "<group>"; };
 		E2D6C9A51708BE32008A38B2 /* GameSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameSettings.h; sourceTree = "<group>"; };
 		E2D6C9A61708BE32008A38B2 /* GameSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameSettings.m; sourceTree = "<group>"; };
 		E2D6C9A81708C3E6008A38B2 /* DeviceUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceUtil.h; sourceTree = "<group>"; };
@@ -964,23 +973,17 @@
 			name = Common;
 			sourceTree = "<group>";
 		};
-		E248691E1709E700007D3FF7 /* PvPFight */ = {
+		E248691E1709E700007D3FF7 /* PvP */ = {
 			isa = PBXGroup;
 			children = (
-				E2D12C541713E34E0025296D /* Panels */,
-				E2F1A185170552F2009F0C8B /* Actions */,
-				E2D6C99C17089D25008A38B2 /* PvPFightScene.h */,
-				E2D6C99D17089D25008A38B2 /* PvPFightScene.m */,
-				E24308EF17117F2F003A7595 /* PvPFightLoadingLayer.h */,
-				E24308F017117F2F003A7595 /* PvPFightLoadingLayer.m */,
-				E2D6C99F17089D79008A38B2 /* PvPFightHudLayer.h */,
-				E2D6C9A017089D79008A38B2 /* PvPFightHudLayer.m */,
-				E2D6C9A217089D95008A38B2 /* PvPFightLayer.h */,
-				E2D6C9A317089D95008A38B2 /* PvPFightLayer.m */,
-				E2832CAF1712F54400F4F0E1 /* PvPFightController.h */,
-				E2832CB01712F54400F4F0E1 /* PvPFightController.m */,
+				E277FD5B17159FCD005E50C0 /* Loading */,
+				E277FD5C17159FDD005E50C0 /* Fight */,
+				E2D6C99C17089D25008A38B2 /* PvPScene.h */,
+				E2D6C99D17089D25008A38B2 /* PvPScene.m */,
+				E2832CAF1712F54400F4F0E1 /* PvPController.h */,
+				E2832CB01712F54400F4F0E1 /* PvPController.m */,
 			);
-			name = PvPFight;
+			name = PvP;
 			sourceTree = "<group>";
 		};
 		E24D35F4170B66B60055D23E /* Common */ = {
@@ -1007,6 +1010,48 @@
 				E2515795170D5A9500BEC55F /* SelfPortrait.m */,
 			);
 			name = Portrait;
+			sourceTree = "<group>";
+		};
+		E277FD5A17159CB4005E50C0 /* Loading */ = {
+			isa = PBXGroup;
+			children = (
+				E24308EF17117F2F003A7595 /* LoadingLayer.h */,
+				E24308F017117F2F003A7595 /* LoadingLayer.m */,
+			);
+			name = Loading;
+			sourceTree = "<group>";
+		};
+		E277FD5B17159FCD005E50C0 /* Loading */ = {
+			isa = PBXGroup;
+			children = (
+				E277FD571715885F005E50C0 /* PvPLoadingManager.h */,
+				E277FD581715885F005E50C0 /* PvPLoadingManager.m */,
+			);
+			name = Loading;
+			sourceTree = "<group>";
+		};
+		E277FD5C17159FDD005E50C0 /* Fight */ = {
+			isa = PBXGroup;
+			children = (
+				E2F1A185170552F2009F0C8B /* Actions */,
+				E2D12C541713E34E0025296D /* Panels */,
+				E2D6C99F17089D79008A38B2 /* PvPHudLayer.h */,
+				E2D6C9A017089D79008A38B2 /* PvPHudLayer.m */,
+				E2D6C9A217089D95008A38B2 /* PvPLayer.h */,
+				E2D6C9A317089D95008A38B2 /* PvPLayer.m */,
+				E277FD5D1715A296005E50C0 /* PvPFightManager.h */,
+				E277FD5E1715A296005E50C0 /* PvPFightManager.m */,
+			);
+			name = Fight;
+			sourceTree = "<group>";
+		};
+		E27A716F1716AC5300270DD5 /* Mock */ = {
+			isa = PBXGroup;
+			children = (
+				E27A71701716AD3F00270DD5 /* MockGameServer.h */,
+				E27A71711716AD3F00270DD5 /* MockGameServer.m */,
+			);
+			name = Mock;
 			sourceTree = "<group>";
 		};
 		E2832CB41712FC9000F4F0E1 /* stone */ = {
@@ -1049,6 +1094,7 @@
 		E2AC078B170DBAF7004A33D9 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				E277FD5A17159CB4005E50C0 /* Loading */,
 				E24308F21711B109003A7595 /* Common */,
 				E2D6C99417086473008A38B2 /* Scenes */,
 				E2DD8817170DA0F500F2D065 /* Stone */,
@@ -1247,7 +1293,7 @@
 			isa = PBXGroup;
 			children = (
 				E2D6C995170864EC008A38B2 /* GameLoading */,
-				E248691E1709E700007D3FF7 /* PvPFight */,
+				E248691E1709E700007D3FF7 /* PvP */,
 				E2D6C9901708584A008A38B2 /* EffectSprite.h */,
 				E2D6C9911708584A008A38B2 /* EffectSprite.m */,
 			);
@@ -1374,6 +1420,7 @@
 		E2E26637170448CB00550425 /* Net */ = {
 			isa = PBXGroup;
 			children = (
+				E27A716F1716AC5300270DD5 /* Mock */,
 				E24D35F4170B66B60055D23E /* Common */,
 				E2FAFE6E17075AD200868C63 /* Commands */,
 				E2FA035B1705EDB300D46D47 /* Server */,
@@ -2066,8 +2113,8 @@
 				E24D35E1170B24C90055D23E /* LoginCommand.m */,
 				E24D35D9170B24820055D23E /* BagCommand.h */,
 				E24D35DA170B24820055D23E /* BagCommand.m */,
-				E24170F8170C6B1F003B6644 /* PvPFightCommand.h */,
-				E24170F9170C6B1F003B6644 /* PvPFightCommand.m */,
+				E24170F8170C6B1F003B6644 /* PvPCommand.h */,
+				E24170F9170C6B1F003B6644 /* PvPCommand.m */,
 				E2D12C511713E0150025296D /* FightCommand.h */,
 				E2D12C521713E0160025296D /* FightCommand.m */,
 				E2C0F18E170C34F000A699D0 /* CommandListener.h */,
@@ -2575,9 +2622,9 @@
 				E2D6C98F17085442008A38B2 /* FaceItem.m in Sources */,
 				E2D6C9921708584A008A38B2 /* EffectSprite.m in Sources */,
 				E2D6C99817086CC3008A38B2 /* FacePopup.m in Sources */,
-				E2D6C99E17089D25008A38B2 /* PvPFightScene.m in Sources */,
-				E2D6C9A117089D7A008A38B2 /* PvPFightHudLayer.m in Sources */,
-				E2D6C9A417089D95008A38B2 /* PvPFightLayer.m in Sources */,
+				E2D6C99E17089D25008A38B2 /* PvPScene.m in Sources */,
+				E2D6C9A117089D7A008A38B2 /* PvPHudLayer.m in Sources */,
+				E2D6C9A417089D95008A38B2 /* PvPLayer.m in Sources */,
 				E2D6C9A71708BE33008A38B2 /* GameSettings.m in Sources */,
 				E2D6C9AA1708C3E6008A38B2 /* DeviceUtil.m in Sources */,
 				E2D6C9AD1708C578008A38B2 /* ResourceBar.m in Sources */,
@@ -2602,7 +2649,7 @@
 				E24D35F9170B674D0055D23E /* ChatCommand.m in Sources */,
 				E24D35FA170B674D0055D23E /* TaskCommand.m in Sources */,
 				E24D35FD170B67A30055D23E /* ServerDataDecoder.m in Sources */,
-				E24170FA170C6B1F003B6644 /* PvPFightCommand.m in Sources */,
+				E24170FA170C6B1F003B6644 /* PvPCommand.m in Sources */,
 				E24170FD170C6B30003B6644 /* ServerDataEncoder.m in Sources */,
 				E2515790170D4B1400BEC55F /* PortraitUI.m in Sources */,
 				E2515793170D5A2100BEC55F /* LeaderPortrait.m in Sources */,
@@ -2619,9 +2666,9 @@
 				E2D3C55B17112B8E00D0B639 /* StoneClearAction.m in Sources */,
 				E2D3C55E1711306100D0B639 /* StoneDisposeAction.m in Sources */,
 				E24B524B1711474500BD8CBC /* FightStonePanel.m in Sources */,
-				E24308F117117F2F003A7595 /* PvPFightLoadingLayer.m in Sources */,
+				E24308F117117F2F003A7595 /* LoadingLayer.m in Sources */,
 				E24308F81711E056003A7595 /* ServerDataUtil.m in Sources */,
-				E2832CB11712F54400F4F0E1 /* PvPFightController.m in Sources */,
+				E2832CB11712F54400F4F0E1 /* PvPController.m in Sources */,
 				E2D12C531713E0160025296D /* FightCommand.m in Sources */,
 				E2D12C5D1713E43B0025296D /* FightUI.m in Sources */,
 				E2D12C681713E6810025296D /* PvPOpponentStonePanel.m in Sources */,
@@ -2629,6 +2676,9 @@
 				E2D12C9A1713ED640025296D /* PvPFighterPanel.m in Sources */,
 				E2D12CA01713F2780025296D /* PvPPortraitPanel.m in Sources */,
 				E25E8A7D17145A0200DF4CD7 /* HonsterBar.m in Sources */,
+				E277FD591715885F005E50C0 /* PvPLoadingManager.m in Sources */,
+				E277FD5F1715A296005E50C0 /* PvPFightManager.m in Sources */,
+				E27A71721716AD3F00270DD5 /* MockGameServer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

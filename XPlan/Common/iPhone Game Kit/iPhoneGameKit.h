@@ -28,7 +28,7 @@
 #define kKITShowFPS 1
 
 // whether or not to use landscape mode
-#define kKITLandscapeOrientation 1
+#define kKITLandscapeOrientation 0
 
 // the ideal frame rate
 #define kKITIdealFPS 60.0f

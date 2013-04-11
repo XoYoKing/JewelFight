@@ -11,13 +11,19 @@
 @class FighterVo,AttackVo;
 
 ///pvp 对战 命令
-@interface PvPFightCommand : BaseCommand
+@interface PvPCommand : BaseCommand
 
 #pragma mark -
 #pragma mark Request
 
+/// 请求开始PvP
+-(void) requestPvP;
+
+/// 加载完毕,准备战斗
+-(void) requestFight;
+
 /// 请求开战
--(void) requestStartFight;
+-(void) requestFightStart;
 
 /// 请求交换宝石
 -(void) requestSwapStoneWithActionId:(long)actionId stoneId1:(NSString*)stoneId1 stoneId2:(NSString*)stoneId2;
@@ -26,8 +32,6 @@
 /// 死局, 请求新的宝石队列
 -(void) requestDeadWithActionId:(long)actionId;
 
-/// 加载完毕,准备战斗
--(void) requestFight;
 
 /// 操作分数
 -(void) requestOperate:(double)operate value:(int)value;

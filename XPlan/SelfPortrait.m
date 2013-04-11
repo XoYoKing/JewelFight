@@ -33,13 +33,13 @@
 /// 侦听服务器端命令
 -(void) connectCommand
 {
-    [[GameController sharedController].server.gameCommand addListenerWithActionId:SERVER_ACTION_ID_UPDATE_HERO listener:self];
+    [[GameController sharedController].server.gameCommand addListenerWithActionId:SERVER_ACTION_UPDATE_HERO listener:self];
 }
 
 /// 取消侦听
 -(void) disconnectCommand
 {
-    [[GameController sharedController].server.gameCommand removeListenerWithActionId:SERVER_ACTION_ID_UPDATE_HERO listener:self];
+    [[GameController sharedController].server.gameCommand removeListenerWithActionId:SERVER_ACTION_UPDATE_HERO listener:self];
 }
 
 -(void) responseWithActionId:(int)actionId object:(id)obj

@@ -13,7 +13,7 @@
 
 @implementation GameServer
 
-@synthesize gameCommand,loginCommand,taskCommand,chatCommand,fightCommand,bagCommand;
+@synthesize gameCommand,loginCommand,taskCommand,chatCommand,pvpCommand,bagCommand;
 
 
 -(id) init
@@ -23,7 +23,7 @@
         // 初始化连接
         servers = [[NSMutableDictionary alloc] initWithCapacity:5];
         gameCommand = [[GameCommand alloc] init];
-        fightCommand = [[PvPFightCommand alloc] init];
+        pvpCommand = [[PvPCommand alloc] init];
         bagCommand = [[BagCommand alloc] init];
         loginCommand = [[LoginCommand alloc] init];
         chatCommand = [[ChatCommand alloc] init];
@@ -86,7 +86,7 @@
     [connection sendData:data];
 }
 
--(void) connection:(ServerConnection *)connection receiveData:(NSData *)data
+-(void) receiveData:(NSData *)data
 {
     if ([data length] <= 3)
     {
@@ -101,7 +101,7 @@
     int32_t actionId = [decoder readInt32];
     
     // 错误命令
-    if (actionId == SERVER_ACTION_ID_ERROR_MESSAGE)
+    if (actionId == SERVER_ACTION_ERROR_MESSAGE)
     {
         // 处理错误信息
     }
@@ -113,7 +113,7 @@
     }
     else if (actionId >= 50 && actionId < 100)
     {
-        [fightCommand executeWithActionId:actionId data:decoder];
+        [pvpCommand executeWithActionId:actionId data:decoder];
     }
     // 背包命令
     else if (actionId >= 100 && actionId < 150)
@@ -130,10 +130,14 @@
     }
     
     // 聊天命令
-    else if (actionId > 500)
+    else if (actionId >= 500 && actionId < 800)
     {
         [chatCommand executeWithActionId:actionId data:decoder];
         return;
+    }
+    else if (actionId >= 800 && actionId < 900)
+    {
+        [pvpCommand executeWithActionId:actionId data:decoder];
     }
 }
 

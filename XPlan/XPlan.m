@@ -9,6 +9,7 @@
 #import "XPlan.h"
 #import "GameController.h"
 #import "GameLoadingScene.h"
+#import "GameController.h"
 
 @implementation XPlan
 
@@ -21,6 +22,9 @@
     
     //
     [[CCDirector sharedDirector] setProjection:kCCDirectorProjection2D];
+    
+    // 初始化GameController
+    [[GameController sharedController] initServer];
     
     // 加载场景
     GameLoadingScene *scene = [GameLoadingScene node];

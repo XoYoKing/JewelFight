@@ -13,7 +13,7 @@
 #import "LoginCommand.h"
 #import "ChatCommand.h"
 #import "BagCommand.h"
-#import "PvPFightCommand.h"
+#import "PvPCommand.h"
 
 
 /// 服务器连接
@@ -21,7 +21,7 @@
 {
     NSMutableDictionary *servers; // 服务器集合
     GameCommand *gameCommand; // 游戏主命令处理器
-    PvPFightCommand *fightCommand; // 战斗命令处理器
+    PvPCommand *pvpCommand; // 战斗命令处理器
     BagCommand *bagCommand; // 背包命令处理器
     LoginCommand *loginCommand; // 登陆注册命令处理器
     ChatCommand *chatCommand; // 聊天命令处理器
@@ -32,7 +32,7 @@
 @property (readonly,nonatomic) GameCommand *gameCommand;
 
 /// 战斗命令处理器
-@property (readonly,nonatomic) PvPFightCommand *fightCommand;
+@property (readonly,nonatomic) PvPCommand *pvpCommand;
 
 /// 背包命令处理器
 @property (readonly,nonatomic) BagCommand *bagCommand;

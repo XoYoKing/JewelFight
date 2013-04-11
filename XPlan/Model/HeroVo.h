@@ -13,6 +13,7 @@
 @interface HeroVo : NSObject
 {
     NSString *heroId; // 英雄标识
+    int heroType; // 英雄类型
     long userId; // 隶属玩家标识
     NSString *name; // 英雄名称
     int sex; // 性别
@@ -31,7 +32,6 @@
     int attackPower; // 攻击力
     BOOL isLeader; // 是否是队长
     BOOL isTeam; // 是否在组队状态
-    CGPoint gridPos; // 角色所在格子位置
     NSString *fightPortrait; // 战斗闪电特效头像
 }
 

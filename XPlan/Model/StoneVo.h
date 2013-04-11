@@ -15,7 +15,7 @@
 {
     NSString *stoneId; // 宝石标识
     NSString *type; // 宝石类型
-    int special; // 特殊道具
+    int special; // 特殊宝石
     int x; // 宝石x坐标
     int y; // 宝石y坐标
     int yGap; // ??
