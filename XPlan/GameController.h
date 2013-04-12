@@ -15,7 +15,7 @@
 @interface GameController : NSObject
 {
     GameServer *server; // 游戏服务器连接
-    PlayerInfo *playerInfo; // 玩家信息
+    PlayerInfo *player; // 玩家信息
     int sessionId; // 回话标识
     int state; // 游戏状态
 }
@@ -24,7 +24,7 @@
 @property (readonly,nonatomic) GameServer *server;
 
 /// 玩家信息
-@property (readwrite,nonatomic,retain) PlayerInfo *playerInfo;
+@property (readwrite,nonatomic,retain) PlayerInfo *player;
 
 /// 会话标识
 @property (readwrite,nonatomic) int sessionId;

@@ -13,6 +13,7 @@
 
 @interface PvPPlayerStonePanel : CCLayer
 {
+    CCLabelTTF *nameLabel; // 玩家名字
     DoStonePanel *stonePanel; // 宝石面板
     
 }

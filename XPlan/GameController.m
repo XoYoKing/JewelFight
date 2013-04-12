@@ -15,7 +15,7 @@ static GameController *_gameControllerInstance = nil;
 
 @implementation GameController
 
-@synthesize server,playerInfo,state,sessionId;
+@synthesize server,player,state,sessionId;
 
 #pragma mark -
 #pragma mark Class methods

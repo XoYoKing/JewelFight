@@ -9,6 +9,8 @@
 #import "PvPPlayerStonePanel.h"
 #import "DoStonePanel.h"
 #import "FighterVo.h"
+#import "PlayerInfo.h"
+#import "GameController.h"
 
 @implementation PvPPlayerStonePanel
 
@@ -24,7 +26,7 @@
 
 - (void) didLoadFromCCB
 {
-    
+    [nameLabel setString:[GameController sharedController].player.name];
 }
 
 -(void) dealloc

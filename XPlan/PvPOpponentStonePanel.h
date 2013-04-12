@@ -13,6 +13,7 @@
 @class UserInfo,FighterVo,ViewStonePanel;
 @interface PvPOpponentStonePanel : CCLayer
 {
+    CCLabelTTF *nameLabel; // 名字标签
     ViewStonePanel *stonePanel; // 宝石面板
 }
 

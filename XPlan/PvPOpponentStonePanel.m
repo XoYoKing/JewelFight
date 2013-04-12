@@ -9,6 +9,7 @@
 #import "PvPOpponentStonePanel.h"
 #import "FighterVo.h"
 #import "ViewStonePanel.h"
+#import "UserInfo.h"
 
 @implementation PvPOpponentStonePanel
 
@@ -34,7 +35,7 @@
 
 -(void) setOpponent:(UserInfo *)opp
 {
-    
+    [nameLabel setString: opp.name];
 }
 
 -(void) setFighter:(FighterVo *)fv

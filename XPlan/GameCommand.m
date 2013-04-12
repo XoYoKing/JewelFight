@@ -152,7 +152,7 @@
     
     // 封装玩家信息
     [self populatePlayerInfo:playerVo data:data];
-    [[GameController sharedController] setPlayerInfo: playerVo];
+    [[GameController sharedController] setPlayer: playerVo];
     
     // 封装玩家英雄信息?
     // TODO: 需要更改这块的逻辑,原因是原型的服务器端认为玩家就是英雄
@@ -166,7 +166,7 @@
 /// 更新玩家信息
 -(void) handleUpdatePlayerInfo:(ServerDataDecoder*)data
 {
-    PlayerInfo *playerVo = [GameController sharedController].playerInfo;
+    PlayerInfo *playerVo = [GameController sharedController].player;
     
     // 更新玩家信息
     [self populatePlayerInfo:playerVo data:data];

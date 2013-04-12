@@ -14,6 +14,11 @@ typedef enum{
 	kBarRectangle,
 } kBarTypes;
 
+typedef enum{
+    kBarDirectionRight,
+    kBarDirectionLeft
+}kBarDirections;
+
 /// 进度条Bar
 @interface HonsterBar : CCNode
 {
@@ -24,18 +29,26 @@ typedef enum{
     float progress;
     BOOL active, spritesheet;
     CGPoint middle;
+    kBarDirections direction; // 方向
 }
 @property (nonatomic, retain ,readonly)	NSString *bar, *inset;
 @property (nonatomic) float progress;
 @property kBarTypes type;
 @property BOOL active;
+@property kBarDirections direction; // 方向
 
 +(id) barWithBar:(NSString *)b inset:(NSString *)i mask:(NSString *)m;
 -(id) initBarWithBar:(NSString *)b inset:(NSString *)i mask:(NSString *)m;
 +(id) barWithBarFrame:(NSString *)b insetFrame:(NSString *)i maskFrame:(NSString *)m;
 -(id) initBarWithBarFrame:(NSString *)b insetFrame:(NSString *)i maskFrame:(NSString *)m;
+
+/// 初始化进度条
 +(id) barWithBarSprite:(CCSprite *)b insetSprite:(CCSprite *)i maskSprite:(CCSprite *)m;
+
++(id) barWithBarSprite:(CCSprite *)b insetSprite:(CCSprite *)i maskSprite:(CCSprite *)m direction:(kBarDirections)d;
 -(id) initBarWithBarSprite:(CCSprite *)b insetSprite:(CCSprite *)i maskSprite:(CCSprite *)m;
+
+-(id) initBarWithBarSprite:(CCSprite *)b insetSprite:(CCSprite *)i maskSprite:(CCSprite *)m direction:(kBarDirections)d;
 -(void) hide;
 -(void) show;
 -(void) setTransparency:(float)trans;

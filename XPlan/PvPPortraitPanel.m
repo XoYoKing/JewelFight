@@ -27,20 +27,24 @@
 
 -(void) initUI
 {
-    playerFighterLifeBar = [[HonsterBar alloc] initBarWithBarSprite:playerHp insetSprite:playerHpBg maskSprite:playerHpMask];
+    playerFighterLifeBar = [[HonsterBar alloc] initBarWithBarSprite:playerHp insetSprite:playerHpBg maskSprite:playerHpMask direction:kBarDirectionLeft];
     [self addChild:playerFighterLifeBar];
+    playerFighterLifeBar.anchorPoint = ccp(0.5,0.5);
     playerFighterLifeBar.position = ccp(170,23);
-    playerFighterLifeBar.progress =70;
+    playerFighterLifeBar.progress =10;
     
-    opponentFighterLifeBar = [[HonsterBar alloc] initBarWithBarSprite:opponentHp insetSprite:opponentHpBg maskSprite:opponentHpMask];
+    opponentFighterLifeBar = [[HonsterBar alloc] initBarWithBarSprite:opponentHp insetSprite:opponentHpBg maskSprite:opponentHpMask direction:kBarDirectionRight];
     [self addChild:opponentFighterLifeBar];
+    opponentFighterLifeBar.anchorPoint = ccp(0.5,0.5);
     opponentFighterLifeBar.position = ccp(594,23);
-    opponentFighterLifeBar.progress = 70;
+    opponentFighterLifeBar.progress = 10;
 }
 
 -(void) onEnter
 {
-    playerFighterLifeBar.progress = 30;
+    playerFighterLifeBar.progress = 50;
+    
+    
     [super onEnter];
 }
 

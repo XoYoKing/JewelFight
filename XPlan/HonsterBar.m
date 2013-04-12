@@ -10,7 +10,7 @@
 
 
 @implementation HonsterBar
-@synthesize bar, inset, type, active, progress;
+@synthesize bar, inset, type, active, progress,direction;
 
 +(id) barWithBar:(NSString *)b inset:(NSString *)i mask:(NSString *)m
 {
@@ -107,11 +107,19 @@
 }
 
 +(id) barWithBarSprite:(CCSprite *)b insetSprite:(CCSprite *)i maskSprite:(CCSprite *)m {
-    return [[[self alloc] initBarWithBarSprite:b insetSprite:i maskSprite:m] autorelease];
+    return [[[self alloc] initBarWithBarSprite:b insetSprite:i maskSprite:m direction:kBarDirectionRight] autorelease];
 }
--(id) initBarWithBarSprite:(CCSprite *)b insetSprite:(CCSprite *)i maskSprite:(CCSprite *)m {
+
++(id) barWithBarSprite:(CCSprite *)b insetSprite:(CCSprite *)i maskSprite:(CCSprite *)m direction:(kBarDirections)d {
+    return [[[self alloc] initBarWithBarSprite:b insetSprite:i maskSprite:m direction:d] autorelease];
+}
+-(id) initBarWithBarSprite:(CCSprite *)b insetSprite:(CCSprite *)i maskSprite:(CCSprite *)m
+{
+    return [self initBarWithBarSprite:b insetSprite:i maskSprite:m direction:kBarDirectionRight];
+}
+-(id) initBarWithBarSprite:(CCSprite *)b insetSprite:(CCSprite *)i maskSprite:(CCSprite *)m direction:(kBarDirections)d {
     if ((self = [super init])) {
-        
+        direction = d;
         insetSprite = [i retain];
         [i removeFromParentAndCleanup:YES];
         [self setContentSize:insetSprite.contentSize];
@@ -196,7 +204,14 @@
     [self drawLoadingBar];
 }
 -(void) drawLoadingBar {
-    maskSprite.position = ccp(((self.contentSize.width - maskSprite.boundingBox.size.width) / 2) + (progress / 100 * maskSprite.boundingBox.size.width), middle.y);
+    if (direction == kBarDirectionRight)
+    {
+        maskSprite.position = ccp(((self.contentSize.width - maskSprite.boundingBox.size.width) / 2) + (progress / 100 * maskSprite.boundingBox.size.width), middle.y);
+    }
+    else
+    {
+        maskSprite.position = ccp(((self.contentSize.width - maskSprite.boundingBox.size.width) / 2) + maskSprite.boundingBox.size.width - (progress / 100 * maskSprite.boundingBox.size.width), middle.y);
+    }
     [self clearRender];
     [self maskBar];
 }
