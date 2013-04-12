@@ -7,12 +7,12 @@
 //
 
 #import "StonePanel.h"
-#import "StoneItem.h"
-#import "StoneVo.h"
+#import "StoneSprite.h"
+#import "JewelVo.h"
 #import "StoneCell.h"
 #import "Constants.h"
 #import "GameController.h"
-#import "StoneController.h"
+#import "StoneManager.h"
 
 @implementation StonePanel
 
@@ -21,8 +21,8 @@
 {
     if ((self = [super init]))
     {
-        controller = [[StoneController alloc] initWithStonePanel:self];
-        allStoneItemDict = [[NSMutableDictionary alloc] init];
+        controller = [[StoneManager alloc] initWithStonePanel:self];
+        allStoneSpriteDict = [[NSMutableDictionary alloc] init];
         allStoneItems = [[CCArray alloc] initWithCapacity:30];
         
         // 设置格子宽高
@@ -54,7 +54,7 @@
 -(void) dealloc
 {
     [cellGrid release];
-    [allStoneItemDict release];
+    [allStoneSpriteDict release];
     [allStoneItems release];
     [effectLayer release];
     [super dealloc];
@@ -85,43 +85,43 @@
 #pragma mark -
 #pragma mark StoneItem
 
--(StoneItem*) getStoneItem:(NSString*)stoneId
+-(StoneSprite*) getStoneSprite:(NSString*)jewelId
 {
-    return [allStoneItemDict objectForKey:stoneId];
+    return [allStoneSpriteDict objectForKey:jewelId];
 }
 
 /// 创建宝石
--(void) createStoneItem:(StoneVo*)stoneVo
+-(void) createStoneSprite:(JewelVo*)stoneVo
 {
-    StoneItem *stoneItem = [[StoneItem alloc] initWithStonePanel:self stoneVo:stoneVo];
+    StoneSprite *stoneItem = [[StoneSprite alloc] initWithStonePanel:self stoneVo:stoneVo];
     
-    [self addStoneItem:stoneItem];
+    [self addStoneSprite:stoneItem];
     
     // relese because add stone item has retained it
     [stoneItem release];
 }
 
 /// 添加宝石
--(void) addStoneItem:(StoneItem*)stoneItem
+-(void) addStoneSprite:(StoneSprite*)stoneSprite
 {
-    [self addChild:stoneItem];
-    [allStoneItemDict setObject:stoneItem forKey:stoneItem.stoneId];
-    [allStoneItems addObject:stoneItem];
+    [self addChild:stoneSprite];
+    [allStoneSpriteDict setObject:stoneSprite forKey:stoneSprite.jewelId];
+    [allStoneItems addObject:stoneSprite];
     
     // 记录
-    StoneCell *cell = [self getCellAtCoord:ccp(stoneItem.stoneVo.x,stoneItem.stoneVo.y)];
-    cell.comingStoneId = stoneItem.stoneId;
+    StoneCell *cell = [self getCellAtCoord:stoneSprite.stoneVo.coord];
+    cell.comingStoneId = stoneSprite.jewelId;
     
 }
 
 /// 删除宝石
--(void) removeStoneItem:(StoneItem*)stoneItem
+-(void) removeStoneItem:(StoneSprite*)stoneItem
 {
-    [allStoneItemDict removeObjectForKey:stoneItem.stoneId];
+    [allStoneSpriteDict removeObjectForKey:stoneItem.jewelId];
     [allStoneItems removeObject:stoneItem];
 }
 
--(void) clearAllStoneItems
+-(void) clearAllStoneSprites
 {
     //
     if (allStoneItems.count == 0)
@@ -129,9 +129,9 @@
         return;
     }
     
-    for(StoneItem *stoneItem in allStoneItems)
+    for(StoneSprite *stoneSprite in allStoneItems)
     {
-        [stoneItem moveToDead];
+        [stoneSprite moveToDead];
     }
 }
 

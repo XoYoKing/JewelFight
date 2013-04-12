@@ -19,7 +19,7 @@
 #import "GameCommand.h"
 #import "UserInfo.h"
 #import "PlayerInfo.h"
-#import "StoneVo.h"
+#import "JewelVo.h"
 
 
 
@@ -64,7 +64,7 @@
     [[GameController sharedController].server send:SERVER_GAME data:data];
 }
 
--(void) requestSwapStoneWithActionId:(long)actionId stoneId1:(NSString*)stoneId1 stoneId2:(NSString*)stoneId2
+-(void) requestSwapStoneWithActionId:(long)actionId jewelId1:(NSString*)jewelId1 jewelId2:(NSString*)jewelId2
 {
     NSMutableData *data = [NSMutableData data];
     ServerDataEncoder *encoder = [[ServerDataEncoder alloc] initWithData:data];
@@ -72,8 +72,8 @@
     [encoder writeInt16:1200];
     [encoder writeInt8:2];
     [encoder writeInt64:actionId];
-    [encoder writeUTF:stoneId1];
-    [encoder writeUTF:stoneId2];
+    [encoder writeUTF:jewelId1];
+    [encoder writeUTF:jewelId2];
     [encoder release];
     
     [[GameController sharedController].server send:SERVER_GAME data:data];
@@ -145,9 +145,9 @@
     [encoder writeInt32:continueDispose];
     [encoder writeInt32:disposeStoneIds.count];
     
-    for (NSString *stoneId in disposeStoneIds)
+    for (NSString *jewelId in disposeStoneIds)
     {
-        [encoder writeUTF:stoneId];
+        [encoder writeUTF:jewelId];
     }
     
     [encoder release];
@@ -229,7 +229,8 @@
     CCArray *playerStones = [[CCArray alloc] initWithCapacity:amount];
     for (int i = 0;i < amount; i++)
     {
-        StoneVo *stoneVo = [[StoneVo alloc] init];
+        JewelVo *stoneVo = [[JewelVo alloc] init];
+        [FightCommand populateJewelVo:stoneVo data:data];
         [playerStones addObject:stoneVo];
     }
     [dict setObject:playerStones forKey:@"player_stones"];
@@ -239,7 +240,8 @@
     CCArray *opponentStones = [[CCArray alloc] initWithCapacity:amount];
     for (int i = 0;i < amount; i++)
     {
-        StoneVo *stoneVo = [[StoneVo alloc] init];
+        JewelVo *stoneVo = [[JewelVo alloc] init];
+        [FightCommand populateJewelVo:stoneVo data:data];
         [opponentStones addObject:stoneVo];
     }
     [dict setObject:opponentStones forKey:@"opponent_stones"];

@@ -9,12 +9,12 @@
 #import <Foundation/Foundation.h>
 #import "iPhoneGameKit.h"
 
-@class StoneItem;
+@class StoneSprite;
 
 /// 宝石效果s
 @interface StoneEffect : NSObject
 {
-    StoneItem *stone; // 对应宝石
+    StoneSprite *stone; // 对应宝石
     
 }
 

@@ -37,6 +37,16 @@ typedef enum _FightLayerTags
 #define kSkillTypeEx2 // ex2 技能
 #define kSkillTypeEx3 // ex3 技能
 
+// 宝石格子数
+#define kStoneGridWidth 5 // 宝石格子宽度
+#define kStoneGridHeight 7 // 宝石格子高度
+
+#define kStoneDisposeMinNeed 3 // 消除宝石最少需要的数量
+
+// 宝石类型
+#define kStoneTypeNormal 1 // 普通宝石
+#define kStoneTypeSpecial 2 // 特殊宝石
+
 // 宝石状态
 #define kStoneStateIdle 0 // 闲置
 #define kStoneStateDisposing 1 // 正在消除

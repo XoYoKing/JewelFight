@@ -10,14 +10,14 @@
 #import "iPhoneGameKit.h"
 
 
-/// 宝石数据对象 Stone Value Object
-@interface StoneVo : NSObject
+/// 宝石数据对象 Jewel Value Object
+@interface JewelVo : NSObject
 {
-    NSString *stoneId; // 宝石标识
-    NSString *type; // 宝石类型
+    int globalId; // 全局标识
+    int jewelId; // 宝石Item标识
+    int jewelType; // 宝石类型
     int special; // 特殊宝石
-    int x; // 宝石x坐标
-    int y; // 宝石y坐标
+    CGPoint coord; // 所处坐标
     int yGap; // ??
     int hDispose; // 水平消除宝石数量
     int vDispose; // 垂直消除宝石数量
@@ -27,16 +27,17 @@
     
 }
 
-/// 宝石标识
-@property (readwrite,nonatomic,retain) NSString *stoneId;
+/// 全局标识
+@property (readwrite,nonatomic) int globalId;
 
-///宝石类型
-@property (readwrite,nonatomic,retain) NSString *type;
+/// 宝石标识
+@property (readwrite,nonatomic) int jewelId;
+
+///宝石类型 1 普通宝石; 2 特殊宝石
+@property (readwrite,nonatomic) int jewelType;
 
 /// 宝石坐标
-@property (readwrite,nonatomic) int x;
-
-@property (readwrite,nonatomic) int y;
+@property (readwrite,nonatomic) CGPoint coord;
 
 ///
 @property (readwrite,nonatomic) int yGap;

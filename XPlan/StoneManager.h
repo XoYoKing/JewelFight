@@ -9,16 +9,16 @@
 #import <Foundation/Foundation.h>
 #import "iPhoneGameKit.h"
 
-@class StonePanel,StoneVo;
+@class StonePanel,JewelVo;
 /// 宝石控制器
-@interface StoneController : NSObject
+@interface StoneManager : NSObject
 {
     StonePanel *stonePanel; //对应宝石面板
     NSMutableDictionary *stoneGrid; // 宝石格子
     
     // special
     CCArray *specialList; // 特殊宝石列表
-    StoneVo *currentSpecial; // 当前特殊宝石
+    JewelVo *currentSpecial; // 当前特殊宝石
 }
 
 /// 宝石面板

@@ -10,7 +10,7 @@
 
 #define kFightMinStoneCheckNum 3 // 至少需要三个方块,才能被消除
 
-@class StoneVo;
+@class JewelVo;
 
 @interface FightUtil : NSObject
 {

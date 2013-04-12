@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "iPhoneGameKit.h"
-#import "StoneController.h"
+#import "StoneManager.h"
 
 @interface StoneAction : NSObject
 {

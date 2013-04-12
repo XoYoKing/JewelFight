@@ -7,10 +7,10 @@
 //
 
 #import "DoStonePanel.h"
-#import "StoneItem.h"
+#import "StoneSprite.h"
 #import "HeroVo.h"
-#import "StoneVo.h"
-#import "StoneItem.h"
+#import "JewelVo.h"
+#import "StoneSprite.h"
 #import "StoneActionQueue.h"
 #import "StoneAction.h"
 #import "StoneAddAction.h"
@@ -18,7 +18,7 @@
 
 @interface DoStonePanel()
 {
-    StoneItem *selectedStone; // 选中的宝石
+    StoneSprite *selectedStone; // 选中的宝石
     StoneActionQueue *actionQueue; // 操作宝石动作队列
     StoneAction *currentAction; // 当前宝石动作
 }
@@ -117,7 +117,7 @@
 {
     CCArray *stonesToRemove = [[CCArray alloc] initWithCapacity:10];
     
-    for (StoneItem *stone in allStoneItems)
+    for (StoneSprite *stone in allStoneItems)
     {
         BOOL remove = [stone update:delta];
         if (remove)
@@ -133,7 +133,7 @@
     
     if (stonesToRemove.count > 0)
     {
-        for (StoneItem *stone in stonesToRemove)
+        for (StoneSprite *stone in stonesToRemove)
         {
             [self removeStoneItem:stone];
         }
@@ -154,7 +154,7 @@
 {
     for (CCNode *node in self.children)
     {
-        if ([node isKindOfClass:[StoneItem class]])
+        if ([node isKindOfClass:[StoneSprite class]])
         {
             [node removeFromParentAndCleanup:YES];
         }
@@ -203,9 +203,9 @@
 /// 添加新宝石列表
 -(void) addNewStonesWithStoneVoList:(CCArray *)list
 {
-    for (StoneVo *sv in list)
+    for (JewelVo *sv in list)
     {
-        [self createStoneItem:sv];
+        [self createStoneSprite:sv];
     }
 }
 

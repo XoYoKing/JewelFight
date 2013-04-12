@@ -7,8 +7,8 @@
 //
 
 #import "StoneDisposeAction.h"
-#import "StoneItem.h"
-#import "StoneVo.h"
+#import "StoneSprite.h"
+#import "JewelVo.h"
 #import "StonePanel.h"
 
 @implementation StoneDisposeAction

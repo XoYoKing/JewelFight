@@ -114,7 +114,7 @@
             loadingManager = nil;
             
             // 开始战斗
-            [fightManager startFight];
+            [fightManager enterFight];
             break;
         }
     }    

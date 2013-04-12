@@ -6,12 +6,12 @@
 //  Copyright (c) 2013 Hex. All rights reserved.
 //
 
-#import "StoneController.h"
+#import "StoneManager.h"
 
 @class StonePanel,PlayerInfo,ActionVo;
 
 /// 查看宝石特效管理器
-@interface ViewStoneController : StoneController
+@interface ViewStoneController : StoneManager
 {
     PlayerInfo *playerVo; // 玩家数据
     CCArray *actionVoList; // 动作指令队列

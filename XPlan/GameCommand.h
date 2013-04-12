@@ -8,7 +8,7 @@
 
 #import "BaseCommand.h"
 
-@class UserInfo,HeroVo,PlayerInfo,StoneVo,FighterVo,AttackVo;
+@class UserInfo,HeroVo,PlayerInfo,JewelVo,FighterVo,AttackVo;
 
 @interface GameCommand : BaseCommand
 {

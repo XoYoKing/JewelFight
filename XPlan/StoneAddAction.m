@@ -7,7 +7,7 @@
 //
 
 #import "StoneAddAction.h"
-#import "StoneController.h"
+#import "StoneManager.h"
 #import "StonePanel.h"
 
 @interface StoneAddAction()

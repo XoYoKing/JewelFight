@@ -53,6 +53,11 @@
     [super dealloc];
 }
 
+-(void) update:(ccTime)delta
+{
+    
+}
+
 
 /// 接收玩家出战英雄信息和对手出战英雄信息
 -(void) handlePlayerFighters:(CCArray*)pf opponentUser:(UserInfo*)o opponentFighters:(CCArray*)of

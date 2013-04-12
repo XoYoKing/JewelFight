@@ -6,11 +6,11 @@
 //  Copyright (c) 2013 Hex. All rights reserved.
 //
 
-#import "StoneController.h"
-#import "StoneVo.h"
+#import "StoneManager.h"
+#import "JewelVo.h"
 #import "Constants.h"
 
-@implementation StoneController
+@implementation StoneManager
 
 -(id) initWithStonePanel:(StonePanel *)panel
 {
@@ -34,22 +34,22 @@
 }
 
 /// 交换宝石位置并检测是否可以交换,及获得消除宝石队列
--(CCArray*) swapPositionWithStone1:(StoneVo*)stone1 stone2:(StoneVo*)stone2
+-(CCArray*) swapPositionWithStone1:(JewelVo*)stone1 stone2:(JewelVo*)stone2
 {
     return nil;
 }
 
--(StoneVo*) getStoneVoAtCoordX:(int)coordX coordY:(int)coordY
+-(JewelVo*) getStoneVoAtCoordX:(int)coordX coordY:(int)coordY
 {
     return [[stoneGrid objectForKey:[NSNumber numberWithInt:coordX]] objectForKey:[NSNumber numberWithInt:coordY]];
 }
 
 /// 检查水平方向的可消除的宝石
--(CCArray*) checkHorizontalDisposeableStones:(StoneVo*)stone
+-(CCArray*) checkHorizontalDisposeableStones:(JewelVo*)stone
 {
     CCArray *checkList = [[CCArray alloc] initWithCapacity:10];
     [checkList addObject:stone];
-    StoneVo *specialStone;
+    JewelVo *specialStone;
     
     // 检查特殊宝石
     if (stone.special >= kStoneSpecialExplode)
@@ -61,14 +61,14 @@
     }
     
     //
-    StoneVo *temp = stone;
-    while (temp.x -1 >=0)
+    JewelVo *temp = stone;
+    while (temp.coord.x -1 >=0)
     {
         // 获取左侧宝石
-        StoneVo *leftStone = [self getStoneVoAtCoordX:temp.x-1 coordY:temp.y];
+        JewelVo *leftStone = [self getStoneVoAtCoordX:temp.coord.x-1 coordY:temp.coord.y];
         
         // 不是相同类型,退出
-        if (leftStone.type != stone.type)
+        if (leftStone.jewelId != stone.jewelId)
         {
             break;
         }
@@ -87,10 +87,10 @@
     }
     
     temp = stone;
-    while (temp.x + 1 <5)
+    while (temp.coord.x + 1 <kStoneGridWidth)
     {
-        StoneVo *rightStone= [self getStoneVoAtCoordX:temp.x + 1 coordY:temp.y];
-        if (rightStone.type!=stone.type)
+        JewelVo *rightStone= [self getStoneVoAtCoordX:temp.coord.x + 1 coordY:temp.coord.y];
+        if (rightStone.jewelId!=stone.jewelId)
         {
             break;
         }
@@ -111,7 +111,7 @@
     if (checkList.count >= 3)
     {
         BOOL isBoo;
-        for (StoneVo *disposeSv in checkList)
+        for (JewelVo *disposeSv in checkList)
         {
             disposeSv.hDispose = checkList.count; // 横向消除数量
             if (disposeSv.lt)
@@ -133,11 +133,11 @@
 }
 
 /// 检查垂直方向的可消除的宝石
--(CCArray*) checkVerticalDisposeableStones:(StoneVo*)stone
+-(CCArray*) checkVerticalDisposeableStones:(JewelVo*)stone
 {
     CCArray *checkList = [[CCArray alloc] initWithCapacity:10];
     [checkList addObject:stone];
-    StoneVo *specialStone;
+    JewelVo *specialStone;
     
     // 检查特殊宝石
     if (stone.special >= kStoneSpecialExplode)
@@ -149,14 +149,14 @@
     }
     
     //
-    StoneVo *temp = stone;
-    while (temp.y-1 >=0)
+    JewelVo *temp = stone;
+    while (temp.coord.y-1 >=0)
     {
         // 获取上方宝石
-        StoneVo *upStone = [self getStoneVoAtCoordX:temp.x coordY:temp.y-1];
+        JewelVo *upStone = [self getStoneVoAtCoordX:temp.coord.x coordY:temp.coord.y-1];
         
         // 不是相同类型,退出
-        if (upStone.type != stone.type)
+        if (upStone.jewelType != stone.jewelType)
         {
             break;
         }
@@ -175,10 +175,10 @@
     }
     
     temp = stone;
-    while (temp.y + 1 <8)
+    while (temp.coord.y + 1 <kStoneGridHeight)
     {
-        StoneVo *downStone= [self getStoneVoAtCoordX:temp.x coordY:temp.y + 1];
-        if (downStone.type!=stone.type)
+        JewelVo *downStone= [self getStoneVoAtCoordX:temp.coord.x coordY:temp.coord.y + 1];
+        if (downStone.jewelId!=stone.jewelId)
         {
             break;
         }
@@ -199,7 +199,7 @@
     if (checkList.count >= 3)
     {
         BOOL isBoo;
-        for (StoneVo *disposeSv in checkList)
+        for (JewelVo *disposeSv in checkList)
         {
             disposeSv.hDispose = checkList.count; // 横向消除数量
             if (disposeSv.lt)
@@ -225,7 +225,7 @@
 {
     for (NSDictionary *rows in stoneGrid)
     {
-        for (StoneVo *stoneVo in rows)
+        for (JewelVo *stoneVo in rows)
         {
             stoneVo.disposeRight = NO;
             stoneVo.disposeTop = NO;
@@ -243,13 +243,15 @@
 }
 
 ///???
--(void) resetDisposeTop:(StoneVo*)stone
+-(void) resetDisposeTop:(JewelVo*)stone
 {
-    StoneVo *temp = stone;
-    while(temp.y - 1 >= 0)
+    JewelVo *temp = stone;
+    
+    // 向上检查
+    while(temp.coord.y - 1 >= 0)
     {
-        StoneVo *upStone = [self getStoneVoAtCoordX:temp.x coordY:temp.y -1];
-        if (upStone.type != stone.type)
+        JewelVo *upStone = [self getStoneVoAtCoordX:temp.coord.x coordY:temp.coord.y -1];
+        if (upStone.jewelId != stone.jewelId)
         {
             break;
         }
@@ -258,10 +260,12 @@
         temp = upStone;
     }
     temp = stone;
-    while (temp.y+1 <8)
+    
+    // 向下检查
+    while (temp.coord.y+1 <kStoneGridHeight)
     {
-        StoneVo *downStone = [self getStoneVoAtCoordX:temp.x coordY:temp.y +  1];
-        if (downStone.type != stone.type)
+        JewelVo *downStone = [self getStoneVoAtCoordX:temp.coord.x coordY:temp.coord.y +  1];
+        if (downStone.jewelId != stone.jewelId)
         {
             break;
         }
@@ -271,13 +275,13 @@
     }
 }
 
--(void) resetDisposeRight:(StoneVo*)stone
+-(void) resetDisposeRight:(JewelVo*)stone
 {
-    StoneVo *temp = stone;
-    while(temp.x - 1 >= 0)
+    JewelVo *temp = stone;
+    while(temp.coord.x - 1 >= 0)
     {
-        StoneVo *leftStone = [self getStoneVoAtCoordX:temp.x-1 coordY:temp.y];
-        if (leftStone.type != stone.type)
+        JewelVo *leftStone = [self getStoneVoAtCoordX:temp.coord.x-1 coordY:temp.coord.y];
+        if (leftStone.jewelId != stone.jewelId)
         {
             break;
         }
@@ -286,10 +290,10 @@
         temp = leftStone;
     }
     temp = stone;
-    while (temp.x+1 <5)
+    while (temp.coord.x+1 <5)
     {
-        StoneVo *rightStone = [self getStoneVoAtCoordX:temp.x+1 coordY:temp.y];
-        if (rightStone.type != stone.type)
+        JewelVo *rightStone = [self getStoneVoAtCoordX:temp.coord.x+1 coordY:temp.coord.y];
+        if (rightStone.jewelId != stone.jewelId)
         {
             break;
         }

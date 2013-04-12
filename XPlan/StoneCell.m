@@ -8,12 +8,12 @@
 
 #import "StoneCell.h"
 #import "StonePanel.h"
-#import "StoneItem.h"
-#import "StoneVo.h"
-#import "StoneController.h"
+#import "StoneSprite.h"
+#import "JewelVo.h"
+#import "StoneManager.h"
 
 @implementation StoneCell
-@synthesize panel,coord,stoneId,stoneItem,comingStoneId;
+@synthesize panel,coord,jewelId,stoneItem,comingStoneId;
 
 -(id) initWithStonePanel:(StonePanel *)thePanel coord:(CGPoint)theCoord
 {
@@ -28,24 +28,24 @@
 
 -(void) dealloc
 {
-    [stoneId release];
+    [jewelId release];
     [comingStoneId release];
     [super dealloc];
 }
 
--(StoneItem*) stoneItem
+-(StoneSprite*) stoneSprite
 {
-    if (stoneId)
+    if (jewelId)
     {
-        return [panel getStoneItem:stoneId];
+        return [panel getStoneSprite:jewelId];
     }
     
     return nil;
 }
 
--(void) setStoneItem:(StoneItem *)value
+-(void) setStoneItem:(StoneSprite *)value
 {
-    self.stoneId = value.stoneId;
+    self.jewelId = value.jewelId;
 }
 
 @end

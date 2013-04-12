@@ -8,9 +8,9 @@
 
 #import "StoneAction.h"
 #import "StonePanel.h"
-#import "StoneController.h"
-#import "StoneItem.h"
-#import "StoneVo.h"
+#import "StoneManager.h"
+#import "StoneSprite.h"
+#import "JewelVo.h"
 
 @implementation StoneAction
 

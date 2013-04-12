@@ -10,7 +10,7 @@
 #import "Constants.h"
 #import "GameController.h"
 #import "PlayerInfo.h"
-#import "StoneVo.h"
+#import "JewelVo.h"
 #import "FighterVo.h"
 #import "ServerDataEncoder.h"
 #import "ServerDataDecoder.h"

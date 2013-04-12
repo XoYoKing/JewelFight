@@ -29,7 +29,7 @@
 -(void) execute
 {
     // 清理全部宝石
-    [stonePanel clearAllStoneItems];
+    [stonePanel clearAllStoneSprites];
 }
 
 @end

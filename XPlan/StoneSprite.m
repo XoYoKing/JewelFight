@@ -6,8 +6,8 @@
 //  Copyright (c) 2013 Hex. All rights reserved.
 //
 
-#import "StoneItem.h"
-#import "StoneVo.h"
+#import "StoneSprite.h"
+#import "JewelVo.h"
 #import "GameController.h"
 #import "StoneCell.h"
 #import "StonePanel.h"
@@ -15,17 +15,17 @@
 #import "GameController.h"
 
 
-@interface StoneItem()
+@interface StoneSprite()
 
 -(void) updateGraphic;
 
 @end
 
-@implementation StoneItem
+@implementation StoneSprite
 
-@synthesize stoneId, stoneVo,coord,stoneSize,state,stonePanel;
+@synthesize jewelId, stoneVo,coord,stoneSize,state,stonePanel;
 
--(id) initWithStonePanel:(StonePanel *)thePanel stoneVo:(StoneVo *)sd
+-(id) initWithStonePanel:(StonePanel *)thePanel stoneVo:(JewelVo *)sd
 {
     if ((self = [super init]))
     {
@@ -48,7 +48,7 @@
 /// 获取对应素材配置文件
 -(KITProfile*) getProfile
 {
-    return [[GameController sharedController] getStoneProfileWithType:stoneVo.type];
+    return [KITProfile profileWithName:[NSString stringWithFormat:@"stone%d_config.plist",stoneVo.jewelId]];
 }
 
 /// 获取宝石格子
@@ -161,7 +161,7 @@
     }
 
     // 获取掉落坐标
-    CGPoint targetPos = [self.stonePanel cellCoordToPosition:ccp(stoneVo.x,stoneVo.toY)];
+    CGPoint targetPos = [self.stonePanel cellCoordToPosition:stoneVo.coord];
 
     // 执行掉落动作
     [self runAction:[CCSequence actions:
@@ -189,16 +189,14 @@
 {
     KITProfile *profile = [self getProfile];
     
-    NSString *clipKey = [NSString stringWithFormat:@"stone_%@",stoneVo.type];
-    
     // 显示底图
     if (!clip)
     {
-        clip = [[EffectSprite alloc] initWithSpriteFrame:[profile spriteFrameForKey:clipKey]];
+        clip = [[EffectSprite alloc] initWithSpriteFrame:[profile spriteFrameForKey:@"clip"]];
     }
     else
     {
-        [clip setDisplayFrame:[profile spriteFrameForKey:clipKey]];
+        [clip setDisplayFrame:[profile spriteFrameForKey:@"clip"]];
     }
 }
 
@@ -292,9 +290,9 @@
 
 -(void) setStoneId:(NSString *)value
 {
-    [stoneId release];
-    stoneId = [value retain];
-    NSArray *arr = [stoneId componentsSeparatedByString:@"_"];
+    [jewelId release];
+    jewelId = [value retain];
+    NSArray *arr = [jewelId componentsSeparatedByString:@"_"];
     coord = ccp([[arr objectAtIndex:0] intValue],[[arr objectAtIndex:1] intValue]);
     if (initAnimation)
     {
@@ -326,7 +324,7 @@
 /// 移动
 -(void) move
 {
-    CGPoint targetPos = [stonePanel cellCoordToPosition:ccp(self.stoneVo.x,self.stoneVo.y)];
+    CGPoint targetPos = [stonePanel cellCoordToPosition:self.stoneVo.coord];
     CCAction *action = [CCMoveTo actionWithDuration:0.6f position:targetPos];
     action.tag = kStoneItemActionMove;
     
@@ -417,7 +415,7 @@
     else
     {
         // 
-        [self setStoneId:stoneVo.stoneId];
+        [self setStoneId:stoneVo.jewelId];
         
         isPlaying = NO;
     }

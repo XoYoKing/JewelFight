@@ -10,7 +10,7 @@
 #import "iPhoneGameKit.h"
 #import "EffectSprite.h"
 
-@class StoneVo,StonePanel;
+@class JewelVo,StonePanel;
 
 #define kStoneItemStateIdle 0 // 默认状态
 #define kStoneItemStateMoving 1 // 移动状态
@@ -18,11 +18,11 @@
 #define kStoneItemActionMove 50 // 宝石在移动
 
 /// 宝石节点
-@interface StoneItem : CCNode
+@interface StoneSprite : CCNode
 {
     StonePanel *stonePanel; // 隶属宝石面板
-    NSString *stoneId; // 宝石标识
-    StoneVo *stoneVo; // 对应宝石数据
+    NSString *jewelId; // 宝石标识
+    JewelVo *stoneVo; // 对应宝石数据
     EffectSprite *clip; // 宝石位图
     EffectSprite *specialClip; // 特殊宝石效果
     NSMutableDictionary *effects; // 宝石效果
@@ -39,10 +39,10 @@
 @property (readonly,nonatomic) StonePanel *stonePanel;
 
 /// 宝石标识
-@property (readwrite,nonatomic,retain) NSString *stoneId;
+@property (readwrite,nonatomic,retain) NSString *jewelId;
 
 /// 宝石数据
-@property (readonly,nonatomic) StoneVo *stoneVo;
+@property (readonly,nonatomic) JewelVo *stoneVo;
 
 /// 所处坐标
 @property (readonly,nonatomic) CGPoint coord;
@@ -54,7 +54,7 @@
 @property (readwrite,nonatomic) int state;
 
 /// 初始化
--(id) initWithStonePanel:(StonePanel*)thePanel stoneVo:(StoneVo*)sd;
+-(id) initWithStonePanel:(StonePanel*)thePanel stoneVo:(JewelVo*)sd;
 
 /// 逻辑更新
 -(BOOL) update:(ccTime)delta;

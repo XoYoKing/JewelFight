@@ -31,7 +31,6 @@
 		E25E8A7F1714638400DF4CD7 /* pvp_loading.ccbi in Resources */ = {isa = PBXBuildFile; fileRef = E25E8A7E1714638400DF4CD7 /* pvp_loading.ccbi */; };
 		E277FD591715885F005E50C0 /* PvPLoadingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E277FD581715885F005E50C0 /* PvPLoadingManager.m */; };
 		E277FD5F1715A296005E50C0 /* PvPFightManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E277FD5E1715A296005E50C0 /* PvPFightManager.m */; };
-		E27A71721716AD3F00270DD5 /* MockGameServer.m in Sources */ = {isa = PBXBuildFile; fileRef = E27A71711716AD3F00270DD5 /* MockGameServer.m */; };
 		E2832CB11712F54400F4F0E1 /* PvPController.m in Sources */ = {isa = PBXBuildFile; fileRef = E2832CB01712F54400F4F0E1 /* PvPController.m */; };
 		E2832CCF1712FC9000F4F0E1 /* fireStones1.png in Resources */ = {isa = PBXBuildFile; fileRef = E2832CB51712FC9000F4F0E1 /* fireStones1.png */; };
 		E2832CD01712FC9000F4F0E1 /* fireStones2.png in Resources */ = {isa = PBXBuildFile; fileRef = E2832CB61712FC9000F4F0E1 /* fireStones2.png */; };
@@ -54,6 +53,7 @@
 		E2832CE21712FC9000F4F0E1 /* stones5.png in Resources */ = {isa = PBXBuildFile; fileRef = E2832CC81712FC9000F4F0E1 /* stones5.png */; };
 		E2832CE31712FC9000F4F0E1 /* stones6.png in Resources */ = {isa = PBXBuildFile; fileRef = E2832CC91712FC9000F4F0E1 /* stones6.png */; };
 		E2832CE41712FC9000F4F0E1 /* stones7.png in Resources */ = {isa = PBXBuildFile; fileRef = E2832CCA1712FC9000F4F0E1 /* stones7.png */; };
+		E286A61A1718497B00EAFAB4 /* stones_config.plist in Resources */ = {isa = PBXBuildFile; fileRef = E286A6191718497B00EAFAB4 /* stones_config.plist */; };
 		E292A1A4170F21B500859F7B /* StoneCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E292A1A3170F21B500859F7B /* StoneCell.m */; };
 		E2B4C359170782EB00E11F22 /* GridUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E2B4C358170782EB00E11F22 /* GridUtil.m */; };
 		E2B4C35C1707846A00E11F22 /* LocalSave.m in Sources */ = {isa = PBXBuildFile; fileRef = E2B4C35B1707846A00E11F22 /* LocalSave.m */; };
@@ -80,7 +80,6 @@
 		E2CFF303170326D1006D2A60 /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = E2CFF302170326D1006D2A60 /* iTunesArtwork */; };
 		E2CFF4BE170340C7006D2A60 /* GameController.m in Sources */ = {isa = PBXBuildFile; fileRef = E2CFF4BD170340C7006D2A60 /* GameController.m */; };
 		E2CFF4D517035344006D2A60 /* XPlan.m in Sources */ = {isa = PBXBuildFile; fileRef = E2CFF4D417035344006D2A60 /* XPlan.m */; };
-		E2D12C531713E0160025296D /* FightCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = E2D12C521713E0160025296D /* FightCommand.m */; };
 		E2D12C5D1713E43B0025296D /* FightUI.m in Sources */ = {isa = PBXBuildFile; fileRef = E2D12C5C1713E43B0025296D /* FightUI.m */; };
 		E2D12C681713E6810025296D /* PvPOpponentStonePanel.m in Sources */ = {isa = PBXBuildFile; fileRef = E2D12C651713E6810025296D /* PvPOpponentStonePanel.m */; };
 		E2D12C691713E6810025296D /* PvPPlayerStonePanel.m in Sources */ = {isa = PBXBuildFile; fileRef = E2D12C671713E6810025296D /* PvPPlayerStonePanel.m */; };
@@ -135,15 +134,18 @@
 		E2DD8810170D9EC300F2D065 /* StoneAction.m in Sources */ = {isa = PBXBuildFile; fileRef = E2DD880F170D9EC300F2D065 /* StoneAction.m */; };
 		E2DD8813170D9ED300F2D065 /* StoneActionQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = E2DD8812170D9ED300F2D065 /* StoneActionQueue.m */; };
 		E2DD8816170D9F7800F2D065 /* StoneAddAction.m in Sources */ = {isa = PBXBuildFile; fileRef = E2DD8815170D9F7800F2D065 /* StoneAddAction.m */; };
-		E2DD881D170DA13000F2D065 /* StoneController.m in Sources */ = {isa = PBXBuildFile; fileRef = E2DD881C170DA13000F2D065 /* StoneController.m */; };
+		E2DD881D170DA13000F2D065 /* StoneManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E2DD881C170DA13000F2D065 /* StoneManager.m */; };
 		E2E2665817044C2600550425 /* EquipmentVo.m in Sources */ = {isa = PBXBuildFile; fileRef = E2E2665117044C2600550425 /* EquipmentVo.m */; };
 		E2E2665917044C2600550425 /* FighterVo.m in Sources */ = {isa = PBXBuildFile; fileRef = E2E2665317044C2600550425 /* FighterVo.m */; };
 		E2E2665A17044C2600550425 /* FriendInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = E2E2665517044C2600550425 /* FriendInfo.m */; };
 		E2E2665B17044C2600550425 /* HeroVo.m in Sources */ = {isa = PBXBuildFile; fileRef = E2E2665717044C2600550425 /* HeroVo.m */; };
-		E2E2666317044C7100550425 /* StoneVo.m in Sources */ = {isa = PBXBuildFile; fileRef = E2E2666217044C7100550425 /* StoneVo.m */; };
+		E2E2666317044C7100550425 /* JewelVo.m in Sources */ = {isa = PBXBuildFile; fileRef = E2E2666217044C7100550425 /* JewelVo.m */; };
 		E2E2666817044DDA00550425 /* TaskData.m in Sources */ = {isa = PBXBuildFile; fileRef = E2E2666717044DDA00550425 /* TaskData.m */; };
 		E2E266701704530100550425 /* InventoryBase.m in Sources */ = {isa = PBXBuildFile; fileRef = E2E2666F1704530100550425 /* InventoryBase.m */; };
 		E2E2667417045A3F00550425 /* ItemData.m in Sources */ = {isa = PBXBuildFile; fileRef = E2E2667317045A3F00550425 /* ItemData.m */; };
+		E2EBCFF51717EB5B00567AB8 /* JewelFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = E2EBCFF41717EB5B00567AB8 /* JewelFactory.m */; };
+		E2EC6B7C17183B9C0033F81E /* MockGameServer.m in Sources */ = {isa = PBXBuildFile; fileRef = E2EC6B7B17183B9C0033F81E /* MockGameServer.m */; };
+		E2EC6B80171841440033F81E /* FightCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = E2EC6B7F171841440033F81E /* FightCommand.m */; };
 		E2F19FB817054E9A009F0C8B /* UserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = E2F19FB717054E9A009F0C8B /* UserInfo.m */; };
 		E2F19FBB17054FB8009F0C8B /* PlayerInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = E2F19FBA17054FB8009F0C8B /* PlayerInfo.m */; };
 		E2F19FBF1705515A009F0C8B /* GameLoginLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = E2F19FBE1705515A009F0C8B /* GameLoginLayer.m */; };
@@ -319,7 +321,7 @@
 		E2FAFE9317076F5C00868C63 /* BagItem.m in Sources */ = {isa = PBXBuildFile; fileRef = E2FAFE9217076F5C00868C63 /* BagItem.m */; };
 		E2FAFE9617076FE800868C63 /* PopupWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = E2FAFE9517076FE800868C63 /* PopupWindow.m */; };
 		E2FAFE991707718D00868C63 /* BagWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = E2FAFE981707718D00868C63 /* BagWindow.m */; };
-		E2FAFEA4170773C100868C63 /* StoneItem.m in Sources */ = {isa = PBXBuildFile; fileRef = E2FAFEA3170773C100868C63 /* StoneItem.m */; };
+		E2FAFEA4170773C100868C63 /* StoneSprite.m in Sources */ = {isa = PBXBuildFile; fileRef = E2FAFEA3170773C100868C63 /* StoneSprite.m */; };
 		E2FAFEA71707751A00868C63 /* ViewStoneController.m in Sources */ = {isa = PBXBuildFile; fileRef = E2FAFEA61707751900868C63 /* ViewStoneController.m */; };
 		E2FAFEAD170777F700868C63 /* RoleStonePanel.m in Sources */ = {isa = PBXBuildFile; fileRef = E2FAFEAC170777F700868C63 /* RoleStonePanel.m */; };
 		E2FAFEB01707780300868C63 /* DoStonePanel.m in Sources */ = {isa = PBXBuildFile; fileRef = E2FAFEAF1707780300868C63 /* DoStonePanel.m */; };
@@ -378,8 +380,6 @@
 		E277FD581715885F005E50C0 /* PvPLoadingManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PvPLoadingManager.m; sourceTree = "<group>"; };
 		E277FD5D1715A296005E50C0 /* PvPFightManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PvPFightManager.h; sourceTree = "<group>"; };
 		E277FD5E1715A296005E50C0 /* PvPFightManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PvPFightManager.m; sourceTree = "<group>"; };
-		E27A71701716AD3F00270DD5 /* MockGameServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MockGameServer.h; sourceTree = SOURCE_ROOT; };
-		E27A71711716AD3F00270DD5 /* MockGameServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MockGameServer.m; sourceTree = SOURCE_ROOT; };
 		E2832CAF1712F54400F4F0E1 /* PvPController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PvPController.h; sourceTree = "<group>"; };
 		E2832CB01712F54400F4F0E1 /* PvPController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PvPController.m; sourceTree = "<group>"; };
 		E2832CB51712FC9000F4F0E1 /* fireStones1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fireStones1.png; sourceTree = "<group>"; };
@@ -403,6 +403,7 @@
 		E2832CC81712FC9000F4F0E1 /* stones5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stones5.png; sourceTree = "<group>"; };
 		E2832CC91712FC9000F4F0E1 /* stones6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stones6.png; sourceTree = "<group>"; };
 		E2832CCA1712FC9000F4F0E1 /* stones7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stones7.png; sourceTree = "<group>"; };
+		E286A6191718497B00EAFAB4 /* stones_config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = stones_config.plist; sourceTree = "<group>"; };
 		E292A1A2170F21B500859F7B /* StoneCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoneCell.h; sourceTree = "<group>"; };
 		E292A1A3170F21B500859F7B /* StoneCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoneCell.m; sourceTree = "<group>"; };
 		E2B4C357170782EB00E11F22 /* GridUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GridUtil.h; sourceTree = "<group>"; };
@@ -439,8 +440,6 @@
 		E2CFF4BD170340C7006D2A60 /* GameController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameController.m; sourceTree = "<group>"; };
 		E2CFF4D317035344006D2A60 /* XPlan.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XPlan.h; sourceTree = "<group>"; };
 		E2CFF4D417035344006D2A60 /* XPlan.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XPlan.m; sourceTree = "<group>"; };
-		E2D12C511713E0150025296D /* FightCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FightCommand.h; sourceTree = SOURCE_ROOT; };
-		E2D12C521713E0160025296D /* FightCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FightCommand.m; sourceTree = SOURCE_ROOT; };
 		E2D12C5B1713E43A0025296D /* FightUI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FightUI.h; sourceTree = "<group>"; };
 		E2D12C5C1713E43B0025296D /* FightUI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FightUI.m; sourceTree = "<group>"; };
 		E2D12C641713E6810025296D /* PvPOpponentStonePanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PvPOpponentStonePanel.h; sourceTree = "<group>"; };
@@ -529,8 +528,8 @@
 		E2DD8812170D9ED300F2D065 /* StoneActionQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoneActionQueue.m; sourceTree = "<group>"; };
 		E2DD8814170D9F7800F2D065 /* StoneAddAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoneAddAction.h; sourceTree = "<group>"; };
 		E2DD8815170D9F7800F2D065 /* StoneAddAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoneAddAction.m; sourceTree = "<group>"; };
-		E2DD881B170DA13000F2D065 /* StoneController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoneController.h; sourceTree = "<group>"; };
-		E2DD881C170DA13000F2D065 /* StoneController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoneController.m; sourceTree = "<group>"; };
+		E2DD881B170DA13000F2D065 /* StoneManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoneManager.h; sourceTree = "<group>"; };
+		E2DD881C170DA13000F2D065 /* StoneManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoneManager.m; sourceTree = "<group>"; };
 		E2E2665017044C2600550425 /* EquipmentVo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EquipmentVo.h; sourceTree = "<group>"; };
 		E2E2665117044C2600550425 /* EquipmentVo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EquipmentVo.m; sourceTree = "<group>"; };
 		E2E2665217044C2600550425 /* FighterVo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FighterVo.h; sourceTree = "<group>"; };
@@ -539,8 +538,8 @@
 		E2E2665517044C2600550425 /* FriendInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendInfo.m; sourceTree = "<group>"; };
 		E2E2665617044C2600550425 /* HeroVo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeroVo.h; sourceTree = "<group>"; };
 		E2E2665717044C2600550425 /* HeroVo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeroVo.m; sourceTree = "<group>"; };
-		E2E2666117044C7100550425 /* StoneVo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoneVo.h; sourceTree = "<group>"; };
-		E2E2666217044C7100550425 /* StoneVo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoneVo.m; sourceTree = "<group>"; };
+		E2E2666117044C7100550425 /* JewelVo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JewelVo.h; sourceTree = "<group>"; };
+		E2E2666217044C7100550425 /* JewelVo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JewelVo.m; sourceTree = "<group>"; };
 		E2E2666617044DDA00550425 /* TaskData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskData.h; sourceTree = "<group>"; };
 		E2E2666717044DDA00550425 /* TaskData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskData.m; sourceTree = "<group>"; };
 		E2E2666A17044E2500550425 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
@@ -548,6 +547,12 @@
 		E2E2666F1704530100550425 /* InventoryBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InventoryBase.m; sourceTree = "<group>"; };
 		E2E2667217045A3F00550425 /* ItemData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemData.h; sourceTree = "<group>"; };
 		E2E2667317045A3F00550425 /* ItemData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemData.m; sourceTree = "<group>"; };
+		E2EBCFF31717EB5B00567AB8 /* JewelFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JewelFactory.h; sourceTree = "<group>"; };
+		E2EBCFF41717EB5B00567AB8 /* JewelFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JewelFactory.m; sourceTree = "<group>"; };
+		E2EC6B7A17183B9C0033F81E /* MockGameServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MockGameServer.h; sourceTree = "<group>"; };
+		E2EC6B7B17183B9C0033F81E /* MockGameServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MockGameServer.m; sourceTree = "<group>"; };
+		E2EC6B7E171841440033F81E /* FightCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FightCommand.h; path = XPlan/FightCommand.h; sourceTree = SOURCE_ROOT; };
+		E2EC6B7F171841440033F81E /* FightCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FightCommand.m; path = XPlan/FightCommand.m; sourceTree = SOURCE_ROOT; };
 		E2F19FB617054E9A009F0C8B /* UserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfo.h; sourceTree = "<group>"; };
 		E2F19FB717054E9A009F0C8B /* UserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfo.m; sourceTree = "<group>"; };
 		E2F19FB917054FB8009F0C8B /* PlayerInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerInfo.h; sourceTree = "<group>"; };
@@ -918,8 +923,8 @@
 		E2FAFE9517076FE800868C63 /* PopupWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopupWindow.m; sourceTree = "<group>"; };
 		E2FAFE971707718D00868C63 /* BagWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BagWindow.h; sourceTree = "<group>"; };
 		E2FAFE981707718D00868C63 /* BagWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BagWindow.m; sourceTree = "<group>"; };
-		E2FAFEA2170773C100868C63 /* StoneItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoneItem.h; sourceTree = "<group>"; };
-		E2FAFEA3170773C100868C63 /* StoneItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoneItem.m; sourceTree = "<group>"; };
+		E2FAFEA2170773C100868C63 /* StoneSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoneSprite.h; sourceTree = "<group>"; };
+		E2FAFEA3170773C100868C63 /* StoneSprite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoneSprite.m; sourceTree = "<group>"; };
 		E2FAFEA51707751900868C63 /* ViewStoneController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewStoneController.h; sourceTree = "<group>"; };
 		E2FAFEA61707751900868C63 /* ViewStoneController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewStoneController.m; sourceTree = "<group>"; };
 		E2FAFEAB170777F700868C63 /* RoleStonePanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoleStonePanel.h; sourceTree = "<group>"; };
@@ -976,12 +981,9 @@
 		E248691E1709E700007D3FF7 /* PvP */ = {
 			isa = PBXGroup;
 			children = (
-				E277FD5B17159FCD005E50C0 /* Loading */,
 				E277FD5C17159FDD005E50C0 /* Fight */,
 				E2D6C99C17089D25008A38B2 /* PvPScene.h */,
 				E2D6C99D17089D25008A38B2 /* PvPScene.m */,
-				E2832CAF1712F54400F4F0E1 /* PvPController.h */,
-				E2832CB01712F54400F4F0E1 /* PvPController.m */,
 			);
 			name = PvP;
 			sourceTree = "<group>";
@@ -1021,15 +1023,6 @@
 			name = Loading;
 			sourceTree = "<group>";
 		};
-		E277FD5B17159FCD005E50C0 /* Loading */ = {
-			isa = PBXGroup;
-			children = (
-				E277FD571715885F005E50C0 /* PvPLoadingManager.h */,
-				E277FD581715885F005E50C0 /* PvPLoadingManager.m */,
-			);
-			name = Loading;
-			sourceTree = "<group>";
-		};
 		E277FD5C17159FDD005E50C0 /* Fight */ = {
 			isa = PBXGroup;
 			children = (
@@ -1039,19 +1032,8 @@
 				E2D6C9A017089D79008A38B2 /* PvPHudLayer.m */,
 				E2D6C9A217089D95008A38B2 /* PvPLayer.h */,
 				E2D6C9A317089D95008A38B2 /* PvPLayer.m */,
-				E277FD5D1715A296005E50C0 /* PvPFightManager.h */,
-				E277FD5E1715A296005E50C0 /* PvPFightManager.m */,
 			);
 			name = Fight;
-			sourceTree = "<group>";
-		};
-		E27A716F1716AC5300270DD5 /* Mock */ = {
-			isa = PBXGroup;
-			children = (
-				E27A71701716AD3F00270DD5 /* MockGameServer.h */,
-				E27A71711716AD3F00270DD5 /* MockGameServer.m */,
-			);
-			name = Mock;
 			sourceTree = "<group>";
 		};
 		E2832CB41712FC9000F4F0E1 /* stone */ = {
@@ -1166,6 +1148,8 @@
 		E2CFF2EB170326D1006D2A60 /* XPlan */ = {
 			isa = PBXGroup;
 			children = (
+				E2EC6B7917183B9C0033F81E /* Mock */,
+				E2D52CAD1717BE4300135A6E /* Controller */,
 				E2AC078B170DBAF7004A33D9 /* View */,
 				E2FA033C170586AD00D46D47 /* Common */,
 				E2E2666917044E0400550425 /* Constants */,
@@ -1280,6 +1264,27 @@
 			);
 			name = PvP;
 			path = Resources/PvP;
+			sourceTree = "<group>";
+		};
+		E2D52CAD1717BE4300135A6E /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				E2D52CAE1717BE4900135A6E /* PvP */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		E2D52CAE1717BE4900135A6E /* PvP */ = {
+			isa = PBXGroup;
+			children = (
+				E2832CAF1712F54400F4F0E1 /* PvPController.h */,
+				E2832CB01712F54400F4F0E1 /* PvPController.m */,
+				E277FD571715885F005E50C0 /* PvPLoadingManager.h */,
+				E277FD581715885F005E50C0 /* PvPLoadingManager.m */,
+				E277FD5D1715A296005E50C0 /* PvPFightManager.h */,
+				E277FD5E1715A296005E50C0 /* PvPFightManager.m */,
+			);
+			name = PvP;
 			sourceTree = "<group>";
 		};
 		E2D6C98C17085437008A38B2 /* Chat */ = {
@@ -1409,8 +1414,8 @@
 				E2FAFEC11707786200868C63 /* Item */,
 				E2FAFEA11707736F00868C63 /* Panel */,
 				E2DD880D170D9E0200F2D065 /* Actions */,
-				E2DD881B170DA13000F2D065 /* StoneController.h */,
-				E2DD881C170DA13000F2D065 /* StoneController.m */,
+				E2DD881B170DA13000F2D065 /* StoneManager.h */,
+				E2DD881C170DA13000F2D065 /* StoneManager.m */,
 				E2FAFEA51707751900868C63 /* ViewStoneController.h */,
 				E2FAFEA61707751900868C63 /* ViewStoneController.m */,
 			);
@@ -1420,7 +1425,6 @@
 		E2E26637170448CB00550425 /* Net */ = {
 			isa = PBXGroup;
 			children = (
-				E27A716F1716AC5300270DD5 /* Mock */,
 				E24D35F4170B66B60055D23E /* Common */,
 				E2FAFE6E17075AD200868C63 /* Commands */,
 				E2FA035B1705EDB300D46D47 /* Server */,
@@ -1480,8 +1484,10 @@
 		E2E2666017044C5700550425 /* Stone */ = {
 			isa = PBXGroup;
 			children = (
-				E2E2666117044C7100550425 /* StoneVo.h */,
-				E2E2666217044C7100550425 /* StoneVo.m */,
+				E2E2666117044C7100550425 /* JewelVo.h */,
+				E2E2666217044C7100550425 /* JewelVo.m */,
+				E2EBCFF31717EB5B00567AB8 /* JewelFactory.h */,
+				E2EBCFF41717EB5B00567AB8 /* JewelFactory.m */,
 			);
 			name = Stone;
 			sourceTree = "<group>";
@@ -1521,6 +1527,16 @@
 				E2E2667317045A3F00550425 /* ItemData.m */,
 			);
 			name = Item;
+			sourceTree = "<group>";
+		};
+		E2EC6B7917183B9C0033F81E /* Mock */ = {
+			isa = PBXGroup;
+			children = (
+				E2EC6B7A17183B9C0033F81E /* MockGameServer.h */,
+				E2EC6B7B17183B9C0033F81E /* MockGameServer.m */,
+				E286A6191718497B00EAFAB4 /* stones_config.plist */,
+			);
+			path = Mock;
 			sourceTree = "<group>";
 		};
 		E2F19FAC17053740009F0C8B /* Player */ = {
@@ -2101,6 +2117,8 @@
 		E2FAFE6E17075AD200868C63 /* Commands */ = {
 			isa = PBXGroup;
 			children = (
+				E2EC6B7E171841440033F81E /* FightCommand.h */,
+				E2EC6B7F171841440033F81E /* FightCommand.m */,
 				E24D35F5170B674C0055D23E /* ChatCommand.h */,
 				E24D35F6170B674C0055D23E /* ChatCommand.m */,
 				E24D35F7170B674C0055D23E /* TaskCommand.h */,
@@ -2115,8 +2133,6 @@
 				E24D35DA170B24820055D23E /* BagCommand.m */,
 				E24170F8170C6B1F003B6644 /* PvPCommand.h */,
 				E24170F9170C6B1F003B6644 /* PvPCommand.m */,
-				E2D12C511713E0150025296D /* FightCommand.h */,
-				E2D12C521713E0160025296D /* FightCommand.m */,
 				E2C0F18E170C34F000A699D0 /* CommandListener.h */,
 			);
 			name = Commands;
@@ -2269,8 +2285,8 @@
 		E2FAFEC11707786200868C63 /* Item */ = {
 			isa = PBXGroup;
 			children = (
-				E2FAFEA2170773C100868C63 /* StoneItem.h */,
-				E2FAFEA3170773C100868C63 /* StoneItem.m */,
+				E2FAFEA2170773C100868C63 /* StoneSprite.h */,
+				E2FAFEA3170773C100868C63 /* StoneSprite.m */,
 			);
 			name = Item;
 			sourceTree = "<group>";
@@ -2404,6 +2420,7 @@
 				E2D12CB91713F65A0025296D /* pvp_portrait.plist in Resources */,
 				E2D12CBA1713F65A0025296D /* pvp_portrait.pvr.ccz in Resources */,
 				E25E8A7F1714638400DF4CD7 /* pvp_loading.ccbi in Resources */,
+				E286A61A1718497B00EAFAB4 /* stones_config.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2436,7 +2453,7 @@
 				E2E2665917044C2600550425 /* FighterVo.m in Sources */,
 				E2E2665A17044C2600550425 /* FriendInfo.m in Sources */,
 				E2E2665B17044C2600550425 /* HeroVo.m in Sources */,
-				E2E2666317044C7100550425 /* StoneVo.m in Sources */,
+				E2E2666317044C7100550425 /* JewelVo.m in Sources */,
 				E2E2666817044DDA00550425 /* TaskData.m in Sources */,
 				E2E266701704530100550425 /* InventoryBase.m in Sources */,
 				E2E2667417045A3F00550425 /* ItemData.m in Sources */,
@@ -2605,7 +2622,7 @@
 				E2FAFE9317076F5C00868C63 /* BagItem.m in Sources */,
 				E2FAFE9617076FE800868C63 /* PopupWindow.m in Sources */,
 				E2FAFE991707718D00868C63 /* BagWindow.m in Sources */,
-				E2FAFEA4170773C100868C63 /* StoneItem.m in Sources */,
+				E2FAFEA4170773C100868C63 /* StoneSprite.m in Sources */,
 				E2FAFEA71707751A00868C63 /* ViewStoneController.m in Sources */,
 				E2FAFEAD170777F700868C63 /* RoleStonePanel.m in Sources */,
 				E2FAFEB01707780300868C63 /* DoStonePanel.m in Sources */,
@@ -2661,7 +2678,7 @@
 				E2DD8810170D9EC300F2D065 /* StoneAction.m in Sources */,
 				E2DD8813170D9ED300F2D065 /* StoneActionQueue.m in Sources */,
 				E2DD8816170D9F7800F2D065 /* StoneAddAction.m in Sources */,
-				E2DD881D170DA13000F2D065 /* StoneController.m in Sources */,
+				E2DD881D170DA13000F2D065 /* StoneManager.m in Sources */,
 				E292A1A4170F21B500859F7B /* StoneCell.m in Sources */,
 				E2D3C55B17112B8E00D0B639 /* StoneClearAction.m in Sources */,
 				E2D3C55E1711306100D0B639 /* StoneDisposeAction.m in Sources */,
@@ -2669,7 +2686,6 @@
 				E24308F117117F2F003A7595 /* LoadingLayer.m in Sources */,
 				E24308F81711E056003A7595 /* ServerDataUtil.m in Sources */,
 				E2832CB11712F54400F4F0E1 /* PvPController.m in Sources */,
-				E2D12C531713E0160025296D /* FightCommand.m in Sources */,
 				E2D12C5D1713E43B0025296D /* FightUI.m in Sources */,
 				E2D12C681713E6810025296D /* PvPOpponentStonePanel.m in Sources */,
 				E2D12C691713E6810025296D /* PvPPlayerStonePanel.m in Sources */,
@@ -2678,7 +2694,9 @@
 				E25E8A7D17145A0200DF4CD7 /* HonsterBar.m in Sources */,
 				E277FD591715885F005E50C0 /* PvPLoadingManager.m in Sources */,
 				E277FD5F1715A296005E50C0 /* PvPFightManager.m in Sources */,
-				E27A71721716AD3F00270DD5 /* MockGameServer.m in Sources */,
+				E2EBCFF51717EB5B00567AB8 /* JewelFactory.m in Sources */,
+				E2EC6B7C17183B9C0033F81E /* MockGameServer.m in Sources */,
+				E2EC6B80171841440033F81E /* FightCommand.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

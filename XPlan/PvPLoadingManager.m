@@ -153,17 +153,19 @@
             CCArray *opponentStones = [dict objectForKey:@"opponent_stones"];
             [controller.fightManager handlePlayerStones:playerStones opponentStones:opponentStones];
             
+            step++;
+            [loadingLayer setPercent:100.0f];
+            
             // 请求开始战斗
             [[GameController sharedController].server.pvpCommand requestFightStart];
             
-            step++;
-            [loadingLayer setPercent:(float)step/3.0f * 100.0f];
             break;
         }
             
         // 服务器同意开战
         case SERVER_ACTION_PVP_FIGHT_START:
         {
+            
             // 关闭加载层
             [self closeLoadingLayer];
             

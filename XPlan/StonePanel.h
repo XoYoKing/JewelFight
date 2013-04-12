@@ -10,15 +10,15 @@
 #import "iPhoneGameKit.h"
 #import "EffectSprite.h"
 
-@class StoneItem,StoneVo,StoneController,StoneCell,StoneAction;
+@class StoneSprite,JewelVo,StoneManager,StoneCell,StoneAction;
 
 /// 宝石面板
 @interface StonePanel : CCLayer
 {
     CCLayer *effectLayer; // 效果层
     
-    StoneController *controller; // 宝石面板控制器
-    NSMutableDictionary *allStoneItemDict; // 宝石字典
+    StoneManager *controller; // 宝石面板控制器
+    NSMutableDictionary *allStoneSpriteDict; // 宝石字典
     CCArray *allStoneItems; // 宝石集合
     CCArray *cellGrid; // 宝石格子
     CGSize totalSize; // 总像素宽高
@@ -46,19 +46,19 @@
 #pragma mark -
 #pragma mark StoneItem
 
--(StoneItem*) getStoneItem:(NSString*)stoneId;
+-(StoneSprite*) getStoneSprite:(NSString*)jewelId;
 
 /// 创建宝石
--(void) createStoneItem:(StoneVo*)stoneVo;
+-(void) createStoneSprite:(JewelVo*)stoneVo;
 
 /// 添加宝石
--(void) addStoneItem:(StoneItem*)stoneItem;
+-(void) addStoneSprite:(StoneSprite*)stoneSprite;
 
 /// 删除宝石
--(void) removeStoneItem:(StoneItem*)stoneItem;
+-(void) removeStoneItem:(StoneSprite*)stoneItem;
 
 /// 清理全部宝石
--(void) clearAllStoneItems;
+-(void) clearAllStoneSprites;
 
 #pragma mark -
 #pragma mark StoneCell

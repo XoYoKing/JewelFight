@@ -26,7 +26,7 @@
 -(void) requestFightStart;
 
 /// 请求交换宝石
--(void) requestSwapStoneWithActionId:(long)actionId stoneId1:(NSString*)stoneId1 stoneId2:(NSString*)stoneId2;
+-(void) requestSwapStoneWithActionId:(long)actionId jewelId1:(NSString*)jewelId1 jewelId2:(NSString*)jewelId2;
 
 
 /// 死局, 请求新的宝石队列
