@@ -64,7 +64,7 @@
     [[GameController sharedController].server send:SERVER_GAME data:data];
 }
 
--(void) requestSwapStoneWithActionId:(long)actionId jewelId1:(NSString*)jewelId1 jewelId2:(NSString*)jewelId2
+-(void) requestSwapJewelWithActionId:(long)actionId jewelId1:(NSString*)jewelId1 jewelId2:(NSString*)jewelId2
 {
     NSMutableData *data = [NSMutableData data];
     ServerDataEncoder *encoder = [[ServerDataEncoder alloc] initWithData:data];
@@ -134,7 +134,7 @@
 }
 
 /// 消除宝石
--(void) requestDisposeWithActionId:(long)actionId continueDispose:(int)continueDispose disposeStoneIds:(CCArray*)disposeStoneIds
+-(void) requestDisposeWithActionId:(long)actionId continueDispose:(int)continueDispose disposeJewelIds:(CCArray*)disposeJewelIds
 {
     NSMutableData *data = [NSMutableData data];
     ServerDataEncoder *encoder = [[ServerDataEncoder alloc] initWithData:data];
@@ -143,9 +143,9 @@
     [encoder writeInt8:3];
     [encoder writeInt64:actionId];
     [encoder writeInt32:continueDispose];
-    [encoder writeInt32:disposeStoneIds.count];
+    [encoder writeInt32:disposeJewelIds.count];
     
-    for (NSString *jewelId in disposeStoneIds)
+    for (NSString *jewelId in disposeJewelIds)
     {
         [encoder writeUTF:jewelId];
     }
@@ -199,7 +199,7 @@
         // 接收PvP宝石初始化信息 
         case SERVER_ACTION_PVP_INIT_STONES:
         {
-            [self handleInitStones:data];
+            [self handleInitJewels:data];
             break;
         }
         // 开始战斗
@@ -211,14 +211,14 @@
         // 交换宝石位置
         case SERVER_ACTION_PVP_SWAP_STONES:
         {
-            [self handleSwapStones:data];
+            [self handleSwapJewels:data];
         }
     }
 }
 
 
 /// 处理PvP初始化宝石队列
--(void) handleInitStones:(ServerDataDecoder*)data
+-(void) handleInitJewels:(ServerDataDecoder*)data
 {
     // autorelease
     NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithCapacity:2];
@@ -226,25 +226,25 @@
     // 先获取玩家宝石数量
     // 数量
     int amount = [data readInt32]; //
-    CCArray *playerStones = [[CCArray alloc] initWithCapacity:amount];
+    CCArray *playerJewels = [[CCArray alloc] initWithCapacity:amount];
     for (int i = 0;i < amount; i++)
     {
-        JewelVo *stoneVo = [[JewelVo alloc] init];
-        [FightCommand populateJewelVo:stoneVo data:data];
-        [playerStones addObject:stoneVo];
+        JewelVo *jewelVo = [[JewelVo alloc] init];
+        [FightCommand populateJewelVo:jewelVo data:data];
+        [playerJewels addObject:jewelVo];
     }
-    [dict setObject:playerStones forKey:@"player_stones"];
+    [dict setObject:playerJewels forKey:@"player_jewels"];
     
     // 再获取对手宝石数量
     amount = [data readInt32];
-    CCArray *opponentStones = [[CCArray alloc] initWithCapacity:amount];
+    CCArray *opponentJewels = [[CCArray alloc] initWithCapacity:amount];
     for (int i = 0;i < amount; i++)
     {
-        JewelVo *stoneVo = [[JewelVo alloc] init];
-        [FightCommand populateJewelVo:stoneVo data:data];
-        [opponentStones addObject:stoneVo];
+        JewelVo *jewelVo = [[JewelVo alloc] init];
+        [FightCommand populateJewelVo:jewelVo data:data];
+        [opponentJewels addObject:jewelVo];
     }
-    [dict setObject:opponentStones forKey:@"opponent_stones"];
+    [dict setObject:opponentJewels forKey:@"opponent_jewels"];
     
     [self responseToListenerWithActionId:SERVER_ACTION_PVP_INIT_STONES object:dict];
 }
@@ -299,19 +299,19 @@
 
 
 /// 处理交换宝石位置
--(void) handleSwapStones:(ServerDataDecoder*)data
+-(void) handleSwapJewels:(ServerDataDecoder*)data
 {
     long userId = [data readInt64]; // 用户标识
     long actionId = [data readInt64]; // 宝石动作标识
-    NSString *stone1 = [data readUTF];
-    NSString *stone2 = [data readUTF];
+    NSString *jewel1 = [data readUTF];
+    NSString *jewel2 = [data readUTF];
     
     // autorelease
     NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithCapacity:4];
     [dict setObject:userId forKey:@"userId"];
     [dict setObject:actionId forKey:@"actionId"];
-    [dict setObject:stone1 forKey:@"stone1"];
-    [dict setObject:stone2 forKey:@"stone2"];
+    [dict setObject:jewel1 forKey:@"jewel1"];
+    [dict setObject:jewel2 forKey:@"jewel2"];
     
     [self responseToListenerWithActionId:SERVER_ACTION_PVP_SWAP_STONES object:dict];
 }

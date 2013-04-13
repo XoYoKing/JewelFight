@@ -11,7 +11,7 @@ typedef enum _GameStates
 // 表现层标签
 typedef enum _LayerTags
 {
-    kTagStonePanelEffectLayer, // 效果表现层
+    kTagJewelPanelEffectLayer, // 效果表现层
     kTagHudLayer,
     kTagFadeLayer,
     kTagObjectPlaceButtonsBar
@@ -19,8 +19,8 @@ typedef enum _LayerTags
 
 typedef enum _FightLayerTags
 {
-    kTagLeftStonePanel = 10, // 左侧面板Tag
-    kTagRightStonePanel, // 右侧面板Tag
+    kTagLeftJewelPanel = 10, // 左侧面板Tag
+    kTagRightJewelPanel, // 右侧面板Tag
     kTagFighterUI, // 战士UI
     kTagTopUI, // 顶层UI
     kTagBottomUI // 底部UI
@@ -38,25 +38,25 @@ typedef enum _FightLayerTags
 #define kSkillTypeEx3 // ex3 技能
 
 // 宝石格子数
-#define kStoneGridWidth 5 // 宝石格子宽度
-#define kStoneGridHeight 7 // 宝石格子高度
+#define kJewelGridWidth 5 // 宝石格子宽度
+#define kJewelGridHeight 7 // 宝石格子高度
 
-#define kStoneDisposeMinNeed 3 // 消除宝石最少需要的数量
+#define kJewelDisposeMinNeed 3 // 消除宝石最少需要的数量
 
 // 宝石类型
-#define kStoneTypeNormal 1 // 普通宝石
-#define kStoneTypeSpecial 2 // 特殊宝石
+#define kJewelTypeNormal 1 // 普通宝石
+#define kJewelTypeSpecial 2 // 特殊宝石
 
 // 宝石状态
-#define kStoneStateIdle 0 // 闲置
-#define kStoneStateDisposing 1 // 正在消除
-#define kStoneStateDisposed 2 // 已经消除 (可以从屏幕上移除了)
+#define kJewelStateIdle 0 // 闲置
+#define kJewelStateDisposing 1 // 正在消除
+#define kJewelStateDisposed 2 // 已经消除 (可以从屏幕上移除了)
 
 // 特殊宝石
-#define kStoneSpecialExplode 4 // 爆
-#define kStoneSpecialFire 5 // 火
-#define kStoneSpecialLight 6 // 闪电
-#define kStoneSpecialBlack 7 // 黑洞
+#define kJewelSpecialExplode 4 // 爆
+#define kJewelSpecialFire 5 // 火
+#define kJewelSpecialLight 6 // 闪电
+#define kJewelSpecialBlack 7 // 黑洞
 
 // 聊天
 #define kChatChannelGlobal 0 // 聊天频道: 综合

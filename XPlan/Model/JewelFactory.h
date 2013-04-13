@@ -1,5 +1,5 @@
 //
-//  StoneFactory.h
+//  JewelFactory.h
 //  XPlan
 //
 //  Created by Hex on 4/12/13.
@@ -18,6 +18,6 @@
 
 
 /// 生成随机的宝石
-+(JewelVo*) randomStone;
++(JewelVo*) randomJewel;
 
 @end

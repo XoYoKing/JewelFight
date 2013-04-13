@@ -149,9 +149,9 @@
         case SERVER_ACTION_PVP_INIT_STONES:
         {
             NSDictionary *dict = (NSDictionary*)obj;
-            CCArray *playerStones = [dict objectForKey:@"player_stones"];
-            CCArray *opponentStones = [dict objectForKey:@"opponent_stones"];
-            [controller.fightManager handlePlayerStones:playerStones opponentStones:opponentStones];
+            CCArray *playerJewels = [dict objectForKey:@"player_jewels"];
+            CCArray *opponentJewels = [dict objectForKey:@"opponent_jewels"];
+            [controller.fightManager handlePlayerJewels:playerJewels opponentJewels:opponentJewels];
             
             step++;
             [loadingLayer setPercent:100.0f];

@@ -14,7 +14,6 @@
 		E24308EA17117376003A7595 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E24308E917117376003A7595 /* CFNetwork.framework */; };
 		E24308F117117F2F003A7595 /* LoadingLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = E24308F017117F2F003A7595 /* LoadingLayer.m */; };
 		E24308F81711E056003A7595 /* ServerDataUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E24308F71711E056003A7595 /* ServerDataUtil.m */; };
-		E24B524B1711474500BD8CBC /* FightStonePanel.m in Sources */ = {isa = PBXBuildFile; fileRef = E24B524A1711474500BD8CBC /* FightStonePanel.m */; };
 		E24D35DB170B24820055D23E /* BagCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = E24D35DA170B24820055D23E /* BagCommand.m */; };
 		E24D35E2170B24C90055D23E /* BaseCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = E24D35DD170B24C90055D23E /* BaseCommand.m */; };
 		E24D35E3170B24C90055D23E /* GameCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = E24D35DF170B24C90055D23E /* GameCommand.m */; };
@@ -53,8 +52,8 @@
 		E2832CE21712FC9000F4F0E1 /* stones5.png in Resources */ = {isa = PBXBuildFile; fileRef = E2832CC81712FC9000F4F0E1 /* stones5.png */; };
 		E2832CE31712FC9000F4F0E1 /* stones6.png in Resources */ = {isa = PBXBuildFile; fileRef = E2832CC91712FC9000F4F0E1 /* stones6.png */; };
 		E2832CE41712FC9000F4F0E1 /* stones7.png in Resources */ = {isa = PBXBuildFile; fileRef = E2832CCA1712FC9000F4F0E1 /* stones7.png */; };
-		E286A61A1718497B00EAFAB4 /* stones_config.plist in Resources */ = {isa = PBXBuildFile; fileRef = E286A6191718497B00EAFAB4 /* stones_config.plist */; };
-		E292A1A4170F21B500859F7B /* StoneCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E292A1A3170F21B500859F7B /* StoneCell.m */; };
+		E286A61A1718497B00EAFAB4 /* jewels_config.plist in Resources */ = {isa = PBXBuildFile; fileRef = E286A6191718497B00EAFAB4 /* jewels_config.plist */; };
+		E292A1A4170F21B500859F7B /* JewelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E292A1A3170F21B500859F7B /* JewelCell.m */; };
 		E2B4C359170782EB00E11F22 /* GridUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E2B4C358170782EB00E11F22 /* GridUtil.m */; };
 		E2B4C35C1707846A00E11F22 /* LocalSave.m in Sources */ = {isa = PBXBuildFile; fileRef = E2B4C35B1707846A00E11F22 /* LocalSave.m */; };
 		E2B4C35F1707849600E11F22 /* PlayerNameUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E2B4C35E1707849600E11F22 /* PlayerNameUtil.m */; };
@@ -81,8 +80,8 @@
 		E2CFF4BE170340C7006D2A60 /* GameController.m in Sources */ = {isa = PBXBuildFile; fileRef = E2CFF4BD170340C7006D2A60 /* GameController.m */; };
 		E2CFF4D517035344006D2A60 /* XPlan.m in Sources */ = {isa = PBXBuildFile; fileRef = E2CFF4D417035344006D2A60 /* XPlan.m */; };
 		E2D12C5D1713E43B0025296D /* FightUI.m in Sources */ = {isa = PBXBuildFile; fileRef = E2D12C5C1713E43B0025296D /* FightUI.m */; };
-		E2D12C681713E6810025296D /* PvPOpponentStonePanel.m in Sources */ = {isa = PBXBuildFile; fileRef = E2D12C651713E6810025296D /* PvPOpponentStonePanel.m */; };
-		E2D12C691713E6810025296D /* PvPPlayerStonePanel.m in Sources */ = {isa = PBXBuildFile; fileRef = E2D12C671713E6810025296D /* PvPPlayerStonePanel.m */; };
+		E2D12C681713E6810025296D /* PvPOpponentJewelPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = E2D12C651713E6810025296D /* PvPOpponentJewelPanel.m */; };
+		E2D12C691713E6810025296D /* PvPPlayerJewelPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = E2D12C671713E6810025296D /* PvPPlayerJewelPanel.m */; };
 		E2D12C731713E9960025296D /* loadingBar-ipadhd.png in Resources */ = {isa = PBXBuildFile; fileRef = E2D12C6B1713E9960025296D /* loadingBar-ipadhd.png */; };
 		E2D12C741713E9960025296D /* loadingBar.png in Resources */ = {isa = PBXBuildFile; fileRef = E2D12C6C1713E9960025296D /* loadingBar.png */; };
 		E2D12C751713E9960025296D /* loadingBg-ipadhd.png in Resources */ = {isa = PBXBuildFile; fileRef = E2D12C6D1713E9960025296D /* loadingBg-ipadhd.png */; };
@@ -105,8 +104,8 @@
 		E2D12CB81713F65A0025296D /* pvp_portrait-ipadhd.pvr.ccz in Resources */ = {isa = PBXBuildFile; fileRef = E2D12CB41713F6590025296D /* pvp_portrait-ipadhd.pvr.ccz */; };
 		E2D12CB91713F65A0025296D /* pvp_portrait.plist in Resources */ = {isa = PBXBuildFile; fileRef = E2D12CB51713F6590025296D /* pvp_portrait.plist */; };
 		E2D12CBA1713F65A0025296D /* pvp_portrait.pvr.ccz in Resources */ = {isa = PBXBuildFile; fileRef = E2D12CB61713F65A0025296D /* pvp_portrait.pvr.ccz */; };
-		E2D3C55B17112B8E00D0B639 /* StoneClearAction.m in Sources */ = {isa = PBXBuildFile; fileRef = E2D3C55A17112B8D00D0B639 /* StoneClearAction.m */; };
-		E2D3C55E1711306100D0B639 /* StoneDisposeAction.m in Sources */ = {isa = PBXBuildFile; fileRef = E2D3C55D1711306100D0B639 /* StoneDisposeAction.m */; };
+		E2D3C55B17112B8E00D0B639 /* JewelClearAction.m in Sources */ = {isa = PBXBuildFile; fileRef = E2D3C55A17112B8D00D0B639 /* JewelClearAction.m */; };
+		E2D3C55E1711306100D0B639 /* JewelDisposeAction.m in Sources */ = {isa = PBXBuildFile; fileRef = E2D3C55D1711306100D0B639 /* JewelDisposeAction.m */; };
 		E2D6C98F17085442008A38B2 /* FaceItem.m in Sources */ = {isa = PBXBuildFile; fileRef = E2D6C98E17085442008A38B2 /* FaceItem.m */; };
 		E2D6C9921708584A008A38B2 /* EffectSprite.m in Sources */ = {isa = PBXBuildFile; fileRef = E2D6C9911708584A008A38B2 /* EffectSprite.m */; };
 		E2D6C99817086CC3008A38B2 /* FacePopup.m in Sources */ = {isa = PBXBuildFile; fileRef = E2D6C99717086CC3008A38B2 /* FacePopup.m */; };
@@ -128,13 +127,13 @@
 		E2D7FF331709BF1100E79BF6 /* GameUpdateFilesLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = E2D7FF321709BF1100E79BF6 /* GameUpdateFilesLayer.m */; };
 		E2D7FF3A1709E07D00E79BF6 /* GameCreateHeroLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = E2D7FF391709E07C00E79BF6 /* GameCreateHeroLayer.m */; };
 		E2D9AAF01705EF86008D0311 /* GameServer.m in Sources */ = {isa = PBXBuildFile; fileRef = E2D9AAEF1705EF86008D0311 /* GameServer.m */; };
-		E2DD8806170D8F2900F2D065 /* StonePanel.m in Sources */ = {isa = PBXBuildFile; fileRef = E2DD8805170D8F2900F2D065 /* StonePanel.m */; };
-		E2DD8809170D9A7500F2D065 /* ViewStonePanel.m in Sources */ = {isa = PBXBuildFile; fileRef = E2DD8808170D9A7500F2D065 /* ViewStonePanel.m */; };
+		E2DD8806170D8F2900F2D065 /* JewelPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = E2DD8805170D8F2900F2D065 /* JewelPanel.m */; };
+		E2DD8809170D9A7500F2D065 /* ViewJewelPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = E2DD8808170D9A7500F2D065 /* ViewJewelPanel.m */; };
 		E2DD880C170D9CF300F2D065 /* FightActionQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = E2DD880B170D9CF300F2D065 /* FightActionQueue.m */; };
-		E2DD8810170D9EC300F2D065 /* StoneAction.m in Sources */ = {isa = PBXBuildFile; fileRef = E2DD880F170D9EC300F2D065 /* StoneAction.m */; };
-		E2DD8813170D9ED300F2D065 /* StoneActionQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = E2DD8812170D9ED300F2D065 /* StoneActionQueue.m */; };
-		E2DD8816170D9F7800F2D065 /* StoneAddAction.m in Sources */ = {isa = PBXBuildFile; fileRef = E2DD8815170D9F7800F2D065 /* StoneAddAction.m */; };
-		E2DD881D170DA13000F2D065 /* StoneManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E2DD881C170DA13000F2D065 /* StoneManager.m */; };
+		E2DD8810170D9EC300F2D065 /* JewelAction.m in Sources */ = {isa = PBXBuildFile; fileRef = E2DD880F170D9EC300F2D065 /* JewelAction.m */; };
+		E2DD8813170D9ED300F2D065 /* JewelActionQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = E2DD8812170D9ED300F2D065 /* JewelActionQueue.m */; };
+		E2DD8816170D9F7800F2D065 /* JewelAddAction.m in Sources */ = {isa = PBXBuildFile; fileRef = E2DD8815170D9F7800F2D065 /* JewelAddAction.m */; };
+		E2DD881D170DA13000F2D065 /* JewelManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E2DD881C170DA13000F2D065 /* JewelManager.m */; };
 		E2E2665817044C2600550425 /* EquipmentVo.m in Sources */ = {isa = PBXBuildFile; fileRef = E2E2665117044C2600550425 /* EquipmentVo.m */; };
 		E2E2665917044C2600550425 /* FighterVo.m in Sources */ = {isa = PBXBuildFile; fileRef = E2E2665317044C2600550425 /* FighterVo.m */; };
 		E2E2665A17044C2600550425 /* FriendInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = E2E2665517044C2600550425 /* FriendInfo.m */; };
@@ -321,11 +320,9 @@
 		E2FAFE9317076F5C00868C63 /* BagItem.m in Sources */ = {isa = PBXBuildFile; fileRef = E2FAFE9217076F5C00868C63 /* BagItem.m */; };
 		E2FAFE9617076FE800868C63 /* PopupWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = E2FAFE9517076FE800868C63 /* PopupWindow.m */; };
 		E2FAFE991707718D00868C63 /* BagWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = E2FAFE981707718D00868C63 /* BagWindow.m */; };
-		E2FAFEA4170773C100868C63 /* StoneSprite.m in Sources */ = {isa = PBXBuildFile; fileRef = E2FAFEA3170773C100868C63 /* StoneSprite.m */; };
-		E2FAFEA71707751A00868C63 /* ViewStoneController.m in Sources */ = {isa = PBXBuildFile; fileRef = E2FAFEA61707751900868C63 /* ViewStoneController.m */; };
-		E2FAFEAD170777F700868C63 /* RoleStonePanel.m in Sources */ = {isa = PBXBuildFile; fileRef = E2FAFEAC170777F700868C63 /* RoleStonePanel.m */; };
-		E2FAFEB01707780300868C63 /* DoStonePanel.m in Sources */ = {isa = PBXBuildFile; fileRef = E2FAFEAF1707780300868C63 /* DoStonePanel.m */; };
-		E2FAFEB41707781700868C63 /* StoneEffect.m in Sources */ = {isa = PBXBuildFile; fileRef = E2FAFEB31707781700868C63 /* StoneEffect.m */; };
+		E2FAFEA4170773C100868C63 /* JewelSprite.m in Sources */ = {isa = PBXBuildFile; fileRef = E2FAFEA3170773C100868C63 /* JewelSprite.m */; };
+		E2FAFEB01707780300868C63 /* DoJewelPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = E2FAFEAF1707780300868C63 /* DoJewelPanel.m */; };
+		E2FAFEB41707781700868C63 /* JewelEffect.m in Sources */ = {isa = PBXBuildFile; fileRef = E2FAFEB31707781700868C63 /* JewelEffect.m */; };
 		E2FAFEB71707782700868C63 /* BlackEffect.m in Sources */ = {isa = PBXBuildFile; fileRef = E2FAFEB61707782700868C63 /* BlackEffect.m */; };
 		E2FAFEBA1707783400868C63 /* ExplodeEffect.m in Sources */ = {isa = PBXBuildFile; fileRef = E2FAFEB91707783400868C63 /* ExplodeEffect.m */; };
 		E2FAFEBD1707784500868C63 /* FireEffect.m in Sources */ = {isa = PBXBuildFile; fileRef = E2FAFEBC1707784500868C63 /* FireEffect.m */; };
@@ -347,8 +344,6 @@
 		E24308F017117F2F003A7595 /* LoadingLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadingLayer.m; sourceTree = "<group>"; };
 		E24308F61711E056003A7595 /* ServerDataUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ServerDataUtil.h; path = XPlan/ServerDataUtil.h; sourceTree = SOURCE_ROOT; };
 		E24308F71711E056003A7595 /* ServerDataUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ServerDataUtil.m; path = XPlan/ServerDataUtil.m; sourceTree = SOURCE_ROOT; };
-		E24B52491711474500BD8CBC /* FightStonePanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FightStonePanel.h; sourceTree = "<group>"; };
-		E24B524A1711474500BD8CBC /* FightStonePanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FightStonePanel.m; sourceTree = "<group>"; };
 		E24D35D9170B24820055D23E /* BagCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BagCommand.h; path = XPlan/BagCommand.h; sourceTree = SOURCE_ROOT; };
 		E24D35DA170B24820055D23E /* BagCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BagCommand.m; path = XPlan/BagCommand.m; sourceTree = SOURCE_ROOT; };
 		E24D35DC170B24C90055D23E /* BaseCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BaseCommand.h; path = XPlan/BaseCommand.h; sourceTree = SOURCE_ROOT; };
@@ -403,9 +398,9 @@
 		E2832CC81712FC9000F4F0E1 /* stones5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stones5.png; sourceTree = "<group>"; };
 		E2832CC91712FC9000F4F0E1 /* stones6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stones6.png; sourceTree = "<group>"; };
 		E2832CCA1712FC9000F4F0E1 /* stones7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stones7.png; sourceTree = "<group>"; };
-		E286A6191718497B00EAFAB4 /* stones_config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = stones_config.plist; sourceTree = "<group>"; };
-		E292A1A2170F21B500859F7B /* StoneCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoneCell.h; sourceTree = "<group>"; };
-		E292A1A3170F21B500859F7B /* StoneCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoneCell.m; sourceTree = "<group>"; };
+		E286A6191718497B00EAFAB4 /* jewels_config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = jewels_config.plist; sourceTree = "<group>"; };
+		E292A1A2170F21B500859F7B /* JewelCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JewelCell.h; sourceTree = "<group>"; };
+		E292A1A3170F21B500859F7B /* JewelCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JewelCell.m; sourceTree = "<group>"; };
 		E2B4C357170782EB00E11F22 /* GridUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GridUtil.h; sourceTree = "<group>"; };
 		E2B4C358170782EB00E11F22 /* GridUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GridUtil.m; sourceTree = "<group>"; };
 		E2B4C35A1707846A00E11F22 /* LocalSave.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalSave.h; sourceTree = "<group>"; };
@@ -442,10 +437,10 @@
 		E2CFF4D417035344006D2A60 /* XPlan.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XPlan.m; sourceTree = "<group>"; };
 		E2D12C5B1713E43A0025296D /* FightUI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FightUI.h; sourceTree = "<group>"; };
 		E2D12C5C1713E43B0025296D /* FightUI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FightUI.m; sourceTree = "<group>"; };
-		E2D12C641713E6810025296D /* PvPOpponentStonePanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PvPOpponentStonePanel.h; sourceTree = "<group>"; };
-		E2D12C651713E6810025296D /* PvPOpponentStonePanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PvPOpponentStonePanel.m; sourceTree = "<group>"; };
-		E2D12C661713E6810025296D /* PvPPlayerStonePanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PvPPlayerStonePanel.h; sourceTree = "<group>"; };
-		E2D12C671713E6810025296D /* PvPPlayerStonePanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PvPPlayerStonePanel.m; sourceTree = "<group>"; };
+		E2D12C641713E6810025296D /* PvPOpponentJewelPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PvPOpponentJewelPanel.h; sourceTree = "<group>"; };
+		E2D12C651713E6810025296D /* PvPOpponentJewelPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PvPOpponentJewelPanel.m; sourceTree = "<group>"; };
+		E2D12C661713E6810025296D /* PvPPlayerJewelPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PvPPlayerJewelPanel.h; sourceTree = "<group>"; };
+		E2D12C671713E6810025296D /* PvPPlayerJewelPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PvPPlayerJewelPanel.m; sourceTree = "<group>"; };
 		E2D12C6B1713E9960025296D /* loadingBar-ipadhd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "loadingBar-ipadhd.png"; sourceTree = "<group>"; };
 		E2D12C6C1713E9960025296D /* loadingBar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = loadingBar.png; sourceTree = "<group>"; };
 		E2D12C6D1713E9960025296D /* loadingBg-ipadhd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "loadingBg-ipadhd.png"; sourceTree = "<group>"; };
@@ -470,10 +465,10 @@
 		E2D12CB41713F6590025296D /* pvp_portrait-ipadhd.pvr.ccz */ = {isa = PBXFileReference; lastKnownFileType = file; path = "pvp_portrait-ipadhd.pvr.ccz"; sourceTree = "<group>"; };
 		E2D12CB51713F6590025296D /* pvp_portrait.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = pvp_portrait.plist; sourceTree = "<group>"; };
 		E2D12CB61713F65A0025296D /* pvp_portrait.pvr.ccz */ = {isa = PBXFileReference; lastKnownFileType = file; path = pvp_portrait.pvr.ccz; sourceTree = "<group>"; };
-		E2D3C55917112B8D00D0B639 /* StoneClearAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoneClearAction.h; sourceTree = "<group>"; };
-		E2D3C55A17112B8D00D0B639 /* StoneClearAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoneClearAction.m; sourceTree = "<group>"; };
-		E2D3C55C1711306100D0B639 /* StoneDisposeAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoneDisposeAction.h; sourceTree = "<group>"; };
-		E2D3C55D1711306100D0B639 /* StoneDisposeAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoneDisposeAction.m; sourceTree = "<group>"; };
+		E2D3C55917112B8D00D0B639 /* JewelClearAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JewelClearAction.h; sourceTree = "<group>"; };
+		E2D3C55A17112B8D00D0B639 /* JewelClearAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JewelClearAction.m; sourceTree = "<group>"; };
+		E2D3C55C1711306100D0B639 /* JewelDisposeAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JewelDisposeAction.h; sourceTree = "<group>"; };
+		E2D3C55D1711306100D0B639 /* JewelDisposeAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JewelDisposeAction.m; sourceTree = "<group>"; };
 		E2D6C98D17085442008A38B2 /* FaceItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FaceItem.h; sourceTree = "<group>"; };
 		E2D6C98E17085442008A38B2 /* FaceItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FaceItem.m; sourceTree = "<group>"; };
 		E2D6C9901708584A008A38B2 /* EffectSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EffectSprite.h; path = Common/EffectSprite.h; sourceTree = "<group>"; };
@@ -516,20 +511,20 @@
 		E2D7FF391709E07C00E79BF6 /* GameCreateHeroLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameCreateHeroLayer.m; sourceTree = "<group>"; };
 		E2D9AAEE1705EF86008D0311 /* GameServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameServer.h; path = XPlan/GameServer.h; sourceTree = SOURCE_ROOT; };
 		E2D9AAEF1705EF86008D0311 /* GameServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GameServer.m; path = XPlan/GameServer.m; sourceTree = SOURCE_ROOT; };
-		E2DD8804170D8F2900F2D065 /* StonePanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StonePanel.h; sourceTree = "<group>"; };
-		E2DD8805170D8F2900F2D065 /* StonePanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StonePanel.m; sourceTree = "<group>"; };
-		E2DD8807170D9A7500F2D065 /* ViewStonePanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewStonePanel.h; sourceTree = "<group>"; };
-		E2DD8808170D9A7500F2D065 /* ViewStonePanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewStonePanel.m; sourceTree = "<group>"; };
+		E2DD8804170D8F2900F2D065 /* JewelPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JewelPanel.h; sourceTree = "<group>"; };
+		E2DD8805170D8F2900F2D065 /* JewelPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JewelPanel.m; sourceTree = "<group>"; };
+		E2DD8807170D9A7500F2D065 /* ViewJewelPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewJewelPanel.h; sourceTree = "<group>"; };
+		E2DD8808170D9A7500F2D065 /* ViewJewelPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewJewelPanel.m; sourceTree = "<group>"; };
 		E2DD880A170D9CF300F2D065 /* FightActionQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FightActionQueue.h; sourceTree = "<group>"; };
 		E2DD880B170D9CF300F2D065 /* FightActionQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FightActionQueue.m; sourceTree = "<group>"; };
-		E2DD880E170D9EC300F2D065 /* StoneAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoneAction.h; sourceTree = "<group>"; };
-		E2DD880F170D9EC300F2D065 /* StoneAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoneAction.m; sourceTree = "<group>"; };
-		E2DD8811170D9ED300F2D065 /* StoneActionQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoneActionQueue.h; sourceTree = "<group>"; };
-		E2DD8812170D9ED300F2D065 /* StoneActionQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoneActionQueue.m; sourceTree = "<group>"; };
-		E2DD8814170D9F7800F2D065 /* StoneAddAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoneAddAction.h; sourceTree = "<group>"; };
-		E2DD8815170D9F7800F2D065 /* StoneAddAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoneAddAction.m; sourceTree = "<group>"; };
-		E2DD881B170DA13000F2D065 /* StoneManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoneManager.h; sourceTree = "<group>"; };
-		E2DD881C170DA13000F2D065 /* StoneManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoneManager.m; sourceTree = "<group>"; };
+		E2DD880E170D9EC300F2D065 /* JewelAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JewelAction.h; sourceTree = "<group>"; };
+		E2DD880F170D9EC300F2D065 /* JewelAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JewelAction.m; sourceTree = "<group>"; };
+		E2DD8811170D9ED300F2D065 /* JewelActionQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JewelActionQueue.h; sourceTree = "<group>"; };
+		E2DD8812170D9ED300F2D065 /* JewelActionQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JewelActionQueue.m; sourceTree = "<group>"; };
+		E2DD8814170D9F7800F2D065 /* JewelAddAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JewelAddAction.h; sourceTree = "<group>"; };
+		E2DD8815170D9F7800F2D065 /* JewelAddAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JewelAddAction.m; sourceTree = "<group>"; };
+		E2DD881B170DA13000F2D065 /* JewelManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JewelManager.h; sourceTree = "<group>"; };
+		E2DD881C170DA13000F2D065 /* JewelManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JewelManager.m; sourceTree = "<group>"; };
 		E2E2665017044C2600550425 /* EquipmentVo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EquipmentVo.h; sourceTree = "<group>"; };
 		E2E2665117044C2600550425 /* EquipmentVo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EquipmentVo.m; sourceTree = "<group>"; };
 		E2E2665217044C2600550425 /* FighterVo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FighterVo.h; sourceTree = "<group>"; };
@@ -923,16 +918,12 @@
 		E2FAFE9517076FE800868C63 /* PopupWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopupWindow.m; sourceTree = "<group>"; };
 		E2FAFE971707718D00868C63 /* BagWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BagWindow.h; sourceTree = "<group>"; };
 		E2FAFE981707718D00868C63 /* BagWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BagWindow.m; sourceTree = "<group>"; };
-		E2FAFEA2170773C100868C63 /* StoneSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoneSprite.h; sourceTree = "<group>"; };
-		E2FAFEA3170773C100868C63 /* StoneSprite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoneSprite.m; sourceTree = "<group>"; };
-		E2FAFEA51707751900868C63 /* ViewStoneController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewStoneController.h; sourceTree = "<group>"; };
-		E2FAFEA61707751900868C63 /* ViewStoneController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewStoneController.m; sourceTree = "<group>"; };
-		E2FAFEAB170777F700868C63 /* RoleStonePanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoleStonePanel.h; sourceTree = "<group>"; };
-		E2FAFEAC170777F700868C63 /* RoleStonePanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoleStonePanel.m; sourceTree = "<group>"; };
-		E2FAFEAE1707780300868C63 /* DoStonePanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DoStonePanel.h; sourceTree = "<group>"; };
-		E2FAFEAF1707780300868C63 /* DoStonePanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DoStonePanel.m; sourceTree = "<group>"; };
-		E2FAFEB21707781700868C63 /* StoneEffect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoneEffect.h; sourceTree = "<group>"; };
-		E2FAFEB31707781700868C63 /* StoneEffect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoneEffect.m; sourceTree = "<group>"; };
+		E2FAFEA2170773C100868C63 /* JewelSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JewelSprite.h; sourceTree = "<group>"; };
+		E2FAFEA3170773C100868C63 /* JewelSprite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JewelSprite.m; sourceTree = "<group>"; };
+		E2FAFEAE1707780300868C63 /* DoJewelPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DoJewelPanel.h; sourceTree = "<group>"; };
+		E2FAFEAF1707780300868C63 /* DoJewelPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DoJewelPanel.m; sourceTree = "<group>"; };
+		E2FAFEB21707781700868C63 /* JewelEffect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JewelEffect.h; sourceTree = "<group>"; };
+		E2FAFEB31707781700868C63 /* JewelEffect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JewelEffect.m; sourceTree = "<group>"; };
 		E2FAFEB51707782700868C63 /* BlackEffect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlackEffect.h; sourceTree = "<group>"; };
 		E2FAFEB61707782700868C63 /* BlackEffect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlackEffect.m; sourceTree = "<group>"; };
 		E2FAFEB81707783400868C63 /* ExplodeEffect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExplodeEffect.h; sourceTree = "<group>"; };
@@ -1079,7 +1070,7 @@
 				E277FD5A17159CB4005E50C0 /* Loading */,
 				E24308F21711B109003A7595 /* Common */,
 				E2D6C99417086473008A38B2 /* Scenes */,
-				E2DD8817170DA0F500F2D065 /* Stone */,
+				E2DD8817170DA0F500F2D065 /* Jewel */,
 				E2C0F17D170C1A7900A699D0 /* Fight */,
 				E2D7FF341709C13200E79BF6 /* Warn */,
 				E2FAFEC817077CFC00868C63 /* Chat */,
@@ -1100,8 +1091,6 @@
 				E2D12C5C1713E43B0025296D /* FightUI.m */,
 				E2F681EE1709FC81002A7972 /* FighterPanel.h */,
 				E2F681EF1709FC81002A7972 /* FighterPanel.m */,
-				E24B52491711474500BD8CBC /* FightStonePanel.h */,
-				E24B524A1711474500BD8CBC /* FightStonePanel.m */,
 				E2515797170D7FDD00BEC55F /* FightTopUI.h */,
 				E2515798170D7FDD00BEC55F /* FightTopUI.m */,
 				E2FAFEC517077C2100868C63 /* FightUtil.h */,
@@ -1217,10 +1206,10 @@
 		E2D12C541713E34E0025296D /* Panels */ = {
 			isa = PBXGroup;
 			children = (
-				E2D12C641713E6810025296D /* PvPOpponentStonePanel.h */,
-				E2D12C651713E6810025296D /* PvPOpponentStonePanel.m */,
-				E2D12C661713E6810025296D /* PvPPlayerStonePanel.h */,
-				E2D12C671713E6810025296D /* PvPPlayerStonePanel.m */,
+				E2D12C641713E6810025296D /* PvPOpponentJewelPanel.h */,
+				E2D12C651713E6810025296D /* PvPOpponentJewelPanel.m */,
+				E2D12C661713E6810025296D /* PvPPlayerJewelPanel.h */,
+				E2D12C671713E6810025296D /* PvPPlayerJewelPanel.m */,
 				E2D12C981713ED640025296D /* PvPFighterPanel.h */,
 				E2D12C991713ED640025296D /* PvPFighterPanel.m */,
 				E2D12C9E1713F2770025296D /* PvPPortraitPanel.h */,
@@ -1394,32 +1383,30 @@
 		E2DD880D170D9E0200F2D065 /* Actions */ = {
 			isa = PBXGroup;
 			children = (
-				E2DD880E170D9EC300F2D065 /* StoneAction.h */,
-				E2DD880F170D9EC300F2D065 /* StoneAction.m */,
-				E2DD8811170D9ED300F2D065 /* StoneActionQueue.h */,
-				E2DD8812170D9ED300F2D065 /* StoneActionQueue.m */,
-				E2DD8814170D9F7800F2D065 /* StoneAddAction.h */,
-				E2DD8815170D9F7800F2D065 /* StoneAddAction.m */,
-				E2D3C55917112B8D00D0B639 /* StoneClearAction.h */,
-				E2D3C55A17112B8D00D0B639 /* StoneClearAction.m */,
-				E2D3C55C1711306100D0B639 /* StoneDisposeAction.h */,
-				E2D3C55D1711306100D0B639 /* StoneDisposeAction.m */,
+				E2DD880E170D9EC300F2D065 /* JewelAction.h */,
+				E2DD880F170D9EC300F2D065 /* JewelAction.m */,
+				E2DD8811170D9ED300F2D065 /* JewelActionQueue.h */,
+				E2DD8812170D9ED300F2D065 /* JewelActionQueue.m */,
+				E2DD8814170D9F7800F2D065 /* JewelAddAction.h */,
+				E2DD8815170D9F7800F2D065 /* JewelAddAction.m */,
+				E2D3C55917112B8D00D0B639 /* JewelClearAction.h */,
+				E2D3C55A17112B8D00D0B639 /* JewelClearAction.m */,
+				E2D3C55C1711306100D0B639 /* JewelDisposeAction.h */,
+				E2D3C55D1711306100D0B639 /* JewelDisposeAction.m */,
 			);
 			name = Actions;
 			sourceTree = "<group>";
 		};
-		E2DD8817170DA0F500F2D065 /* Stone */ = {
+		E2DD8817170DA0F500F2D065 /* Jewel */ = {
 			isa = PBXGroup;
 			children = (
-				E2FAFEC11707786200868C63 /* Item */,
+				E2FAFEC11707786200868C63 /* Sprite */,
 				E2FAFEA11707736F00868C63 /* Panel */,
 				E2DD880D170D9E0200F2D065 /* Actions */,
-				E2DD881B170DA13000F2D065 /* StoneManager.h */,
-				E2DD881C170DA13000F2D065 /* StoneManager.m */,
-				E2FAFEA51707751900868C63 /* ViewStoneController.h */,
-				E2FAFEA61707751900868C63 /* ViewStoneController.m */,
+				E2DD881B170DA13000F2D065 /* JewelManager.h */,
+				E2DD881C170DA13000F2D065 /* JewelManager.m */,
 			);
-			name = Stone;
+			name = Jewel;
 			sourceTree = "<group>";
 		};
 		E2E26637170448CB00550425 /* Net */ = {
@@ -1534,7 +1521,7 @@
 			children = (
 				E2EC6B7A17183B9C0033F81E /* MockGameServer.h */,
 				E2EC6B7B17183B9C0033F81E /* MockGameServer.m */,
-				E286A6191718497B00EAFAB4 /* stones_config.plist */,
+				E286A6191718497B00EAFAB4 /* jewels_config.plist */,
 			);
 			path = Mock;
 			sourceTree = "<group>";
@@ -2251,16 +2238,14 @@
 			isa = PBXGroup;
 			children = (
 				E2FAFEB11707780900868C63 /* Effect */,
-				E2FAFEAB170777F700868C63 /* RoleStonePanel.h */,
-				E2FAFEAC170777F700868C63 /* RoleStonePanel.m */,
-				E2FAFEAE1707780300868C63 /* DoStonePanel.h */,
-				E2FAFEAF1707780300868C63 /* DoStonePanel.m */,
-				E2DD8807170D9A7500F2D065 /* ViewStonePanel.h */,
-				E2DD8808170D9A7500F2D065 /* ViewStonePanel.m */,
-				E2DD8804170D8F2900F2D065 /* StonePanel.h */,
-				E2DD8805170D8F2900F2D065 /* StonePanel.m */,
-				E292A1A2170F21B500859F7B /* StoneCell.h */,
-				E292A1A3170F21B500859F7B /* StoneCell.m */,
+				E2FAFEAE1707780300868C63 /* DoJewelPanel.h */,
+				E2FAFEAF1707780300868C63 /* DoJewelPanel.m */,
+				E2DD8807170D9A7500F2D065 /* ViewJewelPanel.h */,
+				E2DD8808170D9A7500F2D065 /* ViewJewelPanel.m */,
+				E2DD8804170D8F2900F2D065 /* JewelPanel.h */,
+				E2DD8805170D8F2900F2D065 /* JewelPanel.m */,
+				E292A1A2170F21B500859F7B /* JewelCell.h */,
+				E292A1A3170F21B500859F7B /* JewelCell.m */,
 			);
 			name = Panel;
 			sourceTree = "<group>";
@@ -2268,8 +2253,8 @@
 		E2FAFEB11707780900868C63 /* Effect */ = {
 			isa = PBXGroup;
 			children = (
-				E2FAFEB21707781700868C63 /* StoneEffect.h */,
-				E2FAFEB31707781700868C63 /* StoneEffect.m */,
+				E2FAFEB21707781700868C63 /* JewelEffect.h */,
+				E2FAFEB31707781700868C63 /* JewelEffect.m */,
 				E2FAFEB51707782700868C63 /* BlackEffect.h */,
 				E2FAFEB61707782700868C63 /* BlackEffect.m */,
 				E2FAFEB81707783400868C63 /* ExplodeEffect.h */,
@@ -2282,13 +2267,13 @@
 			name = Effect;
 			sourceTree = "<group>";
 		};
-		E2FAFEC11707786200868C63 /* Item */ = {
+		E2FAFEC11707786200868C63 /* Sprite */ = {
 			isa = PBXGroup;
 			children = (
-				E2FAFEA2170773C100868C63 /* StoneSprite.h */,
-				E2FAFEA3170773C100868C63 /* StoneSprite.m */,
+				E2FAFEA2170773C100868C63 /* JewelSprite.h */,
+				E2FAFEA3170773C100868C63 /* JewelSprite.m */,
 			);
-			name = Item;
+			name = Sprite;
 			sourceTree = "<group>";
 		};
 		E2FAFEC817077CFC00868C63 /* Chat */ = {
@@ -2420,7 +2405,7 @@
 				E2D12CB91713F65A0025296D /* pvp_portrait.plist in Resources */,
 				E2D12CBA1713F65A0025296D /* pvp_portrait.pvr.ccz in Resources */,
 				E25E8A7F1714638400DF4CD7 /* pvp_loading.ccbi in Resources */,
-				E286A61A1718497B00EAFAB4 /* stones_config.plist in Resources */,
+				E286A61A1718497B00EAFAB4 /* jewels_config.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2622,11 +2607,9 @@
 				E2FAFE9317076F5C00868C63 /* BagItem.m in Sources */,
 				E2FAFE9617076FE800868C63 /* PopupWindow.m in Sources */,
 				E2FAFE991707718D00868C63 /* BagWindow.m in Sources */,
-				E2FAFEA4170773C100868C63 /* StoneSprite.m in Sources */,
-				E2FAFEA71707751A00868C63 /* ViewStoneController.m in Sources */,
-				E2FAFEAD170777F700868C63 /* RoleStonePanel.m in Sources */,
-				E2FAFEB01707780300868C63 /* DoStonePanel.m in Sources */,
-				E2FAFEB41707781700868C63 /* StoneEffect.m in Sources */,
+				E2FAFEA4170773C100868C63 /* JewelSprite.m in Sources */,
+				E2FAFEB01707780300868C63 /* DoJewelPanel.m in Sources */,
+				E2FAFEB41707781700868C63 /* JewelEffect.m in Sources */,
 				E2FAFEB71707782700868C63 /* BlackEffect.m in Sources */,
 				E2FAFEBA1707783400868C63 /* ExplodeEffect.m in Sources */,
 				E2FAFEBD1707784500868C63 /* FireEffect.m in Sources */,
@@ -2672,23 +2655,22 @@
 				E2515793170D5A2100BEC55F /* LeaderPortrait.m in Sources */,
 				E2515796170D5A9500BEC55F /* SelfPortrait.m in Sources */,
 				E2515799170D7FDD00BEC55F /* FightTopUI.m in Sources */,
-				E2DD8806170D8F2900F2D065 /* StonePanel.m in Sources */,
-				E2DD8809170D9A7500F2D065 /* ViewStonePanel.m in Sources */,
+				E2DD8806170D8F2900F2D065 /* JewelPanel.m in Sources */,
+				E2DD8809170D9A7500F2D065 /* ViewJewelPanel.m in Sources */,
 				E2DD880C170D9CF300F2D065 /* FightActionQueue.m in Sources */,
-				E2DD8810170D9EC300F2D065 /* StoneAction.m in Sources */,
-				E2DD8813170D9ED300F2D065 /* StoneActionQueue.m in Sources */,
-				E2DD8816170D9F7800F2D065 /* StoneAddAction.m in Sources */,
-				E2DD881D170DA13000F2D065 /* StoneManager.m in Sources */,
-				E292A1A4170F21B500859F7B /* StoneCell.m in Sources */,
-				E2D3C55B17112B8E00D0B639 /* StoneClearAction.m in Sources */,
-				E2D3C55E1711306100D0B639 /* StoneDisposeAction.m in Sources */,
-				E24B524B1711474500BD8CBC /* FightStonePanel.m in Sources */,
+				E2DD8810170D9EC300F2D065 /* JewelAction.m in Sources */,
+				E2DD8813170D9ED300F2D065 /* JewelActionQueue.m in Sources */,
+				E2DD8816170D9F7800F2D065 /* JewelAddAction.m in Sources */,
+				E2DD881D170DA13000F2D065 /* JewelManager.m in Sources */,
+				E292A1A4170F21B500859F7B /* JewelCell.m in Sources */,
+				E2D3C55B17112B8E00D0B639 /* JewelClearAction.m in Sources */,
+				E2D3C55E1711306100D0B639 /* JewelDisposeAction.m in Sources */,
 				E24308F117117F2F003A7595 /* LoadingLayer.m in Sources */,
 				E24308F81711E056003A7595 /* ServerDataUtil.m in Sources */,
 				E2832CB11712F54400F4F0E1 /* PvPController.m in Sources */,
 				E2D12C5D1713E43B0025296D /* FightUI.m in Sources */,
-				E2D12C681713E6810025296D /* PvPOpponentStonePanel.m in Sources */,
-				E2D12C691713E6810025296D /* PvPPlayerStonePanel.m in Sources */,
+				E2D12C681713E6810025296D /* PvPOpponentJewelPanel.m in Sources */,
+				E2D12C691713E6810025296D /* PvPPlayerJewelPanel.m in Sources */,
 				E2D12C9A1713ED640025296D /* PvPFighterPanel.m in Sources */,
 				E2D12CA01713F2780025296D /* PvPPortraitPanel.m in Sources */,
 				E25E8A7D17145A0200DF4CD7 /* HonsterBar.m in Sources */,

@@ -1,5 +1,5 @@
 //
-//  ExplodeEffect.h
+//  BaseEffect.m
 //  XPlan
 //
 //  Created by Hex on 3/31/13.
@@ -8,6 +8,6 @@
 
 #import "JewelEffect.h"
 
-@interface ExplodeEffect : JewelEffect
+@implementation JewelEffect
 
 @end

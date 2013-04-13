@@ -48,6 +48,6 @@
 -(void) runPvPFightScene;
 
 /// 获取宝石配置信息
--(KITProfile*) getStoneProfileWithType:(NSString*)jewelType;
+-(KITProfile*) getJewelProfileWithType:(NSString*)jewelType;
 
 @end

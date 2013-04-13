@@ -8,8 +8,8 @@
 
 #import "PvPFightManager.h"
 #import "PvPController.h"
-#import "DoStonePanel.h"
-#import "ViewStonePanel.h"
+#import "DoJewelPanel.h"
+#import "ViewJewelPanel.h"
 #import "PvPFighterPanel.h"
 #import "PvPPortraitPanel.h"
 #import "PvPLayer.h"
@@ -22,8 +22,8 @@
 @interface PvPFightManager()
 {
     PvPLayer *pvpLayer; // PVP页面
-    DoStonePanel *playerStonePanel; // 玩家宝石面板
-    ViewStonePanel *opponentStonePanel; //对手宝石面板
+    DoJewelPanel *playerJewelPanel; // 玩家宝石面板
+    ViewJewelPanel *opponentJewelPanel; //对手宝石面板
     PvPFighterPanel *fighterPanel; // PvP战士对战面板
     PvPPortraitPanel *portraitPanel; // pvp战士头像面板
 }
@@ -46,9 +46,9 @@
 {
     [opponentUser release];
     [playerFighterVos release];
-    [opponentStoneVos release];
-    [playerStoneVos release];
-    [opponentStoneVos release];
+    [opponentJewelVos release];
+    [playerJewelVos release];
+    [opponentJewelVos release];
     
     [super dealloc];
 }
@@ -71,17 +71,17 @@
     //[self enterFight];
 }
 
--(void) handlePlayerStones:(CCArray*)ps opponentStones:(CCArray*)os
+-(void) handlePlayerJewels:(CCArray*)ps opponentJewels:(CCArray*)os
 {
     // 保存宝石数据
-    playerStoneVos = [ps retain];
-    opponentStoneVos = [os retain];
+    playerJewelVos = [ps retain];
+    opponentJewelVos = [os retain];
     
     // 初始化玩家宝石列表
-    [pvpLayer.playerStonePanel newStones:playerStoneVos];
+    [pvpLayer.playerJewelPanel newJewels:playerJewelVos];
     
     // 初始化对手宝石列表
-    [pvpLayer.opponentStonePanel newStones:opponentStoneVos];
+    [pvpLayer.opponentJewelPanel newJewels:opponentJewelVos];
     
 }
 
@@ -95,9 +95,9 @@
     pvpLayer = (PvPLayer*)[controller.scene getChildByTag:kTagPvPLayer];
     
     // 设置战士信息
-    [pvpLayer.playerStonePanel setFighter:[playerFighterVos objectAtIndex:0]];
-    [pvpLayer.opponentStonePanel setOpponent:opponentUser];
-    [pvpLayer.opponentStonePanel setFighter:[opponentFighterVos objectAtIndex:0]];
+    [pvpLayer.playerJewelPanel setFighter:[playerFighterVos objectAtIndex:0]];
+    [pvpLayer.opponentJewelPanel setOpponent:opponentUser];
+    [pvpLayer.opponentJewelPanel setFighter:[opponentFighterVos objectAtIndex:0]];
     
     // 设置宝石信息
     
@@ -159,9 +159,9 @@
             CCArray *params = (CCArray*)obj;
             long userId = [[params objectAtIndex:0] longValue];
             long actId = [[params objectAtIndex:1] longValue];
-            NSString *stone1 = [params objectAtIndex:2];
-            NSString *stone2 = [params objectAtIndex:3];
-            [self swapStoneWithUserId:userId actionId:actId stone1:stone1 stone2:stone2];
+            NSString *jewel1 = [params objectAtIndex:2];
+            NSString *jewel2 = [params objectAtIndex:3];
+            [self swapJewelWithUserId:userId actionId:actId jewel1:jewel1 jewel2:jewel2];
             break;
         }
             

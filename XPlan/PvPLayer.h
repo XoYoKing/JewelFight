@@ -9,10 +9,9 @@
 #import <Foundation/Foundation.h>
 #import "iPhoneGameKit.h"
 #import "FightArena.h"
-#import "StonePanel.h"
-#import "FightStonePanel.h"
-#import "PvPPlayerStonePanel.h"
-#import "PvPOpponentStonePanel.h"
+#import "JewelPanel.h"
+#import "PvPPlayerJewelPanel.h"
+#import "PvPOpponentJewelPanel.h"
 #import "PvPFighterPanel.h"
 #import "PvPPortraitPanel.h"
 
@@ -22,16 +21,16 @@
 @interface PvPLayer : CCLayer
 {
     FightArena *arena; // 战斗竞技场
-    PvPPlayerStonePanel *playerStonePanel; // 玩家宝石面板
-    PvPOpponentStonePanel *opponentStonePanel; // 对手宝石面板
+    PvPPlayerJewelPanel *playerJewelPanel; // 玩家宝石面板
+    PvPOpponentJewelPanel *opponentJewelPanel; // 对手宝石面板
     PvPPortraitPanel *portraitPanel; // 战士信息面板
     PvPFighterPanel *fighterPanel; // 战士战斗界面
     
 }
 
-@property (readonly,nonatomic) PvPPlayerStonePanel *playerStonePanel;
+@property (readonly,nonatomic) PvPPlayerJewelPanel *playerJewelPanel;
 
-@property (readonly,nonatomic) PvPOpponentStonePanel *opponentStonePanel;
+@property (readonly,nonatomic) PvPOpponentJewelPanel *opponentJewelPanel;
 
 @property (readonly,nonatomic) PvPPortraitPanel *portraitPanel;
 

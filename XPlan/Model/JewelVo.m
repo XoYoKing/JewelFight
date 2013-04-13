@@ -1,5 +1,5 @@
 //
-//  StoneVo.m
+//  JewelVo.m
 //  XPlan
 //
 //  Created by Hex on 3/28/13.
@@ -82,7 +82,7 @@
 
 -(BOOL) isRight
 {
-    return self.coord.x == kStoneGridWidth-1;
+    return self.coord.x == kJewelGridWidth-1;
 }
 
 -(BOOL) isBottom
@@ -92,7 +92,7 @@
 
 -(BOOL) isTop
 {
-    return self.coord.y == kStoneGridHeight-1;
+    return self.coord.y == kJewelGridHeight-1;
 }
 
 @end

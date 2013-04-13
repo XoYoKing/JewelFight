@@ -6,8 +6,8 @@
 //  Copyright (c) 2013 Hex. All rights reserved.
 //
 
-#import "StoneEffect.h"
+#import "JewelEffect.h"
 
-@interface LightEffect : StoneEffect
+@interface LightEffect : JewelEffect
 
 @end

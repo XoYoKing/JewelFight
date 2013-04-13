@@ -70,9 +70,9 @@ static GameController *_gameControllerInstance = nil;
 }
 
 /// 获取宝石配置信息
--(KITProfile*) getStoneProfileWithType:(NSString*)jewelType
+-(KITProfile*) getJewelProfileWithType:(NSString*)jewelType
 {
-    NSString *key = [NSString stringWithFormat:@"stone_%@_profile",jewelType];
+    NSString *key = [NSString stringWithFormat:@"jewel_%@_profile",jewelType];
     return [KITProfile profileWithName:key];
 }
 

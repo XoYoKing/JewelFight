@@ -7,7 +7,6 @@
 //
 
 #import "PvPLayer.h"
-#import "FightStonePanel.h"
 #import "PvPScene.h"
 #import "PvPController.h"
 #import "CCBReader.h"
@@ -18,7 +17,7 @@
 
 @implementation PvPLayer
 
-@synthesize playerStonePanel,opponentStonePanel,portraitPanel,fighterPanel;
+@synthesize playerJewelPanel,opponentJewelPanel,portraitPanel,fighterPanel;
 
 -(id) init
 {

@@ -1,5 +1,5 @@
 //
-//  StoneFactory.m
+//  JewelFactory.m
 //  XPlan
 //
 //  Created by Hex on 4/12/13.
@@ -10,17 +10,17 @@
 
 @implementation JewelFactory
 
-+(JewelVo*) randomStone
++(JewelVo*) randomJewel
 {
     // 获取宝石的配置文件
-    NSDictionary *config = [[NSDictionary alloc] initWithContentsOfFile:[[CCFileUtils sharedFileUtils] fullPathFromRelativePath:@"stones_config.plist"]];
-    NSArray *list = [config objectForKey:@"stones"];
-    NSDictionary *stoneConfig = [list randomObject];
-    JewelVo *stone = [[[JewelVo alloc] init] autorelease];
+    NSDictionary *config = [[NSDictionary alloc] initWithContentsOfFile:[[CCFileUtils sharedFileUtils] fullPathFromRelativePath:@"jewels_config.plist"]];
+    NSArray *list = [config objectForKey:@"jewels"];
+    NSDictionary *jewelConfig = [list randomObject];
+    JewelVo *jewel = [[[JewelVo alloc] init] autorelease];
     
-    stone.jewelId = [[stoneConfig valueForKey:@"jewelId"] intValue];
-    stone.jewelType = [stoneConfig valueForKey:@"jewelType"];
-    return stone;
+    jewel.jewelId = [[jewelConfig valueForKey:@"jewelId"] intValue];
+    jewel.jewelType = [jewelConfig valueForKey:@"jewelType"];
+    return jewel;
 }
 
 @end
