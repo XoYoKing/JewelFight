@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 Hex. All rights reserved.
 //
 
-#import "PvPFightManager.h"
+#import "PvPFightController.h"
 #import "PvPController.h"
 #import "DoJewelPanel.h"
 #import "ViewJewelPanel.h"
@@ -18,8 +18,10 @@
 #import "UserInfo.h"
 #import "GameController.h"
 #import "GameServer.h"
+#import "JewelController.h"
+#import "JewelAddAction.h"
 
-@interface PvPFightManager()
+@interface PvPFightController()
 {
     PvPLayer *pvpLayer; // PVP页面
     DoJewelPanel *playerJewelPanel; // 玩家宝石面板
@@ -30,13 +32,17 @@
 
 @end
 
-@implementation PvPFightManager
+@implementation PvPFightController
+
+@synthesize state,newState;
 
 -(id) initWithPvPController:(PvPController *)contr
 {
     if ((self = [super init]))
     {
         controller = contr;
+        state = 0;
+        newState = 0;
     }
     
     return self;
@@ -46,16 +52,27 @@
 {
     [opponentUser release];
     [playerFighterVos release];
-    [opponentJewelVos release];
-    [playerJewelVos release];
-    [opponentJewelVos release];
     
     [super dealloc];
 }
 
 -(void) update:(ccTime)delta
 {
+    if (state!=newState)
+    {
+        [self changeState:newState];
+    }
     
+    if (self.state == kPvpFightStatePlay)
+    {
+        [playerJewelController update:delta];
+        [opponentJewelController update:delta];
+    }
+}
+
+-(void) changeState:(int)s
+{
+    self.state = self.newState = s;
 }
 
 
@@ -67,40 +84,38 @@
     opponentUser = [o retain];
     opponentFighterVos = [of retain];
     
-    // 显示战斗页面
-    //[self enterFight];
-}
-
--(void) handlePlayerJewels:(CCArray*)ps opponentJewels:(CCArray*)os
-{
-    // 保存宝石数据
-    playerJewelVos = [ps retain];
-    opponentJewelVos = [os retain];
-    
-    // 初始化玩家宝石列表
-    [pvpLayer.playerJewelPanel newJewels:playerJewelVos];
-    
-    // 初始化对手宝石列表
-    [pvpLayer.opponentJewelPanel newJewels:opponentJewelVos];
-    
-}
-
-/// 进入战斗
--(void) enterFight
-{
-    // 显示战斗层
-    pvpLayer = [[PvPLayer alloc] init];
-    [controller.scene addChild:pvpLayer z:0 tag:kTagPvPLayer];
-    [pvpLayer release];
-    pvpLayer = (PvPLayer*)[controller.scene getChildByTag:kTagPvPLayer];
-    
     // 设置战士信息
     [pvpLayer.playerJewelPanel setFighter:[playerFighterVos objectAtIndex:0]];
     [pvpLayer.opponentJewelPanel setOpponent:opponentUser];
     [pvpLayer.opponentJewelPanel setFighter:[opponentFighterVos objectAtIndex:0]];
+}
+
+-(void) handlePlayerJewels:(CCArray*)ps opponentJewels:(CCArray*)os
+{
+    [playerJewelController newJewelVoList:ps];
+    [opponentJewelController newJewelVoList:os];
+}
+
+/// 进入战斗
+-(void) initFight
+{
+    [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"jewel_resources.plist"];
     
-    // 设置宝石信息
+    // 显示战斗层
+    pvpLayer = [[PvPLayer alloc] init];
+    [controller.scene addChild:pvpLayer z:0 tag:kTagPvPLayer];
+    [pvpLayer release];
     
+    
+    playerJewelController = [[JewelController alloc] initWithJewelPanel:pvpLayer.playerJewelPanel.jewelPanel];
+    opponentJewelController = [[JewelController alloc] initWithJewelPanel:pvpLayer.opponentJewelPanel.jewelPanel];
+    
+}
+
+/// 开始战斗
+-(void) startFight
+{
+    newState = kPvpFightStatePlay;
 }
 
 -(void) exitFight

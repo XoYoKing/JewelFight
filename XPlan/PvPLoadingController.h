@@ -12,7 +12,7 @@
 @class PvPController;
 
 /// 加载管理器
-@interface PvPLoadingManager : NSObject<CommandListener>
+@interface PvPLoadingController : NSObject<CommandListener>
 {
     PvPController *controller;
     

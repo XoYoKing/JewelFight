@@ -8,14 +8,17 @@
 
 #import <Foundation/Foundation.h>
 #import "iPhoneGameKit.h"
-#import "JewelManager.h"
+
+@class JewelController;
 
 @interface JewelAction : NSObject
 {
-    JewelPanel *jewelPanel; //宝石面板
+    JewelController *jewelController; //宝石控制器
+    NSString *name; // 宝石动作名称
+    BOOL skipped; // 是否跳过
 }
 
--(id) initWithJewelPanel:(JewelPanel*)panel;
+-(id) initWithJewelController:(JewelController*)contr name:(NSString*)n;
 
 
 /// 开始

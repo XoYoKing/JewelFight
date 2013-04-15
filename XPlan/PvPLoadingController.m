@@ -6,8 +6,8 @@
 //  Copyright (c) 2013 Hex. All rights reserved.
 //
 
-#import "PvPLoadingManager.h"
-#import "PvPFightManager.h"
+#import "PvPLoadingController.h"
+#import "PvPFightController.h"
 #import "PvPScene.h"
 #import "LoadingLayer.h"
 #import "PvPController.h"
@@ -15,7 +15,7 @@
 #import "GameServer.h"
 #import "Constants.h"
 
-@interface PvPLoadingManager()
+@interface PvPLoadingController()
 {
     LoadingLayer *loadingLayer;
     int totalSteps; // 全部步骤
@@ -30,7 +30,7 @@
 
 @end
 
-@implementation PvPLoadingManager
+@implementation PvPLoadingController
 
 -(id) initWithPvPController:(PvPController *)contr
 {
@@ -135,7 +135,11 @@
             UserInfo *opponentUser = [dict objectForKey:@"opponent_user"];
             CCArray *opponentFighters = [dict objectForKey:@"opponent_fighters"];
             
-            [controller.fightManager handlePlayerFighters:playerFighters opponentUser:opponentUser opponentFighters:opponentFighters];
+            // 初始化战斗
+            [controller.fightController initFight];
+            
+            //
+            [controller.fightController handlePlayerFighters:playerFighters opponentUser:opponentUser opponentFighters:opponentFighters];
             
             // 加载页面完成,请求战斗
             [[GameController sharedController].server.pvpCommand requestFight];
@@ -151,7 +155,9 @@
             NSDictionary *dict = (NSDictionary*)obj;
             CCArray *playerJewels = [dict objectForKey:@"player_jewels"];
             CCArray *opponentJewels = [dict objectForKey:@"opponent_jewels"];
-            [controller.fightManager handlePlayerJewels:playerJewels opponentJewels:opponentJewels];
+            
+            // 设置玩家宝石和对手宝石
+            [controller.fightController handlePlayerJewels:playerJewels opponentJewels:opponentJewels];
             
             step++;
             [loadingLayer setPercent:100.0f];

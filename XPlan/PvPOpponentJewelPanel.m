@@ -13,6 +13,8 @@
 
 @implementation PvPOpponentJewelPanel
 
+@synthesize jewelPanel;
+
 -(id) init
 {
     if ((self = [super init]))

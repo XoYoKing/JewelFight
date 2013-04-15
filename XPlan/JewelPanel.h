@@ -10,22 +10,23 @@
 #import "iPhoneGameKit.h"
 #import "EffectSprite.h"
 
-@class JewelSprite,JewelVo,JewelManager,JewelCell,JewelAction;
+@class JewelSprite,JewelVo,JewelController,JewelCell,JewelAction;
 
 /// 宝石面板
 @interface JewelPanel : CCLayer
 {
+    CCSpriteBatchNode *jewelBatchNode; // 宝石层
     CCLayer *effectLayer; // 效果层
     
-    JewelManager *controller; // 宝石面板控制器
+    JewelController *jewelController; // 宝石面板控制器
     NSMutableDictionary *allJewelSpriteDict; // 宝石字典
     CCArray *allJewelSprites; // 宝石集合
     CCArray *cellGrid; // 宝石格子
     CGSize totalSize; // 总像素宽高
     CGSize gridSize; // 格子数量宽高
     CGSize cellSize; // 宝石地格像素宽高
-    
     int continueDispose; // 连续消除次数
+    BOOL isControlEnabled; // 是否玩家可触摸操作
 }
 
 /// 连续消除次数
@@ -37,25 +38,35 @@
 /// 格子宽高
 @property (readonly,nonatomic) CGSize cellSize;
 
+/// 玩家是否可触摸操作
+@property (readwrite,nonatomic) BOOL isControlEnabled;
+
+/// 宝石控制器
+@property (readwrite,nonatomic,assign) JewelController *jewelController;
+
 /// 初始化
 -(id) init;
+
 
 /// 添加效果
 -(void) addEffectSprite:(EffectSprite*)effectSprite;
 
 #pragma mark -
-#pragma mark JewelItem
+#pragma mark JewelSprite
 
--(JewelSprite*) getJewelSprite:(NSString*)jewelId;
+-(JewelSprite*) getJewelSpriteWithGlobalId:(int)globalId;
 
 /// 创建宝石
--(void) createJewelSprite:(JewelVo*)jewelVo;
+-(JewelSprite*) createJewelSpriteWithJewelVo:(JewelVo*)jewelVo;
 
 /// 添加宝石
 -(void) addJewelSprite:(JewelSprite*)jewelSprite;
 
 /// 删除宝石
 -(void) removeJewelSprite:(JewelSprite*)jewelSprite;
+
+/// 删除全部宝石
+-(void) removeAllJewels;
 
 /// 清理全部宝石
 -(void) clearAllJewelSprites;

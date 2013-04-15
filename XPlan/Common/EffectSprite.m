@@ -25,8 +25,14 @@
 -(void) setParent:(CCNode *)parent
 {
     [super setParent:parent];
-    [self setShaderProgram:[[CCShaderCache sharedShaderCache]
+    
+    isAttachedToEffectSpriteLayer = (parent.tag == kTagEffectLayer);
+    
+    if (!isAttachedToEffectSpriteLayer)
+    {
+        [self setShaderProgram:[[CCShaderCache sharedShaderCache]
                                 programForKey:kCCShader_PositionTextureColorAlphaTest]];
+    }
 }
 
 

@@ -10,10 +10,10 @@
 #import "JewelPanel.h"
 #import "JewelSprite.h"
 #import "JewelVo.h"
-#import "JewelManager.h"
+#import "JewelController.h"
 
 @implementation JewelCell
-@synthesize panel,coord,jewelId,jewelSprite,comingJewelId;
+@synthesize panel,coord,jewelGlobalId,jewelSprite,comingJewelGlobalId;
 
 -(id) initWithJewelPanel:(JewelPanel *)thePanel coord:(CGPoint)theCoord
 {
@@ -28,24 +28,17 @@
 
 -(void) dealloc
 {
-    [jewelId release];
-    [comingJewelId release];
     [super dealloc];
 }
 
 -(JewelSprite*) jewelSprite
 {
-    if (jewelId)
+    if (jewelGlobalId!=0)
     {
-        return [panel getJewelSprite:jewelId];
+        return [panel getJewelSprite:jewelGlobalId];
     }
     
     return nil;
-}
-
--(void) setJewelItem:(JewelSprite *)value
-{
-    self.jewelId = value.jewelId;
 }
 
 @end

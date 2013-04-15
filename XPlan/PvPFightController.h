@@ -11,20 +11,32 @@
 #import "CommandListener.h"
 #import "PvPController.h"
 
+#define kPvPFightStateLoading 0 // 加载中
+#define kPvpFightStatePlay 1 // 游戏中
+
+@class JewelController;
+
 /// PvP 战斗控制器
-@interface PvPFightManager : NSObject<CommandListener>
+@interface PvPFightController : NSObject<CommandListener>
 {
     PvPController *controller;
+    JewelController *playerJewelController; // 玩家宝石控制器
+    JewelController *opponentJewelController; // 对手宝石控制器
     
     // 玩家出战英雄信息
     CCArray *playerFighterVos; // 玩家出战战士集合
-    CCArray *playerJewelVos; // 玩家宝石集合
     
     // 战斗对手信息
     UserInfo *opponentUser; // 战斗对手用户信息
-    CCArray *opponentFighterVos; // 对手角色所有英雄的信息
-    CCArray *opponentJewelVos; // 对手宝石集合
+    CCArray *opponentFighterVos; // 对手出战战士集合
+    CCArray *initOpponentJewelVos; // 对手宝石集合
+    
+    int state;
+    int newState;
 }
+
+@property (readwrite,nonatomic) int state;
+@property (readwrite,nonatomic) int newState;
 
 /// 初始化
 -(id) initWithPvPController:(PvPController*)contr;
@@ -35,8 +47,8 @@
 /// 接收玩家宝石信息和对手宝石信息
 -(void) handlePlayerJewels:(CCArray*)ps opponentJewels:(CCArray*)os;
 
-/// 进入战斗
--(void) enterFight;
+/// 初始化战斗
+-(void) initFight;
 
 /// 开始战斗
 -(void) startFight;

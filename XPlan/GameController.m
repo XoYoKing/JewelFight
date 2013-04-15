@@ -77,7 +77,7 @@ static GameController *_gameControllerInstance = nil;
 }
 
 /// 执行战斗场景
--(void) runPvPFightScene
+-(void) runPvPScene
 {
     PvPScene *scene = [[PvPScene alloc] init];
     [[CCDirector sharedDirector] replaceScene:scene];

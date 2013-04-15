@@ -23,33 +23,48 @@
 
 @implementation JewelSprite
 
-@synthesize jewelId, jewelVo,coord,jewelSize,state,jewelPanel;
+@synthesize globalId, jewelVo,coord,state,newState,jewelPanel;
 
 -(id) initWithJewelPanel:(JewelPanel *)thePanel jewelVo:(JewelVo *)sd
 {
-    if ((self = [super init]))
+    id ret = [self initWithSpriteFrameName:[NSString stringWithFormat: @"jewel%d.png",sd.jewelId]];
+    
+    if (ret!=nil)
     {
         jewelPanel = thePanel; // 设置隶属宝石面板
         jewelVo = sd; // 设置对应宝石数据对象
         state = kJewelStateIdle; // 宝石状态
-        jewelSize = CGSizeMake([KITApp scale:41], [KITApp scale:41]); // 设置宝石大小
-        [self updateGraphic]; // 更新素材
+        
     }
     
-    return self;
+    return ret;
 }
 
 -(void) dealloc
 {
-    [clip release];
     [super dealloc];
 }
 
-/// 获取对应素材配置文件
--(KITProfile*) getProfile
+-(int) globalId
 {
-    return [KITProfile profileWithName:[NSString stringWithFormat:@"jewel%d_config.plist",jewelVo.jewelId]];
+    return jewelVo.globalId;
 }
+
+-(CGPoint) coord
+{
+    return jewelVo.coord;
+}
+
+#pragma mark -
+#pragma mark Status
+
+/// 是否准备移除
+-(BOOL) isReadyToBeRemoved
+{
+    return self.state == kJewelStateElimated;
+}
+
+
 
 /// 获取宝石格子
 -(JewelCell*) getCell
@@ -71,16 +86,32 @@
         {
             //
             JewelCell *oldCell = [self.jewelPanel getCellAtCoord:oldCoord];
-            oldCell.jewelSprite = nil;
+            oldCell.jewelGlobalId = 0;
             
             JewelCell *newCell = [self.jewelPanel getCellAtCoord:newCoord];
-            newCell.jewelSprite = self;
+            newCell.jewelGlobalId = self.jewelVo.globalId;
         }
         
         [super setPosition:position];
+        
+        // 更新效果
+        for (NSString *key in effects.allKeys)
+        {
+            EffectSprite *effect = [effects objectForKey:key];
+            [effect parentMoved:self.position];
+        }
     }
 }
 
+/// 变更状态
+-(void) changeState:(int)value
+{
+    self.state = self.newState = value;
+}
+
+
+
+/*
 /// 检查是否是特殊宝石
 -(void) checkSpecial
 {
@@ -141,6 +172,8 @@
 
     [self showTop];
 }
+ 
+ */
 
 /// 设置到最前面
 -(void) showTop
@@ -152,6 +185,154 @@
 }
 
 
+/// 火焰方块燃烧动画
+-(void) animateFire
+{
+    // 变更状态
+    [self changeState:kJewelStateFiring];
+    
+    KITProfile *profile = [KITProfile profileWithName:@"jewels_graphics"];
+    
+    // 变更基本纹理为燃烧状态
+    [self setDisplayFrame:[profile spriteFrameForKey:[NSString stringWithFormat:@"jewel%d_fire",jewelVo.jewelId]]];
+    
+    // 添加燃烧效果
+    CCAnimation *fireAnim = [profile animationForKey:@"fire"];
+    EffectSprite *fireEffect = [[EffectSprite alloc] initWithSpriteFrame:[fireAnim.frames objectAtIndex:0]];
+    [self addEffect:fireEffect withKey:kJewelEffectFire];
+    fireEffect.position = self.position; // 覆盖
+    [fireEffect runAction:[CCSequence actions:
+                     [CCAnimate actionWithAnimation:fireAnim],
+                     [CCCallFunc actionWithTarget:self selector:@selector(fireComplete:)]
+                      , nil]];
+}
+
+/// 效果动画执行完毕
+-(void) fireComplete
+{
+    [self deleteEffectWithKey:kJewelEffectFire];
+    
+}
+
+
+
+/// 火焰方块消失效果
+-(void) animateFireElimate
+{
+    
+    // 清理全部特殊效果
+    [self detatchEffects];
+    
+    KITProfile *profile = [KITProfile profileWithName:@"jewels_graphics"];
+    
+    // 播放燃烧销毁动画
+    CCAnimation *elimateAnim = [profile animationForKey:@"fireElimate"];
+    
+    EffectSprite *effect = [[EffectSprite alloc] initWithSpriteFrame:[elimateAnim.frames objectAtIndex:0]];
+    [self addEffect:effect withKey:kJewelEffectFireElimate];
+    effect.position = self.position; // 覆盖
+    [effect runAction:[CCSequence actions:
+                           [CCAnimate actionWithAnimation:elimateAnim],
+                           [CCCallFunc actionWithTarget:self selector:@selector(fireElimateComplete:)]
+                           , nil]];
+}
+
+// 火焰方块效果完成
+-(void) fireElimateComplate
+{
+    [self deleteEffectWithKey:kJewelEffectFireElimate];
+    newState = kJewelStateElimated; // 标记为删除
+}
+
+/// 闪电方块消失特效
+-(void) animateLightElimate
+{
+    // 清理全部特殊效果
+    [self detatchEffects];
+    
+    KITProfile *profile = [KITProfile profileWithName:@"jewels_graphics"];
+    
+    // 播放燃烧销毁动画
+    CCAnimation *elimateAnim = [profile animationForKey:@"lightElimate"];
+    
+    EffectSprite *effect = [[EffectSprite alloc] initWithSpriteFrame:[elimateAnim.frames objectAtIndex:0]];
+    [self addEffect:effect withKey:kJewelEffectLightElimate];
+    effect.position = self.position; // 覆盖
+    [effect runAction:[CCSequence actions:
+                       [CCAnimate actionWithAnimation:elimateAnim],
+                       [CCCallFunc actionWithTarget:self selector:@selector(lightElimateComplete:)]
+                       , nil]];
+
+}
+
+-(void) lightElimateComplete
+{
+    [self deleteEffectWithKey:kJewelEffectLightElimate];
+    newState = kJewelStateElimated; // 标记为删除
+}
+
+
+/// 爆炸方块消失特效
+-(void) animateExplodeElimate
+{
+    // 清理全部特殊效果
+    [self detatchEffects];
+    
+    KITProfile *profile = [KITProfile profileWithName:@"jewels_graphics"];
+    
+    // 播放燃烧销毁动画
+    CCAnimation *elimateAnim = [profile animationForKey:@"explodeElimate"];
+    
+    EffectSprite *effect = [[EffectSprite alloc] initWithSpriteFrame:[elimateAnim.frames objectAtIndex:0]];
+    [self addEffect:effect withKey:kJewelEffectExplodeElimate];
+    effect.position = self.position; // 覆盖
+    [effect runAction:[CCSequence actions:
+                       [CCAnimate actionWithAnimation:elimateAnim],
+                       [CCCallFunc actionWithTarget:self selector:@selector(explodeElimateComplete:)]
+                       , nil]];
+}
+
+-(void) explodeElimateComplete
+{
+    [self deleteEffectWithKey:kJewelEffectExplodeElimate];
+    newState = kJewelStateElimated; // 标记为删除
+}
+
+-(void) animateElimate
+{
+    // 清理全部特殊效果
+    [self detatchEffects];
+    
+    KITProfile *profile = [KITProfile profileWithName:@"jewels_graphics"];
+    
+    // 播放燃烧销毁动画
+    CCAnimation *elimateAnim = [profile animationForKey:@"elimate"];
+    
+    EffectSprite *effect = [[EffectSprite alloc] initWithSpriteFrame:[elimateAnim.frames objectAtIndex:0]];
+    [self addEffect:effect withKey:kJewelEffectElimate];
+    effect.position = self.position; // 覆盖
+    [effect runAction:[CCSequence actions:
+                       [CCAnimate actionWithAnimation:elimateAnim],
+                       [CCCallFunc actionWithTarget:self selector:@selector(elimateComplete:)]
+                       , nil]];
+}
+
+-(void) elimateComplete
+{
+     [self deleteEffectWithKey:kJewelEffectElimate];   
+    newState = kJewelStateElimated;
+}
+
+
+/// 逻辑更新
+-(BOOL) update:(ccTime)delta
+{
+
+    
+    return NO;
+}
+
+/*
 /// 掉落
 -(void) drop
 {
@@ -159,15 +340,15 @@
     {
         return;
     }
-
+    
     // 获取掉落坐标
     CGPoint targetPos = [self.jewelPanel cellCoordToPosition:jewelVo.coord];
-
+    
     // 执行掉落动作
     [self runAction:[CCSequence actions:
-                    [CCMoveTo actionWithDuration:jewelVo.time position:targetPos],
+                     [CCMoveTo actionWithDuration:jewelVo.time position:targetPos],
                      [CCCallFunc actionWithTarget:self selector:@selector(initComplete)]
-                    , nil]];
+                     , nil]];
     // 设置宝石新标识
     [jewelVo newId];
 }
@@ -181,144 +362,6 @@
                      [CCCallFunc actionWithTarget:self selector:@selector(removeFromParent)]
                      , nil]];
     
-}
-
-
-/// 更新位图
--(void) updateGraphic
-{
-    KITProfile *profile = [self getProfile];
-    
-    // 显示底图
-    if (!clip)
-    {
-        clip = [[EffectSprite alloc] initWithSpriteFrame:[profile spriteFrameForKey:@"clip"]];
-    }
-    else
-    {
-        [clip setDisplayFrame:[profile spriteFrameForKey:@"clip"]];
-    }
-}
-
-/// 火焰方块燃烧动画
--(void) fireJewelEffect
-{
-    // 清理特殊效果外圈
-    [self clearSpecial];
-    
-    KITProfile *profile = [self getProfile];
-    
-    // 变更底图
-    [clip setDisplayFrame:[profile spriteFrameForKey:@"fireJewel"]];
-    
-    // 播放燃烧动画
-    CCAnimation *fireAnim = [profile animationForKey:@"fire"];
-    [self runAction:[CCSequence actions:
-                     [CCAnimate actionWithAnimation:fireAnim],
-                     [CCCallFunc actionWithTarget:self selector:@selector(effctComplete:)]
-                      , nil]];
-}
-
-/// 火焰方块消失效果
--(void) fireDisposeEffect
-{
-    // 清理特殊效果外圈
-    [self clearSpecial];
-    
-    KITProfile *profile = [self getProfile];
-    
-    // 播放燃烧销毁动画
-    CCAnimation *disposeAnim = [profile animationForKey:@"fireDispose"];
-    
-    // 播放动画,播放完毕删除
-    [self runAction:[CCSequence actions:
-                     [CCAnimate actionWithAnimation:disposeAnim],
-                     [CCCallFunc actionWithTarget:self selector:@selector(removeFromParent)]
-                     , nil]];
-}
-
-/// 闪电方块消失特效
--(void) lightDisposeEffect
-{
-    // 清理特殊效果外圈
-    [self clearSpecial];
-    
-    KITProfile *profile = [self getProfile];
-    
-    // 播放闪电方块消失动画
-    CCAnimation *lightAnim = [profile animationForKey:@"light"];
-    [self runAction:[CCSequence actions:
-                     [CCAnimate actionWithAnimation:lightAnim],
-                     [CCCallFunc actionWithTarget:self selector:@selector(effectComplete:)]
-                     , nil]];
-}
-
-
-/// 爆炸方块消失特效
--(void) explodeDisposeEffect
-{
-    // 清理特殊效果外圈
-    [self clearSpecial];
-    
-    KITProfile *profile = [self getProfile];
-    
-    // 播放爆炸方块消失动画
-    CCAnimation *explodeAnim = [profile animationForKey:@"explode"];
-    [self runAction:[CCSequence actions:
-                     [CCAnimate actionWithAnimation:explodeAnim],
-                     [CCCallFunc actionWithTarget:self selector:@selector(effectComplete:)]
-                     , nil]];
-    
-}
-
--(void) disposeEffect
-{
-    // 清理特殊效果外圈
-    [self clearSpecial];
-    
-    KITProfile *profile = [self getProfile];
-    
-    // 播放方块消失动画
-    CCAnimation *disposeAnim = [profile animationForKey:@"dispose"];
-    [self runAction:[CCSequence actions:
-                     [CCAnimate actionWithAnimation:disposeAnim],
-                     [CCCallFunc actionWithTarget:self selector:@selector(effectComplete:)]
-                     , nil]];
-}
-
-
-
--(void) setJewelId:(NSString *)value
-{
-    [jewelId release];
-    jewelId = [value retain];
-    NSArray *arr = [jewelId componentsSeparatedByString:@"_"];
-    coord = ccp([[arr objectAtIndex:0] intValue],[[arr objectAtIndex:1] intValue]);
-    if (initAnimation)
-    {
-        isPlaying = YES;
-        
-        // 计算起始位置
-        CGPoint startPos = ccp(coord.x * jewelSize.width, self.parent.height + jewelSize.height);
-        self.position = startPos;
-        [self move];
-        initAnimation = NO;
-        [self changeSpecial];
-    }
-}
-
-/// 逻辑更新
--(BOOL) update:(ccTime)delta
-{
-
-    
-    return NO;
-}
-
-/// 变更状态
--(void) changeState:(int)value
-{
-    self.state = value;
 }
 
 /// 移动
@@ -336,13 +379,15 @@
 {
     return [self getActionByTag:kJewelItemActionMove] != nil;
 }
+ 
+ */
 
 #pragma mark - 
 #pragma mark Effects
 
 -(void) addEffects
 {
-    
+    // for subclasses to implement
 }
 
 -(void) addEffect:(EffectSprite*)effect withKey:(NSString*)key
@@ -360,6 +405,7 @@
     [effects removeObjectForKey:key];
 }
 
+/// 清除全部特效
 -(void) detatchEffects
 {
     for (NSString *key in [effects allKeys])
@@ -369,12 +415,7 @@
     }
 }
 
--(void) initComplete
-{
-    // 重置播放标记
-    isPlaying = NO;
-}
-
+/*
 -(void) swapCoordWithNewCoord:(CGPoint)newCoord back:(BOOL)back
 {
     // 如果正在播放,则强制完成
@@ -450,9 +491,8 @@
         specialClip = nil;
     }
 }
-
-#pragma mark -
-#pragma mark Jewel Effect
+ 
+ */
 
 
 

@@ -7,7 +7,7 @@
 //
 
 #import "JewelFactory.h"
-
+static int generator = 0;
 @implementation JewelFactory
 
 +(JewelVo*) randomJewel
@@ -17,7 +17,7 @@
     NSArray *list = [config objectForKey:@"jewels"];
     NSDictionary *jewelConfig = [list randomObject];
     JewelVo *jewel = [[[JewelVo alloc] init] autorelease];
-    
+    jewel.globalId = ++generator;
     jewel.jewelId = [[jewelConfig valueForKey:@"jewelId"] intValue];
     jewel.jewelType = [jewelConfig valueForKey:@"jewelType"];
     return jewel;

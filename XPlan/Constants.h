@@ -11,9 +11,9 @@ typedef enum _GameStates
 // 表现层标签
 typedef enum _LayerTags
 {
-    kTagJewelPanelEffectLayer, // 效果表现层
-    kTagHudLayer,
+    kTagHudLayer = 100,
     kTagFadeLayer,
+    kTagEffectLayer,
     kTagObjectPlaceButtonsBar
 }LayerTags;
 
@@ -38,8 +38,11 @@ typedef enum _FightLayerTags
 #define kSkillTypeEx3 // ex3 技能
 
 // 宝石格子数
-#define kJewelGridWidth 5 // 宝石格子宽度
-#define kJewelGridHeight 7 // 宝石格子高度
+#define kJewelGridWidth 5 // 宝石格子宽数量
+#define kJewelGridHeight 7 // 宝石格子高数量
+
+#define kJewelCellSizeWidth 41
+#define kJewelCellSizeHeight 41
 
 #define kJewelDisposeMinNeed 3 // 消除宝石最少需要的数量
 
@@ -48,15 +51,32 @@ typedef enum _FightLayerTags
 #define kJewelTypeSpecial 2 // 特殊宝石
 
 // 宝石状态
-#define kJewelStateIdle 0 // 闲置
-#define kJewelStateDisposing 1 // 正在消除
-#define kJewelStateDisposed 2 // 已经消除 (可以从屏幕上移除了)
+#define kJewelStateDropping 0 // 下落中
+#define kJewelStateIdle 1 // 正常
+#define kJewelStateFiring 2 // 正在燃烧
+#define kJewelStateLighting 3 // 正在闪电
+#define kJewelStateSelected 4 // 被选中
+#define kJewelStateDragging 5 // 拖放中
+#define kJewelStateElimating 6 // 正在消除
+#define kJewelStateElimated 7 // 已经消除 (可以从屏幕上移除了)
 
 // 特殊宝石
 #define kJewelSpecialExplode 4 // 爆
 #define kJewelSpecialFire 5 // 火
 #define kJewelSpecialLight 6 // 闪电
 #define kJewelSpecialBlack 7 // 黑洞
+
+// 宝石效果
+#define kJewelEffectElimate @"elimate" // 普通消除
+#define kJewelEffectFire @"fire" // 燃烧效果
+#define kJewelEffectFireElimate @"fireElimate" // 燃烧消失效果
+#define kJewelEffectLight @"light" // 闪电效果
+#define kJewelEffectLightElimate @"lightElimate" // 闪电消失效果
+#define kJewelEffectBlack @"black" // 黑洞效果
+#define kJewelEffectBlackElimate @"blackElimate" // 黑洞消失效果
+#define kJewelEffectExplode @"explode" // 爆炸效果
+#define kJewelEffectExplodeElimate @"explodeElimate" // 爆炸消失效果
+
 
 // 聊天
 #define kChatChannelGlobal 0 // 聊天频道: 综合

@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "iPhoneGameKit.h"
 
-@class GameServer,GameCommand,BagCommand,PvPCommand,PlayerInfo;
+@class GameServer,GameCommand,BagCommand,PvPCommand,PlayerInfo,PvPController;
 
 /// 游戏控制器
 @interface GameController : NSObject
@@ -45,7 +45,7 @@
 -(void) runHomeScene;
 
 /// 执行战斗场景
--(void) runPvPFightScene;
+-(void) runPvPScene;
 
 /// 获取宝石配置信息
 -(KITProfile*) getJewelProfileWithType:(NSString*)jewelType;

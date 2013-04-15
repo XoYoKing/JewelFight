@@ -8,17 +8,18 @@
 
 #import "JewelAction.h"
 #import "JewelPanel.h"
-#import "JewelManager.h"
+#import "JewelController.h"
 #import "JewelSprite.h"
 #import "JewelVo.h"
 
 @implementation JewelAction
 
--(id) initWithJewelPanel:(JewelPanel *)panel
+-(id) initWithJewelController:(JewelController *)contr name:(NSString*)n
 {
     if ((self = [super init]))
     {
-        jewelPanel = panel;
+        jewelController = contr;
+        name = n;
     }
     
     return self;
@@ -26,7 +27,26 @@
 
 -(void) dealloc
 {
+    [name release];
     [super dealloc];
+}
+
+-(void) start
+{
+    if (skipped)
+    {
+        return;
+    }
+}
+
+-(void)skip
+{
+    skipped = YES;
+}
+
+-(BOOL) isOver
+{
+    return YES;
 }
 
 @end

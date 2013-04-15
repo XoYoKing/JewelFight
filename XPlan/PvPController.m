@@ -22,8 +22,8 @@
 #import "HeroVo.h"
 #import "FighterVo.h"
 #import "PvPPortraitPanel.h"
-#import "PvPLoadingManager.h"
-#import "PvPFightManager.h"
+#import "PvPLoadingController.h"
+#import "PvPFightController.h"
 
 @interface PvPController()
 {
@@ -33,7 +33,7 @@
 
 @implementation PvPController
 
-@synthesize scene,state,newState,loadingManager,fightManager;
+@synthesize scene,state,newState,loadingManager,fightController;
 
 -(id) initWithScene:(PvPScene *)s
 {
@@ -43,8 +43,8 @@
         state = -1;
         newState = -1;
         
-        loadingManager = [[PvPLoadingManager alloc] initWithPvPController:self];
-        fightManager = [[PvPFightManager alloc] initWithPvPController:self];
+        loadingManager = [[PvPLoadingController alloc] initWithPvPController:self];
+        fightController = [[PvPFightController alloc] initWithPvPController:self];
         
         [self initialize];
     }
@@ -91,7 +91,7 @@
     else if (self.state == kPvPStateFight)
     {
         // 战斗状态下,更新战斗管理器
-        [fightManager update:delta];
+        [fightController update:delta];
     }
 }
 
@@ -114,7 +114,7 @@
             loadingManager = nil;
             
             // 开始战斗
-            [fightManager enterFight];
+            [fightController startFight];
             break;
         }
     }    

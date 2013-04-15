@@ -12,13 +12,12 @@
 @interface JewelAddAction : JewelAction
 {
     CCArray *jewelVoList; // 要增加的宝石列表
-    int continueDispose;
 }
 
 /// 连续消除
 @property (readonly,nonatomic) int continueDispose;
 
 /// 构造函数
--(id) initWithJewelPanel:(JewelPanel *)panel continueDispose:(int)cd jewelVoList:(CCArray*)list;
+-(id) initWithJewelController:(JewelController *)contr  jewelVoList:(CCArray*)list;
 
 @end

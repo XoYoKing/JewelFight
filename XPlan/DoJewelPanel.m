@@ -19,8 +19,7 @@
 @interface DoJewelPanel()
 {
     JewelSprite *selectedJewel; // 选中的宝石
-    JewelActionQueue *actionQueue; // 操作宝石动作队列
-    JewelAction *currentAction; // 当前宝石动作
+
 }
 
 
@@ -32,7 +31,7 @@
 {
     if ((self = [super init]))
     {
-        actionQueue = [[JewelActionQueue alloc] init];
+        
     }
     
     return self;
@@ -40,7 +39,7 @@
 
 -(void) dealloc
 {
-    [actionQueue release];
+
     [super dealloc];
 }
 
@@ -70,48 +69,6 @@
     
 }
 
-/// 更新宝石动作
--(void) updateJewelActions:(ccTime)delta
-{
-    if (currentAction!=nil)
-    {
-        [currentAction update:delta];
-        
-        // 检查宝石动作是否完成
-        if ([currentAction isOver])
-        {
-            currentAction = nil;
-        }
-    }
-    
-    if (currentAction == nil)
-    {
-        if (actionQueue.actions.count > 0)
-        {
-            currentAction = [[actionQueue.actions objectAtIndex:0] retain];
-            [actionQueue.actions removeObjectAtIndex:0];
-            [currentAction start];
-        }
-    }
-}
-
--(void) queueAction:(JewelAction*)action top:(BOOL)top
-{
-    if (top)
-    {
-        [actionQueue.actions insertObject:action atIndex:0];
-    }
-    else
-    {
-        [actionQueue.actions addObject:action];
-    }
-}
-
--(void) resetActions
-{
-    [actionQueue.actions removeAllObjects];
-    currentAction = nil;
-}
 
 -(void) updateJewels:(ccTime)delta
 {
@@ -187,26 +144,5 @@
 #pragma mark -
 #pragma mark Public Methods
 
--(void) addNewJewelsWithActionId:(long)actionId continueDispose:(int)continueDispose voList:(CCArray*)list
-{
-    if (actionQueue.actions.count < 1)
-    {
-        [self addNewJewelsWithJewelVoList:list];
-    }
-    else
-    {
-        JewelAddAction *action = [[JewelAddAction alloc] initWithJewelPanel:self continueDispose:continueDispose jewelVoList:list];
-        [self queueAction:action top:NO];
-    }
-}
-
-/// 添加新宝石列表
--(void) addNewJewelsWithJewelVoList:(CCArray *)list
-{
-    for (JewelVo *sv in list)
-    {
-        [self createJewelSprite:sv];
-    }
-}
 
 @end

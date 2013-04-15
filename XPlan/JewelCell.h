@@ -16,8 +16,8 @@
 {
     JewelPanel *panel; // 对应宝石面板
     CGPoint coord; // 格子坐标
-    NSString *jewelId; // 宝石标识
-    NSString *comingJewelId; // 即将到来的宝石标识
+    int jewelGlobalId; // 宝石唯一标识
+    int comingJewelGlobalId; // 即将到来的宝石标识
 }
 
 /// 格子坐标
@@ -27,13 +27,13 @@
 @property (readonly,nonatomic) JewelPanel *panel;
 
 /// 宝石面板
-@property (readwrite,nonatomic,retain) NSString *jewelId;
+@property (readwrite,nonatomic) int jewelGlobalId;
 
 /// 即将到来的宝石标识
-@property (readwrite,nonatomic,retain) NSString *comingJewelId;
+@property (readwrite,nonatomic) int comingJewelGlobalId;
 
 /// 宝石
-@property (readwrite,nonatomic,retain) JewelSprite *jewelSprite;
+@property (readonly,nonatomic) JewelSprite *jewelSprite;
 
 /// 初始化
 -(id) initWithJewelPanel:(JewelPanel*)thePanel coord:(CGPoint)theCoord;

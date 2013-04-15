@@ -47,7 +47,7 @@
 
 -(void) loadDone
 {
-    [[GameController sharedController] runPvPFightScene];
+    [[GameController sharedController] runPvPScene];
 }
 
 @end
