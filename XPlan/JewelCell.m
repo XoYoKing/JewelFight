@@ -35,10 +35,15 @@
 {
     if (jewelGlobalId!=0)
     {
-        return [panel getJewelSprite:jewelGlobalId];
+        return [panel getJewelSpriteWithGlobalId:jewelGlobalId];
     }
     
     return nil;
+}
+
+-(CGRect) panelRect
+{
+    return CGRectMake(coord.x * panel.cellSize.width, (panel.gridSize.height - coord.y -1) * panel.cellSize.height, panel.cellSize.width, panel.cellSize.height);
 }
 
 @end

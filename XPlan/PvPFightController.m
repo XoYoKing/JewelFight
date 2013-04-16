@@ -8,8 +8,6 @@
 
 #import "PvPFightController.h"
 #import "PvPController.h"
-#import "DoJewelPanel.h"
-#import "ViewJewelPanel.h"
 #import "PvPFighterPanel.h"
 #import "PvPPortraitPanel.h"
 #import "PvPLayer.h"
@@ -19,13 +17,11 @@
 #import "GameController.h"
 #import "GameServer.h"
 #import "JewelController.h"
-#import "JewelAddAction.h"
+#import "JewelInitAction.h"
 
 @interface PvPFightController()
 {
     PvPLayer *pvpLayer; // PVP页面
-    DoJewelPanel *playerJewelPanel; // 玩家宝石面板
-    ViewJewelPanel *opponentJewelPanel; //对手宝石面板
     PvPFighterPanel *fighterPanel; // PvP战士对战面板
     PvPPortraitPanel *portraitPanel; // pvp战士头像面板
 }
@@ -108,6 +104,7 @@
     
     
     playerJewelController = [[JewelController alloc] initWithJewelPanel:pvpLayer.playerJewelPanel.jewelPanel];
+    [playerJewelController.jewelPanel active];
     opponentJewelController = [[JewelController alloc] initWithJewelPanel:pvpLayer.opponentJewelPanel.jewelPanel];
     
 }

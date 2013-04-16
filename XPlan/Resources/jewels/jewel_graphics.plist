@@ -20,56 +20,17 @@
 	</dict>
 	<key>animations</key>
 	<dict>
-		<key>turnChange_player</key>
+		<key>jewelSelected</key>
 		<dict>
 			<key>delay</key>
 			<string>0.06</string>
 			<key>format</key>
-			<string>player_turn_%03d.png</string>
+			<string>jewelSelected_%03d.png</string>
 			<key>frameCount</key>
-			<integer>1</integer>
+			<integer>10</integer>
 			<key>spritesheets</key>
 			<array>
-				<string>turn_player.plist</string>
-			</array>
-		</dict>
-		<key>turnChange_friendly</key>
-		<dict>
-			<key>delay</key>
-			<string>0.06</string>
-			<key>format</key>
-			<string>friendly_turn_%03d.png</string>
-			<key>frameCount</key>
-			<integer>1</integer>
-			<key>spritesheets</key>
-			<array>
-				<string>turn_friendly.plist</string>
-			</array>
-		</dict>
-		<key>turnChange_enemy</key>
-		<dict>
-			<key>delay</key>
-			<string>0.06</string>
-			<key>format</key>
-			<string>enemy_turn_%03d.png</string>
-			<key>frameCount</key>
-			<integer>1</integer>
-			<key>spritesheets</key>
-			<array>
-				<string>turn_enemy.plist</string>
-			</array>
-		</dict>
-		<key>icon_status_finished</key>
-		<dict>
-			<key>delay</key>
-			<string>0.06</string>
-			<key>format</key>
-			<string>icon_status_finished_%03d.png</string>
-			<key>frameCount</key>
-			<integer>150</integer>
-			<key>spritesheets</key>
-			<array>
-				<string>icon_status_finished.plist</string>
+				<string>jewelSelected.plist</string>
 			</array>
 		</dict>
 	</dict>

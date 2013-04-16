@@ -17,8 +17,6 @@
 #import "FighterVo.h"
 #import "GameServer.h"
 #import "Constants.h"
-#import "DoJewelPanel.h"
-#import "ViewJewelPanel.h"
 #import "HeroVo.h"
 #import "FighterVo.h"
 #import "PvPPortraitPanel.h"

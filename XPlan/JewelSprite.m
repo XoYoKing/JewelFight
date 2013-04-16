@@ -23,7 +23,7 @@
 
 @implementation JewelSprite
 
-@synthesize globalId, jewelVo,coord,state,newState,jewelPanel;
+@synthesize globalId, jewelVo,coord,state,newState,jewelPanel,cell;
 
 -(id) initWithJewelPanel:(JewelPanel *)thePanel jewelVo:(JewelVo *)sd
 {
@@ -34,7 +34,7 @@
         jewelPanel = thePanel; // 设置隶属宝石面板
         jewelVo = sd; // 设置对应宝石数据对象
         state = kJewelStateIdle; // 宝石状态
-        
+        effects = [[NSMutableDictionary alloc] initWithCapacity:5];
     }
     
     return ret;
@@ -42,6 +42,7 @@
 
 -(void) dealloc
 {
+    [effects release];
     [super dealloc];
 }
 
@@ -53,6 +54,11 @@
 -(CGPoint) coord
 {
     return jewelVo.coord;
+}
+
+-(JewelCell*) cell
+{
+    return [jewelPanel getCellAtCoord:self.coord];
 }
 
 #pragma mark -
@@ -80,6 +86,7 @@
         
         CGPoint oldCoord = [self.jewelPanel positionToCellCoord:self.position];
         CGPoint newCoord = [self.jewelPanel positionToCellCoord:position];
+        [super setPosition:position];
         
         // 更新格子坐标
         if (!CGPointEqualToPoint(oldCoord, newCoord))
@@ -90,9 +97,10 @@
             
             JewelCell *newCell = [self.jewelPanel getCellAtCoord:newCoord];
             newCell.jewelGlobalId = self.jewelVo.globalId;
+            
+            // 更新坐标
+            self.jewelVo.coord = newCoord;
         }
-        
-        [super setPosition:position];
         
         // 更新效果
         for (NSString *key in effects.allKeys)

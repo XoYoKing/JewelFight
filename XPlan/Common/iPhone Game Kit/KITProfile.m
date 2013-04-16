@@ -50,7 +50,7 @@ static NSMutableDictionary* profiles = nil;
             if( isValid )
             {
                 // create the item & save for re-use
-                profile = [[KITProfile alloc] initWithConfig:config];
+                profile = [[KITProfile alloc] initWithProfileName:name config:config];
                 if( profile != nil )
                     [profiles setObject:profile forKey:name];
                 [profile release]; // ok because setObject retains

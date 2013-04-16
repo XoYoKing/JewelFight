@@ -10,13 +10,31 @@
 #import "JewelSprite.h"
 #import "JewelVo.h"
 #import "JewelCell.h"
+#import "JewelArea.h"
 #import "Constants.h"
 #import "GameController.h"
 #import "JewelController.h"
+#import "JewelSwapAction.h"
+
+@interface JewelPanel()
+{
+    BOOL registeredWithDispatcher; //
+    
+    BOOL touchInProgress; //
+    BOOL isPressDown; // 是否按下
+    CGPoint touchDistance;
+    JewelSprite *selectedJewel; // 选中的宝石全局标识
+}
+
+-(void) registerWithTouchDispatcher;
+
+-(void) unregisterWithTouchDispatcher;
+
+@end
 
 @implementation JewelPanel
 
-@synthesize gridSize,cellSize,continueDispose,isControlEnabled,jewelController;
+@synthesize gridSize,cellSize,continueDispose,isControlEnabled,jewelController,team;
 
 -(id) init
 {
@@ -69,6 +87,121 @@
     [effectLayer release];
     [super dealloc];
 }
+
+#pragma mark -
+#pragma mark Touch
+
+-(void) active
+{
+    self.touchEnabled = YES;
+    [[[CCDirector sharedDirector] touchDispatcher] addTargetedDelegate:self priority:1 swallowsTouches:NO];
+}
+
+-(void) deactive
+{
+    self.touchEnabled = NO;
+    [[[CCDirector sharedDirector] touchDispatcher] removeDelegate:self];
+}
+
+/// 判断是否点击了指定节点
+-(BOOL) touch:(UITouch*)touch hitNode:(CCNode*)node
+{
+    CGRect r = node.boundingBox;
+    CGPoint local = [self convertTouchToNodeSpace:touch];
+    return CGRectContainsPoint(r, local);
+}
+
+
+-(BOOL) ccTouchBegan:(UITouch *)touch withEvent:(UIEvent *)event
+{
+    if (!isControlEnabled)
+    {
+        return NO;
+    }
+   
+        // 获取触摸点坐标
+    CGPoint local = [self convertTouchToNodeSpace:touch];
+    JewelSprite *js = [self getCellAtPosition:local].jewelSprite;
+    if (js!=nil)
+    {
+        // 记录已经选中
+        if (selectedJewel != nil && selectedJewel!=js)
+        {
+            if (ccpDistance(js.coord, selectedJewel.coord)==1)
+            {
+                // 交换宝石
+                [self doSwapJewel1:selectedJewel withJewel2:js];
+                [self unselectJewel];
+                return NO;
+            }
+        }
+        
+        [self selectJewel:js];
+        return YES;
+    }
+    
+    return NO;
+}
+
+-(void) ccTouchMoved:(UITouch *)touch withEvent:(UIEvent *)event
+{
+    if (selectedJewel!=nil)
+    {
+        // 获取触摸点坐标
+        CGPoint touchPos = [self convertTouchToNodeSpace:touch];
+        JewelCell *cell = [self getCellAtPosition:touchPos];
+        if (cell && ccpDistance(cell.coord, selectedJewel.coord)==1)
+        {
+            [self doSwapJewel1:selectedJewel withJewel2:cell.jewelSprite];
+            [self unselectJewel];
+        }
+    }
+}
+
+
+-(void) ccTouchEnded:(UITouch *)touch withEvent:(UIEvent *)event
+{
+    
+}
+
+-(void) ccTouchCancelled:(UITouch *)touch withEvent:(UIEvent *)event
+{
+}
+
+-(void) selectJewel:(JewelSprite*)js
+{
+    [self unselectJewel];
+    
+    selectedJewel = js;
+    
+    // 显示选中效果
+    KITProfile *profile = [KITProfile profileWithName:@"jewel_graphics"];
+    CCAnimation *selectedAnim = [profile animationForKey:@"jewelSelected"];
+    EffectSprite *selectedEffect = [[EffectSprite alloc] init];
+    [selectedEffect animate:selectedAnim tag:-1 repeat:YES restore:NO];
+    selectedEffect.position = js.position;
+    [js addEffect:selectedEffect withKey:kJewelEffectSelected];
+    [selectedEffect release];
+    
+}
+
+-(void) unselectJewel
+{
+    if (selectedJewel)
+    {
+        [selectedJewel deleteEffectWithKey:kJewelEffectSelected];
+        selectedJewel = nil;
+    }
+}
+
+-(void) doSwapJewel1:(JewelSprite*)jewel1 withJewel2:(JewelSprite*)jewel2
+{
+   JewelSwapAction *action = [[JewelSwapAction alloc] initWithJewelController:jewelController jewel1:jewel1 jewel2:jewel2];//
+    [self.jewelController queueAction:action top:NO];
+    [action release];
+}
+
+
 
 -(int) continueDispose
 {
@@ -304,6 +437,22 @@
 	kmGLPopMatrix();
 	
     //	glPopMatrix();
+}
+
+-(void) updateJewelGridInfo
+{
+    // 清理
+    for (JewelCell *cell in cellGrid)
+    {
+        cell.jewelGlobalId = 0;
+    }
+    
+    // 设置
+    for (JewelSprite *js in allJewelSprites)
+    {
+        JewelCell *cell = [self getCellAtPosition:js.position];
+        cell.jewelGlobalId = js.globalId;
+    }
 }
 
 @end

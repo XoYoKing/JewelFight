@@ -35,6 +35,9 @@
 /// 宝石
 @property (readonly,nonatomic) JewelSprite *jewelSprite;
 
+/// 在宝石面板上的范围
+@property (readonly,nonatomic) CGRect panelRect;
+
 /// 初始化
 -(id) initWithJewelPanel:(JewelPanel*)thePanel coord:(CGPoint)theCoord;
 

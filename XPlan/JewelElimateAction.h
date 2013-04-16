@@ -1,13 +1,13 @@
 //
-//  JewelAddAction.m
+//  JewelElimateAction.h
 //  XPlan
 //
 //  Created by Hex on 4/16/13.
 //  Copyright (c) 2013 Hex. All rights reserved.
 //
 
-#import "JewelAddAction.h"
+#import "JewelAction.h"
 
-@implementation JewelAddAction
+@interface JewelElimateAction : JewelAction
 
 @end

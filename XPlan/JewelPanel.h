@@ -26,7 +26,8 @@
     CGSize gridSize; // 格子数量宽高
     CGSize cellSize; // 宝石地格像素宽高
     int continueDispose; // 连续消除次数
-    BOOL isControlEnabled; // 是否玩家可触摸操作
+    int team; // 阵营 0:玩家阵营;1 对手阵营
+    BOOL isControlEnabled; // 是否可以操作
 }
 
 /// 连续消除次数
@@ -44,8 +45,13 @@
 /// 宝石控制器
 @property (readwrite,nonatomic,assign) JewelController *jewelController;
 
-/// 初始化
--(id) init;
+/// 所属阵营 0:玩家; 1:对手
+@property (readwrite,nonatomic) int team;
+
+
+-(void) active;
+
+-(void) deactive;
 
 
 /// 添加效果
@@ -109,5 +115,6 @@
 
 -(void) resetActions;
 
+-(void) updateJewelGridInfo;
 
 @end

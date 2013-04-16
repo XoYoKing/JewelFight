@@ -10,7 +10,7 @@
 
 @implementation JewelVo
 
-@synthesize globalId,jewelId,jewelType,coord,toY,time,disposeRight,disposeTop,state,hDispose,yGap;
+@synthesize globalId,jewelId,jewelType,coord,toY,time,disposeRight,disposeTop,state,hDispose,yGap,special,vDispose;
 
 -(id) init
 {

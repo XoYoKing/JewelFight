@@ -12,7 +12,7 @@
 #import "JewelPanel.h"
 #import "JewelActionQueue.h"
 #import "JewelAction.h"
-#import "JewelAddAction.h"
+#import "JewelInitAction.h"
 
 @interface JewelController()
 
@@ -104,7 +104,7 @@
     [self removeAllJewels];
     
     // Action
-    JewelAddAction *action = [[JewelAddAction alloc] initWithJewelController:self jewelVoList:list];
+    JewelInitAction *action = [[JewelInitAction alloc] initWithJewelController:self jewelVoList:list];
     [self queueAction:action top:NO];
     [action release];
     
@@ -113,7 +113,7 @@
 -(void) addNewJewelsWithActionId:(long)actionId voList:(CCArray*)list
 {
     
-    JewelAddAction *action = [[JewelAddAction alloc] initWithJewelController:self jewelVoList:list];
+    JewelInitAction *action = [[JewelInitAction alloc] initWithJewelController:self jewelVoList:list];
     [self queueAction:action top:NO];
 }
 

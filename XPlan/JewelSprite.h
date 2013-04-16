@@ -10,7 +10,7 @@
 #import "iPhoneGameKit.h"
 #import "EffectSprite.h"
 
-@class JewelVo,JewelPanel;
+@class JewelVo,JewelPanel,JewelCell;
 
 #define kJewelItemStateIdle 0 // 默认状态
 #define kJewelItemStateMoving 1 // 移动状态
@@ -40,6 +40,8 @@
 /// 所处坐标
 @property (readonly,nonatomic) CGPoint coord;
 
+@property (readonly,nonatomic) JewelCell *cell;
+
 /// 宝石状态
 @property (readwrite,nonatomic) int state;
 
@@ -66,5 +68,16 @@
 /// 死局,下落到最底部
 -(void) moveToDead;
 
+#pragma mark -
+#pragma mark Effects
+
+-(void) addEffects;
+
+-(void) addEffect:(EffectSprite*)effect withKey:(NSString*)key;
+
+-(void) deleteEffectWithKey:(NSString*)key;
+
+/// 清除全部特效
+-(void) detatchEffects;
 
 @end

@@ -8,7 +8,6 @@
 
 #import "PvPOpponentJewelPanel.h"
 #import "FighterVo.h"
-#import "ViewJewelPanel.h"
 #import "UserInfo.h"
 
 @implementation PvPOpponentJewelPanel

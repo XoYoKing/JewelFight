@@ -13,7 +13,7 @@
 #import "JewelSprite.h"
 #import "JewelActionQueue.h"
 #import "JewelAction.h"
-#import "JewelAddAction.h"
+#import "JewelInitAction.h"
 #import "JewelCell.h"
 
 @interface DoJewelPanel()

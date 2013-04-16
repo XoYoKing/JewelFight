@@ -27,8 +27,17 @@
 		E2515793170D5A2100BEC55F /* LeaderPortrait.m in Sources */ = {isa = PBXBuildFile; fileRef = E2515792170D5A2100BEC55F /* LeaderPortrait.m */; };
 		E2515796170D5A9500BEC55F /* SelfPortrait.m in Sources */ = {isa = PBXBuildFile; fileRef = E2515795170D5A9500BEC55F /* SelfPortrait.m */; };
 		E2515799170D7FDD00BEC55F /* FightTopUI.m in Sources */ = {isa = PBXBuildFile; fileRef = E2515798170D7FDD00BEC55F /* FightTopUI.m */; };
+		E258BD67171D5ED9001178E4 /* jewelSelected-ipadhd.plist in Resources */ = {isa = PBXBuildFile; fileRef = E258BD63171D5ED9001178E4 /* jewelSelected-ipadhd.plist */; };
+		E258BD68171D5ED9001178E4 /* jewelSelected-ipadhd.pvr.ccz in Resources */ = {isa = PBXBuildFile; fileRef = E258BD64171D5ED9001178E4 /* jewelSelected-ipadhd.pvr.ccz */; };
+		E258BD69171D5ED9001178E4 /* jewelSelected.plist in Resources */ = {isa = PBXBuildFile; fileRef = E258BD65171D5ED9001178E4 /* jewelSelected.plist */; };
+		E258BD6A171D5ED9001178E4 /* jewelSelected.pvr.ccz in Resources */ = {isa = PBXBuildFile; fileRef = E258BD66171D5ED9001178E4 /* jewelSelected.pvr.ccz */; };
 		E25E8A7D17145A0200DF4CD7 /* HonsterBar.m in Sources */ = {isa = PBXBuildFile; fileRef = E25E8A7C17145A0200DF4CD7 /* HonsterBar.m */; };
 		E25E8A7F1714638400DF4CD7 /* pvp_loading.ccbi in Resources */ = {isa = PBXBuildFile; fileRef = E25E8A7E1714638400DF4CD7 /* pvp_loading.ccbi */; };
+		E265C01A171C67E00008FB40 /* JewelArea.m in Sources */ = {isa = PBXBuildFile; fileRef = E265C019171C67E00008FB40 /* JewelArea.m */; };
+		E265C01D171C6EF50008FB40 /* JewelSwapAction.m in Sources */ = {isa = PBXBuildFile; fileRef = E265C01C171C6EF50008FB40 /* JewelSwapAction.m */; };
+		E265C020171C726F0008FB40 /* JewelElimateAction.m in Sources */ = {isa = PBXBuildFile; fileRef = E265C01F171C726F0008FB40 /* JewelElimateAction.m */; };
+		E265C023171C72850008FB40 /* JewelDropAction.m in Sources */ = {isa = PBXBuildFile; fileRef = E265C022171C72840008FB40 /* JewelDropAction.m */; };
+		E265C026171C72CF0008FB40 /* JewelAddAction.m in Sources */ = {isa = PBXBuildFile; fileRef = E265C025171C72CE0008FB40 /* JewelAddAction.m */; };
 		E277FD591715885F005E50C0 /* PvPLoadingController.m in Sources */ = {isa = PBXBuildFile; fileRef = E277FD581715885F005E50C0 /* PvPLoadingController.m */; };
 		E277FD5F1715A296005E50C0 /* PvPFightController.m in Sources */ = {isa = PBXBuildFile; fileRef = E277FD5E1715A296005E50C0 /* PvPFightController.m */; };
 		E27E1AA0171AB1DD00AC6FDB /* jewel_resources-ipadhd.plist in Resources */ = {isa = PBXBuildFile; fileRef = E27E1A9C171AB1DD00AC6FDB /* jewel_resources-ipadhd.plist */; };
@@ -112,11 +121,10 @@
 		E2D7FF3A1709E07D00E79BF6 /* GameCreateHeroLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = E2D7FF391709E07C00E79BF6 /* GameCreateHeroLayer.m */; };
 		E2D9AAF01705EF86008D0311 /* GameServer.m in Sources */ = {isa = PBXBuildFile; fileRef = E2D9AAEF1705EF86008D0311 /* GameServer.m */; };
 		E2DD8806170D8F2900F2D065 /* JewelPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = E2DD8805170D8F2900F2D065 /* JewelPanel.m */; };
-		E2DD8809170D9A7500F2D065 /* ViewJewelPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = E2DD8808170D9A7500F2D065 /* ViewJewelPanel.m */; };
 		E2DD880C170D9CF300F2D065 /* FightActionQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = E2DD880B170D9CF300F2D065 /* FightActionQueue.m */; };
 		E2DD8810170D9EC300F2D065 /* JewelAction.m in Sources */ = {isa = PBXBuildFile; fileRef = E2DD880F170D9EC300F2D065 /* JewelAction.m */; };
 		E2DD8813170D9ED300F2D065 /* JewelActionQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = E2DD8812170D9ED300F2D065 /* JewelActionQueue.m */; };
-		E2DD8816170D9F7800F2D065 /* JewelAddAction.m in Sources */ = {isa = PBXBuildFile; fileRef = E2DD8815170D9F7800F2D065 /* JewelAddAction.m */; };
+		E2DD8816170D9F7800F2D065 /* JewelInitAction.m in Sources */ = {isa = PBXBuildFile; fileRef = E2DD8815170D9F7800F2D065 /* JewelInitAction.m */; };
 		E2DD881D170DA13000F2D065 /* JewelController.m in Sources */ = {isa = PBXBuildFile; fileRef = E2DD881C170DA13000F2D065 /* JewelController.m */; };
 		E2E2665817044C2600550425 /* EquipmentVo.m in Sources */ = {isa = PBXBuildFile; fileRef = E2E2665117044C2600550425 /* EquipmentVo.m */; };
 		E2E2665917044C2600550425 /* FighterVo.m in Sources */ = {isa = PBXBuildFile; fileRef = E2E2665317044C2600550425 /* FighterVo.m */; };
@@ -350,9 +358,23 @@
 		E2515795170D5A9500BEC55F /* SelfPortrait.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelfPortrait.m; sourceTree = "<group>"; };
 		E2515797170D7FDD00BEC55F /* FightTopUI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FightTopUI.h; sourceTree = "<group>"; };
 		E2515798170D7FDD00BEC55F /* FightTopUI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FightTopUI.m; sourceTree = "<group>"; };
+		E258BD63171D5ED9001178E4 /* jewelSelected-ipadhd.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "jewelSelected-ipadhd.plist"; sourceTree = "<group>"; };
+		E258BD64171D5ED9001178E4 /* jewelSelected-ipadhd.pvr.ccz */ = {isa = PBXFileReference; lastKnownFileType = file; path = "jewelSelected-ipadhd.pvr.ccz"; sourceTree = "<group>"; };
+		E258BD65171D5ED9001178E4 /* jewelSelected.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = jewelSelected.plist; sourceTree = "<group>"; };
+		E258BD66171D5ED9001178E4 /* jewelSelected.pvr.ccz */ = {isa = PBXFileReference; lastKnownFileType = file; path = jewelSelected.pvr.ccz; sourceTree = "<group>"; };
 		E25E8A7B17145A0200DF4CD7 /* HonsterBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HonsterBar.h; sourceTree = "<group>"; };
 		E25E8A7C17145A0200DF4CD7 /* HonsterBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HonsterBar.m; sourceTree = "<group>"; };
 		E25E8A7E1714638400DF4CD7 /* pvp_loading.ccbi */ = {isa = PBXFileReference; lastKnownFileType = file; path = pvp_loading.ccbi; sourceTree = "<group>"; };
+		E265C018171C67E00008FB40 /* JewelArea.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JewelArea.h; sourceTree = "<group>"; };
+		E265C019171C67E00008FB40 /* JewelArea.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JewelArea.m; sourceTree = "<group>"; };
+		E265C01B171C6EF50008FB40 /* JewelSwapAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JewelSwapAction.h; sourceTree = "<group>"; };
+		E265C01C171C6EF50008FB40 /* JewelSwapAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JewelSwapAction.m; sourceTree = "<group>"; };
+		E265C01E171C726F0008FB40 /* JewelElimateAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JewelElimateAction.h; sourceTree = "<group>"; };
+		E265C01F171C726F0008FB40 /* JewelElimateAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JewelElimateAction.m; sourceTree = "<group>"; };
+		E265C021171C72840008FB40 /* JewelDropAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JewelDropAction.h; sourceTree = "<group>"; };
+		E265C022171C72840008FB40 /* JewelDropAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JewelDropAction.m; sourceTree = "<group>"; };
+		E265C024171C72CE0008FB40 /* JewelAddAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JewelAddAction.h; sourceTree = "<group>"; };
+		E265C025171C72CE0008FB40 /* JewelAddAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JewelAddAction.m; sourceTree = "<group>"; };
 		E277FD571715885F005E50C0 /* PvPLoadingController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PvPLoadingController.h; sourceTree = "<group>"; };
 		E277FD581715885F005E50C0 /* PvPLoadingController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PvPLoadingController.m; sourceTree = "<group>"; };
 		E277FD5D1715A296005E50C0 /* PvPFightController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PvPFightController.h; sourceTree = "<group>"; };
@@ -477,16 +499,14 @@
 		E2D9AAEF1705EF86008D0311 /* GameServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GameServer.m; path = XPlan/GameServer.m; sourceTree = SOURCE_ROOT; };
 		E2DD8804170D8F2900F2D065 /* JewelPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JewelPanel.h; sourceTree = "<group>"; };
 		E2DD8805170D8F2900F2D065 /* JewelPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JewelPanel.m; sourceTree = "<group>"; };
-		E2DD8807170D9A7500F2D065 /* ViewJewelPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewJewelPanel.h; sourceTree = "<group>"; };
-		E2DD8808170D9A7500F2D065 /* ViewJewelPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewJewelPanel.m; sourceTree = "<group>"; };
 		E2DD880A170D9CF300F2D065 /* FightActionQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FightActionQueue.h; sourceTree = "<group>"; };
 		E2DD880B170D9CF300F2D065 /* FightActionQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FightActionQueue.m; sourceTree = "<group>"; };
 		E2DD880E170D9EC300F2D065 /* JewelAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JewelAction.h; sourceTree = "<group>"; };
 		E2DD880F170D9EC300F2D065 /* JewelAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JewelAction.m; sourceTree = "<group>"; };
 		E2DD8811170D9ED300F2D065 /* JewelActionQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JewelActionQueue.h; sourceTree = "<group>"; };
 		E2DD8812170D9ED300F2D065 /* JewelActionQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JewelActionQueue.m; sourceTree = "<group>"; };
-		E2DD8814170D9F7800F2D065 /* JewelAddAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JewelAddAction.h; sourceTree = "<group>"; };
-		E2DD8815170D9F7800F2D065 /* JewelAddAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JewelAddAction.m; sourceTree = "<group>"; };
+		E2DD8814170D9F7800F2D065 /* JewelInitAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JewelInitAction.h; sourceTree = "<group>"; };
+		E2DD8815170D9F7800F2D065 /* JewelInitAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JewelInitAction.m; sourceTree = "<group>"; };
 		E2DD881B170DA13000F2D065 /* JewelController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JewelController.h; sourceTree = "<group>"; };
 		E2DD881C170DA13000F2D065 /* JewelController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JewelController.m; sourceTree = "<group>"; };
 		E2E2665017044C2600550425 /* EquipmentVo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EquipmentVo.h; sourceTree = "<group>"; };
@@ -1010,6 +1030,10 @@
 		E27E1A9B171AB1DD00AC6FDB /* jewels */ = {
 			isa = PBXGroup;
 			children = (
+				E258BD63171D5ED9001178E4 /* jewelSelected-ipadhd.plist */,
+				E258BD64171D5ED9001178E4 /* jewelSelected-ipadhd.pvr.ccz */,
+				E258BD65171D5ED9001178E4 /* jewelSelected.plist */,
+				E258BD66171D5ED9001178E4 /* jewelSelected.pvr.ccz */,
 				E27E1A9C171AB1DD00AC6FDB /* jewel_resources-ipadhd.plist */,
 				E27E1A9D171AB1DD00AC6FDB /* jewel_resources-ipadhd.png */,
 				E27E1A9E171AB1DD00AC6FDB /* jewel_resources.plist */,
@@ -1354,12 +1378,20 @@
 				E2DD880F170D9EC300F2D065 /* JewelAction.m */,
 				E2DD8811170D9ED300F2D065 /* JewelActionQueue.h */,
 				E2DD8812170D9ED300F2D065 /* JewelActionQueue.m */,
-				E2DD8814170D9F7800F2D065 /* JewelAddAction.h */,
-				E2DD8815170D9F7800F2D065 /* JewelAddAction.m */,
+				E2DD8814170D9F7800F2D065 /* JewelInitAction.h */,
+				E2DD8815170D9F7800F2D065 /* JewelInitAction.m */,
 				E27E1AA6171AB90000AC6FDB /* JewelFireAction.h */,
 				E27E1AA7171AB90000AC6FDB /* JewelFireAction.m */,
 				E227675B171B002600E71B08 /* JewelBlackAction.h */,
 				E227675C171B002600E71B08 /* JewelBlackAction.m */,
+				E265C01B171C6EF50008FB40 /* JewelSwapAction.h */,
+				E265C01C171C6EF50008FB40 /* JewelSwapAction.m */,
+				E265C01E171C726F0008FB40 /* JewelElimateAction.h */,
+				E265C01F171C726F0008FB40 /* JewelElimateAction.m */,
+				E265C021171C72840008FB40 /* JewelDropAction.h */,
+				E265C022171C72840008FB40 /* JewelDropAction.m */,
+				E265C024171C72CE0008FB40 /* JewelAddAction.h */,
+				E265C025171C72CE0008FB40 /* JewelAddAction.m */,
 			);
 			name = Actions;
 			sourceTree = "<group>";
@@ -2203,12 +2235,12 @@
 			children = (
 				E2FAFEAE1707780300868C63 /* DoJewelPanel.h */,
 				E2FAFEAF1707780300868C63 /* DoJewelPanel.m */,
-				E2DD8807170D9A7500F2D065 /* ViewJewelPanel.h */,
-				E2DD8808170D9A7500F2D065 /* ViewJewelPanel.m */,
 				E2DD8804170D8F2900F2D065 /* JewelPanel.h */,
 				E2DD8805170D8F2900F2D065 /* JewelPanel.m */,
 				E292A1A2170F21B500859F7B /* JewelCell.h */,
 				E292A1A3170F21B500859F7B /* JewelCell.m */,
+				E265C018171C67E00008FB40 /* JewelArea.h */,
+				E265C019171C67E00008FB40 /* JewelArea.m */,
 			);
 			name = Panel;
 			sourceTree = "<group>";
@@ -2337,6 +2369,10 @@
 				E27E1AA3171AB1DD00AC6FDB /* jewel_resources.png in Resources */,
 				E27E1AA5171AB22700AC6FDB /* jewel_graphics.plist in Resources */,
 				E2E739A2171B235E00B880C1 /* batterBg.png in Resources */,
+				E258BD67171D5ED9001178E4 /* jewelSelected-ipadhd.plist in Resources */,
+				E258BD68171D5ED9001178E4 /* jewelSelected-ipadhd.pvr.ccz in Resources */,
+				E258BD69171D5ED9001178E4 /* jewelSelected.plist in Resources */,
+				E258BD6A171D5ED9001178E4 /* jewelSelected.pvr.ccz in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2582,11 +2618,10 @@
 				E2515796170D5A9500BEC55F /* SelfPortrait.m in Sources */,
 				E2515799170D7FDD00BEC55F /* FightTopUI.m in Sources */,
 				E2DD8806170D8F2900F2D065 /* JewelPanel.m in Sources */,
-				E2DD8809170D9A7500F2D065 /* ViewJewelPanel.m in Sources */,
 				E2DD880C170D9CF300F2D065 /* FightActionQueue.m in Sources */,
 				E2DD8810170D9EC300F2D065 /* JewelAction.m in Sources */,
 				E2DD8813170D9ED300F2D065 /* JewelActionQueue.m in Sources */,
-				E2DD8816170D9F7800F2D065 /* JewelAddAction.m in Sources */,
+				E2DD8816170D9F7800F2D065 /* JewelInitAction.m in Sources */,
 				E2DD881D170DA13000F2D065 /* JewelController.m in Sources */,
 				E292A1A4170F21B500859F7B /* JewelCell.m in Sources */,
 				E24308F117117F2F003A7595 /* LoadingLayer.m in Sources */,
@@ -2605,6 +2640,11 @@
 				E2EC6B80171841440033F81E /* FightCommand.m in Sources */,
 				E27E1AA8171AB90000AC6FDB /* JewelFireAction.m in Sources */,
 				E227675D171B002600E71B08 /* JewelBlackAction.m in Sources */,
+				E265C01A171C67E00008FB40 /* JewelArea.m in Sources */,
+				E265C01D171C6EF50008FB40 /* JewelSwapAction.m in Sources */,
+				E265C020171C726F0008FB40 /* JewelElimateAction.m in Sources */,
+				E265C023171C72850008FB40 /* JewelDropAction.m in Sources */,
+				E265C026171C72CF0008FB40 /* JewelAddAction.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

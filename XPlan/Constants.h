@@ -67,6 +67,7 @@ typedef enum _FightLayerTags
 #define kJewelSpecialBlack 7 // 黑洞
 
 // 宝石效果
+#define kJewelEffectSelected @"selected" // 宝石选中
 #define kJewelEffectElimate @"elimate" // 普通消除
 #define kJewelEffectFire @"fire" // 燃烧效果
 #define kJewelEffectFireElimate @"fireElimate" // 燃烧消失效果
