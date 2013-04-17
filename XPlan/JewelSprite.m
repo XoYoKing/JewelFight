@@ -192,7 +192,7 @@
 
 
 /// 火焰方块燃烧动画
--(void) animateFire:(int)effectId
+-(void) fire:(int)effectId
 {
     // 变更状态
     [self changeState:kJewelStateFiring];
@@ -279,7 +279,7 @@
 
 
 /// 爆炸方块消失特效
--(void) animateExplodeEliminate:(int)effectId
+-(void) explodeEliminate:(int)effectId
 {
     // 清理全部特殊效果
     [self detatchEffects];
@@ -305,7 +305,7 @@
 }
 
 /// 执行消除
--(void) animateEliminate:(int)effectId
+-(void) eliminate:(int)effectId
 {
     // 清理全部特殊效果
     [self detatchEffects];
@@ -344,27 +344,41 @@
     return NO;
 }
 
-/*
+
 /// 掉落
 -(void) drop
 {
-    if (jewelVo.yGap >= 0)
+    if (jewelVo.yGap <= 0)
     {
         return;
     }
+    newState = kJewelStateDropping;
     
     // 获取掉落坐标
-    CGPoint targetPos = [self.jewelPanel cellCoordToPosition:jewelVo.coord];
+    CGPoint targetPos = [self.jewelPanel cellCoordToPosition:ccp(self.jewelVo.coord.x,self.jewelVo.toY)];
+    CCAction *action = [CCSequence actions:
+    [CCMoveTo actionWithDuration:jewelVo.time position:targetPos],
+    [CCCallFunc actionWithTarget:self selector:@selector(dropComplete)]
+                        , nil];
     
     // 执行掉落动作
-    [self runAction:[CCSequence actions:
-                     [CCMoveTo actionWithDuration:jewelVo.time position:targetPos],
-                     [CCCallFunc actionWithTarget:self selector:@selector(initComplete)]
-                     , nil]];
-    // 设置宝石新标识
-    [jewelVo newId];
+    [self runAction:action];
 }
 
+-(void) dropComplete
+{
+    newState = kJewelStateIdle;
+    jewelVo.yGap = 0; // 重置y轴间隙
+}
+
+
+/// 是否正在下落
+-(BOOL) isDropping
+{
+    return self.state==kJewelStateDropping;
+}
+
+/*
 /// 死局 下落到最低
 -(void) moveToDead
 {

@@ -18,7 +18,7 @@
     int jewelType; // 宝石类型
     int special; // 特殊宝石
     CGPoint coord; // 所处坐标
-    int yGap; // ??
+    int yGap; // y轴移动距离
     int hEliminate; // 水平消除宝石数量
     int vEliminate; // 垂直消除宝石数量
     int state; // 宝石状态 0为未消除, 1为消除
@@ -70,6 +70,9 @@
 -(int) eliminateNum;
 
 -(BOOL) lt;
+
+/// 添加y轴缺口
+-(void) addYGap;
 
 /// 是否出现在最左侧
 -(BOOL) isLeft;

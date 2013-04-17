@@ -12,6 +12,8 @@
 #import "JewelSprite.h"
 #import "JewelVo.h"
 #import "Constants.h"
+#import "JewelDropAction.h"
+#import "JewelPanel.h"
 
 @interface JewelEliminateAction()
 
@@ -43,10 +45,13 @@
         return;
     }
     
+    // 宝石面板设置为不可操作
+    [jewelController.jewelPanel setIsControlEnabled:NO];
+    
     for (JewelSprite * elimSprite in elimList)
     {
         // 执行消除动画
-        [elimSprite animateEliminate:1];
+        [elimSprite eliminate:1];
     }
     
     
@@ -76,8 +81,17 @@
 
 -(void) execute
 {
+    // 交换完成,检查消除
+    [jewelController.jewelPanel updateJewelGridInfo];
+    
     // 宝石更新时会自动删除宝石,所以这块不处理
-    // 考虑新宝石
+    // 宝石下落
+    JewelDropAction *dropAction = [[JewelDropAction alloc] initWithJewelController:jewelController];
+    [jewelController queueAction:dropAction top:YES];
+    [dropAction release];
+    
+    // 宝石面板设置为可操作
+    [jewelController.jewelPanel setIsControlEnabled:YES];
     
 }
 

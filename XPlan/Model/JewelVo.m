@@ -66,13 +66,7 @@
 
 -(void) addYGap
 {
-    yGap--;
-}
-
-/// 重新设置标识
--(void) newId
-{
-    yGap = 0;
+    yGap++;
 }
 
 -(BOOL) isLeft

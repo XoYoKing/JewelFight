@@ -87,7 +87,7 @@
             if (fireBall.position.y > js.position.y)
             {
                 // 燃烧
-                [js animateFire:1];
+                [js fire:1];
                 
                 // 标记正在燃烧的宝石
                 [firingJewelGlobalIds addObject:js.globalId];

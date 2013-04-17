@@ -63,13 +63,19 @@
 
 
 /// 指定效果标识的火焰方块燃烧动画
--(void) animateFire:(int)effectId;
+-(void) fire:(int)effectId;
 
 /// 指定效果标识的宝石消除动画
--(void) animateEliminate:(int)effectId;
+-(void) eliminate:(int)effectId;
 
 /// 死局,下落到最底部
 -(void) moveToDead;
+
+/// 掉落
+-(void) drop;
+
+/// 是否正在下落
+-(BOOL) isDropping;
 
 #pragma mark -
 #pragma mark Effects
