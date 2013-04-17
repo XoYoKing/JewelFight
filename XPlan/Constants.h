@@ -26,7 +26,6 @@ typedef enum _FightLayerTags
     kTagBottomUI // 底部UI
 }FightLayerTags;
 
-
 #define kTagPvPLoadingLayer 100 // pvp加载层
 #define kTagPvPLayer 101 // pvp战斗层
 #define kTagPvPHudLayer 102 // pvp Hud层
@@ -123,6 +122,12 @@ typedef enum _FightLayerTags
 
 
 #define SERVER_ACTION_ERROR_MESSAGE 1000 // 错误信息
+
+
+/// 消息
+#define JEWEL_MESSAGE_SWAP_JEWELS 300 // 交换宝石
+#define JEWEL_MESSAGE_ELIMINATE_JEWELS 301 // 消除宝石
+
 
 
 #ifdef __XPLAN__

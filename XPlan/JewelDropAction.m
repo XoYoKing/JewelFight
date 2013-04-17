@@ -12,6 +12,7 @@
 #import "JewelSprite.h"
 #import "JewelVo.h"
 #import "JewelCell.h"
+#import "JewelEliminateAction.h"
 
 @interface JewelDropAction()
 {
@@ -122,11 +123,28 @@
 -(void) execute
 {
     // 掉落完成
-    
-    // 
     [jewelController.jewelPanel updateJewelGridInfo];
     
-    // 宝石面板设置为不可操作
+    // 检查可消除性
+    CCArray *elimList = [[CCArray alloc] initWithCapacity:20];
+    
+    // 检查可消除宝石集合
+    for (JewelSprite *dropSprite in dropJewels)
+    {
+        [jewelController.jewelPanel checkHorizontalEliminableJewels:elimList withJewel:dropSprite];
+        [jewelController.jewelPanel checkVerticalEliminableJewels:elimList withJewel:dropSprite];
+    }
+    
+    if (elimList.count>0)
+    {
+        JewelEliminateAction *elimateAction = [[JewelEliminateAction alloc] initWithJewelController:jewelController elimList:elimList];
+        [jewelController queueAction:elimateAction top:NO];
+        [elimateAction release];
+    }
+    
+    [elimList release];
+    
+    // 宝石面板设置为可操作
     [jewelController.jewelPanel setIsControlEnabled:YES];
     
     

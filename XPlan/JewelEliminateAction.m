@@ -14,6 +14,8 @@
 #import "Constants.h"
 #import "JewelDropAction.h"
 #import "JewelPanel.h"
+#import "JewelEliminateMessageData.h"
+#import "GameMessageDispatcher.h"
 
 @interface JewelEliminateAction()
 
@@ -83,6 +85,21 @@
 {
     // 交换完成,检查消除
     [jewelController.jewelPanel updateJewelGridInfo];
+    
+    // 发送消除消息
+    
+    CCArray *elimIds = [[CCArray alloc] initWithCapacity:elimList.count];
+    for (JewelSprite *js in elimList)
+    {
+        [elimIds addObject:[NSNumber numberWithInt:js.globalId]];
+    }
+    
+    JewelEliminateMessageData *msg = [JewelEliminateMessageData dataWithUserId:jewelController.userId jewelGlobalIds:elimIds];
+    
+    [elimIds release];
+    elimIds = nil;
+    [[GameMessageDispatcher sharedDispatcher] dispatchMessage:JEWEL_MESSAGE_ELIMINATE_JEWELS object:msg];
+
     
     // 宝石更新时会自动删除宝石,所以这块不处理
     // 宝石下落

@@ -64,7 +64,7 @@
     [[GameController sharedController].server send:SERVER_GAME data:data];
 }
 
--(void) requestSwapJewelWithActionId:(long)actionId jewelId1:(NSString*)jewelId1 jewelId2:(NSString*)jewelId2
+-(void) requestSwapJewelWithActionId:(long)actionId jewelGlobalId1:(int)jewelGlobalId1 jewelGlobalId2:(int)jewelGlobalId2
 {
     NSMutableData *data = [NSMutableData data];
     ServerDataEncoder *encoder = [[ServerDataEncoder alloc] initWithData:data];
@@ -72,8 +72,8 @@
     [encoder writeInt16:1200];
     [encoder writeInt8:2];
     [encoder writeInt64:actionId];
-    [encoder writeUTF:jewelId1];
-    [encoder writeUTF:jewelId2];
+    [encoder writeInt32:jewelGlobalId1];
+    [encoder writeInt32:jewelGlobalId2];
     [encoder release];
     
     [[GameController sharedController].server send:SERVER_GAME data:data];
@@ -134,7 +134,7 @@
 }
 
 /// 消除宝石
--(void) requestDisposeWithActionId:(long)actionId continueDispose:(int)continueDispose disposeJewelIds:(CCArray*)disposeJewelIds
+-(void) requestEliminateWithActionId:(long)actionId continueEliminate:(int)continueDispose JewelGlobalIds:(CCArray*)globalIds
 {
     NSMutableData *data = [NSMutableData data];
     ServerDataEncoder *encoder = [[ServerDataEncoder alloc] initWithData:data];
@@ -143,11 +143,11 @@
     [encoder writeInt8:3];
     [encoder writeInt64:actionId];
     [encoder writeInt32:continueDispose];
-    [encoder writeInt32:disposeJewelIds.count];
+    [encoder writeInt32:globalIds.count];
     
-    for (NSString *jewelId in disposeJewelIds)
+    for (NSNumber *globalIdNum in globalIds)
     {
-        [encoder writeUTF:jewelId];
+        [encoder writeInt32:[globalIdNum intValue]];
     }
     
     [encoder release];

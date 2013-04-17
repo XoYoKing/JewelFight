@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import "iPhoneGameKit.h"
-#import "CommandListener.h"
 
 #define kPvPStateLoading 0 // 加载数据中
 #define kPvPStateFight 1 // 游戏中
@@ -19,7 +18,7 @@
 @interface PvPController : NSObject
 {
     PvPScene *scene; // 所处场景
-    PvPLoadingController *loadingManager; // 加载管理器
+    PvPLoadingController *loadingController; // 加载管理器
     PvPFightController *fightController; // 战斗管理器
     
     int state; // 状态
@@ -31,7 +30,7 @@
 @property (readonly,nonatomic) PvPScene *scene;
 
 /// 加载控制器
-@property(readonly,nonatomic) PvPLoadingController *loadingManager;
+@property(readonly,nonatomic) PvPLoadingController *loadingController;
 
 /// 战斗控制器
 @property (readonly,nonatomic) PvPFightController *fightController;

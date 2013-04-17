@@ -13,6 +13,7 @@
 /// 宝石控制器
 @interface JewelController : NSObject
 {
+    long userId; // 操作者用户标识
     JewelPanel *jewelPanel; //对应宝石面板
     NSMutableDictionary *jewelVoDict; // 宝石格子字典
     CCArray *jewelVoList; // 宝石格子集合
@@ -26,11 +27,14 @@
     JewelAction *currentAction; // 当前宝石动作
 }
 
+/// 操作者用户标识
+@property (readonly,nonatomic) long userId;
+
 /// 宝石面板
 @property (readonly,nonatomic) JewelPanel *jewelPanel;
 
 /// 初始化
--(id) initWithJewelPanel:(JewelPanel*)panel;
+-(id) initWithJewelPanel:(JewelPanel*)panel operatorUserId:(long)uId;
 
 #pragma mark -
 #pragma mark Jewel Actions

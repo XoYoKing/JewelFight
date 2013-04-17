@@ -10,6 +10,7 @@
 #import "iPhoneGameKit.h"
 #import "CommandListener.h"
 #import "PvPController.h"
+#import "GameMessageListener.h"
 
 #define kPvPFightStateLoading 0 // 加载中
 #define kPvpFightStatePlay 1 // 游戏中
@@ -17,7 +18,7 @@
 @class JewelController;
 
 /// PvP 战斗控制器
-@interface PvPFightController : NSObject<CommandListener>
+@interface PvPFightController : NSObject<CommandListener,GameMessageListener>
 {
     PvPController *controller;
     JewelController *playerJewelController; // 玩家宝石控制器

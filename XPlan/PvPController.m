@@ -31,7 +31,7 @@
 
 @implementation PvPController
 
-@synthesize scene,state,newState,loadingManager,fightController;
+@synthesize scene,state,newState,loadingController,fightController;
 
 -(id) initWithScene:(PvPScene *)s
 {
@@ -41,7 +41,7 @@
         state = -1;
         newState = -1;
         
-        loadingManager = [[PvPLoadingController alloc] initWithPvPController:self];
+        loadingController = [[PvPLoadingController alloc] initWithPvPController:self];
         fightController = [[PvPFightController alloc] initWithPvPController:self];
         
         [self initialize];
@@ -68,7 +68,7 @@
 -(void) enterLoading
 {    
     // 显示加载页面
-    [loadingManager enterLoading];
+    [loadingController enterLoading];
     
 }
 
@@ -84,7 +84,7 @@
     if (self.state == kPvPStateLoading)
     {
         // 加载状态下,更新加载管理器
-        [loadingManager update:delta];
+        [loadingController update:delta];
     }
     else if (self.state == kPvPStateFight)
     {
@@ -108,8 +108,8 @@
         case kPvPStateFight:
         {
             // 释放pvp加载管理器的资源
-            [loadingManager release];
-            loadingManager = nil;
+            [loadingController release];
+            loadingController = nil;
             
             // 开始战斗
             [fightController startFight];

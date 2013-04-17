@@ -12,6 +12,8 @@
 #import "Constants.h"
 #import "JewelController.h"
 #import "JewelEliminateAction.h"
+#import "GameMessageDispatcher.h"
+#import "JewelSwapMessageData.h"
 
 #define kTagActionJewelSwap 400 // 宝石交换
 
@@ -139,6 +141,10 @@
             JewelEliminateAction *elimateAction = [[JewelEliminateAction alloc] initWithJewelController:jewelController elimList:elimList];
             [jewelController queueAction:elimateAction top:NO];
             [elimateAction release];
+            
+            // 发送切换消息
+            JewelSwapMessageData *msg = [JewelSwapMessageData dataWithUserId:jewelController.userId jewelGlobalId1:jewelGlobalId1 jewelGlobalId2:jewelGlobalId2];
+            [[GameMessageDispatcher sharedDispatcher] dispatchMessage:JEWEL_MESSAGE_SWAP_JEWELS object:msg];
         }
         else
         {

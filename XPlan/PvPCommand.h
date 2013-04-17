@@ -26,7 +26,7 @@
 -(void) requestFightStart;
 
 /// 请求交换宝石
--(void) requestSwapJewelWithActionId:(long)actionId jewelId1:(NSString*)jewelId1 jewelId2:(NSString*)jewelId2;
+-(void) requestSwapJewelWithActionId:(long)actionId jewelGlobalId1:(int)jewelGlobalId1 jewelGlobalId2:(int)jewelGlobalId2;
 
 
 /// 死局, 请求新的宝石队列
@@ -40,7 +40,7 @@
 -(void) requestAttack:(int)value;
 
 /// 消除宝石
--(void) requestDisposeWithActionId:(long)actionId continueDispose:(int)continueDispose disposeJewelIds:(CCArray*)disposeJewelIds;
+-(void) requestEliminateWithActionId:(long)actionId continueEliminate:(int)continueDispose JewelGlobalIds:(CCArray*)globalIds;
 
 /// 请求时装技能
 -(void) requestExSkill:(int)skillId;

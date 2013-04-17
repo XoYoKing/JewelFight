@@ -11,6 +11,7 @@
 #import "PvPFighterPanel.h"
 #import "PvPPortraitPanel.h"
 #import "PvPLayer.h"
+#import "PlayerInfo.h"
 #import "Constants.h"
 #import "PvPScene.h"
 #import "UserInfo.h"
@@ -18,6 +19,9 @@
 #import "GameServer.h"
 #import "JewelController.h"
 #import "JewelInitAction.h"
+#import "JewelSwapMessageData.h"
+#import "JewelEliminateMessageData.h"
+#import "GameMessageDispatcher.h"
 
 @interface PvPFightController()
 {
@@ -46,6 +50,7 @@
 
 -(void) dealloc
 {
+    [self exitFight];
     [opponentUser release];
     [playerFighterVos release];
     
@@ -103,9 +108,9 @@
     [pvpLayer release];
     
     
-    playerJewelController = [[JewelController alloc] initWithJewelPanel:pvpLayer.playerJewelPanel.jewelPanel];
+    playerJewelController = [[JewelController alloc] initWithJewelPanel:pvpLayer.playerJewelPanel.jewelPanel operatorUserId:[GameController sharedController].player.userId];
     [playerJewelController.jewelPanel active];
-    opponentJewelController = [[JewelController alloc] initWithJewelPanel:pvpLayer.opponentJewelPanel.jewelPanel];
+    opponentJewelController = [[JewelController alloc] initWithJewelPanel:pvpLayer.opponentJewelPanel.jewelPanel operatorUserId:opponentUser.userId];
     
 }
 
@@ -113,18 +118,23 @@
 -(void) startFight
 {
     newState = kPvpFightStatePlay;
+    
+    [self registerServerListener];
+    [self registerMessageListener];
 }
 
 -(void) exitFight
 {
-    
+    [self unregisterServerListener];
+    [self unregisterMessageListener];
 }
+
+#pragma mark -
+#pragma mark Server Command Listener
 
 -(void) registerServerListener
 {
     GameServer *server = [GameController sharedController].server;
-    
-    
     
     // 侦听交换宝石
     [server.pvpCommand addListenerWithActionId:SERVER_ACTION_PVP_SWAP_STONES listener:self];
@@ -179,6 +189,57 @@
             
     }
 }
+
+#pragma mark -
+#pragma mark Message Listener
+
+/// 注册消息侦听
+-(void) registerMessageListener
+{
+    GameMessageDispatcher *messageDispatcher = [GameMessageDispatcher sharedDispatcher];
+    [messageDispatcher addListenerWithMessageId:JEWEL_MESSAGE_SWAP_JEWELS listener:self];
+    [messageDispatcher addListenerWithMessageId:JEWEL_MESSAGE_ELIMINATE_JEWELS listener:self];
+    
+    
+}
+
+/// 取消消息侦听
+-(void) unregisterMessageListener
+{
+    GameMessageDispatcher *messageDispatcher = [GameMessageDispatcher sharedDispatcher];
+    [messageDispatcher removeListenerWithMessageId:JEWEL_MESSAGE_SWAP_JEWELS listener:self];
+    [messageDispatcher removeListenerWithMessageId:JEWEL_MESSAGE_ELIMINATE_JEWELS listener:self];
+    
+}
+
+-(void) handleWithMessageId:(int)messageId object:(id)obj
+{
+    switch (messageId)
+    {
+            
+        // 交换宝石
+        case JEWEL_MESSAGE_SWAP_JEWELS:
+        {
+            JewelSwapMessageData *data = (JewelSwapMessageData*)obj;
+            
+            // 通知服务器端
+            [[GameController sharedController].server.pvpCommand requestSwapJewelWithActionId:1 jewelGlobalId1:data.jewelGlobalId1 jewelGlobalId2:data.jewelGlobalId2];
+            break;
+        }
+        // 宝石消除
+        case JEWEL_MESSAGE_ELIMINATE_JEWELS:
+        {
+            JewelEliminateMessageData *data = (JewelEliminateMessageData*)obj;
+            
+            // 通知服务器端
+            [[GameController sharedController].server.pvpCommand requestEliminateWithActionId:1 continueEliminate:0 JewelGlobalIds:data.jewelGlobalIds];
+            break;
+        }
+            
+    }
+}
+
+
 
 
 @end

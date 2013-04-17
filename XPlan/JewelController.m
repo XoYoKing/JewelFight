@@ -20,14 +20,15 @@
 
 @implementation JewelController
 
-@synthesize jewelPanel;
+@synthesize jewelPanel,userId;
 
--(id) initWithJewelPanel:(JewelPanel *)panel
+-(id) initWithJewelPanel:(JewelPanel *)panel operatorUserId:(long)uId
 {
     if ((self = [super init]))
     {
         jewelPanel = panel;
         jewelPanel.jewelController = self;
+        userId = uId;
         
         jewelVoDict = [[NSMutableDictionary alloc] init];
         jewelVoList = [[CCArray alloc] initWithCapacity:60];
