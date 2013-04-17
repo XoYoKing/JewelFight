@@ -204,7 +204,7 @@
     [self drawLoadingBar];
 }
 -(void) drawLoadingBar {
-    if (direction == kBarDirectionRight)
+    if (direction == kBarDirectionLeft)
     {
         maskSprite.position = ccp(((self.contentSize.width - maskSprite.boundingBox.size.width) / 2) + (progress / 100 * maskSprite.boundingBox.size.width), middle.y);
     }

@@ -14,8 +14,8 @@
 @interface JewelController : NSObject
 {
     JewelPanel *jewelPanel; //对应宝石面板
-    NSMutableDictionary *jewelVoDict; // 宝石格子集合
-    CCArray *jewelVoList;
+    NSMutableDictionary *jewelVoDict; // 宝石格子字典
+    CCArray *jewelVoList; // 宝石格子集合
     
     // special
     CCArray *specialList; // 特殊宝石列表
