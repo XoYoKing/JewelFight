@@ -12,7 +12,7 @@
 @protocol GameMessageListener
 
 /// 接收消息响应
--(void) handleWithMessageId:(int)messageId object:(id)obj;
+-(void) handleMessageWithSender:(id)sender messageId:(int)messageId object:(id)obj;
 
 @end
 

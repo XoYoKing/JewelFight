@@ -29,6 +29,6 @@
 -(CCArray*) getListeners:(int)messageId;
 
 /// 发布消息
--(void) dispatchMessage:(int)messageId object:(id)obj;
+-(void) dispatchWithSender:(id)sender message:(int)messageId object:(id)obj;
 
 @end

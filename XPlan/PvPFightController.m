@@ -212,7 +212,7 @@
     
 }
 
--(void) handleWithMessageId:(int)messageId object:(id)obj
+-(void) handleMessageWithSender:(id)sender messageId:(int)messageId object:(id)obj
 {
     switch (messageId)
     {
@@ -233,6 +233,13 @@
             
             // 通知服务器端
             [[GameController sharedController].server.pvpCommand requestEliminateWithActionId:1 continueEliminate:0 JewelGlobalIds:data.jewelGlobalIds];
+            
+            if (OFFLINE_MODE)
+            {
+                // 离线模式, 替代服务器端填充
+                
+            }
+            
             break;
         }
             

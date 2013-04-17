@@ -98,7 +98,7 @@
     
     [elimIds release];
     elimIds = nil;
-    [[GameMessageDispatcher sharedDispatcher] dispatchMessage:JEWEL_MESSAGE_ELIMINATE_JEWELS object:msg];
+    [[GameMessageDispatcher sharedDispatcher] dispatchWithSender:jewelController message:JEWEL_MESSAGE_ELIMINATE_JEWELS object:msg];
 
     
     // 宝石更新时会自动删除宝石,所以这块不处理

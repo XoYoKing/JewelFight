@@ -144,7 +144,7 @@
             
             // 发送切换消息
             JewelSwapMessageData *msg = [JewelSwapMessageData dataWithUserId:jewelController.userId jewelGlobalId1:jewelGlobalId1 jewelGlobalId2:jewelGlobalId2];
-            [[GameMessageDispatcher sharedDispatcher] dispatchMessage:JEWEL_MESSAGE_SWAP_JEWELS object:msg];
+            [[GameMessageDispatcher sharedDispatcher] dispatchWithSender:jewelController message:JEWEL_MESSAGE_SWAP_JEWELS object:msg];
         }
         else
         {

@@ -91,11 +91,11 @@ static GameMessageDispatcher *_gameMessageDispatcherInstance = nil;
 }
 
 
--(void) dispatchMessage:(int)messageId object:(id)obj
+-(void) dispatchWithSender:(id)sender message:(int)messageId object:(id)obj
 {
     for (id<GameMessageListener> listener in [self getListeners:messageId])
     {
-        [listener handleWithMessageId:messageId object:obj];
+        [listener handleMessageWithSender:sender messageId:messageId object:obj];
     }
 }
 
