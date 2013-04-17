@@ -19,11 +19,11 @@
     int special; // 特殊宝石
     CGPoint coord; // 所处坐标
     int yGap; // ??
-    int hDispose; // 水平消除宝石数量
-    int vDispose; // 垂直消除宝石数量
+    int hEliminate; // 水平消除宝石数量
+    int vEliminate; // 垂直消除宝石数量
     int state; // 宝石状态 0为未消除, 1为消除
-    BOOL disposeTop;
-    BOOL disposeRight;
+    BOOL eliminateTop;
+    BOOL eliminateRight;
     
 }
 
@@ -49,16 +49,16 @@
 @property (readonly,nonatomic) float time;
 
 /// 水平方向消除宝石数量
-@property (readwrite,nonatomic) int hDispose;
+@property (readwrite,nonatomic) int hEliminate;
 
 /// 垂直方向消除宝石数量
-@property (readwrite,nonatomic) int vDispose;
+@property (readwrite,nonatomic) int vEliminate;
 
 /// 销毁上方
-@property (readwrite,nonatomic) BOOL disposeTop;
+@property (readwrite,nonatomic) BOOL eliminateTop;
 
 /// 销毁右侧
-@property (readwrite,nonatomic) BOOL disposeRight;
+@property (readwrite,nonatomic) BOOL eliminateRight;
 
 /// 特殊道具
 @property (readwrite,nonatomic) int special;
@@ -67,7 +67,7 @@
 @property (readwrite,nonatomic) int state;
 
 /// 当前宝石能够消掉的宝石数量
--(int) disposeNum;
+-(int) eliminateNum;
 
 -(BOOL) lt;
 

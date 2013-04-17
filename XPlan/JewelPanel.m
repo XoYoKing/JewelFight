@@ -226,7 +226,7 @@
 }
 
 #pragma mark -
-#pragma mark JewelItem
+#pragma mark JewelSprite
 
 -(JewelSprite*) getJewelSpriteWithGlobalId:(int)globalId
 {
@@ -454,5 +454,260 @@
         cell.jewelGlobalId = js.globalId;
     }
 }
+
+
+
+/// 检查水平方向的可消除的宝石
+-(void) checkHorizontalEliminableJewels:(CCArray*)elimList withJewel:(JewelSprite*)source
+{
+    CCArray *checkList = [[CCArray alloc] initWithCapacity:10];
+    
+    // 自身加入进去
+    [checkList addObject:source];
+    
+    JewelSprite *specialJewel; // 特殊宝石
+    
+    // 检查特殊宝石
+    if (source.jewelVo.special >= kJewelSpecialExplode)
+    {
+        specialJewel = source;
+    }
+    
+    // 向左侧检查
+    JewelSprite *temp = source;
+    while (temp.coord.x -1 >=0)
+    {
+        // 获取左侧宝石
+        JewelSprite *leftJewel = [self getCellAtCoord:ccp(temp.coord.x-1,temp.coord.y)].jewelSprite;
+        
+        // 不是相同类型的宝石,退出
+        if (leftJewel.jewelVo.jewelId != source.jewelVo.jewelId)
+        {
+            break;
+        }
+        
+        // 检查特殊宝石
+        if (leftJewel.jewelVo.special >= kJewelSpecialExplode)
+        {
+            if (specialJewel == nil || specialJewel.jewelVo.special < leftJewel.jewelVo.special)
+            {
+                specialJewel = leftJewel;
+            }
+        }
+        
+        // 添加到相同类型集合中
+        [checkList insertObject:leftJewel atIndex:0];
+        temp = leftJewel; // 设置下一个
+    }
+    
+    // 向右侧检查
+    temp = source;
+    while (temp.coord.x + 1 <kJewelGridWidth)
+    {
+        JewelSprite *rightJewel= [self getCellAtCoord:ccp(temp.coord.x+1,temp.coord.y)].jewelSprite;
+        if (rightJewel.jewelVo.jewelId != source.jewelVo.jewelId)
+        {
+            break;
+        }
+        
+        if (rightJewel.jewelVo.special >= kJewelSpecialExplode)
+        {
+            if (specialJewel == nil || specialJewel.jewelVo.special < rightJewel.jewelVo.special)
+            {
+                specialJewel = rightJewel;
+            }
+        }
+        
+        // 添加到检查列表
+        [checkList addObject:rightJewel];
+        temp = rightJewel;
+    }
+    
+    // 至少3个相同类型的宝石才能消除
+    if (checkList.count >= 3)
+    {
+        BOOL isBoo; // 爆炸标识
+        for (JewelSprite *checkSprite in checkList)
+        {
+            // 标记参与的横向消除
+            checkSprite.jewelVo.hEliminate = checkList.count; // 横向消除数量
+            if (checkSprite.jewelVo.lt)
+            {
+                // 产生一个爆炸
+                isBoo = YES;
+                [self resetEliminateTop:checkSprite];
+            }
+        }
+        
+        if (checkList.count >= kJewelSpecialExplode && isBoo == NO)
+        {
+            [[checkList lastObject] setEliminateRight:YES];
+        }
+        
+        // 加入消除列表
+        [elimList addObjectsFromArray:checkList];
+    }
+    
+    [checkList release];
+}
+
+/// 检查垂直方向的可消除的宝石
+-(void) checkVerticalEliminableJewels:(CCArray*)elimList withJewel:(JewelSprite*)source
+{
+    // 创建一个检查列表
+    CCArray *checkList = [[CCArray alloc] initWithCapacity:10];
+    [checkList addObject:source];
+    
+    JewelSprite *specialJewel;
+    
+    // 检查特殊宝石
+    if (source.jewelVo.special >= kJewelSpecialExplode)
+    {
+        specialJewel = source;
+    }
+    
+    // 上方检查
+    JewelSprite *temp = source;
+    while (temp.coord.y-1 >=0)
+    {
+        // 获取上方宝石
+        JewelSprite *upJewel = [self getCellAtCoord:ccp(temp.coord.x,temp.coord.y-1)].jewelSprite;
+        
+        // 不是相同类型,退出
+        if (upJewel.jewelVo.jewelId != source.jewelVo.jewelId)
+        {
+            break;
+        }
+        
+        // 检查特殊宝石
+        if (upJewel.jewelVo.special >= kJewelSpecialExplode)
+        {
+            if (upJewel == nil || specialJewel.jewelVo.special < upJewel.jewelVo.special)
+            {
+                specialJewel = upJewel;
+            }
+        }
+        
+        // 符合条件,加入检查列表
+        [checkList insertObject:upJewel atIndex:0];
+        temp = upJewel;
+    }
+    
+    // 检测下方
+    temp = source;
+    while (temp.coord.y + 1 <kJewelGridHeight)
+    {
+        JewelSprite *downJewel= [self getCellAtCoord:ccp(temp.coord.x,temp.coord.y + 1)].jewelSprite;
+        if (downJewel.jewelVo.jewelId!=source.jewelVo.jewelId)
+        {
+            break;
+        }
+        
+        if (downJewel.jewelVo.special >= kJewelSpecialExplode)
+        {
+            if (specialJewel == nil || specialJewel.jewelVo.special < downJewel.jewelVo.special)
+            {
+                specialJewel = downJewel;
+            }
+        }
+        
+        // 符合条件,加入检查列表
+        [checkList addObject:downJewel];
+        temp = downJewel;
+    }
+    
+    // 至少3个相同类型的宝石才能消除
+    if (checkList.count >= kJewelEliminateMinNeed)
+    {
+        BOOL isBoo;
+        for (JewelSprite *checkSprite in checkList)
+        {
+            checkSprite.jewelVo.hEliminate = checkList.count; // 横向消除数量
+            if (checkSprite.jewelVo.lt)
+            {
+                isBoo = YES;
+                [self resetEliminateRight:checkSprite];
+            }
+        }
+        
+        if (checkList.count >= kJewelSpecialExplode && isBoo == NO)
+        {
+            [[checkList lastObject] setEliminateTop:YES];
+        }
+        
+        // 加入消除列表
+        [elimList addObjectsFromArray:checkList];
+    }
+    
+    [checkList release];
+}
+
+/// 重置上方消除状态
+-(void) resetEliminateTop:(JewelSprite*)source
+{
+    // 向上检查
+    JewelSprite *temp = source;
+    while(temp.coord.y - 1 >= 0)
+    {
+        JewelSprite *upJewel = [self getCellAtCoord:ccp(temp.coord.x,temp.coord.y -1)].jewelSprite;
+        if (upJewel.jewelVo.jewelId != source.jewelVo.jewelId)
+        {
+            break;
+        }
+        
+        upJewel.jewelVo.eliminateTop = NO;
+        temp = upJewel;
+    }
+    
+    
+    // 向下检查
+    temp = source;
+    while (temp.coord.y+1 <kJewelGridHeight)
+    {
+        JewelSprite *downJewel = [self getCellAtCoord:ccp(temp.coord.x,temp.coord.y +  1)].jewelSprite;
+        if (downJewel.jewelVo.jewelId != source.jewelVo.jewelId)
+        {
+            break;
+        }
+        
+        downJewel.jewelVo.eliminateTop = YES;
+        temp = downJewel;
+    }
+}
+
+/// 重置右侧消除状态
+-(void) resetEliminateRight:(JewelSprite*)source
+{
+    // 左边
+    JewelSprite *temp = source;
+    while(temp.coord.x - 1 >= 0)
+    {
+        JewelSprite *leftJewel = [self getCellAtCoord:ccp(temp.coord.x-1,temp.coord.y)].jewelSprite;
+        if (leftJewel.jewelVo.jewelId != source.jewelVo.jewelId)
+        {
+            break;
+        }
+        
+        leftJewel.jewelVo.eliminateRight = NO;
+        temp = leftJewel;
+    }
+    
+    // 右侧
+    temp = source;
+    while (temp.coord.x+1 < kJewelGridWidth)
+    {
+        JewelSprite *rightJewel = [self getCellAtCoord:ccp(temp.coord.x+1,temp.coord.y)].jewelSprite;
+        if (rightJewel.jewelVo.jewelId != source.jewelVo.jewelId)
+        {
+            break;
+        }
+        
+        rightJewel.jewelVo.eliminateRight = NO;
+        temp = rightJewel;
+    }
+}
+
+
+
 
 @end

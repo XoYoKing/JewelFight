@@ -56,6 +56,11 @@
     return jewelVo.coord;
 }
 
+-(void) setCoord:(CGPoint)value
+{
+    [jewelVo setCoord:value];
+}
+
 -(JewelCell*) cell
 {
     return [jewelPanel getCellAtCoord:self.coord];
@@ -67,7 +72,7 @@
 /// 是否准备移除
 -(BOOL) isReadyToBeRemoved
 {
-    return self.state == kJewelStateElimated;
+    return self.state == kJewelStateEliminated;
 }
 
 
@@ -91,15 +96,8 @@
         // 更新格子坐标
         if (!CGPointEqualToPoint(oldCoord, newCoord))
         {
-            //
-            JewelCell *oldCell = [self.jewelPanel getCellAtCoord:oldCoord];
-            oldCell.jewelGlobalId = 0;
-            
-            JewelCell *newCell = [self.jewelPanel getCellAtCoord:newCoord];
-            newCell.jewelGlobalId = self.jewelVo.globalId;
-            
             // 更新坐标
-            self.jewelVo.coord = newCoord;
+            self.coord = newCoord;
         }
         
         // 更新效果
@@ -194,7 +192,7 @@
 
 
 /// 火焰方块燃烧动画
--(void) animateFire
+-(void) animateFire:(int)effectId
 {
     // 变更状态
     [self changeState:kJewelStateFiring];
@@ -205,7 +203,7 @@
     [self setDisplayFrame:[profile spriteFrameForKey:[NSString stringWithFormat:@"jewel%d_fire",jewelVo.jewelId]]];
     
     // 添加燃烧效果
-    CCAnimation *fireAnim = [profile animationForKey:@"fire"];
+    CCAnimation *fireAnim = [profile animationForKey:[NSString stringWithFormat:@"fire%d",effectId]];
     EffectSprite *fireEffect = [[EffectSprite alloc] initWithSpriteFrame:[fireAnim.frames objectAtIndex:0]];
     [self addEffect:fireEffect withKey:kJewelEffectFire];
     fireEffect.position = self.position; // 覆盖
@@ -225,7 +223,7 @@
 
 
 /// 火焰方块消失效果
--(void) animateFireElimate
+-(void) animateFireElimate:(int)effectId
 {
     
     // 清理全部特殊效果
@@ -234,7 +232,7 @@
     KITProfile *profile = [KITProfile profileWithName:@"jewels_graphics"];
     
     // 播放燃烧销毁动画
-    CCAnimation *elimateAnim = [profile animationForKey:@"fireElimate"];
+    CCAnimation *elimateAnim = [profile animationForKey:[NSString stringWithFormat:@"fireElimate%d",effectId]];
     
     EffectSprite *effect = [[EffectSprite alloc] initWithSpriteFrame:[elimateAnim.frames objectAtIndex:0]];
     [self addEffect:effect withKey:kJewelEffectFireElimate];
@@ -249,11 +247,11 @@
 -(void) fireElimateComplate
 {
     [self deleteEffectWithKey:kJewelEffectFireElimate];
-    newState = kJewelStateElimated; // 标记为删除
+    newState = kJewelStateEliminated; // 标记为删除
 }
 
 /// 闪电方块消失特效
--(void) animateLightElimate
+-(void) animateLightElimate:(int)effectId
 {
     // 清理全部特殊效果
     [self detatchEffects];
@@ -261,7 +259,7 @@
     KITProfile *profile = [KITProfile profileWithName:@"jewels_graphics"];
     
     // 播放燃烧销毁动画
-    CCAnimation *elimateAnim = [profile animationForKey:@"lightElimate"];
+    CCAnimation *elimateAnim = [profile animationForKey:[NSString stringWithFormat:@"lightElimate%d",effectId]];
     
     EffectSprite *effect = [[EffectSprite alloc] initWithSpriteFrame:[elimateAnim.frames objectAtIndex:0]];
     [self addEffect:effect withKey:kJewelEffectLightElimate];
@@ -276,12 +274,12 @@
 -(void) lightElimateComplete
 {
     [self deleteEffectWithKey:kJewelEffectLightElimate];
-    newState = kJewelStateElimated; // 标记为删除
+    newState = kJewelStateEliminated; // 标记为删除
 }
 
 
 /// 爆炸方块消失特效
--(void) animateExplodeElimate
+-(void) animateExplodeEliminate:(int)effectId
 {
     // 清理全部特殊效果
     [self detatchEffects];
@@ -289,53 +287,59 @@
     KITProfile *profile = [KITProfile profileWithName:@"jewels_graphics"];
     
     // 播放燃烧销毁动画
-    CCAnimation *elimateAnim = [profile animationForKey:@"explodeElimate"];
+    CCAnimation *elimateAnim = [profile animationForKey:[NSString stringWithFormat:@"explodeElimate%d",effectId]];
     
     EffectSprite *effect = [[EffectSprite alloc] initWithSpriteFrame:[elimateAnim.frames objectAtIndex:0]];
     [self addEffect:effect withKey:kJewelEffectExplodeElimate];
     effect.position = self.position; // 覆盖
     [effect runAction:[CCSequence actions:
                        [CCAnimate actionWithAnimation:elimateAnim],
-                       [CCCallFunc actionWithTarget:self selector:@selector(explodeElimateComplete:)]
+                       [CCCallFunc actionWithTarget:self selector:@selector(explodeEliminateComplete:)]
                        , nil]];
 }
 
--(void) explodeElimateComplete
+-(void) explodeEliminateComplete
 {
     [self deleteEffectWithKey:kJewelEffectExplodeElimate];
-    newState = kJewelStateElimated; // 标记为删除
+    newState = kJewelStateEliminated; // 标记为删除
 }
 
--(void) animateElimate
+/// 执行消除
+-(void) animateEliminate:(int)effectId
 {
     // 清理全部特殊效果
     [self detatchEffects];
     
-    KITProfile *profile = [KITProfile profileWithName:@"jewels_graphics"];
+    [self setVisible:NO];
+    
+    KITProfile *profile = [KITProfile profileWithName:@"jewel_graphics"];
     
     // 播放燃烧销毁动画
-    CCAnimation *elimateAnim = [profile animationForKey:@"elimate"];
+    CCAnimation *eliminateAnim = [profile animationForKey:[NSString stringWithFormat:@"eliminate%d",effectId]];
     
-    EffectSprite *effect = [[EffectSprite alloc] initWithSpriteFrame:[elimateAnim.frames objectAtIndex:0]];
-    [self addEffect:effect withKey:kJewelEffectElimate];
+    EffectSprite *effect = [[EffectSprite alloc] init];
+    [self addEffect:effect withKey:kJewelEffectEliminate];
     effect.position = self.position; // 覆盖
     [effect runAction:[CCSequence actions:
-                       [CCAnimate actionWithAnimation:elimateAnim],
-                       [CCCallFunc actionWithTarget:self selector:@selector(elimateComplete:)]
+                       [CCAnimate actionWithAnimation:eliminateAnim],
+                       [CCCallFunc actionWithTarget:self selector:@selector(eliminateComplete)]
                        , nil]];
 }
 
--(void) elimateComplete
+-(void) eliminateComplete
 {
-     [self deleteEffectWithKey:kJewelEffectElimate];   
-    newState = kJewelStateElimated;
+     [self deleteEffectWithKey:kJewelEffectEliminate];   
+    newState = kJewelStateEliminated;
 }
 
 
 /// 逻辑更新
 -(BOOL) update:(ccTime)delta
 {
-
+    if (state!=newState)
+    {
+        [self changeState:newState];
+    }
     
     return NO;
 }

@@ -117,4 +117,16 @@
 
 -(void) updateJewelGridInfo;
 
+/// 检查水平方向的可消除的宝石
+-(void) checkHorizontalEliminableJewels:(CCArray*)elimList withJewel:(JewelSprite*)source;
+
+/// 检查垂直方向的可消除的宝石
+-(void) checkVerticalEliminableJewels:(CCArray*)elimList withJewel:(JewelSprite*)source;
+
+/// 重置上方消除状态
+-(void) resetEliminateTop:(JewelSprite*)source;
+
+/// 重置右侧消除状态
+-(void) resetEliminateRight:(JewelSprite*)source;
+
 @end

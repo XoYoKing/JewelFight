@@ -20,6 +20,19 @@
 	</dict>
 	<key>animations</key>
 	<dict>
+		<key>eliminate1</key>
+		<dict>
+			<key>delay</key>
+			<string>0.06</string>
+			<key>format</key>
+			<string>fireEliminate_%03d.png</string>
+			<key>frameCount</key>
+			<integer>20</integer>
+			<key>spritesheets</key>
+			<array>
+				<string>jewel_fire_eliminate.plist</string>
+			</array>
+		</dict>
 		<key>jewelSelected</key>
 		<dict>
 			<key>delay</key>

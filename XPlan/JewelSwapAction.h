@@ -28,5 +28,7 @@
 /// 构造函数
 -(id) initWithJewelController:(JewelController *)contr  jewel1:(JewelSprite*)j1 jewel2:(JewelSprite*)j2;
 
+-(id) initWithJewelController:(JewelController *)contr jewel1:(JewelSprite *)j1 jewel2:(JewelSprite *)j2 checkElimate:(BOOL)check;
+
 
 @end

@@ -38,7 +38,7 @@
 @property (readonly,nonatomic) JewelVo *jewelVo;
 
 /// 所处坐标
-@property (readonly,nonatomic) CGPoint coord;
+@property (readwrite,nonatomic) CGPoint coord;
 
 @property (readonly,nonatomic) JewelCell *cell;
 
@@ -62,8 +62,11 @@
 -(BOOL) update:(ccTime)delta;
 
 
-/// 火焰方块燃烧动画
--(void) animateFire;
+/// 指定效果标识的火焰方块燃烧动画
+-(void) animateFire:(int)effectId;
+
+/// 指定效果标识的宝石消除动画
+-(void) animateEliminate:(int)effectId;
 
 /// 死局,下落到最底部
 -(void) moveToDead;

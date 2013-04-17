@@ -44,7 +44,7 @@ typedef enum _FightLayerTags
 #define kJewelCellSizeWidth 41
 #define kJewelCellSizeHeight 41
 
-#define kJewelDisposeMinNeed 3 // 消除宝石最少需要的数量
+#define kJewelEliminateMinNeed 3 // 消除宝石最少需要的数量
 
 // 宝石类型
 #define kJewelTypeNormal 1 // 普通宝石
@@ -57,8 +57,8 @@ typedef enum _FightLayerTags
 #define kJewelStateLighting 3 // 正在闪电
 #define kJewelStateSelected 4 // 被选中
 #define kJewelStateDragging 5 // 拖放中
-#define kJewelStateElimating 6 // 正在消除
-#define kJewelStateElimated 7 // 已经消除 (可以从屏幕上移除了)
+#define kJewelStateEliminating 6 // 正在消除
+#define kJewelStateEliminated 7 // 已经消除 (可以从屏幕上移除了)
 
 // 特殊宝石
 #define kJewelSpecialExplode 4 // 爆
@@ -68,7 +68,7 @@ typedef enum _FightLayerTags
 
 // 宝石效果
 #define kJewelEffectSelected @"selected" // 宝石选中
-#define kJewelEffectElimate @"elimate" // 普通消除
+#define kJewelEffectEliminate @"eliminate" // 普通消除
 #define kJewelEffectFire @"fire" // 燃烧效果
 #define kJewelEffectFireElimate @"fireElimate" // 燃烧消失效果
 #define kJewelEffectLight @"light" // 闪电效果

@@ -11,10 +11,14 @@
 #import "JewelPanel.h"
 #import "Constants.h"
 #import "JewelController.h"
+#import "JewelEliminateAction.h"
 
 #define kTagActionJewelSwap 400 // 宝石交换
 
 @interface JewelSwapAction()
+{
+    BOOL checkElimate; // 是否检查消除宝石
+}
 
 @end
 
@@ -24,10 +28,16 @@
 
 -(id) initWithJewelController:(JewelController *)contr jewel1:(JewelSprite *)j1 jewel2:(JewelSprite *)j2
 {
+    return [self initWithJewelController:contr jewel1:j1 jewel2:j2 checkElimate:YES];
+}
+
+-(id) initWithJewelController:(JewelController *)contr jewel1:(JewelSprite *)j1 jewel2:(JewelSprite *)j2 checkElimate:(BOOL)check
+{
     if ((self = [super initWithJewelController:contr name:@"JewelSwapAction"]))
     {
         jewelGlobalId1 = j1.globalId;
         jewelGlobalId2 = j2.globalId;
+        checkElimate = check;
     }
     
     return self;
@@ -69,11 +79,11 @@
     // 交换位置
     JewelSprite *j1 = self.jewel1;
     JewelSprite *j2 = self.jewel2;
-    CCAction *action1 = [CCMoveTo actionWithDuration:0.3f position:[jewelController.jewelPanel cellCoordToPosition:j2.coord]];
+    CCAction *action1 = [CCMoveTo actionWithDuration:0.2f position:[jewelController.jewelPanel cellCoordToPosition:j2.coord]];
     action1.tag =kTagActionJewelSwap;
     [j1 runAction:action1];
     
-    CCAction *action2 = [CCMoveTo actionWithDuration:0.3f position:[jewelController.jewelPanel cellCoordToPosition:j1.coord]];
+    CCAction *action2 = [CCMoveTo actionWithDuration:0.2f position:[jewelController.jewelPanel cellCoordToPosition:j1.coord]];
     action2.tag = kTagActionJewelSwap;
     [j2 runAction:action2];
 }
@@ -110,10 +120,38 @@
 }
 
 -(void) execute
-{
+{    
     // 交换完成,检查消除
     [jewelController.jewelPanel updateJewelGridInfo];
     
+    if (checkElimate)
+    {
+        // 检查可消除性
+        CCArray *elimList = [[CCArray alloc] initWithCapacity:20];
+        [jewelController.jewelPanel checkHorizontalEliminableJewels:elimList withJewel:self.jewel1];
+        [jewelController.jewelPanel checkVerticalEliminableJewels:elimList withJewel:self.jewel1];
+        [jewelController.jewelPanel checkHorizontalEliminableJewels:elimList withJewel:self.jewel2];
+        [jewelController.jewelPanel checkVerticalEliminableJewels:elimList withJewel:self.jewel2];
+        
+        // 存在可消除宝石
+        if (elimList.count>0)
+        {
+            JewelEliminateAction *elimateAction = [[JewelEliminateAction alloc] initWithJewelController:jewelController elimList:elimList];
+            [jewelController queueAction:elimateAction top:NO];
+            [elimateAction release];
+        }
+        else
+        {
+            // 不存在消除对象, 切换回去
+            JewelSwapAction *swapAction = [[JewelSwapAction alloc] initWithJewelController:jewelController jewel1:self.jewel2 jewel2:self.jewel1 checkElimate:NO];
+            [jewelController queueAction:swapAction top:NO];
+            [swapAction release];
+        }
+        
+        // 重置消除列表
+        [elimList release];
+        elimList = nil;
+    }
     
     // 允许面板操作?
     [jewelController.jewelPanel setIsControlEnabled:YES];

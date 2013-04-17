@@ -10,7 +10,7 @@
 
 @implementation JewelVo
 
-@synthesize globalId,jewelId,jewelType,coord,toY,time,disposeRight,disposeTop,state,hDispose,yGap,special,vDispose;
+@synthesize globalId,jewelId,jewelType,coord,toY,time,eliminateRight,eliminateTop,state,hEliminate,yGap,special,vEliminate;
 
 -(id) init
 {
@@ -34,14 +34,14 @@
 }
 
 /// 消除数量
--(int) disposeNum
+-(int) eliminateNum
 {
-    return hDispose + vDispose;
+    return hEliminate + vEliminate;
 }
 
 -(BOOL) lt
 {
-    return hDispose >0 && vDispose > 0;
+    return hEliminate >0 && vEliminate > 0;
 }
 
 

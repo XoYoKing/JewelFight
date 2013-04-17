@@ -87,7 +87,7 @@
             if (fireBall.position.y > js.position.y)
             {
                 // 燃烧
-                [js animateFire];
+                [js animateFire:1];
                 
                 // 标记正在燃烧的宝石
                 [firingJewelGlobalIds addObject:js.globalId];
@@ -162,7 +162,7 @@
     for(JewelVo *jv in jewelVoList)
     {
         JewelSprite *js = [jewelController.jewelPanel getJewelSpriteWithGlobalId:jv.globalId];
-        js.jewelVo.state = kJewelStateElimated;
+        js.jewelVo.state = kJewelStateEliminated;
         [firingJewelGlobalIds addObject:[NSNumber numberWithInt:js.globalId]];
     }
     
