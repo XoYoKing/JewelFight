@@ -40,7 +40,7 @@
 -(void) requestAttack:(int)value;
 
 /// 消除宝石
--(void) requestEliminateWithActionId:(long)actionId continueEliminate:(int)continueDispose JewelGlobalIds:(CCArray*)globalIds;
+-(void) requestEliminateWithActionId:(long)actionId continueEliminate:(int)continueEliminate JewelGlobalIds:(CCArray*)globalIds;
 
 /// 请求时装技能
 -(void) requestExSkill:(int)skillId;

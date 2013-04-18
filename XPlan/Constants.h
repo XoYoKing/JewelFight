@@ -111,13 +111,13 @@ typedef enum _FightLayerTags
 
 // PVP Fight start from 800
 #define SERVER_ACTION_PVP_OPPONENT_AND_FIGHTERS 800 // PVP战场对手及所有英雄战士信息列表
-#define SERVER_ACTION_PVP_INIT_STONES 801 //  初始化宝石队列信息
+#define SERVER_ACTION_PVP_INIT_JEWELS 801 //  初始化宝石队列信息
 #define SERVER_ACTION_PVP_FIGHT_START 802 // 开始战斗,进行战斗初始化操作
-#define SERVER_ACTION_PVP_SWAP_STONES 7 // 交换宝石
-#define SERVER_ACTION_PVP_ADD_NEW_STONES 8 // 增加新的宝石
-#define SERVER_ACTION_PVP_DEAD_STONE_COLUMN 9 // 死局获得新的宝石队列
-#define SERVER_ACTION_PVP_CHANGE_INFO 10 // 怒气和血条的改变
-#define SERVER_ACTION_PVP_ATTACK 12 // 服务器端返回的攻击数据
+#define SERVER_ACTION_PVP_SWAP_JEWELS 803 // 交换宝石
+#define SERVER_ACTION_PVP_ADD_NEW_JEWELS 804 // 增加新的宝石
+#define SERVER_ACTION_PVP_DEAD_JEWEL_COLUMN 805 // 死局获得新的宝石队列
+#define SERVER_ACTION_PVP_CHANGE_INFO 806 // 怒气和血条的改变
+#define SERVER_ACTION_PVP_ATTACK 807 // 服务器端返回的攻击数据
 
 
 

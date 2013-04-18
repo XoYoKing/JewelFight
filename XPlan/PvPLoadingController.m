@@ -103,7 +103,7 @@
     [server.pvpCommand addListenerWithActionId:SERVER_ACTION_PVP_OPPONENT_AND_FIGHTERS listener:self];
     
     // 侦听可以战斗信号
-    [server.pvpCommand addListenerWithActionId:SERVER_ACTION_PVP_INIT_STONES listener:self];
+    [server.pvpCommand addListenerWithActionId:SERVER_ACTION_PVP_INIT_JEWELS listener:self];
     
     // 侦听开始战斗信号
     [server.pvpCommand addListenerWithActionId:SERVER_ACTION_PVP_FIGHT_START listener:self];
@@ -117,7 +117,7 @@
     [server.pvpCommand removeListenerWithActionId:SERVER_ACTION_PVP_OPPONENT_AND_FIGHTERS listener:self];
     
     // 取消侦听可以战斗信号
-    [server.pvpCommand removeListenerWithActionId:SERVER_ACTION_PVP_INIT_STONES listener:self];
+    [server.pvpCommand removeListenerWithActionId:SERVER_ACTION_PVP_INIT_JEWELS listener:self];
     
     // 取消侦听开始战斗信号
     [server.pvpCommand removeListenerWithActionId:SERVER_ACTION_PVP_FIGHT_START listener:self];
@@ -150,7 +150,7 @@
             break;
         }
         // 初始化宝石列表
-        case SERVER_ACTION_PVP_INIT_STONES:
+        case SERVER_ACTION_PVP_INIT_JEWELS:
         {
             NSDictionary *dict = (NSDictionary*)obj;
             CCArray *playerJewels = [dict objectForKey:@"player_jewels"];

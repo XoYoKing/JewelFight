@@ -8,11 +8,16 @@
 
 #import "JewelController.h"
 #import "JewelVo.h"
+#import "JewelCell.h"
+#import "JewelSprite.h"
 #import "Constants.h"
 #import "JewelPanel.h"
 #import "JewelActionQueue.h"
 #import "JewelAction.h"
-#import "JewelInitAction.h"
+#import "JewelAddAction.h"
+#import "JewelFactory.h"
+
+static int jewelGlobalIdGenerator = 10000;
 
 @interface JewelController()
 
@@ -78,6 +83,13 @@
             [actionQueue.actions removeObjectAtIndex:0];
             [currentAction start];
         }
+        else
+        {
+            if(OFFLINE_MODE && jewelVoList.count<kJewelGridWidth*kJewelGridHeight)
+            {
+                [self fillEmptyJewels];
+            }
+        }
     }
 }
 
@@ -105,17 +117,17 @@
     [self removeAllJewels];
     
     // Action
-    JewelInitAction *action = [[JewelInitAction alloc] initWithJewelController:self jewelVoList:list];
+    JewelAddAction *action = [[JewelAddAction alloc] initWithJewelController:self jewelVoList:list];
     [self queueAction:action top:NO];
     [action release];
     
 }
 
--(void) addNewJewelsWithActionId:(long)actionId voList:(CCArray*)list
+-(void) addJewelVoList:(CCArray*)list
 {
-    
-    JewelInitAction *action = [[JewelInitAction alloc] initWithJewelController:self jewelVoList:list];
+    JewelAddAction *action = [[JewelAddAction alloc] initWithJewelController:self jewelVoList:list];
     [self queueAction:action top:NO];
+    [action release];
 }
 
 
@@ -148,17 +160,28 @@
 }
 
 
-
-/// 重置
--(void) resetElimate
+/// 填充空白宝石
+-(void) fillEmptyJewels
 {
-}
-
-/// 检查所有宝石中能被消除的宝石
--(CCArray*) checkAllCanDispose
-{
-    [self resetElimate];
-    
+    CCArray *fillJewels = [[CCArray alloc] initWithCapacity:10];
+    // 找出空出来的宝石位置,向上寻找宝石
+    for (int i =0;i <kJewelGridWidth; i++)
+    {
+        for (int j = 0; j< kJewelGridHeight; j++)
+        {
+            if ([jewelPanel getCellAtCoord:ccp(i,j)].jewelSprite==nil)
+            {
+                JewelVo *newJv = [JewelFactory randomJewel];
+                newJv.globalId = ++jewelGlobalIdGenerator;
+                newJv.coord = ccp(i,j);
+                [fillJewels addObject:newJv];
+            }
+        }
+    }
+    JewelAddAction *action = [[JewelAddAction alloc] initWithJewelController:self jewelVoList:fillJewels];
+    [self queueAction:action top:NO];
+    [action release];
+    [fillJewels release];
 }
 
 

@@ -61,10 +61,10 @@
             JewelCell *cell = [panel getCellAtCoord:ccp(i,j)];
             if (cell!=nil && cell.jewelSprite == nil)
             {
-                // 宝石下落逻辑
-                JewelCell *upCell = [panel getCellAtCoord:ccp(i,j-1)];
-                while(upCell!=nil)
+                for (int k = j-1; k >= 0;k--)
                 {
+                    // 宝石下落逻辑
+                    JewelCell *upCell = [panel getCellAtCoord:ccp(i,k)];
                     if (upCell.jewelSprite!=nil)
                     {
                         // 掉落距离计数
@@ -76,12 +76,8 @@
                             [dropJewels addObject:upCell.jewelSprite];
                         }
                     }
-
-                    upCell = [panel getCellAtCoord:ccp(upCell.coord.x,upCell.coord.y-1)];
                 }
-            
             }
-            
         }
     }
     

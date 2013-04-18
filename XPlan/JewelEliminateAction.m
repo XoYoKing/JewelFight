@@ -82,10 +82,7 @@
 }
 
 -(void) execute
-{
-    // 交换完成,检查消除
-    [jewelController.jewelPanel updateJewelGridInfo];
-    
+{    
     // 发送消除消息
     
     CCArray *elimIds = [[CCArray alloc] initWithCapacity:elimList.count];

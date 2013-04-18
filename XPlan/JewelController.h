@@ -50,10 +50,15 @@
 
 -(void) newJewelVoList:(CCArray*)list;
 
+-(void) addJewelVoList:(CCArray*)list;
+
 /// 添加宝石数据
 -(void) addJewelVo:(JewelVo*)jv;
 
 /// 删除宝石数据
 -(void) removeJewelVo:(JewelVo*)jv;
+
+/// 填充空白宝石
+-(void) fillEmptyJewels;
 
 @end

@@ -52,6 +52,12 @@
     return self;
 }
 
+-(void) dealloc
+{
+    [pvpFight release];
+    [super dealloc];
+}
+
 /// 发送数据
 -(void) send:(NSString *)server data:(NSData *)data
 {

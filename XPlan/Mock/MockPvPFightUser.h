@@ -30,4 +30,11 @@
 
 -(void) initJewels;
 
+-(void) swapJewel1:(int)globalId1 jewel2:(int)globalId2;
+
+-(void) eliminateJewelsWithGlobalIds:(CCArray*)globalIds;
+
+/// 填充宝石
+-(void) fillEmptyJewels:(CCArray*)filledList;
+
 @end

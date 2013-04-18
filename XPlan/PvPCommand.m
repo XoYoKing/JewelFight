@@ -20,6 +20,7 @@
 #import "UserInfo.h"
 #import "PlayerInfo.h"
 #import "JewelVo.h"
+#import "NewJewelsCommandData.h"
 
 
 
@@ -69,13 +70,34 @@
     NSMutableData *data = [NSMutableData data];
     ServerDataEncoder *encoder = [[ServerDataEncoder alloc] initWithData:data];
     [encoder writeInt16:101];
-    [encoder writeInt16:1200];
-    [encoder writeInt8:2];
+    [encoder writeInt16:1110];
+    [encoder writeInt8:4];
     [encoder writeInt64:actionId];
     [encoder writeInt32:jewelGlobalId1];
     [encoder writeInt32:jewelGlobalId2];
     [encoder release];
     
+    [[GameController sharedController].server send:SERVER_GAME data:data];
+}
+
+/// 消除宝石
+-(void) requestEliminateWithActionId:(long)actionId continueEliminate:(int)continueEliminate JewelGlobalIds:(CCArray*)globalIds
+{
+    NSMutableData *data = [NSMutableData data];
+    ServerDataEncoder *encoder = [[ServerDataEncoder alloc] initWithData:data];
+    [encoder writeInt16:101];
+    [encoder writeInt16:1110];
+    [encoder writeInt8:5];
+    [encoder writeInt64:actionId];
+    [encoder writeInt32:continueEliminate];
+    [encoder writeInt32:globalIds.count];
+    
+    for (NSNumber *globalIdNum in globalIds)
+    {
+        [encoder writeInt32:[globalIdNum intValue]];
+    }
+    
+    [encoder release];
     [[GameController sharedController].server send:SERVER_GAME data:data];
 }
 
@@ -133,27 +155,6 @@
     [[GameController sharedController].server send:SERVER_GAME data:data];
 }
 
-/// 消除宝石
--(void) requestEliminateWithActionId:(long)actionId continueEliminate:(int)continueDispose JewelGlobalIds:(CCArray*)globalIds
-{
-    NSMutableData *data = [NSMutableData data];
-    ServerDataEncoder *encoder = [[ServerDataEncoder alloc] initWithData:data];
-    [encoder writeInt16:101];
-    [encoder writeInt16:1200];
-    [encoder writeInt8:3];
-    [encoder writeInt64:actionId];
-    [encoder writeInt32:continueDispose];
-    [encoder writeInt32:globalIds.count];
-    
-    for (NSNumber *globalIdNum in globalIds)
-    {
-        [encoder writeInt32:[globalIdNum intValue]];
-    }
-    
-    [encoder release];
-    [[GameController sharedController].server send:SERVER_GAME data:data];
-}
-
 /// 请求时装技能
 -(void) requestExSkill:(int)skillId
 {
@@ -197,7 +198,7 @@
             break;
         }
         // 接收PvP宝石初始化信息 
-        case SERVER_ACTION_PVP_INIT_STONES:
+        case SERVER_ACTION_PVP_INIT_JEWELS:
         {
             [self handleInitJewels:data];
             break;
@@ -209,9 +210,15 @@
             break;
         }
         // 交换宝石位置
-        case SERVER_ACTION_PVP_SWAP_STONES:
+        case SERVER_ACTION_PVP_SWAP_JEWELS:
         {
             [self handleSwapJewels:data];
+        }
+            
+        // 新到宝石
+        case SERVER_ACTION_PVP_ADD_NEW_JEWELS:
+        {
+            [self handleNewJewels:data];
         }
     }
 }
@@ -246,9 +253,26 @@
     }
     [dict setObject:opponentJewels forKey:@"opponent_jewels"];
     
-    [self responseToListenerWithActionId:SERVER_ACTION_PVP_INIT_STONES object:dict];
+    [self responseToListenerWithActionId:SERVER_ACTION_PVP_INIT_JEWELS object:dict];
 }
 
+-(void) handleNewJewels:(ServerDataDecoder*)data
+{
+    long userId = [data readInt64]; // 玩家标识
+    int amount = [data readInt32]; // 新增宝石数量
+    CCArray *jewels = [[CCArray alloc] initWithCapacity:amount];
+    for (int i = 0;i < amount; i++)
+    {
+        JewelVo *jewelVo = [[JewelVo alloc] init];
+        [FightCommand populateJewelVo:jewelVo data:data];
+        [jewels addObject:jewelVo];
+    }
+    
+    NewJewelsCommandData *obj = [[[NewJewelsCommandData alloc] init] autorelease];
+    obj.userId = userId;
+    obj.jewelVoList = jewels;
+    [self responseToListenerWithActionId:SERVER_ACTION_PVP_ADD_NEW_JEWELS object:obj];
+}
 
 /// 获取战斗场景的对手及对手的全部战士信息
 -(void) handlePvPOpponentAndFighters:(ServerDataDecoder*)data
@@ -313,7 +337,7 @@
     [dict setObject:jewel1 forKey:@"jewel1"];
     [dict setObject:jewel2 forKey:@"jewel2"];
     
-    [self responseToListenerWithActionId:SERVER_ACTION_PVP_SWAP_STONES object:dict];
+    [self responseToListenerWithActionId:SERVER_ACTION_PVP_SWAP_JEWELS object:dict];
 }
 
 

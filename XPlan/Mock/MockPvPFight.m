@@ -144,7 +144,7 @@
     [super dealloc];
 }
 
--(void) handleRequestWithMethod:(int)method data:(ServerDataDecoder*)data
+-(void) handleRequestWithMethod:(int)method data:(ServerDataDecoder*)requestData
 {
     switch (method)
     {
@@ -177,7 +177,7 @@
             
             [encoder release];
             
-            [server performSelector:@selector(receiveData:) withObject:response afterDelay:0.5f];
+            [server performSelector:@selector(receiveData:) withObject:response afterDelay:0];
             break;
         }
             
@@ -188,7 +188,7 @@
             NSMutableData *response = [NSMutableData data];
             ServerDataEncoder *encoder = [[ServerDataEncoder alloc] initWithData:response];
             
-            [encoder writeInt32:SERVER_ACTION_PVP_INIT_STONES];
+            [encoder writeInt32:SERVER_ACTION_PVP_INIT_JEWELS];
             
             [fightUser1 initJewels];
             [fightUser2 initJewels];
@@ -208,11 +208,11 @@
                 [MockGameServer compressJewelVo:sv toData:encoder];
             }
             
-            [server performSelector:@selector(receiveData:) withObject:response afterDelay:0.5f];
+            [server performSelector:@selector(receiveData:) withObject:response afterDelay:0];
             
             break;
         }
-            // 请求战斗开始request_fight_start
+        // 请求战斗开始request_fight_start
         case 3:
         {
             // 允许开始战斗
@@ -222,7 +222,55 @@
             [encoder writeInt32:SERVER_ACTION_PVP_FIGHT_START];
             
             [encoder release];
-            [server performSelector:@selector(receiveData:) withObject:response afterDelay:0.5f];
+            [server performSelector:@selector(receiveData:) withObject:response afterDelay:0];
+            break;
+        }
+        // 请求交换宝石
+        case 4:
+        {
+            long actionId = [requestData readInt64];
+            int globalId1 = [requestData readInt32];
+            int globalId2 = [requestData readInt32];
+            
+            [fightUser1 swapJewel1:globalId1 jewel2:globalId2];
+            
+            break;
+        }
+        // 请求消除宝石
+        case 5:
+        {
+            long actionId = [requestData readInt64];
+            int continueEliminate = [requestData readInt32]; // 连续消除次数
+            int eliminateCount = [requestData readInt32]; // 消除宝石数量
+            CCArray *elimList = [[CCArray alloc] initWithCapacity:eliminateCount];
+            for (int i=0;i<eliminateCount;i++)
+            {
+                int globalId = [requestData readInt32];
+                [elimList addObject:[NSNumber numberWithInt:globalId]];
+            }
+            
+            // 先终结宝石
+            [fightUser1 eliminateJewelsWithGlobalIds:elimList];
+            [elimList release];
+            
+            // 再填充宝石
+            CCArray *filledList = [[CCArray alloc] initWithCapacity:20];
+            [fightUser1 fillEmptyJewels:filledList];
+            
+            // 响应填充宝石
+            NSMutableData *response = [NSMutableData data];
+            ServerDataEncoder *encoder = [[ServerDataEncoder alloc] initWithData:response];
+            
+            [encoder writeInt32:SERVER_ACTION_PVP_ADD_NEW_JEWELS];
+            [encoder writeInt64:fightUser1.userInfo.userId]; // 标记给谁更新的
+            [encoder writeInt32:filledList.count]; // 标记数量
+            for (JewelVo *filledJv in filledList)
+            {
+                [MockGameServer compressJewelVo:filledJv toData:encoder];
+            }
+            [filledList release];
+            [encoder release];
+            [server performSelector:@selector(receiveData:) withObject:response afterDelay:0];
             break;
         }
     }

@@ -12,9 +12,11 @@
 #import "UserInfo.h"
 #import "JewelFactory.h"
 
+static int jewelGlobalIdGenerator = 0;
+
 @implementation MockPvPFightUser
 
-@synthesize userInfo,fighters,jewelDict,jewelList;
+@synthesize userInfo,fighters,jewelDict,jewelList,currentFighterIndex;
 
 -(id) init
 {
@@ -24,7 +26,7 @@
         fighters =[[CCArray alloc] initWithCapacity:3];
         currentFighterIndex = 0;
         jewelDict = [[NSMutableDictionary alloc] initWithCapacity:35];
-        jewelList = [[CCArray alloc] initWithCapacity:35];
+        jewelList = [[CCArray alloc] initWithCapacity:36];
     }
     
     return self;
@@ -39,21 +41,17 @@
     [super dealloc];
 }
 
--(void) initJewels
-{
-    [self initJewels:jewelList];
-}
 
--(JewelVo*) getJewelAtCoord:(CGPoint)coord withJewels:(CCArray*)jewels
+-(JewelVo*) getJewelAtCoord:(CGPoint)coord
 {
     if (coord.x<0 || coord.y <0 || coord.x >= kJewelGridWidth || coord.y >= kJewelGridHeight)
     {
         return nil;
     }
     int index = coord.y * kJewelGridWidth + coord.x;
-    if (index < jewels.count)
+    if (index < jewelList.count)
     {
-        return [jewels objectAtIndex:(index)];
+        return [jewelList objectAtIndex:(index)];
     }
     else
     {
@@ -62,7 +60,7 @@
 }
 
 /// 检查垂直方向
--(int) checkVerticalWithJewel:(JewelVo*)jewel withJewels:(CCArray*)list
+-(int) checkVerticalWithJewel:(JewelVo*)jewel
 {
     if (jewel==nil)
     {
@@ -72,14 +70,14 @@
     int elimateCount = 1;
     
     // 向上检测
-    JewelVo *upJewel = [self getJewelAtCoord:ccp(jewel.coord.x,jewel.coord.y - 1) withJewels:list];
+    JewelVo *upJewel = [self getJewelAtCoord:ccp(jewel.coord.x,jewel.coord.y - 1)];
     while (upJewel!=nil)
     {
         // 宝石类型一致的话,加入到可消除队列
         if (upJewel.jewelId == jewel.jewelId || jewel.jewelType == kJewelTypeSpecial || upJewel.jewelType == kJewelTypeSpecial)
         {
             elimateCount+=1;
-            upJewel = [self getJewelAtCoord:ccp(upJewel.coord.x,upJewel.coord.y - 1) withJewels:list];
+            upJewel = [self getJewelAtCoord:ccp(upJewel.coord.x,upJewel.coord.y - 1)];
         }
         else
         {
@@ -88,7 +86,7 @@
     }
     
     // 向下检测
-    JewelVo *downJewel = [self getJewelAtCoord:ccp(jewel.coord.x,jewel.coord.y + 1) withJewels:list];
+    JewelVo *downJewel = [self getJewelAtCoord:ccp(jewel.coord.x,jewel.coord.y + 1)];
     while (downJewel!=nil)
     {
         // 宝石类型一致的话,加入到可消除队列
@@ -96,7 +94,7 @@
         {
             elimateCount+=1;
             
-            downJewel = [self getJewelAtCoord:ccp(downJewel.coord.x,downJewel.coord.y + 1) withJewels:list];
+            downJewel = [self getJewelAtCoord:ccp(downJewel.coord.x,downJewel.coord.y + 1)];
         }
         else
         {
@@ -109,7 +107,7 @@
 
 
 /// 检查水平方向
--(int) checkHorizontalWithJewel:(JewelVo*)jewel withJewels:(CCArray*)list
+-(int) checkHorizontalWithJewel:(JewelVo*)jewel
 {
     if (jewel==nil)
     {
@@ -119,7 +117,7 @@
     int elimateCount = 1;
     
     // 向左检测
-    JewelVo *leftJewel = [self getJewelAtCoord:ccp(jewel.coord.x-1,jewel.coord.y) withJewels:list];
+    JewelVo *leftJewel = [self getJewelAtCoord:ccp(jewel.coord.x-1,jewel.coord.y)];
     while (leftJewel!=nil)
     {
         // 宝石类型一致的话,加入到可消除队列
@@ -127,7 +125,7 @@
         {
             elimateCount+=1;
             
-            leftJewel = [self getJewelAtCoord:ccp(leftJewel.coord.x-1,leftJewel.coord.y) withJewels:list];
+            leftJewel = [self getJewelAtCoord:ccp(leftJewel.coord.x-1,leftJewel.coord.y)];
         }
         else
         {
@@ -136,7 +134,7 @@
     }
     
     // 向右检测
-    JewelVo *rightJewel = [self getJewelAtCoord:ccp(jewel.coord.x+1,jewel.coord.y) withJewels:list];
+    JewelVo *rightJewel = [self getJewelAtCoord:ccp(jewel.coord.x+1,jewel.coord.y)];
     while (rightJewel!=nil)
     {
         // 宝石类型一致的话,加入到可消除队列
@@ -144,7 +142,7 @@
         {
             elimateCount+=1;
             
-            rightJewel = [self getJewelAtCoord:ccp(rightJewel.coord.x+1,rightJewel.coord.y) withJewels:list];
+            rightJewel = [self getJewelAtCoord:ccp(rightJewel.coord.x+1,rightJewel.coord.y)];
         }
         else
         {
@@ -156,7 +154,7 @@
 }
 
 /// 初始化宝石
--(void) initJewels:(CCArray*)jewels
+-(void) initJewels
 {
     
     // WARNING: mock测试!死局检测就免了!!!
@@ -167,18 +165,130 @@
         JewelVo *sv = [JewelFactory randomJewel];
         sv.coord = ccp(n%kJewelGridWidth, n / kJewelGridWidth);
         // 如果会产生可能被消除的,则生成新的宝石
-        while ([self checkHorizontalWithJewel:sv withJewels:jewels] >= kJewelEliminateMinNeed || [self checkVerticalWithJewel:sv withJewels:jewels] >= kJewelEliminateMinNeed)
+        while ([self checkHorizontalWithJewel:sv] >= kJewelEliminateMinNeed || [self checkVerticalWithJewel:sv] >= kJewelEliminateMinNeed)
         {
             sv = [JewelFactory randomJewel];
             sv.coord = ccp(n%kJewelGridWidth, n / kJewelGridWidth);
         }
         
-        [jewels addObject:sv];
+        sv.globalId = ++jewelGlobalIdGenerator;
+        [jewelDict setObject:sv forKey:[NSNumber numberWithInt:sv.globalId]];
+        [jewelList addObject:sv];
         n++;
     }
     
     
     //
+}
+
+
+-(void) swapJewel1:(int)globalId1 jewel2:(int)globalId2
+{
+    JewelVo *jv1 = [jewelDict objectForKey:[NSNumber numberWithInt:globalId1]];
+    JewelVo *jv2 = [jewelDict objectForKey:[NSNumber numberWithInt:globalId2]];
+    
+    
+    // 切换数据坐标
+    CGPoint temp = jv1.coord;
+    jv1.coord = jv2.coord;
+    jv2.coord = temp;
+    
+    // 切换集合
+    [jewelList replaceObjectAtIndex:jv1.coord.x + jv1.coord.y * kJewelGridWidth withObject:jv2];
+    [jewelList replaceObjectAtIndex:jv2.coord.x + jv2.coord.y * kJewelGridWidth withObject:jv1];
+}
+
+-(void) eliminateJewelsWithGlobalIds:(CCArray*)globalIds
+{
+    CCArray *dropJewels = [[CCArray alloc] initWithCapacity:20];
+    
+    // 先清理宝石
+    for (NSNumber *globalIdNum in globalIds)
+    {
+        JewelVo *elimJv = [jewelDict objectForKey:globalIdNum];
+        [jewelList replaceObjectAtIndex:elimJv.coord.x + elimJv.coord.y * kJewelGridWidth withObject:nil];
+        [jewelDict removeObjectForKey:globalIdNum];
+    }
+    
+    // 循环遍历全部宝石格子
+    for (int i = 0; i< kJewelGridWidth;i++)
+    {
+        for (int j=0; j< kJewelGridHeight; j++)
+        {
+            JewelVo *jv = [self getJewelAtCoord:ccp(i,j)];
+            
+            if (jv == nil)
+            {
+                for (int k=j-1; k>=0; k--)
+                {
+                    JewelVo *upJewel = [self getJewelAtCoord:ccp(i,k)];
+                    if(upJewel!=nil)
+                    {
+                        [upJewel addYGap];
+                        if (![dropJewels containsObject:upJewel])
+                        {
+                            [dropJewels addObject:upJewel];
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    // 下落
+    for (JewelVo *dropJv in dropJewels)
+    {
+        dropJv.coord = ccp(dropJv.coord.x,dropJv.toY);
+        dropJv.yGap = 0;
+    }
+    
+    // 更新宝石格子信息
+    [self updateJewelGridInfo];
+    
+    [dropJewels release];
+}
+
+-(void) updateJewelGridInfo
+{
+    // 清理
+    for (int i=0;i<jewelList.count;i++)
+    {
+        [jewelList replaceObjectAtIndex:i withObject:nil];
+    }
+    
+    // 设置
+    for (JewelVo *jv in jewelDict.allValues)
+    {
+        [jewelList replaceObjectAtIndex:jv.coord.x + jv.coord.y * kJewelGridWidth withObject:jv];
+    }
+}
+
+/// 填充宝石
+-(void) fillEmptyJewels:(CCArray*)filledList
+{
+    KITLog(@"%@",jewelList);
+    
+    // 找出空出来的宝石位置,向上寻找宝石
+    for (int i =0;i <kJewelGridWidth; i++)
+    {
+        for (int j = 0; j< kJewelGridHeight; j++)
+        {
+            int index = i + j * kJewelGridWidth;
+            if ([jewelList objectAtIndex:index]==nil)
+            {
+                JewelVo *newJv = [JewelFactory randomJewel];
+                newJv.globalId = ++jewelGlobalIdGenerator;
+                newJv.coord = ccp(i,j);
+                
+                [jewelList replaceObjectAtIndex:index withObject:newJv];
+                [jewelDict setObject:newJv forKey:[NSNumber numberWithInt:newJv.globalId]];
+                [filledList addObject:newJv];
+            }
+        }
+    }
+    
+    [self updateJewelGridInfo];
+    
 }
 
 

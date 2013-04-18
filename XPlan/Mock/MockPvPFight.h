@@ -27,6 +27,6 @@
 -(id) initWithServer:(MockGameServer*)s;
 
 /// 处理请求
--(void) handleRequestWithMethod:(int)method data:(ServerDataDecoder*)data;
+-(void) handleRequestWithMethod:(int)method data:(ServerDataDecoder*)requestData;
 
 @end

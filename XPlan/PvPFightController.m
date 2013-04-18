@@ -18,10 +18,11 @@
 #import "GameController.h"
 #import "GameServer.h"
 #import "JewelController.h"
-#import "JewelInitAction.h"
+#import "JewelAddAction.h"
 #import "JewelSwapMessageData.h"
 #import "JewelEliminateMessageData.h"
 #import "GameMessageDispatcher.h"
+#import "NewJewelsCommandData.h"
 
 @interface PvPFightController()
 {
@@ -137,13 +138,13 @@
     GameServer *server = [GameController sharedController].server;
     
     // 侦听交换宝石
-    [server.pvpCommand addListenerWithActionId:SERVER_ACTION_PVP_SWAP_STONES listener:self];
+    [server.pvpCommand addListenerWithActionId:SERVER_ACTION_PVP_SWAP_JEWELS listener:self];
     
     // 侦听添加新宝石
-    [server.pvpCommand addListenerWithActionId:SERVER_ACTION_PVP_ADD_NEW_STONES listener:self];
+    [server.pvpCommand addListenerWithActionId:SERVER_ACTION_PVP_ADD_NEW_JEWELS listener:self];
     
     // 侦听死局
-    [server.pvpCommand addListenerWithActionId:SERVER_ACTION_PVP_DEAD_STONE_COLUMN listener:self];
+    [server.pvpCommand addListenerWithActionId:SERVER_ACTION_PVP_DEAD_JEWEL_COLUMN listener:self];
 
     // 侦听怒气和血条的改变
     [server.pvpCommand addListenerWithActionId:SERVER_ACTION_PVP_CHANGE_INFO listener:self];
@@ -158,9 +159,9 @@
 {
     GameServer *server = [GameController sharedController].server;
     
-    [server.pvpCommand removeListenerWithActionId:SERVER_ACTION_PVP_SWAP_STONES listener:self];
-    [server.pvpCommand removeListenerWithActionId:SERVER_ACTION_PVP_ADD_NEW_STONES listener:self];
-    [server.pvpCommand removeListenerWithActionId:SERVER_ACTION_PVP_DEAD_STONE_COLUMN listener:self];
+    [server.pvpCommand removeListenerWithActionId:SERVER_ACTION_PVP_SWAP_JEWELS listener:self];
+    [server.pvpCommand removeListenerWithActionId:SERVER_ACTION_PVP_ADD_NEW_JEWELS listener:self];
+    [server.pvpCommand removeListenerWithActionId:SERVER_ACTION_PVP_DEAD_JEWEL_COLUMN listener:self];
     
     // 取消侦听怒气和血条的改变
     [server.pvpCommand removeListenerWithActionId:SERVER_ACTION_PVP_CHANGE_INFO listener:self];
@@ -176,7 +177,7 @@
     {
             
             // 交换宝石
-        case SERVER_ACTION_PVP_SWAP_STONES:
+        case SERVER_ACTION_PVP_SWAP_JEWELS:
         {
             CCArray *params = (CCArray*)obj;
             long userId = [[params objectAtIndex:0] longValue];
@@ -184,6 +185,20 @@
             NSString *jewel1 = [params objectAtIndex:2];
             NSString *jewel2 = [params objectAtIndex:3];
             [self swapJewelWithUserId:userId actionId:actId jewel1:jewel1 jewel2:jewel2];
+            break;
+        }
+        // 添加新宝石
+        case SERVER_ACTION_PVP_ADD_NEW_JEWELS:
+        {
+            NewJewelsCommandData *data = (NewJewelsCommandData*)obj;
+            if (data.userId == playerJewelController.userId)
+            {
+                [playerJewelController addJewelVoList:data.jewelVoList];
+            }
+            else
+            {
+                [opponentJewelController newJewelVoList:data.jewelVoList];
+            }
             break;
         }
             
@@ -231,14 +246,14 @@
         {
             JewelEliminateMessageData *data = (JewelEliminateMessageData*)obj;
             
+            
+            if(OFFLINE_MODE)
+            {
+                return;
+            }
+            
             // 通知服务器端
             [[GameController sharedController].server.pvpCommand requestEliminateWithActionId:1 continueEliminate:0 JewelGlobalIds:data.jewelGlobalIds];
-            
-            if (OFFLINE_MODE)
-            {
-                // 离线模式, 替代服务器端填充
-                
-            }
             
             break;
         }

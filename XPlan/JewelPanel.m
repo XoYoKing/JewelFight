@@ -359,7 +359,10 @@
             // 清除JewelSprite
             [self removeJewelSprite:jr];
         }
+        
+        [self updateJewelGridInfo];
     }
+
     [jewelsToRemove release];
 }
 
@@ -450,7 +453,7 @@
     // 设置
     for (JewelSprite *js in allJewelSprites)
     {
-        JewelCell *cell = [self getCellAtPosition:js.position];
+        JewelCell *cell = [self getCellAtCoord:js.jewelVo.coord];
         cell.jewelGlobalId = js.globalId;
     }
 }
