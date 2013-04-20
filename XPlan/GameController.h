@@ -35,8 +35,8 @@
 /// 
 +(GameController*) sharedController;
 
-/// 初始化服务器连接
--(void) initServer;
+/// 初始化
+-(void) initialzie;
 
 /// 执行首次运行场景
 -(void) runFirstRunScene;

@@ -32,21 +32,8 @@
 {
     if ((self = [super init]))
     {
-        // 初始化玩家信息
-        PlayerInfo *player = [[PlayerInfo alloc] init];
-        player.userId = kMockPlayerUserId;
-        player.name = @"刀剑笑";
-        player.sex = 0;
-        player.silver = 3000;
-        player.gold = 1000;
-        player.diamond = 100000;
-        [GameController sharedController].player = player;
-        [player release];
-        
         // 初始化pvp战斗
         pvpFight = [[MockPvPFight alloc] initWithServer:self];
-        
-        
     }
     
     return self;

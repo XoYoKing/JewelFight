@@ -33,6 +33,8 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 @implementation ServerConnection
 
+@synthesize server,host,port;
+
 -(id) initWithServer:(NSString *)s host:(NSString *)h port:(uint16_t)p delegate:(id<ServerConnectionDelegate>)l
 {
     if ((self = [super init]))
@@ -49,8 +51,6 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
         // 初始化异步socket
         dispatch_queue_t mainQueue = dispatch_get_main_queue();
         asyncSocket = [[GCDAsyncSocket alloc] initWithDelegate:self delegateQueue:mainQueue];
-        
-        [self connect];
     }
     
     return self;
@@ -82,6 +82,18 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     [asyncSocket disconnect];
 }
 
+-(void) sendData:(NSData *)data
+{
+    // 加入数据长度头
+    NSMutableData *mData = [NSMutableData data];
+    int32_t length = CFSwapInt32HostToBig(data.length);
+    [mData appendBytes:&length length:sizeof(int32_t)];
+    [mData appendData:data];
+    
+    // 发送数据
+    [asyncSocket writeData:mData withTimeout:0 tag:-1];
+}
+
 #pragma maek Socket Delegate
 
 - (void)socket:(GCDAsyncSocket *)sock didConnectToHost:(NSString *)host port:(UInt16)port
@@ -96,13 +108,15 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 - (void)socketDidSecure:(GCDAsyncSocket *)sock
 {
-    DDLogInfo(@"socketDidSecure:%p", sock);
+    KITLog(@"socketDidSecure:%p", sock);
+    //DDLogInfo(@"socketDidSecure:%p", sock);
     
 }
 
 - (void)socket:(GCDAsyncSocket *)sock didWriteDataWithTag:(long)tag
 {
-	DDLogInfo(@"socket:%p didWriteDataWithTag:%ld", sock, tag);
+    KITLog(@"socket:%p didWriteDataWithTag:%ld", sock, tag);
+	//DDLogInfo(@"socket:%p didWriteDataWithTag:%ld", sock, tag);
 }
 
 - (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag
@@ -115,6 +129,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
         // 获取数据包大小
         int32_t bodyLength;
         [data getBytes:&bodyLength length:sizeof(int32_t)];
+        bodyLength = CFSwapInt32BigToHost(bodyLength);
         
         // 接收数据
         [sock readDataToLength:bodyLength withTimeout:-1 tag:TAG_RESPONSE_BODY];
@@ -130,14 +145,15 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 - (void)socketDidDisconnect:(GCDAsyncSocket *)sock withError:(NSError *)err
 {
-	DDLogWarn(@"socketDidDisconnect:%p withError: %@", sock, err);
+    KITLog(@"socketDidDisconnect:%p withError: %@", sock, err);
+	//DDLogWarn(@"socketDidDisconnect:%p withError: %@", sock, err);
     
     if (!connected)
     {
         [delegate connectionClosed:self];
         
         // 重新连接
-        [self connect];
+        //[self connect];
     }
     
 }

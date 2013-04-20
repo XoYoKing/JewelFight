@@ -44,7 +44,7 @@
     [super dealloc];
 }
 
--(ServerConnection*) registerServer:(NSString *)server host:(NSString *)host port:(uint)port delegate:(id)delegate
+-(ServerConnection*) registerServer:(NSString *)server host:(NSString *)host port:(uint)port
 {
     ServerConnection *connection = [servers objectForKey:server];
     if (!connection)
@@ -53,6 +53,7 @@
         [servers setObject:connection forKey:server];
         [connection release];
         connection = [servers objectForKey:server];
+        [connection connect];
     }
     
     return connection;

@@ -20,7 +20,7 @@
 /// PvP 战斗控制器
 @interface PvPFightController : NSObject<CommandListener,GameMessageListener>
 {
-    PvPController *controller;
+    PvPController *controller; // 隶属总控
     JewelController *playerJewelController; // 玩家宝石控制器
     JewelController *opponentJewelController; // 对手宝石控制器
     

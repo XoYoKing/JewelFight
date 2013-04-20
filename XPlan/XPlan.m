@@ -10,6 +10,10 @@
 #import "GameController.h"
 #import "GameLoadingScene.h"
 #import "GameController.h"
+#import "DDLog.h"
+
+// Log levels: off, error, warn, info, verbose
+static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 @implementation XPlan
 
@@ -24,7 +28,7 @@
     [[CCDirector sharedDirector] setProjection:kCCDirectorProjection2D];
     
     // 初始化GameController
-    [[GameController sharedController] initServer];
+    [[GameController sharedController] initialize];
     
     // 加载场景
     GameLoadingScene *scene = [GameLoadingScene node];

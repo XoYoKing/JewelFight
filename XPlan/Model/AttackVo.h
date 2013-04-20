@@ -41,8 +41,10 @@
 /// 技能伤害数据
 @property (readonly,nonatomic) CCArray *damages;
 
+/// 是否死亡
 @property (readwrite,nonatomic) BOOL dead;
 
+/// 连击次数
 @property (readwrite,nonatomic) int combos;
 
 @property (readwrite,nonatomic) int hurt;

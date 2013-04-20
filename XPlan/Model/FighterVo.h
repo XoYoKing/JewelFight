@@ -12,6 +12,7 @@
 /// 战场情况下的实际英雄数据对象 Value Object
 @interface FighterVo : NSObject
 {
+    int globalId; // 唯一标识
     long heroId; // 英雄标识
     int heroType; // 英雄类型
     long userId; // 英雄隶属玩家标识
@@ -26,6 +27,9 @@
     int team; // 队伍
 
 }
+
+/// 唯一标识
+@property (readwrite,nonatomic) int globalId;
 
 /// 英雄标识
 @property (readwrite,nonatomic) long heroId;

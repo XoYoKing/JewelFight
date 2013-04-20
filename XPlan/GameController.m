@@ -10,6 +10,9 @@
 #import "GameServer.h"
 #import "PvPScene.h"
 #import "MockGameServer.h"
+#import "Constants.h"
+#import "DDLog.h"
+#import "PlayerInfo.h"
 
 static GameController *_gameControllerInstance = nil;
 
@@ -50,8 +53,6 @@ static GameController *_gameControllerInstance = nil;
 {
     if ((self = [super init]))
     {
-        // 初始化服务器连接
-        //[self initServer];
     }
     
     return self;
@@ -59,14 +60,29 @@ static GameController *_gameControllerInstance = nil;
 
 -(void) dealloc
 {
+    [player release];
     [super dealloc];
 }
 
+-(void) initialize
+{
+    // 初始化玩家信息
+    player = [[PlayerInfo alloc] init];
+    player.userId = 1;
+    player.name = @"刀剑笑";
+    player.sex = 0;
+    player.silver = 3000;
+    player.gold = 1000;
+    player.diamond = 100000;
+    
+    [self initServer];
+}
 
 /// 初始化服务器连接
 -(void) initServer
 {
-    server = [[MockGameServer alloc] init];
+    server = [[GameServer alloc] init];
+    [server registerServer:SERVER_GAME host:@"192.168.1.110" port:9080];
 }
 
 /// 获取宝石配置信息

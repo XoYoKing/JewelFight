@@ -54,11 +54,11 @@
     }
     else if (temp == 1)
     {
-        return 0.14f;
+        return 0.08f;
     }
     else
     {
-        return 0.3f;
+        return 0.16f;
     }
 }
 

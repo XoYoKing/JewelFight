@@ -39,7 +39,7 @@
 @property (readonly,nonatomic) NSString *host;
 
 /// 端口
-@property (readonly,nonatomic) uint port;
+@property (readonly,nonatomic) uint16_t port;
 
 /// 初始化
 -(id) initWithServer:(NSString*)s host:(NSString*)h port:(uint16_t)p delegate:(id<ServerConnectionDelegate>)l;

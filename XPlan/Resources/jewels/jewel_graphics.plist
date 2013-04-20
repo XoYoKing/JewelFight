@@ -23,7 +23,7 @@
 		<key>eliminate1</key>
 		<dict>
 			<key>delay</key>
-			<string>0.06</string>
+			<string>0.04</string>
 			<key>format</key>
 			<string>fireEliminate_%03d.png</string>
 			<key>frameCount</key>

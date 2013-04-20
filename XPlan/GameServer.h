@@ -56,7 +56,7 @@
 -(BOOL) checkConnected:(NSString*)server;
 
 /// 注册服务器
--(ServerConnection*) registerServer:(NSString*)server host:(NSString*)host port:(uint)port delegate:(id)delegate;
+-(ServerConnection*) registerServer:(NSString*)server host:(NSString*)host port:(uint)port;
 
 /// 注销掉服务器连接
 -(void) removeServer:(NSString*)server;

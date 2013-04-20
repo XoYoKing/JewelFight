@@ -12,7 +12,7 @@
 /// 战斗者数据对象
 @implementation FighterVo
 
-@synthesize heroId,heroType,userId,name,sex,head,fashion,team,maxAnger,maxHp,hp,anger;
+@synthesize globalId,heroId,heroType,userId,name,sex,head,fashion,team,maxAnger,maxHp,hp,anger;
 
 -(id) init
 {

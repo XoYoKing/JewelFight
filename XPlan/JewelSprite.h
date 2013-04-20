@@ -12,10 +12,13 @@
 
 @class JewelVo,JewelPanel,JewelCell;
 
-#define kJewelItemStateIdle 0 // 默认状态
-#define kJewelItemStateMoving 1 // 移动状态
+typedef enum JewelSpriteStates
+{
+    kJewelSpriteStateIdle=0, // 默认状态
+    kJewelSpriteStateMoving, // 移动状态
+    kJewelSpriteActionMove // 宝石在移动
+}JewelSpriteStates;
 
-#define kJewelItemActionMove 50 // 宝石在移动
 
 /// 宝石节点
 @interface JewelSprite : CCSprite
