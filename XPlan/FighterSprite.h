@@ -18,7 +18,7 @@ typedef enum _FighterStates
 
 @class FighterVo,FightField;
 
-/// 战士精灵
+/// 战士Sprite
 @interface FighterSprite : CCSprite
 {
     FightField *fightField; // 战场
@@ -29,16 +29,23 @@ typedef enum _FighterStates
     int team; // 阵营
 }
 
-@property (readonly,nonatomic) int globalId;
+/// 全局标识
+@property (readonly,nonatomic) long globalId;
 
+/// 战士数据对象
 @property (readonly,nonatomic) FighterVo *fighterVo;
 
+/// 状态
 @property (readwrite,nonatomic) int state;
 
+/// 新状态
 @property (readwrite,nonatomic) int newState;
 
 /// 阵营
 @property (readonly,nonatomic) int team;
+
+/// 初始化
+-(id) initWithFightField:(FightField*)field fighterVo:(FighterVo*)fv;
 
 #pragma mark -
 #pragma mark Status

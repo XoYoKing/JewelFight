@@ -13,6 +13,8 @@
 #import "JewelVo.h"
 #import "JewelCell.h"
 #import "JewelEliminateAction.h"
+#import "JewelMessageData.h"
+#import "GameMessageDispatcher.h"
 
 @interface JewelDropAction()
 {
@@ -139,6 +141,7 @@
     }
     
     [elimList release];
+    
     
     // 宝石面板设置为可操作
     [jewelController.jewelPanel setIsControlEnabled:YES];

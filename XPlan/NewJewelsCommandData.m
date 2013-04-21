@@ -10,7 +10,7 @@
 
 @implementation NewJewelsCommandData
 
-@synthesize userId,jewelVoList;
+@synthesize jewelVoList;
 
 -(id) init
 {

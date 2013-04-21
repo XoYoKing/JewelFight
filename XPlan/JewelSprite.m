@@ -23,7 +23,7 @@
 
 @implementation JewelSprite
 
-@synthesize globalId, jewelVo,coord,state,newState,jewelPanel,cell;
+@synthesize globalId, jewelVo,coord,state,newState,jewelPanel,cell,eliminateRight,eliminateTop;
 
 -(id) initWithJewelPanel:(JewelPanel *)thePanel jewelVo:(JewelVo *)sd
 {

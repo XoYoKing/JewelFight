@@ -6,19 +6,15 @@
 //  Copyright (c) 2013 Hex. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import "MessageData.h"
+#import "JewelMessageData.h"
 
-@interface JewelSwapMessageData : MessageData
+@interface JewelSwapMessageData : JewelMessageData
 {
-    long userId;
     
     int jewelGlobalId1;
     
     int jewelGlobalId2;
 }
-
-@property (readonly,nonatomic) long userId;
 
 @property (readonly,nonatomic) int jewelGlobalId1;
 

@@ -115,7 +115,7 @@ typedef enum _FightLayerTags
 #define SERVER_ACTION_PVP_FIGHT_START 802 // 开始战斗,进行战斗初始化操作
 #define SERVER_ACTION_PVP_SWAP_JEWELS 803 // 交换宝石
 #define SERVER_ACTION_PVP_ADD_NEW_JEWELS 804 // 增加新的宝石
-#define SERVER_ACTION_PVP_DEAD_JEWEL_COLUMN 805 // 死局获得新的宝石队列
+#define SERVER_ACTION_PVP_DEAD_JEWELS 805 // 死局获得新的宝石队列
 #define SERVER_ACTION_PVP_CHANGE_INFO 806 // 怒气和血条的改变
 #define SERVER_ACTION_PVP_ATTACK 807 // 服务器端返回的攻击数据
 
@@ -127,6 +127,7 @@ typedef enum _FightLayerTags
 /// 消息
 #define JEWEL_MESSAGE_SWAP_JEWELS 300 // 交换宝石
 #define JEWEL_MESSAGE_ELIMINATE_JEWELS 301 // 消除宝石
+#define JEWEL_MESSAGE_DEAD 302 // 死局
 
 
 

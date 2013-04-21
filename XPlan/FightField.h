@@ -31,7 +31,7 @@
 #pragma mark -
 #pragma mark FighterSprite
 
--(FighterSprite*) getFighterSpriteWithGlobalId:(int)globalId;
+-(FighterSprite*) getFighterSpriteWithGlobalId:(long)globalId;
 
 /// 创建战士
 -(FighterSprite*) createFighterSpriteWithFighterVo:(FighterVo*)fighterVo;

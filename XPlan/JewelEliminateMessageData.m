@@ -19,9 +19,8 @@
 
 -(id) initWithUserId:(long)uid jewelGlobalIds:(CCArray *)globalIds
 {
-    if ((self = [super init]))
+    if ((self = [super initWithUserId:uid]))
     {
-        userId = uid;
         jewelGlobalIds = [globalIds retain];
     }
     

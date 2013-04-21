@@ -8,15 +8,19 @@
 
 #import "FightAction.h"
 
-@class PvPFighter;
+@class FighterSprite;
 
 /// 攻击指令
 @interface FightAttackAction : FightAction
 {
-    
+    int skillId; // 使用技能标识
+    int state;
+    int newState;
 }
 
--(id) initWithFightGround:(FightArena*)_ground actor:(PvPFighter*)_actor target:(PvPFighter*)_target move:(int)_move distance:(float)_distance time:(float)_time;
+-(id) initWithFightField:(FightField *)f actor:(FighterSprite*)a;
+
+
 
 
 

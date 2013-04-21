@@ -23,12 +23,17 @@
 #import "JewelEliminateMessageData.h"
 #import "GameMessageDispatcher.h"
 #import "NewJewelsCommandData.h"
+#import "DeadJewelsCommandData.h"
 
 @interface PvPFightController()
 {
     PvPLayer *pvpLayer; // PVP页面
     PvPFighterPanel *fighterPanel; // PvP战士对战面板
     PvPPortraitPanel *portraitPanel; // pvp战士头像面板
+    
+    // 请求后台
+    double requestTotalCost; // 请求后台所花总时间
+    double requestStartTime; // 请求后台开始时间
 }
 
 @end
@@ -144,14 +149,13 @@
     [server.pvpCommand addListenerWithActionId:SERVER_ACTION_PVP_ADD_NEW_JEWELS listener:self];
     
     // 侦听死局
-    [server.pvpCommand addListenerWithActionId:SERVER_ACTION_PVP_DEAD_JEWEL_COLUMN listener:self];
+    [server.pvpCommand addListenerWithActionId:SERVER_ACTION_PVP_DEAD_JEWELS listener:self];
 
     // 侦听怒气和血条的改变
     [server.pvpCommand addListenerWithActionId:SERVER_ACTION_PVP_CHANGE_INFO listener:self];
 
     // 侦听攻击
     [server.pvpCommand addListenerWithActionId:SERVER_ACTION_PVP_ATTACK listener:self];
-    
     
 }
 
@@ -161,7 +165,7 @@
     
     [server.pvpCommand removeListenerWithActionId:SERVER_ACTION_PVP_SWAP_JEWELS listener:self];
     [server.pvpCommand removeListenerWithActionId:SERVER_ACTION_PVP_ADD_NEW_JEWELS listener:self];
-    [server.pvpCommand removeListenerWithActionId:SERVER_ACTION_PVP_DEAD_JEWEL_COLUMN listener:self];
+    [server.pvpCommand removeListenerWithActionId:SERVER_ACTION_PVP_DEAD_JEWELS listener:self];
     
     // 取消侦听怒气和血条的改变
     [server.pvpCommand removeListenerWithActionId:SERVER_ACTION_PVP_CHANGE_INFO listener:self];
@@ -194,11 +198,28 @@
             if (data.userId == playerJewelController.userId)
             {
                 [playerJewelController addJewelVoList:data.jewelVoList];
+                
+                // 记录从请求消除宝石到响应宝石所花总时间
+                requestTotalCost = [[NSDate date] timeIntervalSince1970] - requestStartTime;
             }
             else
             {
                 [opponentJewelController newJewelVoList:data.jewelVoList];
             }
+            break;
+        }
+        case SERVER_ACTION_PVP_DEAD_JEWELS:
+        {
+            DeadJewelsCommandData *data = (DeadJewelsCommandData*)obj;
+            if (data.userId == playerJewelController.userId)
+            {
+                [playerJewelController newJewelVoList:data.jewelVoList];
+            }
+            else
+            {
+                [opponentJewelController newJewelVoList:data.jewelVoList];
+            }
+            
             break;
         }
             
@@ -214,6 +235,8 @@
     GameMessageDispatcher *messageDispatcher = [GameMessageDispatcher sharedDispatcher];
     [messageDispatcher addListenerWithMessageId:JEWEL_MESSAGE_SWAP_JEWELS listener:self];
     [messageDispatcher addListenerWithMessageId:JEWEL_MESSAGE_ELIMINATE_JEWELS listener:self];
+    [messageDispatcher addListenerWithMessageId:JEWEL_MESSAGE_DEAD listener:self];
+    
     
     
 }
@@ -224,6 +247,7 @@
     GameMessageDispatcher *messageDispatcher = [GameMessageDispatcher sharedDispatcher];
     [messageDispatcher removeListenerWithMessageId:JEWEL_MESSAGE_SWAP_JEWELS listener:self];
     [messageDispatcher removeListenerWithMessageId:JEWEL_MESSAGE_ELIMINATE_JEWELS listener:self];
+    [messageDispatcher removeListenerWithMessageId:JEWEL_MESSAGE_DEAD listener:self];
     
 }
 
@@ -246,18 +270,32 @@
         {
             JewelEliminateMessageData *data = (JewelEliminateMessageData*)obj;
             
-            
-            if(OFFLINE_MODE)
+            // 通知服务器端消除宝石
+            if (data.userId == [GameController sharedController].player.userId)
             {
-                return;
+                // 记录请求时间
+                requestTotalCost = 0;
+                requestStartTime = [[NSDate date] timeIntervalSince1970];
+                
+                [[GameController sharedController].server.pvpCommand requestEliminateWithActionId:1 continueEliminate:0 JewelGlobalIds:data.jewelGlobalIds];
             }
-            
-            // 通知服务器端
-            [[GameController sharedController].server.pvpCommand requestEliminateWithActionId:1 continueEliminate:0 JewelGlobalIds:data.jewelGlobalIds];
             
             break;
         }
+        // 宝石死局
+        case JEWEL_MESSAGE_DEAD:
+        {
+            JewelMessageData *data = (JewelMessageData*)obj;
             
+            // 通知服务器端死局宝石
+            if (data.userId == [GameController sharedController].player.userId)
+            {
+                long actionId = [[NSDate date] timeIntervalSince1970];
+                [[GameController sharedController].server.pvpCommand requestDeadWithActionId:actionId];
+            }
+            
+            break;
+        }
     }
 }
 

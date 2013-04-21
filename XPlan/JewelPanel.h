@@ -129,4 +129,10 @@
 /// 重置右侧消除状态
 -(void) resetEliminateRight:(JewelSprite*)source;
 
+/// 检查死局
+-(BOOL) checkDead;
+
+/// 宝石是否满的
+-(BOOL) isFull;
+
 @end

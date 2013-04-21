@@ -21,6 +21,7 @@
 #import "PlayerInfo.h"
 #import "JewelVo.h"
 #import "NewJewelsCommandData.h"
+#import "DeadJewelsCommandData.h"
 
 
 
@@ -108,8 +109,8 @@
     NSMutableData *data = [NSMutableData data];
     ServerDataEncoder *encoder = [[ServerDataEncoder alloc] initWithData:data];
     [encoder writeInt16:101];
-    [encoder writeInt16:1200];
-    [encoder writeInt8:4];
+    [encoder writeInt16:1110];
+    [encoder writeInt8:6];
     [encoder release];
     [[GameController sharedController].server send:SERVER_GAME data:data];
 }
@@ -213,12 +214,21 @@
         case SERVER_ACTION_PVP_SWAP_JEWELS:
         {
             [self handleSwapJewels:data];
+            break;
         }
             
         // 新到宝石
         case SERVER_ACTION_PVP_ADD_NEW_JEWELS:
         {
             [self handleNewJewels:data];
+            break;
+        }
+            
+        // 死局更新宝石
+        case SERVER_ACTION_PVP_DEAD_JEWELS:
+        {
+            [self handleDeadJewels:data];
+            break;
         }
     }
 }
@@ -254,6 +264,27 @@
     [dict setObject:opponentJewels forKey:@"opponent_jewels"];
     
     [self responseToListenerWithActionId:SERVER_ACTION_PVP_INIT_JEWELS object:dict];
+}
+
+/// 处理PvP死局宝石队列
+-(void) handleDeadJewels:(ServerDataDecoder*)data
+{
+    //
+    DeadJewelsCommandData *serverData = [[[DeadJewelsCommandData alloc] init] autorelease];
+    
+    serverData.userId = [data readInt64]; // 关联用户标识
+    
+    // 先获取玩家宝石数量
+    // 数量
+    int amount = [data readInt32]; //
+    for (int i = 0;i < amount; i++)
+    {
+        JewelVo *jewelVo = [[JewelVo alloc] init];
+        [FightCommand populateJewelVo:jewelVo data:data];
+        [serverData.jewelVoList addObject:jewelVo];
+    }
+    
+    [self responseToListenerWithActionId:SERVER_ACTION_PVP_DEAD_JEWELS object:serverData];
 }
 
 -(void) handleNewJewels:(ServerDataDecoder*)data

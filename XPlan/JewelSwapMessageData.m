@@ -10,7 +10,7 @@
 
 @implementation JewelSwapMessageData
 
-@synthesize userId,jewelGlobalId1,jewelGlobalId2;
+@synthesize jewelGlobalId1,jewelGlobalId2;
 
 +(id) dataWithUserId:(long)uId jewelGlobalId1:(int)j1 jewelGlobalId2:(int)j2
 {
@@ -19,9 +19,8 @@
 
 -(id) initWithUserId:(long)uId jewelGlobalId1:(int)j1 jewelGlobalId2:(int)j2
 {
-    if ((self = [super init]))
+    if ((self = [super initWithUserId:uId]))
     {
-        userId = uId;
         jewelGlobalId1 = j1;
         jewelGlobalId2 = j2;
     }

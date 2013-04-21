@@ -10,14 +10,13 @@
 
 @interface FightAttackAction()
 {
-    int state; // 游戏状态
-    int newState; // 新游戏状态
 }
 
 @end
 
 @implementation FightAttackAction
 
+/*
 -(id) initWithFightGround:(FightArena *)_ground actor:(PvPFighter *)_actor target:(PvPFighter *)_target move:(int)_move distance:(float)_distance time:(float)_time
 {
     if ((self = [super initWithFightGround:_ground name:@"Attack"]))
@@ -31,6 +30,7 @@
     
     return self;
 }
+ */
 
 -(void) start
 {

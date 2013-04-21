@@ -711,6 +711,233 @@
 }
 
 
+/// 检查死局
+-(BOOL) checkDead
+{
+    for (JewelSprite *js in allJewelSprites)
+    {
+        if ([self checkLifeVerticalWithJewelSprite:js])
+        {
+            return NO;
+        }
+        
+        if ([self checkLifeHorizontalWithJewelSprite:js])
+        {
+            return NO;
+        }
+    }
+    
+    return YES;
+}
+
+/// 检测水平方向死局
+-(BOOL) checkLifeVerticalWithJewelSprite:(JewelSprite*)center
+{
+    CCArray *topList = [[CCArray alloc] initWithCapacity:kJewelGridWidth];
+    CCArray *middleList = [[CCArray alloc] initWithCapacity:kJewelGridWidth];
+    CCArray *bottomList = [[CCArray alloc] initWithCapacity:kJewelGridWidth];
+    
+    int skipCount = 0;
+    [middleList addObject:center];
+    
+    // 向上检测
+    JewelSprite *check = [self getCellAtCoord:ccp(center.coord.x,center.coord.y-1)].jewelSprite;
+    while (check!=nil)
+    {
+        if (check.jewelVo.jewelId != center.jewelVo.jewelId)
+        {
+            skipCount++;
+            if (skipCount>1)
+            {
+                break;
+            }
+            
+            // 检测水平方向是否有相同类型的宝石
+            if ([self checkHorizontalEqualJewelsWithJewelSprite:check jewelId:center.jewelVo.jewelId])
+            {
+                [topList addObject:check];
+            }
+        }
+        else
+        {
+            if (skipCount == 0)
+            {
+                [middleList addObject:check];
+            }
+            else if (skipCount == 1)
+            {
+                [topList addObject:check];
+            }
+        }
+        
+        check = [self getCellAtCoord:ccp(check.coord.x,check.coord.y-1)].jewelSprite;
+    }
+    
+    // 向下检测
+    skipCount = 0;
+    check = [self getCellAtCoord:ccp(center.coord.x,center.coord.y+1)].jewelSprite;
+    while (check!=nil)
+    {
+        if (check.jewelVo.jewelId != center.jewelVo.jewelId)
+        {
+            skipCount++;
+            if (skipCount>1)
+            {
+                break;
+            }
+            
+            // 检测水平方向是否有相同类型的宝石
+            if ([self checkHorizontalEqualJewelsWithJewelSprite:check jewelId:center.jewelVo.jewelId])
+            {
+                [bottomList addObject:check];
+            }
+        }
+        else
+        {
+            if (skipCount == 0)
+            {
+                [middleList addObject:check];
+            }
+            else if (skipCount == 1)
+            {
+                [bottomList addObject:check];
+            }
+        }
+        
+        check = [self getCellAtCoord:ccp(check.coord.x,check.coord.y+1)].jewelSprite;
+    }
+    
+    BOOL life = middleList.count>=kJewelEliminateMinNeed || topList.count + middleList.count >= kJewelEliminateMinNeed || bottomList.count + middleList.count >= kJewelEliminateMinNeed;
+    [middleList release];
+    [topList release];
+    [bottomList release];
+
+    return life;
+}
+
+/// 检查水平方向是否有指定标志的宝石
+-(BOOL) checkHorizontalEqualJewelsWithJewelSprite:(JewelSprite*)js jewelId:(int)jewelId
+{
+    JewelCell *leftCell = [self getCellAtCoord:ccp(js.coord.x-1,js.coord.y)];
+    if (leftCell && leftCell.jewelSprite.jewelVo.jewelId == jewelId)
+    {
+        return YES;
+    }
+    JewelCell *rightCell = [self getCellAtCoord:ccp(js.coord.x+1,js.coord.y)];
+    if (rightCell && rightCell.jewelSprite.jewelVo.jewelId == jewelId)
+    {
+        return YES;
+    }
+    
+    return NO;
+}
+
+/// 检查垂直方向是否有指定标志的宝石
+-(BOOL) checkVerticalEqualJewelsWithJewelSprite:(JewelSprite*)js jewelId:(int)jewelId
+{
+    JewelCell *topCell = [self getCellAtCoord:ccp(js.coord.x,js.coord.y-1)];
+    if (topCell && topCell.jewelSprite.jewelVo.jewelId == jewelId)
+    {
+        return YES;
+    }
+    JewelCell *bottomCell = [self getCellAtCoord:ccp(js.coord.x,js.coord.y+1)];
+    if (bottomCell && bottomCell.jewelSprite.jewelVo.jewelId == jewelId)
+    {
+        return YES;
+    }
+    
+    return NO;
+}
+
+-(BOOL) checkLifeHorizontalWithJewelSprite:(JewelSprite*)center
+{
+    CCArray *leftList = [[CCArray alloc] initWithCapacity:kJewelGridHeight];
+    CCArray *middleList = [[CCArray alloc] initWithCapacity:kJewelGridHeight];
+    CCArray *rightList = [[CCArray alloc] initWithCapacity:kJewelGridHeight];
+    
+    int skipCount = 0;
+    [middleList addObject:center];
+    
+    // 向左检测
+    JewelSprite *check = [self getCellAtCoord:ccp(center.coord.x-1,center.coord.y)].jewelSprite;
+    while (check!=nil)
+    {
+        if (check.jewelVo.jewelId != center.jewelVo.jewelId)
+        {
+            skipCount++;
+            if (skipCount>1)
+            {
+                break;
+            }
+            
+            // 检测垂直方向是否有相同类型的宝石
+            if ([self checkVerticalEqualJewelsWithJewelSprite:check jewelId:center.jewelVo.jewelId])
+            {
+                [leftList addObject:check];
+            }
+        }
+        else
+        {
+            if (skipCount == 0)
+            {
+                [middleList addObject:check];
+            }
+            else if (skipCount == 1)
+            {
+                [leftList addObject:check];
+            }
+        }
+        
+        check = [self getCellAtCoord:ccp(check.coord.x-1,check.coord.y)].jewelSprite;
+    }
+    
+    // 向右检测
+    skipCount = 0;
+    check = [self getCellAtCoord:ccp(center.coord.x+1,center.coord.y)].jewelSprite;
+    while (check!=nil)
+    {
+        if (check.jewelVo.jewelId != center.jewelVo.jewelId)
+        {
+            skipCount++;
+            if (skipCount>1)
+            {
+                break;
+            }
+            
+            // 检测垂直方向是否有相同类型的宝石
+            if ([self checkVerticalEqualJewelsWithJewelSprite:check jewelId:center.jewelVo.jewelId])
+            {
+                [rightList addObject:check];
+            }
+        }
+        else
+        {
+            if (skipCount == 0)
+            {
+                [middleList addObject:check];
+            }
+            else if (skipCount == 1)
+            {
+                [rightList addObject:check];
+            }
+        }
+        
+        check = [self getCellAtCoord:ccp(check.coord.x+1,check.coord.y)].jewelSprite;
+    }
+    
+    BOOL life = middleList.count>=kJewelEliminateMinNeed || leftList.count + middleList.count >= kJewelEliminateMinNeed || rightList.count + middleList.count >= kJewelEliminateMinNeed;
+    [middleList release];
+    [leftList release];
+    [rightList release];
+    
+    return life;
+}
+
+/// 宝石是否满的
+-(BOOL) isFull
+{
+    return allJewelSprites.count == gridSize.width * gridSize.height;
+}
 
 
 @end

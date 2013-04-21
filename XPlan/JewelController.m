@@ -16,6 +16,9 @@
 #import "JewelAction.h"
 #import "JewelAddAction.h"
 #import "JewelFactory.h"
+#import "GameMessageDispatcher.h"
+#import "JewelMessageData.h"
+#import "Constants.h"
 
 static int jewelGlobalIdGenerator = 10000;
 
@@ -58,6 +61,12 @@ static int jewelGlobalIdGenerator = 10000;
     [self.jewelPanel update:delta];
 }
 
+/// 检查连续消除
+-(void) checkContinue
+{
+    
+}
+
 #pragma mark -
 #pragma mark Jewel Actions
 
@@ -85,9 +94,21 @@ static int jewelGlobalIdGenerator = 10000;
         }
         else
         {
-            if(OFFLINE_MODE && jewelVoList.count<kJewelGridWidth*kJewelGridHeight)
+            if(jewelVoList.count<kJewelGridWidth*kJewelGridHeight)
             {
+                // 补充宝石
                 [self fillEmptyJewels];
+            }
+            else
+            {
+                // 检查死局
+                // 当宝石为满时,检查死局
+                if ([jewelPanel isFull] && [jewelPanel checkDead])
+                {
+                    // 发送死局通知
+                    JewelMessageData *msg = [[[JewelMessageData alloc] initWithUserId:userId] autorelease];
+                    [[GameMessageDispatcher sharedDispatcher] dispatchWithSender:self message:JEWEL_MESSAGE_DEAD object:msg];
+                }
             }
         }
     }
@@ -183,6 +204,8 @@ static int jewelGlobalIdGenerator = 10000;
     [action release];
     [fillJewels release];
 }
+
+
 
 
 @end

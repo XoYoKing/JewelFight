@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import "iPhoneGameKit.h"
-#import "FightArena.h"
 #import "JewelPanel.h"
 #import "PvPPlayerJewelPanel.h"
 #import "PvPOpponentJewelPanel.h"
@@ -20,7 +19,6 @@
 /// 战斗层
 @interface PvPLayer : CCLayer
 {
-    FightArena *arena; // 战斗竞技场
     PvPPlayerJewelPanel *playerJewelPanel; // 玩家宝石面板
     PvPOpponentJewelPanel *opponentJewelPanel; // 对手宝石面板
     PvPPortraitPanel *portraitPanel; // 战士信息面板

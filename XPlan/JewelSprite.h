@@ -27,6 +27,8 @@ typedef enum JewelSpriteStates
     JewelVo *jewelVo; // 对应宝石数据
     NSMutableDictionary *effects; // 宝石效果
     BOOL isBack; // ??
+    BOOL eliminateTop; // 消除上方宝石
+    BOOL eliminateRight; // 消除右方宝石
     int state; // 状态
     int newState; // 新状态
 }
@@ -44,6 +46,12 @@ typedef enum JewelSpriteStates
 @property (readwrite,nonatomic) CGPoint coord;
 
 @property (readonly,nonatomic) JewelCell *cell;
+
+/// 消除上方宝石
+@property (readwrite,nonatomic) BOOL eliminateTop;
+
+/// 消除右侧宝石
+@property (readwrite,nonatomic) BOOL eliminateRight;
 
 /// 宝石状态
 @property (readwrite,nonatomic) int state;

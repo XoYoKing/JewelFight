@@ -13,6 +13,8 @@
 #import "JewelSprite.h"
 #import "JewelController.h"
 #import "JewelEliminateAction.h"
+#import "JewelMessageData.h"
+#import "GameMessageDispatcher.h"
 
 
 @interface JewelAddAction()
@@ -143,6 +145,17 @@
         JewelEliminateAction *elimateAction = [[JewelEliminateAction alloc] initWithJewelController:jewelController elimList:elimList];
         [jewelController queueAction:elimateAction top:NO];
         [elimateAction release];
+    }
+    else
+    {
+        // 检查死局
+        // 当宝石为满时,检查死局
+        if ([jewelController.jewelPanel isFull] && [jewelController.jewelPanel checkDead])
+        {
+            // 发送死局通知
+            JewelMessageData *msg = [[[JewelMessageData alloc] initWithUserId:jewelController.userId] autorelease];
+            [[GameMessageDispatcher sharedDispatcher] dispatchWithSender:self message:JEWEL_MESSAGE_DEAD object:msg];
+        }
     }
     
     [elimList release];

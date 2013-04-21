@@ -6,13 +6,11 @@
 //  Copyright (c) 2013 Hex. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import "MessageData.h"
+#import "JewelMessageData.h"
 
 /// 宝石消除数据
-@interface JewelEliminateMessageData : MessageData
+@interface JewelEliminateMessageData : JewelMessageData
 {
-    long userId;
     CCArray *jewelGlobalIds; // 消除宝石标识集合
 }
 

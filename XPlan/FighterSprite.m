@@ -12,19 +12,29 @@
 #import "GameController.h"
 #import "PlayerInfo.h"
 
+@interface FighterSprite()
+
+@end
+
 @implementation FighterSprite
 
-@synthesize state,newState,team,globalId;
+@synthesize state,newState,team,globalId,fighterVo;
 
 -(id) initWithFightField:(FightField*)field fighterVo:(FighterVo*)fv
 {
-    if ((self = [super init]))
+    // 设置初始化的英雄形象
+    KITProfile *profile = [KITProfile profileWithName:[NSString stringWithFormat:@"fighter_%d_graphics",fv.heroId]];
+    
+    // 初始设置静止素材
+    id ret = [self initWithSpriteFrame:[profile spriteFrameForKey:@"idle"]];
+    if (ret!=nil)
     {
         fightField = field;
-        fighterVo = fv;
-        
+        fighterVo = [fv retain];
         // 设置隶属阵营
         team = fighterVo.userId == [GameController sharedController].player.userId?0:1;
+        state = kFighterStateIdle; // 英雄状态
+        effects = [[NSMutableDictionary alloc] initWithCapacity:5];
     }
     
     return self;
@@ -32,10 +42,12 @@
 
 -(void) dealloc
 {
+    [fighterVo release];
+    [effects release];
     [super dealloc];
 }
 
--(int) globalId
+-(long) globalId
 {
     return fighterVo.globalId;
 }

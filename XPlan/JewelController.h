@@ -31,7 +31,7 @@
 @property (readonly,nonatomic) long userId;
 
 /// 宝石面板
-@property (readonly,nonatomic) JewelPanel *jewelPanel;
+@property (readonly,nonatomic,assign) JewelPanel *jewelPanel;
 
 /// 初始化
 -(id) initWithJewelPanel:(JewelPanel*)panel operatorUserId:(long)uId;

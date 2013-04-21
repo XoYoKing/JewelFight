@@ -16,7 +16,7 @@
 #pragma mark FighterSprite
 
 /// 获取FighterSprite
--(FighterSprite*) getFighterSpriteWithGlobalId:(int)globalId
+-(FighterSprite*) getFighterSpriteWithGlobalId:(long)globalId
 {
     return [allFighterSpriteDict objectForKey:[NSNumber numberWithInt:globalId]];
 }
@@ -24,7 +24,7 @@
 /// 创建FighterSprite
 -(FighterSprite*) createFighterSpriteWithFighterVo:(FighterVo*)fighterVo
 {
-    FighterSprite *fighterSprite = [[FighterSprite alloc] initWithFightField:self fighterlVo:fighterVo];
+    FighterSprite *fighterSprite = [[FighterSprite alloc] initWithFightField:self fighterVo:fighterVo];
     
     [self addFighterSprite:fighterSprite];
     

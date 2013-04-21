@@ -7,28 +7,47 @@
 //
 
 #import "FightAction.h"
-#import "PvPFighter.h"
-#import "FightArena.h"
+#import "FighterSprite.h"
+#import "FightField.h"
 
 @implementation FightAction
 
 @synthesize name,actor,target,skipped;
 
--(id) initWithFightGround:(FightArena *)_ground name:(NSString *)_name
+-(id) initWithFightField:(FightField *)f name:(NSString *)n
 {
     if ((self = [super init]))
     {
-        ground = _ground;
-        name = _name;
+        fightField = f;
+        name = [n retain];
     }
     
     return self;
 }
 
-
--(BOOL) isSkipped
+-(void) dealloc
 {
-    return NO;
+    [name release];
+    [super dealloc];
+}
+
+
+-(void) start
+{
+    if (skipped)
+    {
+        return;
+    }
+}
+
+-(void)skip
+{
+    skipped = YES;
+}
+
+-(BOOL) isOver
+{
+    return YES;
 }
 
 
