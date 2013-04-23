@@ -39,9 +39,4 @@
     [nameLabel setString: opp.name];
 }
 
--(void) setFighter:(FighterVo *)fv
-{
-    
-}
-
 @end

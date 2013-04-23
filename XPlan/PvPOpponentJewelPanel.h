@@ -22,7 +22,5 @@
 /// 设置对手信息
 -(void) setOpponent:(UserInfo*)opp;
 
-/// 设置战士信息
--(void) setFighter:(FighterVo*)fv;
 
 @end
