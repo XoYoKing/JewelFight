@@ -20,6 +20,4 @@
 
 @property (readonly,nonatomic) JewelPanel *jewelPanel;
 
--(void) setFighter:(FighterVo*)fv;
-
 @end

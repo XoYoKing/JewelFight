@@ -8,8 +8,7 @@
 
 #import "PvPFightController.h"
 #import "PvPController.h"
-#import "PvPFighterPanel.h"
-#import "PvPPortraitPanel.h"
+#import "FightPortrait.h"
 #import "PvPLayer.h"
 #import "PlayerInfo.h"
 #import "Constants.h"
@@ -18,6 +17,7 @@
 #import "GameController.h"
 #import "GameServer.h"
 #import "JewelController.h"
+#import "FightController.h"
 #import "JewelAddAction.h"
 #import "JewelSwapMessageData.h"
 #import "JewelEliminateMessageData.h"
@@ -28,9 +28,7 @@
 @interface PvPFightController()
 {
     PvPLayer *pvpLayer; // PVP页面
-    PvPFighterPanel *fighterPanel; // PvP战士对战面板
-    PvPPortraitPanel *portraitPanel; // pvp战士头像面板
-    
+
     // 请求后台
     double requestTotalCost; // 请求后台所花总时间
     double requestStartTime; // 请求后台开始时间
@@ -58,7 +56,6 @@
 {
     [self exitFight];
     [opponentUser release];
-    [playerFighterVos release];
     
     [super dealloc];
 }
@@ -84,17 +81,24 @@
 
 
 /// 接收玩家出战英雄信息和对手出战英雄信息
--(void) handlePlayerFighters:(CCArray*)pf opponentUser:(UserInfo*)o opponentFighters:(CCArray*)of
+-(void) setupWithPlayerFighters:(CCArray*)pf opponentUser:(UserInfo*)o opponentFighters:(CCArray*)of
 {
-    // 保存玩家和对手数据
-    playerFighterVos = [pf retain];
+    // 保存对手苏虎踞
     opponentUser = [o retain];
-    opponentFighterVos = [of retain];
+    
+    // 设置用户信息
+    [pvpLayer.player2JewelPanel setOpponent:opponentUser];
     
     // 设置战士信息
-    [pvpLayer.playerJewelPanel setFighter:[playerFighterVos objectAtIndex:0]];
-    [pvpLayer.opponentJewelPanel setOpponent:opponentUser];
-    [pvpLayer.opponentJewelPanel setFighter:[opponentFighterVos objectAtIndex:0]];
+    if (playerTeam == 0)
+    {
+        [fightController setLeftFighterVos:pf rightFighterVos:of];
+    }
+    else
+    {
+        [fightController setLeftFighterVos:of rightFighterVos:pf];
+    }
+    
 }
 
 -(void) handlePlayerJewels:(CCArray*)ps opponentJewels:(CCArray*)os
@@ -103,9 +107,10 @@
     [opponentJewelController newJewelVoList:os];
 }
 
-/// 进入战斗
--(void) initFight
+/// 初始化战斗
+-(void) initFightWithPlayerTeam:(int)team street:(int)streetId
 {
+    // 预加载宝石素材
     [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"jewel_resources.plist"];
     
     // 显示战斗层
@@ -113,10 +118,31 @@
     [controller.scene addChild:pvpLayer z:0 tag:kTagPvPLayer];
     [pvpLayer release];
     
+    playerTeam = team;
     
-    playerJewelController = [[JewelController alloc] initWithJewelPanel:pvpLayer.playerJewelPanel.jewelPanel operatorUserId:[GameController sharedController].player.userId];
-    [playerJewelController.jewelPanel active];
-    opponentJewelController = [[JewelController alloc] initWithJewelPanel:pvpLayer.opponentJewelPanel.jewelPanel operatorUserId:opponentUser.userId];
+    // 设置玩家操控区域
+    if (playerTeam == 0)
+    {
+        playerJewelController = [[JewelController alloc] initWithJewelPanel:pvpLayer.player1JewelPanel.jewelPanel operatorUserId:[GameController sharedController].player.userId];
+        [playerJewelController.jewelPanel active];
+        
+        // 设置对手操控区域
+        opponentJewelController = [[JewelController alloc] initWithJewelPanel:pvpLayer.player2JewelPanel.jewelPanel operatorUserId:opponentUser.userId];
+    }
+    else
+    {
+        playerJewelController = [[JewelController alloc] initWithJewelPanel:pvpLayer.player2JewelPanel.jewelPanel operatorUserId:[GameController sharedController].player.userId];
+        [playerJewelController.jewelPanel active];
+        
+        // 设置对手操控区域
+        opponentJewelController = [[JewelController alloc] initWithJewelPanel:pvpLayer.player1JewelPanel.jewelPanel operatorUserId:opponentUser.userId];
+    }
+    
+    // 设置战斗背景
+    [pvpLayer.fightPanel setFightStreet:streetId];
+    
+    // 显示战斗场景
+    fightController = [[FightController alloc] initWithFightPanel:pvpLayer.fightPanel];
     
 }
 

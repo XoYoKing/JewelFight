@@ -29,15 +29,15 @@
     [super dealloc];
 }
 
--(void) setHp:(int)value
+-(void) setLife:(int)value
 {
-    hp = value;
-    [self changeHp];
+    life = value;
+    [self changeLife];
 }
 
--(void) setMaxHp:(int)value
+-(void) setMaxLife:(int)value
 {
-    maxHp = value;
+    maxLife = value;
     [self changeMaxHp];
 }
 
@@ -62,7 +62,7 @@
     // 设置头像
     
     // 设置血量
-    hp = maxHp = fighterVo.maxHp;
+    life = maxLife = fighterVo.maxLife;
 }
 
 @end

@@ -14,12 +14,12 @@
 {
     int skillId; // 关联技能标识
     BOOL isTarget; // 是否有作用目标, YES:有 NO:目标点
-    NSString *actorId; // 主演标识
-    NSString *targetId; // 目标标识
+    long actorGlobalId; // 主演英雄标识
+    long targetGlobalId; // 目标英雄标识
     CGPoint targetPos; // 目标点坐标
-    int combos;
-    int hurt;
-    BOOL dead;
+    int combos; // 连击
+    int hurt; // 伤害
+    BOOL dead; // 是否死亡
     CCArray *damages; // 技能伤害数据
 }
 
@@ -30,10 +30,10 @@
 @property (readwrite,nonatomic) BOOL isTarget;
 
 /// 主演标识
-@property (readwrite,nonatomic,retain) NSString *actorId;
+@property (readwrite,nonatomic) long actorGlobalId;
 
 /// 目标标识
-@property (readwrite,nonatomic,retain) NSString *targetId;
+@property (readwrite,nonatomic) long targetGlobalId;
 
 /// 目标坐标
 @property (readwrite,nonatomic) CGPoint targetPos;

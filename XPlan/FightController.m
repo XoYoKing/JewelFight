@@ -10,8 +10,8 @@
 #import "FightAction.h"
 #import "FightActionQueue.h"
 #import "FightField.h"
+#import "FightPanel.h"
 #import "FighterVo.h"
-#import "FighterVoCollection.h"
 
 @interface FightController()
 
@@ -19,23 +19,102 @@
 
 @implementation FightController
 
-@synthesize leftFighterVoColelction,rightFighterVoCollection;
 
--(id) init
+-(id) initWithFightPanel:(FightPanel*)fp
 {
     if ((self = [super init]))
     {
-        leftFighterVoColelction = [[FighterVoCollection alloc] init];
-        rightFighterVoCollection = [[FighterVoCollection alloc] init];
+        fightPanel = fp;
+        
+        allFighterVoDict = [[NSMutableDictionary alloc] initWithCapacity:8];
+        leftFighterVoList = [[CCArray alloc] initWithCapacity:5];
+        rightFighterVoList = [[CCArray alloc] initWithCapacity:5];
     }
     
     return self;
 }
 
+-(void) dealloc
+{
+    [allFighterVoDict release];
+    [leftFighterVoList release];
+    [rightFighterVoList release];
+    [super dealloc];
+}
+
+-(FightField*) fightField
+{
+    return fightPanel.fightField;
+}
+
+-(FightPortrait*) portrait
+{
+    return fightPanel.portrait;
+}
+
 -(void) update:(ccTime)delta
 {
     [self updateFightActions:delta];
-    [fightField update:delta];
+    [[self fightField] update:delta];
+}
+
+/// 设置战斗场景
+-(void) setFightStreet:(int)sId
+{
+    streetId = sId;
+    
+    [self.fightField setFightStreet:streetId];
+}
+
+-(void) setLeftFighterVos:(CCArray *)leftList rightFighterVos:(CCArray *)rightList
+{
+    [allFighterVoDict removeAllObjects];
+    [leftFighterVoList removeAllObjects];
+    [rightFighterVoList removeAllObjects];
+    
+    [leftFighterVoList addObjectsFromArray:leftList];
+    [rightFighterVoList addObjectsFromArray:rightList];
+    for (FighterVo *fv in leftList)
+    {
+        [allFighterVoDict setObject:fv forKey:[NSNumber numberWithLong:fv.globalId]];
+    }
+    
+    for (FighterVo *fv in rightList)
+    {
+        [allFighterVoDict setObject:fv forKey:[NSNumber numberWithLong:fv.globalId]];
+    }
+}
+
+#pragma mark -
+#pragma mark FighterVo
+
+/// 添加战士数据
+-(void) addFighterVo:(FighterVo*)fv
+{
+    [allFighterVoDict setObject:fv forKey:[NSNumber numberWithLong:fv.globalId]];
+    if (fv.team == 0)
+    {
+        [leftFighterVoList addObject:fv];
+    }
+    else
+    {
+        [rightFighterVoList addObject:fv];
+    }
+}
+
+/// 删除战士数据
+-(void) removeFighterVo:(FighterVo*)fv
+{
+    if (fv.team == 0)
+    {
+        [leftFighterVoList removeObject:fv];
+    }
+    else
+    {
+        [rightFighterVoList removeObject:fv];
+    }
+    
+    [allFighterVoDict removeObjectForKey:[NSNumber numberWithLong:fv.globalId]];
 }
 
 #pragma mark -
@@ -48,7 +127,7 @@
     {
         [currentAction update:delta];
         
-        // 检查宝石动作是否完成
+        // 检查战士动作是否完成
         if ([currentAction isOver])
         {
             currentAction = nil;

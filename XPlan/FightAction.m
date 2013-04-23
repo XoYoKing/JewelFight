@@ -31,6 +31,24 @@
     [super dealloc];
 }
 
+-(FighterSprite*) actor
+{
+    if (actorFighterGlobalId > 0)
+    {
+        return [fightField getFighterSpriteWithGlobalId:actorFighterGlobalId];
+    }
+    return nil;
+}
+
+-(FighterSprite*) target
+{
+    if (targetFighterGlobalId > 0)
+    {
+        return [fightField getFighterSpriteWithGlobalId:targetFighterGlobalId];
+    }
+    
+    return nil;
+}
 
 -(void) start
 {

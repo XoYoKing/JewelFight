@@ -36,10 +36,6 @@
     [super dealloc];
 }
 
--(void) setFighter:(FighterVo *)fv
-{
-    
-}
 
 
 

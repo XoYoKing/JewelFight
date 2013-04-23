@@ -9,30 +9,29 @@
 #import <Foundation/Foundation.h>
 #import "iPhoneGameKit.h"
 #import "JewelPanel.h"
+#import "FightPanel.h"
 #import "PvPPlayerJewelPanel.h"
 #import "PvPOpponentJewelPanel.h"
-#import "PvPFighterPanel.h"
-#import "PvPPortraitPanel.h"
+#import "FightPortrait.h"
 
 @class PvPScene,PvPHudLayer;
 
 /// 战斗层
 @interface PvPLayer : CCLayer
 {
-    PvPPlayerJewelPanel *playerJewelPanel; // 玩家宝石面板
-    PvPOpponentJewelPanel *opponentJewelPanel; // 对手宝石面板
-    PvPPortraitPanel *portraitPanel; // 战士信息面板
-    PvPFighterPanel *fighterPanel; // 战士战斗界面
-    
+    PvPPlayerJewelPanel *player1JewelPanel; // 玩家宝石面板
+    PvPOpponentJewelPanel *player2JewelPanel; // 对手宝石面板
+    FightPanel *fightPanel; // 战斗面板
 }
 
-@property (readonly,nonatomic) PvPPlayerJewelPanel *playerJewelPanel;
+/// 玩家1宝石面板
+@property (readonly,nonatomic) PvPPlayerJewelPanel *player1JewelPanel;
 
-@property (readonly,nonatomic) PvPOpponentJewelPanel *opponentJewelPanel;
+/// 玩家2宝石面板
+@property (readonly,nonatomic) PvPOpponentJewelPanel *player2JewelPanel;
 
-@property (readonly,nonatomic) PvPPortraitPanel *portraitPanel;
-
-@property (readonly,nonatomic) PvPFighterPanel *fighterPanel;
+/// 战斗面板
+@property (readonly,nonatomic) FightPanel *fightPanel;
 
 /// 初始化
 -(void) initiaize;

@@ -36,7 +36,7 @@
 +(GameController*) sharedController;
 
 /// 初始化
--(void) initialzie;
+-(void) initialize;
 
 /// 执行首次运行场景
 -(void) runFirstRunScene;

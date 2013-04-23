@@ -12,7 +12,7 @@
 /// 战斗者数据对象
 @implementation FighterVo
 
-@synthesize globalId,heroId,heroType,userId,name,sex,head,fashion,team,maxAnger,maxHp,hp,anger;
+@synthesize globalId,heroId,heroType,userId,name,sex,head,fashion,team,maxAnger,maxLife,life,anger,firePower;
 
 -(id) init
 {
@@ -21,6 +21,11 @@
     }
     
     return self;
+}
+
+-(void) dealloc
+{
+    [super dealloc];
 }
 
 @end

@@ -14,6 +14,7 @@
 #import "GameController.h"
 #import "GameServer.h"
 #import "Constants.h"
+#import "PVPOpponentAndFightersCommandData.h"
 
 @interface PvPLoadingController()
 {
@@ -130,16 +131,13 @@
         // 收到对手信息和对手英雄信息
         case SERVER_ACTION_PVP_OPPONENT_AND_FIGHTERS:
         {
-            NSDictionary *dict = (NSDictionary*)obj;
-            CCArray *playerFighters = [dict objectForKey:@"player_fighters"];
-            UserInfo *opponentUser = [dict objectForKey:@"opponent_user"];
-            CCArray *opponentFighters = [dict objectForKey:@"opponent_fighters"];
+            PVPOpponentAndFightersCommandData *cData = (PVPOpponentAndFightersCommandData*)obj;
             
             // 初始化战斗
-            [controller.fightController initFight];
+            [controller.fightController initFightWithPlayerTeam:cData.playerTeam street:cData.streetId];
             
             //
-            [controller.fightController handlePlayerFighters:playerFighters opponentUser:opponentUser opponentFighters:opponentFighters];
+            [controller.fightController setupWithPlayerFighters:cData.playerFighters opponentUser:cData.opponentUserInfo opponentFighters:cData.opponentFighters];
             
             // 加载页面完成,请求战斗
             [[GameController sharedController].server.pvpCommand requestFight];

@@ -41,7 +41,7 @@
         fv.sex = 0; // 男性
         fv.head = 1; //
         fv.fashion = 1;
-        fv.maxHp = 300; // 300 血量
+        fv.maxLife = 300; // 300 血量
         fv.maxAnger = 100; // 100 怒气值
         [fightUser1.fighters addObject:fv];
         [fv release];
@@ -56,7 +56,7 @@
         fv.sex = 0; // 男性
         fv.head = 1; //
         fv.fashion = 1;
-        fv.maxHp = 500; // 300 血量
+        fv.maxLife = 500; // 300 血量
         fv.maxAnger = 200; // 100 怒气值
         [fightUser1.fighters addObject:fv];
         [fv release];
@@ -71,7 +71,7 @@
         fv.sex = 0; // 男性
         fv.head = 1; //
         fv.fashion = 1;
-        fv.maxHp = 200; // q00 血量
+        fv.maxLife = 200; // q00 血量
         fv.maxAnger = 100; // 100 怒气值
         [fightUser1.fighters addObject:fv];
         [fv release];
@@ -98,7 +98,7 @@
         fv.sex = 0; // 男性
         fv.head = 1; //
         fv.fashion = 1;
-        fv.maxHp = 300; // 300 血量
+        fv.maxLife = 300; // 300 血量
         fv.maxAnger = 100; // 100 怒气值
         [fightUser2.fighters addObject:fv];
         [fv release];
@@ -113,7 +113,7 @@
         fv.sex = 0; // 男性
         fv.head = 1; //
         fv.fashion = 1;
-        fv.maxHp = 500; // 300 血量
+        fv.maxLife = 500; // 300 血量
         fv.maxAnger = 200; // 100 怒气值
         [fightUser2.fighters addObject:fv];
         [fv release];
@@ -128,7 +128,7 @@
         fv.sex = 0; // 男性
         fv.head = 1; //
         fv.fashion = 1;
-        fv.maxHp = 200; // q00 血量
+        fv.maxLife = 200; // q00 血量
         fv.maxAnger = 100; // 100 怒气值
         [fightUser2.fighters addObject:fv];
         [fv release];

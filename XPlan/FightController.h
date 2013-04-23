@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class FightField,FightAction,FighterVo,FightActionQueue;
+@class FightField,FightAction,FighterVo,FightActionQueue,FightPortrait,FightPanel;
 
 @class FighterVoCollection;
 
@@ -18,16 +18,37 @@
     // action
     FightActionQueue *actionQueue; // 操作英雄动作队列
     FightAction *currentAction; // 当前英雄动作
-    
-    FightField *fightField; // 战斗场景
-    
-    FighterVoCollection *leftFighterVoCollection; // 左侧战士集合
-    FighterVoCollection *rightFighterVoCollection; // 右侧战士集合
+    FightPanel *fightPanel; // 战斗面板
+    int streetId; // 战斗地点标识
+    NSMutableDictionary *allFighterVoDict; // 全部战士数据对象字典
+    CCArray *leftFighterVoList;
+    CCArray *rightFighterVoList;
 }
 
-@property (readonly,nonatomic) FighterVoCollection *leftFighterVoColelction;
+/// 战斗区域
+@property (readonly,nonatomic) FightField *fightField;
 
-@property (readonly,nonatomic) FighterVoCollection *rightFighterVoCollection;
+/// 头像
+@property (readonly,nonatomic) FightPortrait *portrait;
+
+/// 初始化
+-(id) initWithFightPanel:(FightPanel*)fp;
+
+/// 设置战斗地点
+-(void) setFightStreet:(int)sId;
+
+/// 初始化设置左侧战士集合和右侧战士集合
+-(void) setLeftFighterVos:(CCArray*)leftList rightFighterVos:(CCArray*)rightList;
+
+#pragma mark -
+#pragma mark FighterVo
+
+/// 添加战士数据
+-(void) addFighterVo:(FighterVo*)fv;
+
+/// 删除战士数据
+-(void) removeFighterVo:(FighterVo*)fv;
+
 
 
 #pragma mark -

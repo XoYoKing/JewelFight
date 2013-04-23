@@ -12,7 +12,7 @@
 #import "HonsterBar.h"
 
 /// 对战英雄面板
-@interface PvPPortraitPanel : CCLayer
+@interface FightPortrait : CCLayer
 {
     CCSprite *playerFighterPortrait; // 玩家战士头像
     CCSprite *opponentFighterPortrait; // 对手战士头像

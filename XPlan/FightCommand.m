@@ -38,15 +38,15 @@
     fighter.sex = [data readInt16];
     fighter.head = [data readInt32];
     fighter.fashion = [data readInt32];
-    fighter.maxHp = [data readInt32];
+    fighter.maxLife = [data readInt32];
     fighter.maxAnger = [data readInt32];
 }
 
 /// 封装攻击信息
 +(void) populateAttackVo:(AttackVo*)av data:(ServerDataDecoder*)data
 {
-    av.actorId = [data readInt64];
-    av.targetId = [data readInt64];
+    av.actorGlobalId = [data readInt64];
+    av.targetGlobalId = [data readInt64];
     av.skillId = [data readInt32];
     av.combos = [data readInt32];
     av.hurt = [data readInt32];

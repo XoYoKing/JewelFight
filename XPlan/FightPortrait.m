@@ -6,10 +6,10 @@
 //  Copyright (c) 2013 Hex. All rights reserved.
 //
 
-#import "PvPPortraitPanel.h"
+#import "FightPortrait.h"
 
 
-@implementation PvPPortraitPanel
+@implementation FightPortrait
 
 
 

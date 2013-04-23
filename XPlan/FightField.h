@@ -16,14 +16,13 @@
 @interface FightField : CCLayer
 {
     FightController *fightController; // 战斗控制器
-    NSMutableDictionary *allFighterSpriteDict; // 战士字典
-    CCArray *allFighterSpriteList; // 战士集合
-    CCSpriteBatchNode *fighter1BatchNode;
-    CCSpriteBatchNode *fighter2BatchNode;
-    CCLayer *effectLayer;
+    NSMutableDictionary *allFighterSpriteDict; // 全部战士字典
+    CCArray *leftFighterSprites; // 左方战士标识集合
+    CCArray *rightFighterSprites; // 右方战士标识集合
+    CCLayer *fighterLayer; // 战士层
+    CCLayer *effectLayer; // 效果层
+    
 }
-
-
 
 /// 添加效果
 -(void) addEffectSprite:(EffectSprite*)effectSprite;
@@ -31,6 +30,7 @@
 #pragma mark -
 #pragma mark FighterSprite
 
+/// 获取战士Sprite
 -(FighterSprite*) getFighterSpriteWithGlobalId:(long)globalId;
 
 /// 创建战士

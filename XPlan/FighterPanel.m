@@ -53,7 +53,7 @@
     int x = lifepad.width / 2;
     int y = lifepad.height / 2;
     
-    lifebar.scaleX = (fighterVo.hp / fighterVo.maxHp) * 0.99f;
+    lifebar.scaleX = (fighterVo.life / fighterVo.maxLife) * 0.99f;
     
     lifebar.position = ccp(1 + x - (clampf(1.0f - lifebar.scaleX, 0.0f, 1.0f) * x), y);
     

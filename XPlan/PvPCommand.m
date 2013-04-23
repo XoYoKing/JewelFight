@@ -22,6 +22,7 @@
 #import "JewelVo.h"
 #import "NewJewelsCommandData.h"
 #import "DeadJewelsCommandData.h"
+#import "PVPOpponentAndFightersCommandData.h"
 
 
 
@@ -308,42 +309,33 @@
 /// 获取战斗场景的对手及对手的全部战士信息
 -(void) handlePvPOpponentAndFighters:(ServerDataDecoder*)data
 {
-    NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithCapacity:5];
+    PVPOpponentAndFightersCommandData *cData = [[[PVPOpponentAndFightersCommandData alloc] init] autorelease];
     
     // 获取玩家战士信息
     int amount = [data readInt32];
-    CCArray *playerFighters = [[CCArray alloc] initWithCapacity:5];
     for (int i = 0;i < amount; i++)
     {
         FighterVo *fighter = [[FighterVo alloc] init];
         [FightCommand populateFighterVo:fighter data:data];
-        [playerFighters addObject:fighter];
+        [cData.playerFighters addObject:fighter];
         [fighter release];
     }
     
-    [dict setObject:playerFighters forKey:@"player_fighters"];
-    
     // 获取对手用户信息
-    UserInfo *opponentUser = [[UserInfo alloc] init];
-    [GameCommand populateUserInfo:opponentUser data:data];
-    
-    [dict setObject:opponentUser forKey:@"opponent_user"];
+    [GameCommand populateUserInfo:cData.opponentUserInfo data:data];
     
     // 获取对手战士数量
     amount = [data readInt32];
     
-    CCArray *opponentFighters = [[CCArray alloc] initWithCapacity:5];
     for(int i=0;i<amount;i++)
     {
         FighterVo *fighter = [[FighterVo alloc] init];
         [FightCommand populateFighterVo:fighter data:data];
-        [opponentFighters addObject:fighter];
+        [cData.opponentFighters addObject:fighter];
         [fighter release];
     }
     
-    [dict setObject:opponentFighters forKey:@"opponent_fighters"];
-    
-    [self responseToListenerWithActionId:SERVER_ACTION_PVP_OPPONENT_AND_FIGHTERS object:dict];
+    [self responseToListenerWithActionId:SERVER_ACTION_PVP_OPPONENT_AND_FIGHTERS object:cData];
 }
 
 /// 开始战斗

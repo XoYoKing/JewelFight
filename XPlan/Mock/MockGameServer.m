@@ -90,7 +90,7 @@
     [data writeInt16:fv.sex];
     [data writeInt32:fv.head];
     [data writeInt32:fv.fashion];
-    [data writeInt32:fv.maxHp];
+    [data writeInt32:fv.maxLife];
     [data writeInt32:fv.maxAnger];
 }
 

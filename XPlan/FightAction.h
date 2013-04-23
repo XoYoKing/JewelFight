@@ -16,12 +16,9 @@
 {
     FightField *fightField; // 竞技场
     NSString *name; // 指令名称
-    FighterSprite *actor; // 执行者标识
-    FighterSprite *target; // 目标标识
+    int actorFighterGlobalId; // 主要战士标识
+    int targetFighterGlobalId; // 目标战士标识
     BOOL skipped; // 是否跳过
-    int move; // 是否需要移动
-    float distance; // 移动距离
-    float time; // 移动时间
     
 }
 

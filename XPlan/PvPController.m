@@ -11,7 +11,6 @@
 #import "PvPScene.h"
 #import "PvPLayer.h"
 #import "PvPHudLayer.h"
-#import "PvPFighterPanel.h"
 #import "GameController.h"
 #import "PlayerInfo.h"
 #import "FighterVo.h"
@@ -19,7 +18,7 @@
 #import "Constants.h"
 #import "HeroVo.h"
 #import "FighterVo.h"
-#import "PvPPortraitPanel.h"
+#import "FightPortrait.h"
 #import "PvPLoadingController.h"
 #import "PvPFightController.h"
 

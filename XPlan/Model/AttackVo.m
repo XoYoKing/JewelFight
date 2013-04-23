@@ -10,7 +10,7 @@
 
 @implementation AttackVo
 
-@synthesize skillId,isTarget,actorId,targetId,targetPos,damages;
+@synthesize skillId,isTarget,actorGlobalId,targetGlobalId,targetPos,damages;
 
 -(CCArray*) damages
 {

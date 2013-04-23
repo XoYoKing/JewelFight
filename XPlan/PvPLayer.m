@@ -17,7 +17,7 @@
 
 @implementation PvPLayer
 
-@synthesize playerJewelPanel,opponentJewelPanel,portraitPanel,fighterPanel;
+@synthesize player1JewelPanel,player2JewelPanel,fightPanel;
 
 -(id) init
 {
@@ -31,10 +31,6 @@
     return self;
 }
 
-- (void) didLoadFromCCB
-{
-    
-}
 
 -(void) dealloc
 {

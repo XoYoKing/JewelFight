@@ -10,7 +10,7 @@
 
 @implementation HeroVo
 
-@synthesize userId,heroId,name,quality,maxQuality,head,fashion,level,maxLevel,maxHp,energy,maxEnergy,exp,maxExp,isTeam,attackPower;
+@synthesize userId,heroId,name,quality,maxQuality,head,fashion,level,maxLevel,maxHp,energy,maxEnergy,exp,maxExp,isTeam,attackPower,maxAnger;
 
 -(id) init
 {

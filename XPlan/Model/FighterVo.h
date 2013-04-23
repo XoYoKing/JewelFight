@@ -20,10 +20,11 @@
     int sex; // 英雄性别
     int head; //头部装备?
     int fashion; // 身体装备?
-    int hp; // 生命值
-    int maxHp; // 最大生命值
+    int life; // 生命值
+    int maxLife; // 最大生命值
     int anger; // 怒气值
     int maxAnger; // 最大怒气值
+    int firePower; // 攻击力
     int team; // 队伍
 
 }
@@ -50,10 +51,10 @@
 @property (readwrite,nonatomic) int fashion;
 
 /// 生命值
-@property (readwrite,nonatomic) int hp;
+@property (readwrite,nonatomic) int life;
 
 /// 最大生命值
-@property (readwrite,nonatomic) int maxHp;
+@property (readwrite,nonatomic) int maxLife;
 
 /// 怒气值
 @property (readwrite,nonatomic) int anger;
@@ -67,8 +68,10 @@
 /// 英雄性别
 @property (readwrite,nonatomic) int sex;
 
+/// 火力
+@property (readwrite,nonatomic) int firePower;
+
 /// 素材信息
 @property (readonly,nonatomic) KITProfile *profile;
-
 
 @end

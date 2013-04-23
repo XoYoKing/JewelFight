@@ -14,6 +14,8 @@ typedef enum _LayerTags
     kTagHudLayer = 100,
     kTagFadeLayer,
     kTagEffectLayer,
+    kTagFighterLayer, // 战士层
+    kTagStreetLayer, // 街道层
     kTagObjectPlaceButtonsBar
 }LayerTags;
 

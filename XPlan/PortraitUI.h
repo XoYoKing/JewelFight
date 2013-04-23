@@ -14,8 +14,8 @@
 @interface PortraitUI : CCNode
 {
     CCScale9Sprite *portrait; // 头像
-    int hp; // 血量
-    int maxHp; // 最大血量
+    int life; // 血量
+    int maxLife; // 最大血量
     FighterVo *fighterVo; // 英雄角色信息
 }
 
@@ -23,10 +23,10 @@
 @property (readwrite,nonatomic,retain) FighterVo *fighterVo;
 
 /// 血量
-@property (readwrite,nonatomic) int hp;
+@property (readwrite,nonatomic) int life;
 
 /// 最大血量
-@property (readwrite,nonatomic) int maxHp;
+@property (readwrite,nonatomic) int maxLife;
 
 /// 初始化
 -(id) initWithFighterVo:(FighterVo*)fv;
@@ -34,6 +34,6 @@
 -(void) initUI;
 
 /// 减少生命值
--(void) reduceHp:(int)reduce;
+-(void) reduceLife:(int)reduce;
 
 @end
