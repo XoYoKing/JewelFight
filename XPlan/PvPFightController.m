@@ -103,8 +103,8 @@
 
 -(void) handlePlayerJewels:(CCArray*)ps opponentJewels:(CCArray*)os
 {
-    [playerJewelController newJewelVoList:ps];
-    [opponentJewelController newJewelVoList:os];
+    [playerJewelController newGemVoList:ps];
+    [opponentJewelController newGemVoList:os];
 }
 
 /// 初始化战斗
@@ -123,19 +123,19 @@
     // 设置玩家操控区域
     if (playerTeam == 0)
     {
-        playerJewelController = [[GemController alloc] initWithJewelPanel:pvpLayer.player1JewelPanel.gemBoard operatorUserId:[GameController sharedController].player.userId];
-        [playerJewelController.jewelPanel active];
+        playerJewelController = [[GemController alloc] initWithGemBoard:pvpLayer.player1JewelPanel.gemBoard operatorUserId:[GameController sharedController].player.userId];
+        [playerJewelController.gemBoard active];
         
         // 设置对手操控区域
-        opponentJewelController = [[GemController alloc] initWithJewelPanel:pvpLayer.player2JewelPanel.gemBoard operatorUserId:opponentUser.userId];
+        opponentJewelController = [[GemController alloc] initWithGemBoard:pvpLayer.player2JewelPanel.gemBoard operatorUserId:opponentUser.userId];
     }
     else
     {
-        playerJewelController = [[GemController alloc] initWithJewelPanel:pvpLayer.player2JewelPanel.gemBoard operatorUserId:[GameController sharedController].player.userId];
-        [playerJewelController.jewelPanel active];
+        playerJewelController = [[GemController alloc] initWithGemBoard:pvpLayer.player2JewelPanel.gemBoard operatorUserId:[GameController sharedController].player.userId];
+        [playerJewelController.gemBoard active];
         
         // 设置对手操控区域
-        opponentJewelController = [[GemController alloc] initWithJewelPanel:pvpLayer.player1JewelPanel.gemBoard operatorUserId:opponentUser.userId];
+        opponentJewelController = [[GemController alloc] initWithGemBoard:pvpLayer.player1JewelPanel.gemBoard operatorUserId:opponentUser.userId];
     }
 
     // 显示战斗场景
@@ -226,14 +226,14 @@
             NewJewelsCommandData *data = (NewJewelsCommandData*)obj;
             if (data.userId == playerJewelController.userId)
             {
-                [playerJewelController addJewelVoList:data.jewelVoList];
+                [playerJewelController addGemVoList:data.jewelVoList];
                 
                 // 记录从请求消除宝石到响应宝石所花总时间
                 requestTotalCost = [[NSDate date] timeIntervalSince1970] - requestStartTime;
             }
             else
             {
-                [opponentJewelController newJewelVoList:data.jewelVoList];
+                [opponentJewelController newGemVoList:data.jewelVoList];
             }
             break;
         }
@@ -242,11 +242,11 @@
             DeadJewelsCommandData *data = (DeadJewelsCommandData*)obj;
             if (data.userId == playerJewelController.userId)
             {
-                [playerJewelController newJewelVoList:data.jewelVoList];
+                [playerJewelController newGemVoList:data.jewelVoList];
             }
             else
             {
-                [opponentJewelController newJewelVoList:data.jewelVoList];
+                [opponentJewelController newGemVoList:data.jewelVoList];
             }
             
             break;

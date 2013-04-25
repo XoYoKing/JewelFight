@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 Hex. All rights reserved.
 //
 
-#import "JewelSwapAction.h"
+#import "GemSwapAction.h"
 #import "GemSprite.h"
 #import "GemBoard.h"
 #import "Constants.h"
@@ -17,14 +17,14 @@
 
 #define kTagActionJewelSwap 400 // 宝石交换
 
-@interface JewelSwapAction()
+@interface GemSwapAction()
 {
     BOOL checkElimate; // 是否检查消除宝石
 }
 
 @end
 
-@implementation JewelSwapAction
+@implementation GemSwapAction
 
 @synthesize jewel1,jewel2;
 
@@ -35,7 +35,7 @@
 
 -(id) initWithJewelController:(GemController *)contr jewel1:(GemSprite *)j1 jewel2:(GemSprite *)j2 checkElimate:(BOOL)check
 {
-    if ((self = [super initWithJewelController:contr name:@"JewelSwapAction"]))
+    if ((self = [super initWithJewelController:contr name:@"GemSwapAction"]))
     {
         jewelGlobalId1 = j1.globalId;
         jewelGlobalId2 = j2.globalId;
@@ -52,12 +52,12 @@
 
 -(GemSprite*) jewel1
 {
-    return [jewelController.jewelPanel getJewelSpriteWithGlobalId:jewelGlobalId1];
+    return [jewelController.gemBoard getJewelSpriteWithGlobalId:jewelGlobalId1];
 }
 
 -(GemSprite*) jewel2
 {
-    return [jewelController.jewelPanel getJewelSpriteWithGlobalId:jewelGlobalId2];
+    return [jewelController.gemBoard getJewelSpriteWithGlobalId:jewelGlobalId2];
 }
 
 -(void) start
@@ -76,16 +76,16 @@
     }
     
     // 宝石面板设置为不可操作
-    [jewelController.jewelPanel setIsControlEnabled:NO];
+    [jewelController.gemBoard setIsControlEnabled:NO];
     
     // 交换位置
     GemSprite *j1 = self.jewel1;
     GemSprite *j2 = self.jewel2;
-    CCAction *action1 = [CCMoveTo actionWithDuration:0.2f position:[jewelController.jewelPanel cellCoordToPosition:j2.coord]];
+    CCAction *action1 = [CCMoveTo actionWithDuration:0.2f position:[jewelController.gemBoard cellCoordToPosition:j2.coord]];
     action1.tag =kTagActionJewelSwap;
     [j1 runAction:action1];
     
-    CCAction *action2 = [CCMoveTo actionWithDuration:0.2f position:[jewelController.jewelPanel cellCoordToPosition:j1.coord]];
+    CCAction *action2 = [CCMoveTo actionWithDuration:0.2f position:[jewelController.gemBoard cellCoordToPosition:j1.coord]];
     action2.tag = kTagActionJewelSwap;
     [j2 runAction:action2];
 }
@@ -124,16 +124,16 @@
 -(void) execute
 {    
     // 交换完成,检查消除
-    [jewelController.jewelPanel updateJewelGridInfo];
+    [jewelController.gemBoard updateJewelGridInfo];
     
     if (checkElimate)
     {
         // 检查可消除性
         CCArray *elimList = [[CCArray alloc] initWithCapacity:20];
-        [jewelController.jewelPanel checkHorizontalEliminableJewels:elimList withJewel:self.jewel1];
-        [jewelController.jewelPanel checkVerticalEliminableJewels:elimList withJewel:self.jewel1];
-        [jewelController.jewelPanel checkHorizontalEliminableJewels:elimList withJewel:self.jewel2];
-        [jewelController.jewelPanel checkVerticalEliminableJewels:elimList withJewel:self.jewel2];
+        [jewelController.gemBoard checkHorizontalEliminableJewels:elimList withJewel:self.jewel1];
+        [jewelController.gemBoard checkVerticalEliminableJewels:elimList withJewel:self.jewel1];
+        [jewelController.gemBoard checkHorizontalEliminableJewels:elimList withJewel:self.jewel2];
+        [jewelController.gemBoard checkVerticalEliminableJewels:elimList withJewel:self.jewel2];
         
         // 存在可消除宝石
         if (elimList.count>0)
@@ -149,7 +149,7 @@
         else
         {
             // 不存在消除对象, 切换回去
-            JewelSwapAction *swapAction = [[JewelSwapAction alloc] initWithJewelController:jewelController jewel1:self.jewel2 jewel2:self.jewel1 checkElimate:NO];
+            GemSwapAction *swapAction = [[GemSwapAction alloc] initWithJewelController:jewelController jewel1:self.jewel2 jewel2:self.jewel1 checkElimate:NO];
             [jewelController queueAction:swapAction top:NO];
             [swapAction release];
         }
@@ -160,7 +160,7 @@
     }
     
     // 允许面板操作?
-    [jewelController.jewelPanel setIsControlEnabled:YES];
+    [jewelController.gemBoard setIsControlEnabled:YES];
 }
 
 

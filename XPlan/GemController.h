@@ -14,9 +14,9 @@
 @interface GemController : NSObject
 {
     long userId; // 操作者用户标识
-    GemBoard *jewelPanel; //对应宝石面板
-    NSMutableDictionary *jewelVoDict; // 宝石格子字典
-    CCArray *jewelVoList; // 宝石格子集合
+    GemBoard *gemBoard; //对应宝石面板
+    NSMutableDictionary *gemVoDict; // 宝石格子字典
+    CCArray *gemVoList; // 宝石格子集合
     
     // special
     CCArray *specialList; // 特殊宝石列表
@@ -31,10 +31,10 @@
 @property (readonly,nonatomic) long userId;
 
 /// 宝石面板
-@property (readonly,nonatomic,assign) GemBoard *jewelPanel;
+@property (readonly,nonatomic,assign) GemBoard *gemBoard;
 
 /// 初始化
--(id) initWithJewelPanel:(GemBoard*)panel operatorUserId:(long)uId;
+-(id) initWithGemBoard:(GemBoard*)panel operatorUserId:(long)uId;
 
 #pragma mark -
 #pragma mark Jewel Actions
@@ -42,23 +42,23 @@
 -(void) update:(ccTime)delta;
 
 /// 更新宝石动作
--(void) updateJewelActions:(ccTime)delta;
+-(void) updateGemActions:(ccTime)delta;
 
 -(void) queueAction:(GemAction*)action top:(BOOL)top;
 
 -(void) resetActions;
 
--(void) newJewelVoList:(CCArray*)list;
+-(void) newGemVoList:(CCArray*)list;
 
--(void) addJewelVoList:(CCArray*)list;
+-(void) addGemVoList:(CCArray*)list;
 
 /// 添加宝石数据
--(void) addJewelVo:(GemVo*)jv;
+-(void) addGemVo:(GemVo*)jv;
 
 /// 删除宝石数据
--(void) removeJewelVo:(GemVo*)jv;
+-(void) removeGemVo:(GemVo*)jv;
 
 /// 填充空白宝石
--(void) fillEmptyJewels;
+-(void) fillEmptyGems;
 
 @end

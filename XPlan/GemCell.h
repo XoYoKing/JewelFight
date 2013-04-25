@@ -14,26 +14,26 @@
 /// 宝石面板的格子
 @interface GemCell : NSObject
 {
-    GemBoard *panel; // 对应宝石面板
+    GemBoard *board; // 对应宝石面板
     CGPoint coord; // 格子坐标
-    int jewelGlobalId; // 宝石唯一标识
-    int comingJewelGlobalId; // 即将到来的宝石标识
+    int gemGlobalId; // 宝石唯一标识
+    int comingGemGlobalId; // 即将到来的宝石标识
 }
 
 /// 格子坐标
 @property (readwrite,nonatomic,assign) CGPoint coord;
 
 /// 对应宝石面板
-@property (readonly,nonatomic) GemBoard *panel;
+@property (readonly,nonatomic) GemBoard *board;
 
 /// 宝石面板
-@property (readwrite,nonatomic) int jewelGlobalId;
+@property (readwrite,nonatomic) int gemGlobalId;
 
 /// 即将到来的宝石标识
-@property (readwrite,nonatomic) int comingJewelGlobalId;
+@property (readwrite,nonatomic) int comingGemGlobalId;
 
 /// 宝石
-@property (readonly,nonatomic) GemSprite *jewelSprite;
+@property (readonly,nonatomic) GemSprite *gemSprite;
 
 /// 在宝石面板上的范围
 @property (readonly,nonatomic) CGRect panelRect;

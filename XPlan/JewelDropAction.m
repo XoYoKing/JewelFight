@@ -49,9 +49,9 @@
     }
     
     // 宝石面板设置为不可操作
-    [jewelController.jewelPanel setIsControlEnabled:NO];
+    [jewelController.gemBoard setIsControlEnabled:NO];
     
-    GemBoard *panel = jewelController.jewelPanel;
+    GemBoard *panel = jewelController.gemBoard;
     dropJewels = [[CCArray alloc] initWithCapacity:10];
     
     
@@ -61,21 +61,21 @@
         for (int j=0; j< panel.gridSize.height; j++)
         {
             GemCell *cell = [panel getCellAtCoord:ccp(i,j)];
-            if (cell!=nil && cell.jewelSprite == nil)
+            if (cell!=nil && cell.gemSprite == nil)
             {
                 for (int k = j-1; k >= 0;k--)
                 {
                     // 宝石下落逻辑
                     GemCell *upCell = [panel getCellAtCoord:ccp(i,k)];
-                    if (upCell.jewelSprite!=nil)
+                    if (upCell.gemSprite!=nil)
                     {
                         // 掉落距离计数
-                        [upCell.jewelSprite.jewelVo addYGap];
+                        [upCell.gemSprite.jewelVo addYGap];
                         
                         // 检查是否在下落列表中
-                        if (![dropJewels containsObject:upCell.jewelSprite])
+                        if (![dropJewels containsObject:upCell.gemSprite])
                         {
-                            [dropJewels addObject:upCell.jewelSprite];
+                            [dropJewels addObject:upCell.gemSprite];
                         }
                     }
                 }
@@ -121,7 +121,7 @@
 -(void) execute
 {
     // 掉落完成
-    [jewelController.jewelPanel updateJewelGridInfo];
+    [jewelController.gemBoard updateJewelGridInfo];
     
     // 检查可消除性
     CCArray *elimList = [[CCArray alloc] initWithCapacity:20];
@@ -129,8 +129,8 @@
     // 检查可消除宝石集合
     for (GemSprite *dropSprite in dropJewels)
     {
-        [jewelController.jewelPanel checkHorizontalEliminableJewels:elimList withJewel:dropSprite];
-        [jewelController.jewelPanel checkVerticalEliminableJewels:elimList withJewel:dropSprite];
+        [jewelController.gemBoard checkHorizontalEliminableJewels:elimList withJewel:dropSprite];
+        [jewelController.gemBoard checkVerticalEliminableJewels:elimList withJewel:dropSprite];
     }
     
     if (elimList.count>0)
@@ -144,7 +144,7 @@
     
     
     // 宝石面板设置为可操作
-    [jewelController.jewelPanel setIsControlEnabled:YES];
+    [jewelController.gemBoard setIsControlEnabled:YES];
     
     
 }

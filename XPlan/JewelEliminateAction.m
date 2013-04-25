@@ -48,7 +48,7 @@
     }
     
     // 宝石面板设置为不可操作
-    [jewelController.jewelPanel setIsControlEnabled:NO];
+    [jewelController.gemBoard setIsControlEnabled:NO];
     
     for (GemSprite * elimSprite in elimList)
     {
@@ -105,7 +105,7 @@
     [dropAction release];
     
     // 宝石面板设置为可操作
-    [jewelController.jewelPanel setIsControlEnabled:YES];
+    [jewelController.gemBoard setIsControlEnabled:YES];
     
 }
 

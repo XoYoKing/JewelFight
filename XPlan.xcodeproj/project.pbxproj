@@ -11,8 +11,6 @@
 		E2050869171E96000082556E /* JewelSwapMessageData.m in Sources */ = {isa = PBXBuildFile; fileRef = E2050868171E96000082556E /* JewelSwapMessageData.m */; };
 		E205086C171E96110082556E /* MessageData.m in Sources */ = {isa = PBXBuildFile; fileRef = E205086B171E96110082556E /* MessageData.m */; };
 		E208D2E91720134000C9F22A /* FighterSprite.m in Sources */ = {isa = PBXBuildFile; fileRef = E208D2E81720134000C9F22A /* FighterSprite.m */; };
-		E208D2EC1720142400C9F22A /* FighterAction.m in Sources */ = {isa = PBXBuildFile; fileRef = E208D2EB1720142400C9F22A /* FighterAction.m */; };
-		E208D2EF1720143D00C9F22A /* FighterActionQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = E208D2EE1720143D00C9F22A /* FighterActionQueue.m */; };
 		E20C36431707F12F00DE770E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E20C36451707F12F00DE770E /* Localizable.strings */; };
 		E216ADEF17292708002D2A59 /* fighter_1_1hits_fr-ipadhd.plist in Resources */ = {isa = PBXBuildFile; fileRef = E216ADDF17292708002D2A59 /* fighter_1_1hits_fr-ipadhd.plist */; };
 		E216ADF017292708002D2A59 /* fighter_1_1hits_fr-ipadhd.pvr.ccz in Resources */ = {isa = PBXBuildFile; fileRef = E216ADE017292708002D2A59 /* fighter_1_1hits_fr-ipadhd.pvr.ccz */; };
@@ -38,7 +36,7 @@
 		E216AE0D17292770002D2A59 /* fighter_1_fr.ccbi in Resources */ = {isa = PBXBuildFile; fileRef = E216AE0917292770002D2A59 /* fighter_1_fr.ccbi */; };
 		E216AE0E17292770002D2A59 /* fighter_2_fl.ccb in Resources */ = {isa = PBXBuildFile; fileRef = E216AE0A17292770002D2A59 /* fighter_2_fl.ccb */; };
 		E216AE0F17292770002D2A59 /* fighter_2_fl.ccbi in Resources */ = {isa = PBXBuildFile; fileRef = E216AE0B17292770002D2A59 /* fighter_2_fl.ccbi */; };
-		E227675D171B002600E71B08 /* JewelBlackAction.m in Sources */ = {isa = PBXBuildFile; fileRef = E227675C171B002600E71B08 /* JewelBlackAction.m */; };
+		E227675D171B002600E71B08 /* GemBlackAction.m in Sources */ = {isa = PBXBuildFile; fileRef = E227675C171B002600E71B08 /* GemBlackAction.m */; };
 		E23C12B11720CF8E004120F6 /* FightController.m in Sources */ = {isa = PBXBuildFile; fileRef = E23C12B01720CF8E004120F6 /* FightController.m */; };
 		E240118B171EF6280060DB50 /* MockPvPFightUser.m in Sources */ = {isa = PBXBuildFile; fileRef = E240118A171EF6280060DB50 /* MockPvPFightUser.m */; };
 		E240118E171EFA2F0060DB50 /* MockPvPFight.m in Sources */ = {isa = PBXBuildFile; fileRef = E240118D171EFA2F0060DB50 /* MockPvPFight.m */; };
@@ -66,8 +64,8 @@
 		E258BD6A171D5ED9001178E4 /* jewelSelected.pvr.ccz in Resources */ = {isa = PBXBuildFile; fileRef = E258BD66171D5ED9001178E4 /* jewelSelected.pvr.ccz */; };
 		E25E8A7D17145A0200DF4CD7 /* HonsterBar.m in Sources */ = {isa = PBXBuildFile; fileRef = E25E8A7C17145A0200DF4CD7 /* HonsterBar.m */; };
 		E25E8A7F1714638400DF4CD7 /* pvp_loading.ccbi in Resources */ = {isa = PBXBuildFile; fileRef = E25E8A7E1714638400DF4CD7 /* pvp_loading.ccbi */; };
-		E265C01A171C67E00008FB40 /* JewelArea.m in Sources */ = {isa = PBXBuildFile; fileRef = E265C019171C67E00008FB40 /* JewelArea.m */; };
-		E265C01D171C6EF50008FB40 /* JewelSwapAction.m in Sources */ = {isa = PBXBuildFile; fileRef = E265C01C171C6EF50008FB40 /* JewelSwapAction.m */; };
+		E265C01A171C67E00008FB40 /* GemArea.m in Sources */ = {isa = PBXBuildFile; fileRef = E265C019171C67E00008FB40 /* GemArea.m */; };
+		E265C01D171C6EF50008FB40 /* GemSwapAction.m in Sources */ = {isa = PBXBuildFile; fileRef = E265C01C171C6EF50008FB40 /* GemSwapAction.m */; };
 		E265C020171C726F0008FB40 /* JewelEliminateAction.m in Sources */ = {isa = PBXBuildFile; fileRef = E265C01F171C726F0008FB40 /* JewelEliminateAction.m */; };
 		E265C023171C72850008FB40 /* JewelDropAction.m in Sources */ = {isa = PBXBuildFile; fileRef = E265C022171C72840008FB40 /* JewelDropAction.m */; };
 		E2685CB1171E4926009DD0BB /* jewel_fire_eliminate-ipadhd.plist in Resources */ = {isa = PBXBuildFile; fileRef = E2685CAD171E4926009DD0BB /* jewel_fire_eliminate-ipadhd.plist */; };
@@ -377,10 +375,6 @@
 		E205086B171E96110082556E /* MessageData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageData.m; sourceTree = "<group>"; };
 		E208D2E71720134000C9F22A /* FighterSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FighterSprite.h; sourceTree = "<group>"; };
 		E208D2E81720134000C9F22A /* FighterSprite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FighterSprite.m; sourceTree = "<group>"; };
-		E208D2EA1720142400C9F22A /* FighterAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FighterAction.h; sourceTree = "<group>"; };
-		E208D2EB1720142400C9F22A /* FighterAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FighterAction.m; sourceTree = "<group>"; };
-		E208D2ED1720143C00C9F22A /* FighterActionQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FighterActionQueue.h; sourceTree = "<group>"; };
-		E208D2EE1720143D00C9F22A /* FighterActionQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FighterActionQueue.m; sourceTree = "<group>"; };
 		E20C36441707F12F00DE770E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		E20C36461707F19600DE770E /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		E216ADDF17292708002D2A59 /* fighter_1_1hits_fr-ipadhd.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "fighter_1_1hits_fr-ipadhd.plist"; sourceTree = "<group>"; };
@@ -407,8 +401,8 @@
 		E216AE0917292770002D2A59 /* fighter_1_fr.ccbi */ = {isa = PBXFileReference; lastKnownFileType = file; path = fighter_1_fr.ccbi; sourceTree = "<group>"; };
 		E216AE0A17292770002D2A59 /* fighter_2_fl.ccb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = fighter_2_fl.ccb; sourceTree = "<group>"; };
 		E216AE0B17292770002D2A59 /* fighter_2_fl.ccbi */ = {isa = PBXFileReference; lastKnownFileType = file; path = fighter_2_fl.ccbi; sourceTree = "<group>"; };
-		E227675B171B002600E71B08 /* JewelBlackAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JewelBlackAction.h; sourceTree = "<group>"; };
-		E227675C171B002600E71B08 /* JewelBlackAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JewelBlackAction.m; sourceTree = "<group>"; };
+		E227675B171B002600E71B08 /* GemBlackAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GemBlackAction.h; sourceTree = "<group>"; };
+		E227675C171B002600E71B08 /* GemBlackAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GemBlackAction.m; sourceTree = "<group>"; };
 		E23C12AF1720CF8E004120F6 /* FightController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FightController.h; sourceTree = "<group>"; };
 		E23C12B01720CF8E004120F6 /* FightController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FightController.m; sourceTree = "<group>"; };
 		E2401189171EF6280060DB50 /* MockPvPFightUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MockPvPFightUser.h; sourceTree = "<group>"; };
@@ -456,10 +450,10 @@
 		E25E8A7B17145A0200DF4CD7 /* HonsterBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HonsterBar.h; sourceTree = "<group>"; };
 		E25E8A7C17145A0200DF4CD7 /* HonsterBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HonsterBar.m; sourceTree = "<group>"; };
 		E25E8A7E1714638400DF4CD7 /* pvp_loading.ccbi */ = {isa = PBXFileReference; lastKnownFileType = file; path = pvp_loading.ccbi; sourceTree = "<group>"; };
-		E265C018171C67E00008FB40 /* JewelArea.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JewelArea.h; sourceTree = "<group>"; };
-		E265C019171C67E00008FB40 /* JewelArea.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JewelArea.m; sourceTree = "<group>"; };
-		E265C01B171C6EF50008FB40 /* JewelSwapAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JewelSwapAction.h; sourceTree = "<group>"; };
-		E265C01C171C6EF50008FB40 /* JewelSwapAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JewelSwapAction.m; sourceTree = "<group>"; };
+		E265C018171C67E00008FB40 /* GemArea.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GemArea.h; sourceTree = "<group>"; };
+		E265C019171C67E00008FB40 /* GemArea.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GemArea.m; sourceTree = "<group>"; };
+		E265C01B171C6EF50008FB40 /* GemSwapAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GemSwapAction.h; sourceTree = "<group>"; };
+		E265C01C171C6EF50008FB40 /* GemSwapAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GemSwapAction.m; sourceTree = "<group>"; };
 		E265C01E171C726F0008FB40 /* JewelEliminateAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JewelEliminateAction.h; sourceTree = "<group>"; };
 		E265C01F171C726F0008FB40 /* JewelEliminateAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JewelEliminateAction.m; sourceTree = "<group>"; };
 		E265C021171C72840008FB40 /* JewelDropAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JewelDropAction.h; sourceTree = "<group>"; };
@@ -1108,24 +1102,12 @@
 		E208D2E61720130D00C9F22A /* Sprites */ = {
 			isa = PBXGroup;
 			children = (
-				E208D2F01720146600C9F22A /* Actions */,
 				E208D2E71720134000C9F22A /* FighterSprite.h */,
 				E208D2E81720134000C9F22A /* FighterSprite.m */,
 				E2972D391725A6AD0024BC24 /* FightTextEffect.h */,
 				E2972D3A1725A6AD0024BC24 /* FightTextEffect.m */,
 			);
 			name = Sprites;
-			sourceTree = "<group>";
-		};
-		E208D2F01720146600C9F22A /* Actions */ = {
-			isa = PBXGroup;
-			children = (
-				E208D2EA1720142400C9F22A /* FighterAction.h */,
-				E208D2EB1720142400C9F22A /* FighterAction.m */,
-				E208D2ED1720143C00C9F22A /* FighterActionQueue.h */,
-				E208D2EE1720143D00C9F22A /* FighterActionQueue.m */,
-			);
-			name = Actions;
 			sourceTree = "<group>";
 		};
 		E216ADFF17292713002D2A59 /* 2 */ = {
@@ -1314,7 +1296,7 @@
 				E2050866171E95CF0082556E /* Messages */,
 				E2DD880D170D9E0200F2D065 /* Actions */,
 				E2FAFEC11707786200868C63 /* Sprite */,
-				E2FAFEA11707736F00868C63 /* Panel */,
+				E2FAFEA11707736F00868C63 /* GemBoard */,
 				E2DD881B170DA13000F2D065 /* GemController.h */,
 				E2DD881C170DA13000F2D065 /* GemController.m */,
 			);
@@ -1659,10 +1641,10 @@
 				E2DD8815170D9F7800F2D065 /* GemAddAction.m */,
 				E27E1AA6171AB90000AC6FDB /* GemFireAction.h */,
 				E27E1AA7171AB90000AC6FDB /* GemFireAction.m */,
-				E227675B171B002600E71B08 /* JewelBlackAction.h */,
-				E227675C171B002600E71B08 /* JewelBlackAction.m */,
-				E265C01B171C6EF50008FB40 /* JewelSwapAction.h */,
-				E265C01C171C6EF50008FB40 /* JewelSwapAction.m */,
+				E227675B171B002600E71B08 /* GemBlackAction.h */,
+				E227675C171B002600E71B08 /* GemBlackAction.m */,
+				E265C01B171C6EF50008FB40 /* GemSwapAction.h */,
+				E265C01C171C6EF50008FB40 /* GemSwapAction.m */,
 				E265C01E171C726F0008FB40 /* JewelEliminateAction.h */,
 				E265C01F171C726F0008FB40 /* JewelEliminateAction.m */,
 				E265C021171C72840008FB40 /* JewelDropAction.h */,
@@ -2492,17 +2474,17 @@
 			name = Normal;
 			sourceTree = "<group>";
 		};
-		E2FAFEA11707736F00868C63 /* Panel */ = {
+		E2FAFEA11707736F00868C63 /* GemBoard */ = {
 			isa = PBXGroup;
 			children = (
 				E2DD8804170D8F2900F2D065 /* GemBoard.h */,
 				E2DD8805170D8F2900F2D065 /* GemBoard.m */,
 				E292A1A2170F21B500859F7B /* GemCell.h */,
 				E292A1A3170F21B500859F7B /* GemCell.m */,
-				E265C018171C67E00008FB40 /* JewelArea.h */,
-				E265C019171C67E00008FB40 /* JewelArea.m */,
+				E265C018171C67E00008FB40 /* GemArea.h */,
+				E265C019171C67E00008FB40 /* GemArea.m */,
 			);
-			name = Panel;
+			name = GemBoard;
 			sourceTree = "<group>";
 		};
 		E2FAFEC11707786200868C63 /* Sprite */ = {
@@ -2786,9 +2768,9 @@
 				E2EC6B7C17183B9C0033F81E /* MockGameServer.m in Sources */,
 				E2EC6B80171841440033F81E /* FightCommand.m in Sources */,
 				E27E1AA8171AB90000AC6FDB /* GemFireAction.m in Sources */,
-				E227675D171B002600E71B08 /* JewelBlackAction.m in Sources */,
-				E265C01A171C67E00008FB40 /* JewelArea.m in Sources */,
-				E265C01D171C6EF50008FB40 /* JewelSwapAction.m in Sources */,
+				E227675D171B002600E71B08 /* GemBlackAction.m in Sources */,
+				E265C01A171C67E00008FB40 /* GemArea.m in Sources */,
+				E265C01D171C6EF50008FB40 /* GemSwapAction.m in Sources */,
 				E265C020171C726F0008FB40 /* JewelEliminateAction.m in Sources */,
 				E265C023171C72850008FB40 /* JewelDropAction.m in Sources */,
 				E2050865171E92550082556E /* GameMessageDispatcher.m in Sources */,
@@ -2799,8 +2781,6 @@
 				E240118E171EFA2F0060DB50 /* MockPvPFight.m in Sources */,
 				E240119D171F28D80060DB50 /* NewJewelsCommandData.m in Sources */,
 				E208D2E91720134000C9F22A /* FighterSprite.m in Sources */,
-				E208D2EC1720142400C9F22A /* FighterAction.m in Sources */,
-				E208D2EF1720143D00C9F22A /* FighterActionQueue.m in Sources */,
 				E26C1E501720564500F458E3 /* FightField.m in Sources */,
 				E23C12B11720CF8E004120F6 /* FightController.m in Sources */,
 				E2E75C531721178B00A15BE5 /* GCDAsyncSocket.m in Sources */,

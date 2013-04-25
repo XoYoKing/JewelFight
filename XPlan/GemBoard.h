@@ -15,7 +15,7 @@
 /// 宝石面板
 @interface GemBoard : CCLayer
 {
-    CCSpriteBatchNode *jewelBatchNode; // 宝石层
+    CCSpriteBatchNode *gemBatchNode; // 宝石层
     CCLayer *effectLayer; // 效果层
     
     GemController *jewelController; // 宝石面板控制器

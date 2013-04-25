@@ -89,21 +89,14 @@
 {
     // 第一批战士出战
     // 出战
-    [self fighterEnterFightField:[leftFighterVoList objectAtIndex:0] team:0];
-    [self fighterEnterFightField:[rightFighterVoList objectAtIndex:0] team:1];
+    [self fighterEnterFightField:[leftFighterVoList objectAtIndex:0]];
+    [self fighterEnterFightField:[rightFighterVoList objectAtIndex:0]];
 }
 
 /// 战士上场
--(void) fighterEnterFightField:(FighterVo*)fv team:(int)team
+-(void) fighterEnterFightField:(FighterVo*)fv
 {
-    if (team == 0)
-    {
-        [fightPanel.fightField createFighterSpriteWithFighterVo:fv];
-    }
-    else
-    {
-        
-    }
+    [fightPanel.fightField createFighterSpriteWithFighterVo:fv];
 }
 
 #pragma mark -

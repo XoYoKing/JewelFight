@@ -11,7 +11,7 @@
 @class GemSprite;
 
 /// 宝石交换动作
-@interface JewelSwapAction : GemAction
+@interface GemSwapAction : GemAction
 {
     
     // 使用标识而不是对象是因为在Action执行过程中有可能引用失效

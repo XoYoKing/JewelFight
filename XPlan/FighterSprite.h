@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "iPhoneGameKit.h"
 #import "EffectSprite.h"
+#import "CCBReader.h"
 
 typedef enum _FighterStates
 {

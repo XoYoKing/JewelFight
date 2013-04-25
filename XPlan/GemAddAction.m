@@ -58,19 +58,19 @@
     }
     
     // 宝石面板设置为不可操作
-    [jewelController.jewelPanel setIsControlEnabled:NO];
+    [jewelController.gemBoard setIsControlEnabled:NO];
     
     // 创建宝石
     for (GemVo *jv in jewelVoList)
     {
         // 创建宝石
-        GemSprite *jewel = [jewelController.jewelPanel createJewelSpriteWithJewelVo:jv];
+        GemSprite *jewel = [jewelController.gemBoard createJewelSpriteWithJewelVo:jv];
         
         [jewelSpriteList addObject:jewel];
         
         // 获取宝石最终坐标
-        CGPoint targetPos = [jewelController.jewelPanel cellCoordToPosition:jv.coord];
-        CGPoint startPos = ccp(targetPos.x,jewelController.jewelPanel.boundingBox.size.height + targetPos.y);
+        CGPoint targetPos = [jewelController.gemBoard cellCoordToPosition:jv.coord];
+        CGPoint startPos = ccp(targetPos.x,jewelController.gemBoard.boundingBox.size.height + targetPos.y);
         
         jewel.position = startPos;
         
@@ -124,10 +124,10 @@
     // 宝石添加完成,更新JewelController的JewelVo列表
     for (GemVo *jv in jewelVoList)
     {
-        [jewelController addJewelVo:jv];
+        [jewelController addGemVo:jv];
     }
     
-    [jewelController.jewelPanel updateJewelGridInfo];
+    [jewelController.gemBoard updateJewelGridInfo];
     
     
     // 检查可消除性
@@ -136,8 +136,8 @@
     // 检查可消除宝石集合
     for (GemSprite *dropSprite in jewelSpriteList)
     {
-        [jewelController.jewelPanel checkHorizontalEliminableJewels:elimList withJewel:dropSprite];
-        [jewelController.jewelPanel checkVerticalEliminableJewels:elimList withJewel:dropSprite];
+        [jewelController.gemBoard checkHorizontalEliminableJewels:elimList withJewel:dropSprite];
+        [jewelController.gemBoard checkVerticalEliminableJewels:elimList withJewel:dropSprite];
     }
     
     if (elimList.count>0)
@@ -150,7 +150,7 @@
     {
         // 检查死局
         // 当宝石为满时,检查死局
-        if ([jewelController.jewelPanel isFull] && [jewelController.jewelPanel checkDead])
+        if ([jewelController.gemBoard isFull] && [jewelController.gemBoard checkDead])
         {
             // 发送死局通知
             JewelMessageData *msg = [[[JewelMessageData alloc] initWithUserId:jewelController.userId] autorelease];
@@ -162,7 +162,7 @@
     
     
     // 允许面板操作?
-    [jewelController.jewelPanel setIsControlEnabled:YES];
+    [jewelController.gemBoard setIsControlEnabled:YES];
 }
 
 @end

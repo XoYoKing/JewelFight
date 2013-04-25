@@ -13,13 +13,13 @@
 #import "GemController.h"
 
 @implementation GemCell
-@synthesize panel,coord,jewelGlobalId,jewelSprite,comingJewelGlobalId;
+@synthesize board,coord,gemGlobalId,gemSprite,comingGemGlobalId;
 
 -(id) initWithJewelPanel:(GemBoard *)thePanel coord:(CGPoint)theCoord
 {
     if ((self = [super init]))
     {
-        panel = thePanel;
+        board = thePanel;
         coord = theCoord;
     }
     
@@ -31,11 +31,11 @@
     [super dealloc];
 }
 
--(GemSprite*) jewelSprite
+-(GemSprite*) gemSprite
 {
-    if (jewelGlobalId!=0)
+    if (gemGlobalId!=0)
     {
-        return [panel getJewelSpriteWithGlobalId:jewelGlobalId];
+        return [board getJewelSpriteWithGlobalId:gemGlobalId];
     }
     
     return nil;
@@ -43,7 +43,7 @@
 
 -(CGRect) panelRect
 {
-    return CGRectMake(coord.x * panel.cellSize.width, (panel.gridSize.height - coord.y -1) * panel.cellSize.height, panel.cellSize.width, panel.cellSize.height);
+    return CGRectMake(coord.x * board.cellSize.width, (board.gridSize.height - coord.y -1) * board.cellSize.height, board.cellSize.width, board.cellSize.height);
 }
 
 @end

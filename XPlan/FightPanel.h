@@ -11,7 +11,7 @@
 
 @class FightField,FightPortrait;
 
-/// 战斗层
+/// 战斗面板
 @interface FightPanel : CCLayer
 {
     CCLayer *streetLayer; // 街道层

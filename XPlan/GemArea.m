@@ -6,11 +6,11 @@
 //  Copyright (c) 2013 Hex. All rights reserved.
 //
 
-#import "JewelArea.h"
+#import "GemArea.h"
 #import "GemBoard.h"
 #import "GemCell.h"
 
-@implementation JewelArea
+@implementation GemArea
 
 +(void) getAreaCellsAroundCell:(CCArray *)areaTiles panel:(GemBoard *)panel cell:(GemCell *)cell radius:(int)radius
 {

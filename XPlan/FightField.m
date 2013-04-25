@@ -10,7 +10,6 @@
 #import "FightController.h"
 #import "FighterSprite.h"
 #import "EffectSprite.h"
-#import "CCBReader.h"
 
 @implementation FightField
 
@@ -26,9 +25,6 @@
 
 - (void) didLoadFromCCB
 {
-    allFighterSpriteDict = [[NSMutableDictionary alloc] initWithCapacity:7];
-    leftFighterSprites = [[CCArray alloc] initWithCapacity:5];
-    rightFighterSprites = [[CCArray alloc] initWithCapacity:5];
     
     // 添加战斗层
     fighterLayer = [[CCLayer alloc] init];
@@ -41,9 +37,6 @@
 
 -(void) dealloc
 {
-    [allFighterSpriteDict release];
-    [leftFighterSprites release];
-    [rightFighterSprites release];
     [fighterLayer release];
     [effectLayer release];
     [super dealloc];
@@ -56,7 +49,16 @@
 /// 获取FighterSprite
 -(FighterSprite*) getFighterSpriteWithGlobalId:(long)globalId
 {
-    return [allFighterSpriteDict objectForKey:[NSNumber numberWithInt:globalId]];
+    if (leftFighterSprite.globalId == globalId)
+    {
+        return leftFighterSprite;
+    }
+    else if (rightFighterSprite.globalId == globalId)
+    {
+        return rightFighterSprite;
+    }
+    
+    return nil;
 }
 
 /// 创建FighterSprite
@@ -71,27 +73,29 @@
     return fighterSprite;
 }
 
-/// 添加宝石
+/// 添加战士Sprite
 -(void) addFighterSprite:(FighterSprite*)fighterSprite
 {
-    // 添加到字典
-    [allFighterSpriteDict setObject:fighterSprite forKey:[NSNumber numberWithInt:fighterSprite.globalId]];
-    
-    
-    // 判断Fighter的阵营
+    // 检查战士的阵营
     if (fighterSprite.team == 0)
     {
-        [fighterLayer addChild:fighterSprite];
-        
-        // 添加到左侧集合
-        [leftFighterSprites addObject:fighterSprite];
+        if (leftFighterSprite)
+        {
+            [leftFighterSprite removeFromParentAndCleanup:YES];
+            [leftFighterSprite release];
+        }
+        leftFighterSprite = fighterSprite;
+        [fighterLayer addChild:leftFighterSprite];
     }
     else
     {
-        [fighterLayer addChild:fighterSprite];
-        
-        // 添加到右侧集合
-        [rightFighterSprites addObject:fighterSprite.globalId];
+        if (rightFighterSprite)
+        {
+            [rightFighterSprite removeFromParentAndCleanup:YES];
+            [rightFighterSprite release];
+        }
+        rightFighterSprite = fighterSprite;
+        [fighterLayer addChild:rightFighterSprite];
     }
     
 }
@@ -99,32 +103,28 @@
 /// 删除战士Sprite
 -(void) removeFighterSprite:(FighterSprite*)fighterSprite
 {
-    // 删除对应数据
-    [fightController removeFighterVo:fighterSprite.fighterVo];
-    
-    // 删除表现物
-    [allFighterSpriteDict removeObjectForKey:[NSNumber numberWithInt:fighterSprite.globalId]];
-    if (fighterSprite.team == 0)
+    [fighterSprite removeFromParentAndCleanup:YES];
+    if(leftFighterSprite==fighterSprite)
     {
-        [leftFighterSprites removeObject:fighterSprite];
+        [leftFighterSprite release];
+        leftFighterSprite = nil;
     }
     else
     {
-        [rightFighterSprites removeObject:fighterSprite];
+        [rightFighterSprite release];
+        rightFighterSprite = nil;
     }
-    [fighterSprite removeFromParentAndCleanup:YES];
+    
 }
 
 /// 删除全部战士
 -(void) removeAllFighters
 {
-    for (FighterSprite *fs in allFighterSpriteDict.allValues)
-    {
-        [fs removeFromParentAndCleanup:YES];
-    }
-    [allFighterSpriteDict removeAllObjects];
-    [leftFighterSprites removeAllObjects];
-    [rightFighterSprites removeAllObjects];
+    [leftFighterSprite removeFromParentAndCleanup:YES];
+    [rightFighterSprite removeFromParentAndCleanup:YES];
+    
+    [leftFighterSprite release];
+    [rightFighterSprite release];
 }
 
 

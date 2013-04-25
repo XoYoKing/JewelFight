@@ -10,7 +10,7 @@
 #import "iPhoneGameKit.h"
 
 @class GemBoard,GemCell;
-@interface JewelArea : NSObject
+@interface GemArea : NSObject
 
 +(void) getAreaCellsAroundCell:(CCArray*)areaTiles panel:(GemBoard*)panel cell:(GemCell*)cell radius:(int)radius;
 

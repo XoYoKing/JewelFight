@@ -1,13 +1,13 @@
 //
-//  JewelBlackAction.m
+//  JewelBlackAction.h
 //  XPlan
 //
 //  Created by Hex on 4/14/13.
 //  Copyright (c) 2013 Hex. All rights reserved.
 //
 
-#import "JewelBlackAction.h"
+#import "GemAction.h"
 
-@implementation JewelBlackAction
+@interface GemBlackAction : GemAction
 
 @end

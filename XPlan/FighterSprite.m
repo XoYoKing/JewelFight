@@ -15,6 +15,7 @@
 
 @interface FighterSprite()
 {
+    CCBAnimationManager* animationManager;
     ccTime textEffectTimer; // 文字特效计时
 }
 @end
@@ -35,8 +36,11 @@
         effects = [[NSMutableDictionary alloc] initWithCapacity:5];
         textEffectQueue = [[CCArray alloc] initWithCapacity:10];
         
+        //
+        [self initGraphics];
+        
         // 设置动画
-        //[self idleAnimation];
+        [self idleAnimation];
     }
     
     return self;
@@ -47,6 +51,16 @@
     [fighterVo release];
     [effects release];
     [super dealloc];
+}
+
+-(void) initGraphics
+{
+    NSString *ccbFile = self.team==0?[NSString stringWithFormat:@"fighter_%d_fr.ccbi",fighterVo.heroId]:[NSString stringWithFormat:@"fighter_%d_fl.ccbi",fighterVo.heroId];
+    
+    CCNode *node = [CCBReader nodeGraphFromFile:ccbFile];
+    [self addChild:node];
+    animationManager = node.userObject;
+                    
 }
 
 -(KITProfile*) profile
@@ -219,9 +233,10 @@
     return [self getActionByTag:actionTag] != nil;
 }
 
+/// 静止动画
 -(void) idleAnimation
 {
-    [self setAnimation:@"idle" tag:kTagFighterAnimationIdle repeat:YES restore:NO];
+    [animationManager runAnimationsForSequenceNamed:@"idle"];
 }
 
 -(void) winAnimation
