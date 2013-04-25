@@ -10,14 +10,14 @@
 #import "iPhoneGameKit.h"
 
 
-@class UserInfo,FighterVo,JewelPanel;
+@class UserInfo,FighterVo,GemBoard;
 @interface PvPOpponentJewelPanel : CCLayer
 {
     CCLabelTTF *nameLabel; // 名字标签
-    JewelPanel *jewelPanel; // 宝石面板
+    GemBoard *gemBoard; // 宝石面板
 }
 
-@property (readonly,nonatomic) JewelPanel *jewelPanel;
+@property (readonly,nonatomic) GemBoard *gemBoard;
 
 /// 设置对手信息
 -(void) setOpponent:(UserInfo*)opp;

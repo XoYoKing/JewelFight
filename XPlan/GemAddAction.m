@@ -6,18 +6,18 @@
 //  Copyright (c) 2013 Hex. All rights reserved.
 //
 
-#import "JewelAddAction.h"
-#import "JewelController.h"
-#import "JewelPanel.h"
-#import "JewelVo.h"
-#import "JewelSprite.h"
-#import "JewelController.h"
+#import "GemAddAction.h"
+#import "GemController.h"
+#import "GemBoard.h"
+#import "GemVo.h"
+#import "GemSprite.h"
+#import "GemController.h"
 #import "JewelEliminateAction.h"
 #import "JewelMessageData.h"
 #import "GameMessageDispatcher.h"
 
 
-@interface JewelAddAction()
+@interface GemAddAction()
 {
     int totalJewelsCount; // 全部宝石的数量
     int doneJewelsCounter; // 完成移动的宝石的计时器
@@ -25,14 +25,14 @@
 }
 @end
 
-@implementation JewelAddAction
+@implementation GemAddAction
 
 @synthesize continueDispose;
 
 
--(id) initWithJewelController:(JewelController *)contr jewelVoList:(CCArray *)list
+-(id) initWithJewelController:(GemController *)contr jewelVoList:(CCArray *)list
 {
-    if ((self = [super initWithJewelController:contr name:@"JewelAddAction"]))
+    if ((self = [super initWithJewelController:contr name:@"GemAddAction"]))
     {
         jewelVoList = [list retain];
         jewelSpriteList = [[CCArray alloc] initWithCapacity:jewelVoList.count];
@@ -61,10 +61,10 @@
     [jewelController.jewelPanel setIsControlEnabled:NO];
     
     // 创建宝石
-    for (JewelVo *jv in jewelVoList)
+    for (GemVo *jv in jewelVoList)
     {
         // 创建宝石
-        JewelSprite *jewel = [jewelController.jewelPanel createJewelSpriteWithJewelVo:jv];
+        GemSprite *jewel = [jewelController.jewelPanel createJewelSpriteWithJewelVo:jv];
         
         [jewelSpriteList addObject:jewel];
         
@@ -122,7 +122,7 @@
 -(void) execute
 {
     // 宝石添加完成,更新JewelController的JewelVo列表
-    for (JewelVo *jv in jewelVoList)
+    for (GemVo *jv in jewelVoList)
     {
         [jewelController addJewelVo:jv];
     }
@@ -134,7 +134,7 @@
     CCArray *elimList = [[CCArray alloc] initWithCapacity:20];
     
     // 检查可消除宝石集合
-    for (JewelSprite *dropSprite in jewelSpriteList)
+    for (GemSprite *dropSprite in jewelSpriteList)
     {
         [jewelController.jewelPanel checkHorizontalEliminableJewels:elimList withJewel:dropSprite];
         [jewelController.jewelPanel checkVerticalEliminableJewels:elimList withJewel:dropSprite];

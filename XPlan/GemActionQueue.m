@@ -6,10 +6,10 @@
 //  Copyright (c) 2013 Hex. All rights reserved.
 //
 
-#import "JewelActionQueue.h"
-#import "JewelAction.h"
+#import "GemActionQueue.h"
+#import "GemAction.h"
 
-@implementation JewelActionQueue
+@implementation GemActionQueue
 
 @synthesize actions;
 

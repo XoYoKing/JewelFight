@@ -6,31 +6,31 @@
 //  Copyright (c) 2013 Hex. All rights reserved.
 //
 
-#import "JewelController.h"
-#import "JewelVo.h"
-#import "JewelCell.h"
-#import "JewelSprite.h"
+#import "GemController.h"
+#import "GemVo.h"
+#import "GemCell.h"
+#import "GemSprite.h"
 #import "Constants.h"
-#import "JewelPanel.h"
-#import "JewelActionQueue.h"
-#import "JewelAction.h"
-#import "JewelAddAction.h"
-#import "JewelFactory.h"
+#import "GemBoard.h"
+#import "GemActionQueue.h"
+#import "GemAction.h"
+#import "GemAddAction.h"
+#import "GemFactory.h"
 #import "GameMessageDispatcher.h"
 #import "JewelMessageData.h"
 #import "Constants.h"
 
 static int jewelGlobalIdGenerator = 10000;
 
-@interface JewelController()
+@interface GemController()
 
 @end
 
-@implementation JewelController
+@implementation GemController
 
 @synthesize jewelPanel,userId;
 
--(id) initWithJewelPanel:(JewelPanel *)panel operatorUserId:(long)uId
+-(id) initWithJewelPanel:(GemBoard *)panel operatorUserId:(long)uId
 {
     if ((self = [super init]))
     {
@@ -40,7 +40,7 @@ static int jewelGlobalIdGenerator = 10000;
         
         jewelVoDict = [[NSMutableDictionary alloc] init];
         jewelVoList = [[CCArray alloc] initWithCapacity:60];
-        actionQueue = [[JewelActionQueue alloc] init];
+        actionQueue = [[GemActionQueue alloc] init];
     }
     
     return self;
@@ -114,7 +114,7 @@ static int jewelGlobalIdGenerator = 10000;
     }
 }
 
--(void) queueAction:(JewelAction*)action top:(BOOL)top
+-(void) queueAction:(GemAction*)action top:(BOOL)top
 {
     if (top)
     {
@@ -138,7 +138,7 @@ static int jewelGlobalIdGenerator = 10000;
     [self removeAllJewels];
     
     // Action
-    JewelAddAction *action = [[JewelAddAction alloc] initWithJewelController:self jewelVoList:list];
+    GemAddAction *action = [[GemAddAction alloc] initWithJewelController:self jewelVoList:list];
     [self queueAction:action top:NO];
     [action release];
     
@@ -146,14 +146,14 @@ static int jewelGlobalIdGenerator = 10000;
 
 -(void) addJewelVoList:(CCArray*)list
 {
-    JewelAddAction *action = [[JewelAddAction alloc] initWithJewelController:self jewelVoList:list];
+    GemAddAction *action = [[GemAddAction alloc] initWithJewelController:self jewelVoList:list];
     [self queueAction:action top:NO];
     [action release];
 }
 
 
 /// 添加宝石数据
--(void) addJewelVo:(JewelVo*)jv
+-(void) addJewelVo:(GemVo*)jv
 {
     // 添加JewelVo
     if (![jewelVoDict.allKeys containsObject:[NSNumber numberWithInt:jv.globalId]])
@@ -164,7 +164,7 @@ static int jewelGlobalIdGenerator = 10000;
 }
 
 /// 删除宝石数据
--(void) removeJewelVo:(JewelVo*)jv
+-(void) removeJewelVo:(GemVo*)jv
 {
     [jewelVoDict removeObjectForKey:[NSNumber numberWithInt:jv.globalId]];
     [jewelVoList removeObject:jv];
@@ -192,14 +192,14 @@ static int jewelGlobalIdGenerator = 10000;
         {
             if ([jewelPanel getCellAtCoord:ccp(i,j)].jewelSprite==nil)
             {
-                JewelVo *newJv = [JewelFactory randomJewel];
+                GemVo *newJv = [GemFactory randomJewel];
                 newJv.globalId = ++jewelGlobalIdGenerator;
                 newJv.coord = ccp(i,j);
                 [fillJewels addObject:newJv];
             }
         }
     }
-    JewelAddAction *action = [[JewelAddAction alloc] initWithJewelController:self jewelVoList:fillJewels];
+    GemAddAction *action = [[GemAddAction alloc] initWithJewelController:self jewelVoList:fillJewels];
     [self queueAction:action top:NO];
     [action release];
     [fillJewels release];

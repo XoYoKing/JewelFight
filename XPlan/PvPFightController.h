@@ -15,14 +15,14 @@
 #define kPvPFightStateLoading 0 // 加载中
 #define kPvpFightStatePlay 1 // 游戏中
 
-@class JewelController,FightController;
+@class GemController,FightController;
 
 /// PvP 战斗控制器
 @interface PvPFightController : NSObject<CommandListener,GameMessageListener>
 {
     PvPController *controller; // 隶属总控
-    JewelController *playerJewelController; // 玩家宝石控制器
-    JewelController *opponentJewelController; // 对手宝石控制器
+    GemController *playerJewelController; // 玩家宝石控制器
+    GemController *opponentJewelController; // 对手宝石控制器
     FightController *fightController; // 战斗控制器
     
     // 战斗对手信息

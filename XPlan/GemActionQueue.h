@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "iPhoneGameKit.h"
 
-@interface JewelActionQueue : NSObject
+@interface GemActionQueue : NSObject
 {
     CCArray *actions;
 }

@@ -6,10 +6,10 @@
 //  Copyright (c) 2013 Hex. All rights reserved.
 //
 
-#import "JewelAction.h"
+#import "GemAction.h"
 
 /// 添加宝石动作
-@interface JewelAddAction : JewelAction
+@interface GemAddAction : GemAction
 {
     CCArray *jewelVoList; // 要增加的宝石列表
 }
@@ -18,6 +18,6 @@
 @property (readonly,nonatomic) int continueDispose;
 
 /// 构造函数
--(id) initWithJewelController:(JewelController *)contr  jewelVoList:(CCArray*)list;
+-(id) initWithJewelController:(GemController *)contr  jewelVoList:(CCArray*)list;
 
 @end

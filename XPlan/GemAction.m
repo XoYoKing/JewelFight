@@ -6,15 +6,15 @@
 //  Copyright (c) 2013 Hex. All rights reserved.
 //
 
-#import "JewelAction.h"
-#import "JewelPanel.h"
-#import "JewelController.h"
-#import "JewelSprite.h"
-#import "JewelVo.h"
+#import "GemAction.h"
+#import "GemBoard.h"
+#import "GemController.h"
+#import "GemSprite.h"
+#import "GemVo.h"
 
-@implementation JewelAction
+@implementation GemAction
 
--(id) initWithJewelController:(JewelController *)contr name:(NSString*)n
+-(id) initWithJewelController:(GemController *)contr name:(NSString*)n
 {
     if ((self = [super init]))
     {

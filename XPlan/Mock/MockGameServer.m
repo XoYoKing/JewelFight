@@ -10,12 +10,12 @@
 #import "ServerDataDecoder.h"
 #import "ServerDataEncoder.h"
 #import "FighterVo.h"
-#import "JewelVo.h"
+#import "GemVo.h"
 #import "UserInfo.h"
 #import "PlayerInfo.h"
 #import "HeroVo.h"
 #import "GameController.h"
-#import "JewelFactory.h"
+#import "GemFactory.h"
 #import "MockConstants.h"
 #import "MockPvPFight.h"
 
@@ -94,7 +94,7 @@
     [data writeInt32:fv.maxAnger];
 }
 
-+(void) compressJewelVo:(JewelVo*)jv toData:(ServerDataEncoder*)data
++(void) compressJewelVo:(GemVo*)jv toData:(ServerDataEncoder*)data
 {
     [data writeInt32:jv.globalId];
     [data writeInt32:jv.jewelId];

@@ -7,10 +7,10 @@
 //
 
 #import "JewelSwapAction.h"
-#import "JewelSprite.h"
-#import "JewelPanel.h"
+#import "GemSprite.h"
+#import "GemBoard.h"
 #import "Constants.h"
-#import "JewelController.h"
+#import "GemController.h"
 #import "JewelEliminateAction.h"
 #import "GameMessageDispatcher.h"
 #import "JewelSwapMessageData.h"
@@ -28,12 +28,12 @@
 
 @synthesize jewel1,jewel2;
 
--(id) initWithJewelController:(JewelController *)contr jewel1:(JewelSprite *)j1 jewel2:(JewelSprite *)j2
+-(id) initWithJewelController:(GemController *)contr jewel1:(GemSprite *)j1 jewel2:(GemSprite *)j2
 {
     return [self initWithJewelController:contr jewel1:j1 jewel2:j2 checkElimate:YES];
 }
 
--(id) initWithJewelController:(JewelController *)contr jewel1:(JewelSprite *)j1 jewel2:(JewelSprite *)j2 checkElimate:(BOOL)check
+-(id) initWithJewelController:(GemController *)contr jewel1:(GemSprite *)j1 jewel2:(GemSprite *)j2 checkElimate:(BOOL)check
 {
     if ((self = [super initWithJewelController:contr name:@"JewelSwapAction"]))
     {
@@ -50,12 +50,12 @@
     [super dealloc];
 }
 
--(JewelSprite*) jewel1
+-(GemSprite*) jewel1
 {
     return [jewelController.jewelPanel getJewelSpriteWithGlobalId:jewelGlobalId1];
 }
 
--(JewelSprite*) jewel2
+-(GemSprite*) jewel2
 {
     return [jewelController.jewelPanel getJewelSpriteWithGlobalId:jewelGlobalId2];
 }
@@ -79,8 +79,8 @@
     [jewelController.jewelPanel setIsControlEnabled:NO];
     
     // 交换位置
-    JewelSprite *j1 = self.jewel1;
-    JewelSprite *j2 = self.jewel2;
+    GemSprite *j1 = self.jewel1;
+    GemSprite *j2 = self.jewel2;
     CCAction *action1 = [CCMoveTo actionWithDuration:0.2f position:[jewelController.jewelPanel cellCoordToPosition:j2.coord]];
     action1.tag =kTagActionJewelSwap;
     [j1 runAction:action1];
@@ -93,8 +93,8 @@
 
 -(void) update:(ccTime)delta
 {
-    JewelSprite *j1 = self.jewel1;
-    JewelSprite *j2 = self.jewel2;
+    GemSprite *j1 = self.jewel1;
+    GemSprite *j2 = self.jewel2;
     if ([j1 getActionByTag:kTagActionJewelSwap]==nil && [j2 getActionByTag:kTagActionJewelSwap]==nil&&!skipped)
     {
         [self execute];

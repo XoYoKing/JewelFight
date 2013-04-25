@@ -16,9 +16,9 @@
 #import "UserInfo.h"
 #import "GameController.h"
 #import "GameServer.h"
-#import "JewelController.h"
+#import "GemController.h"
 #import "FightController.h"
-#import "JewelAddAction.h"
+#import "GemAddAction.h"
 #import "JewelSwapMessageData.h"
 #import "JewelEliminateMessageData.h"
 #import "GameMessageDispatcher.h"
@@ -123,19 +123,19 @@
     // 设置玩家操控区域
     if (playerTeam == 0)
     {
-        playerJewelController = [[JewelController alloc] initWithJewelPanel:pvpLayer.player1JewelPanel.jewelPanel operatorUserId:[GameController sharedController].player.userId];
+        playerJewelController = [[GemController alloc] initWithJewelPanel:pvpLayer.player1JewelPanel.gemBoard operatorUserId:[GameController sharedController].player.userId];
         [playerJewelController.jewelPanel active];
         
         // 设置对手操控区域
-        opponentJewelController = [[JewelController alloc] initWithJewelPanel:pvpLayer.player2JewelPanel.jewelPanel operatorUserId:opponentUser.userId];
+        opponentJewelController = [[GemController alloc] initWithJewelPanel:pvpLayer.player2JewelPanel.gemBoard operatorUserId:opponentUser.userId];
     }
     else
     {
-        playerJewelController = [[JewelController alloc] initWithJewelPanel:pvpLayer.player2JewelPanel.jewelPanel operatorUserId:[GameController sharedController].player.userId];
+        playerJewelController = [[GemController alloc] initWithJewelPanel:pvpLayer.player2JewelPanel.gemBoard operatorUserId:[GameController sharedController].player.userId];
         [playerJewelController.jewelPanel active];
         
         // 设置对手操控区域
-        opponentJewelController = [[JewelController alloc] initWithJewelPanel:pvpLayer.player1JewelPanel.jewelPanel operatorUserId:opponentUser.userId];
+        opponentJewelController = [[GemController alloc] initWithJewelPanel:pvpLayer.player1JewelPanel.gemBoard operatorUserId:opponentUser.userId];
     }
 
     // 显示战斗场景

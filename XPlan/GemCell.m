@@ -6,16 +6,16 @@
 //  Copyright (c) 2013 Hex. All rights reserved.
 //
 
-#import "JewelCell.h"
-#import "JewelPanel.h"
-#import "JewelSprite.h"
-#import "JewelVo.h"
-#import "JewelController.h"
+#import "GemCell.h"
+#import "GemBoard.h"
+#import "GemSprite.h"
+#import "GemVo.h"
+#import "GemController.h"
 
-@implementation JewelCell
+@implementation GemCell
 @synthesize panel,coord,jewelGlobalId,jewelSprite,comingJewelGlobalId;
 
--(id) initWithJewelPanel:(JewelPanel *)thePanel coord:(CGPoint)theCoord
+-(id) initWithJewelPanel:(GemBoard *)thePanel coord:(CGPoint)theCoord
 {
     if ((self = [super init]))
     {
@@ -31,7 +31,7 @@
     [super dealloc];
 }
 
--(JewelSprite*) jewelSprite
+-(GemSprite*) jewelSprite
 {
     if (jewelGlobalId!=0)
     {

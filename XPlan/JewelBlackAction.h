@@ -6,8 +6,8 @@
 //  Copyright (c) 2013 Hex. All rights reserved.
 //
 
-#import "JewelAction.h"
+#import "GemAction.h"
 
-@interface JewelBlackAction : JewelAction
+@interface JewelBlackAction : GemAction
 
 @end

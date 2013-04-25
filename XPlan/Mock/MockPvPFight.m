@@ -195,7 +195,7 @@
             
             // 玩家宝石
             [encoder writeInt32:fightUser1.jewelList.count];
-            for (JewelVo *sv in fightUser1.jewelList)
+            for (GemVo *sv in fightUser1.jewelList)
             {
                 [MockGameServer compressJewelVo:sv toData:encoder];
             }
@@ -203,7 +203,7 @@
 
             // 生成对手宝石列表
             [encoder writeInt32:fightUser2.jewelList.count];
-            for (JewelVo *sv in fightUser2.jewelList)
+            for (GemVo *sv in fightUser2.jewelList)
             {
                 [MockGameServer compressJewelVo:sv toData:encoder];
             }
@@ -264,7 +264,7 @@
             [encoder writeInt32:SERVER_ACTION_PVP_ADD_NEW_JEWELS];
             [encoder writeInt64:fightUser1.userInfo.userId]; // 标记给谁更新的
             [encoder writeInt32:filledList.count]; // 标记数量
-            for (JewelVo *filledJv in filledList)
+            for (GemVo *filledJv in filledList)
             {
                 [MockGameServer compressJewelVo:filledJv toData:encoder];
             }

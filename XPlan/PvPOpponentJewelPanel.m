@@ -12,7 +12,7 @@
 
 @implementation PvPOpponentJewelPanel
 
-@synthesize jewelPanel;
+@synthesize gemBoard;
 
 -(id) init
 {

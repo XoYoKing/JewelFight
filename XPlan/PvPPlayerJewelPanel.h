@@ -9,15 +9,15 @@
 #import <Foundation/Foundation.h>
 #import "iPhoneGameKit.h"
 
-@class  FighterVo,JewelPanel;
+@class  FighterVo,GemBoard;
 
 @interface PvPPlayerJewelPanel : CCLayer
 {
     CCLabelTTF *nameLabel; // 玩家名字
-    JewelPanel *jewelPanel; // 宝石面板
+    GemBoard *gemBoard; // 宝石面板
     
 }
 
-@property (readonly,nonatomic) JewelPanel *jewelPanel;
+@property (readonly,nonatomic) GemBoard *gemBoard;
 
 @end

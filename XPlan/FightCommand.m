@@ -8,7 +8,7 @@
 
 #import "FightCommand.h"
 #import "FighterVo.h"
-#import "JewelVo.h"
+#import "GemVo.h"
 #import "AttackVo.h"
 
 @implementation FightCommand
@@ -16,7 +16,7 @@
 
 
 /// 封装宝石信息
-+(void) populateJewelVo:(JewelVo*)jewel data:(ServerDataDecoder*)data
++(void) populateJewelVo:(GemVo*)jewel data:(ServerDataDecoder*)data
 {
     jewel.globalId = [data readInt32];
     jewel.jewelId = [data readInt32];

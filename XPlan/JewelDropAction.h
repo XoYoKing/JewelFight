@@ -6,15 +6,15 @@
 //  Copyright (c) 2013 Hex. All rights reserved.
 //
 
-#import "JewelAction.h"
+#import "GemAction.h"
 
 /// 宝石掉落动作
-@interface JewelDropAction : JewelAction
+@interface JewelDropAction : GemAction
 {
     
 }
 
 /// 初始化
--(id) initWithJewelController:(JewelController *)contr;
+-(id) initWithJewelController:(GemController *)contr;
 
 @end

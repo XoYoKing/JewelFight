@@ -6,24 +6,24 @@
 //  Copyright (c) 2013 Hex. All rights reserved.
 //
 
-#import "JewelPanel.h"
-#import "JewelSprite.h"
-#import "JewelVo.h"
-#import "JewelCell.h"
+#import "GemBoard.h"
+#import "GemSprite.h"
+#import "GemVo.h"
+#import "GemCell.h"
 #import "JewelArea.h"
 #import "Constants.h"
 #import "GameController.h"
-#import "JewelController.h"
+#import "GemController.h"
 #import "JewelSwapAction.h"
 
-@interface JewelPanel()
+@interface GemBoard()
 {
     BOOL registeredWithDispatcher; //
     
     BOOL touchInProgress; //
     BOOL isPressDown; // 是否按下
     CGPoint touchDistance;
-    JewelSprite *selectedJewel; // 选中的宝石全局标识
+    GemSprite *selectedJewel; // 选中的宝石全局标识
 }
 
 -(void) registerWithTouchDispatcher;
@@ -32,7 +32,7 @@
 
 @end
 
-@implementation JewelPanel
+@implementation GemBoard
 
 @synthesize gridSize,cellSize,continueDispose,isControlEnabled,jewelController,team;
 
@@ -40,7 +40,6 @@
 {
     if ((self = [super init]))
     {
-       
     }
     
     
@@ -62,7 +61,7 @@
     int n = 0;
     while (n < totalCells)
     {
-        JewelCell *cell = [[JewelCell alloc] initWithJewelPanel:self coord:ccp(n %  (int)gridSize.width, n / (int)gridSize.width)];
+        GemCell *cell = [[GemCell alloc] initWithJewelPanel:self coord:ccp(n %  (int)gridSize.width, n / (int)gridSize.width)];
         [cellGrid addObject:cell];
         [cell release];
         
@@ -121,7 +120,7 @@
    
         // 获取触摸点坐标
     CGPoint local = [self convertTouchToNodeSpace:touch];
-    JewelSprite *js = [self getCellAtPosition:local].jewelSprite;
+    GemSprite *js = [self getCellAtPosition:local].jewelSprite;
     if (js!=nil)
     {
         // 记录已经选中
@@ -149,7 +148,7 @@
     {
         // 获取触摸点坐标
         CGPoint touchPos = [self convertTouchToNodeSpace:touch];
-        JewelCell *cell = [self getCellAtPosition:touchPos];
+        GemCell *cell = [self getCellAtPosition:touchPos];
         if (cell && ccpDistance(cell.coord, selectedJewel.coord)==1)
         {
             [self doSwapJewel1:selectedJewel withJewel2:cell.jewelSprite];
@@ -168,7 +167,7 @@
 {
 }
 
--(void) selectJewel:(JewelSprite*)js
+-(void) selectJewel:(GemSprite*)js
 {
     [self unselectJewel];
     
@@ -194,7 +193,7 @@
     }
 }
 
--(void) doSwapJewel1:(JewelSprite*)jewel1 withJewel2:(JewelSprite*)jewel2
+-(void) doSwapJewel1:(GemSprite*)jewel1 withJewel2:(GemSprite*)jewel2
 {
    JewelSwapAction *action = [[JewelSwapAction alloc] initWithJewelController:jewelController jewel1:jewel1 jewel2:jewel2];//
     [self.jewelController queueAction:action top:NO];
@@ -228,15 +227,15 @@
 #pragma mark -
 #pragma mark JewelSprite
 
--(JewelSprite*) getJewelSpriteWithGlobalId:(int)globalId
+-(GemSprite*) getJewelSpriteWithGlobalId:(int)globalId
 {
     return [allJewelSpriteDict objectForKey:[NSNumber numberWithInt:globalId]];
 }
 
 /// 创建宝石
--(JewelSprite*) createJewelSpriteWithJewelVo:(JewelVo*)jewelVo
+-(GemSprite*) createJewelSpriteWithJewelVo:(GemVo*)jewelVo
 {
-    JewelSprite *jewelSprite = [[JewelSprite alloc] initWithJewelPanel:self jewelVo:jewelVo];
+    GemSprite *jewelSprite = [[GemSprite alloc] initWithGemBoard:self gemVo:jewelVo];
     
     [self addJewelSprite:jewelSprite];
     
@@ -247,7 +246,7 @@
 }
 
 /// 添加宝石
--(void) addJewelSprite:(JewelSprite*)jewelSprite
+-(void) addJewelSprite:(GemSprite*)jewelSprite
 {
     // 添加宝石到ewelsBatchNode
     [jewelBatchNode addChild:jewelSprite];
@@ -257,13 +256,13 @@
     [allJewelSprites addObject:jewelSprite];
     
     // 记录
-    JewelCell *cell = [self getCellAtCoord:jewelSprite.jewelVo.coord];
+    GemCell *cell = [self getCellAtCoord:jewelSprite.jewelVo.coord];
     cell.comingJewelGlobalId = jewelSprite.globalId;
     
 }
 
 /// 删除宝石
--(void) removeJewelSprite:(JewelSprite*)jewelSprite
+-(void) removeJewelSprite:(GemSprite*)jewelSprite
 {
     // 删除对应数据
     [self.jewelController removeJewelVo:jewelSprite.jewelVo];
@@ -277,7 +276,7 @@
 /// 删除全部宝石
 -(void) removeAllJewels
 {
-    for (JewelSprite *js in allJewelSprites)
+    for (GemSprite *js in allJewelSprites)
     {
         [jewelBatchNode removeChild:js cleanup:YES];
     }
@@ -294,7 +293,7 @@
         return;
     }
     
-    for(JewelSprite *jewelSprite in allJewelSprites)
+    for(GemSprite *jewelSprite in allJewelSprites)
     {
         [jewelSprite moveToDead];
     }
@@ -304,7 +303,7 @@
 #pragma mark JewelCell
 
 /// 获取指定坐标的宝石格子
--(JewelCell*) getCellAtCoord:(CGPoint)coord
+-(GemCell*) getCellAtCoord:(CGPoint)coord
 {
     if (coord.x < 0 || coord.y < 0 || coord.x >= gridSize.width || coord.y >= gridSize.height)
     {
@@ -315,7 +314,7 @@
 }
 
 /// 获取指定像素的宝石格子
--(JewelCell*) getCellAtPosition:(CGPoint)position
+-(GemCell*) getCellAtPosition:(CGPoint)position
 {
     CGPoint coord = [self positionToCellCoord:position];
     return [self getCellAtCoord:coord];
@@ -343,7 +342,7 @@
 -(void) updateJewelSprites:(ccTime)delta
 {
     CCArray *jewelsToRemove = [[CCArray alloc] initWithCapacity:10];
-    for (JewelSprite *js in allJewelSprites)
+    for (GemSprite *js in allJewelSprites)
     {
         [js update:delta];
         if ([js isReadyToBeRemoved])
@@ -354,7 +353,7 @@
     
     if (jewelsToRemove.count>0)
     {
-        for (JewelSprite *jr in jewelsToRemove)
+        for (GemSprite *jr in jewelsToRemove)
         {
             // 清除JewelSprite
             [self removeJewelSprite:jr];
@@ -445,15 +444,15 @@
 -(void) updateJewelGridInfo
 {
     // 清理
-    for (JewelCell *cell in cellGrid)
+    for (GemCell *cell in cellGrid)
     {
         cell.jewelGlobalId = 0;
     }
     
     // 设置
-    for (JewelSprite *js in allJewelSprites)
+    for (GemSprite *js in allJewelSprites)
     {
-        JewelCell *cell = [self getCellAtCoord:js.jewelVo.coord];
+        GemCell *cell = [self getCellAtCoord:js.jewelVo.coord];
         cell.jewelGlobalId = js.globalId;
     }
 }
@@ -461,14 +460,14 @@
 
 
 /// 检查水平方向的可消除的宝石
--(void) checkHorizontalEliminableJewels:(CCArray*)elimList withJewel:(JewelSprite*)source
+-(void) checkHorizontalEliminableJewels:(CCArray*)elimList withJewel:(GemSprite*)source
 {
     CCArray *checkList = [[CCArray alloc] initWithCapacity:10];
     
     // 自身加入进去
     [checkList addObject:source];
     
-    JewelSprite *specialJewel; // 特殊宝石
+    GemSprite *specialJewel; // 特殊宝石
     
     // 检查特殊宝石
     if (source.jewelVo.special >= kJewelSpecialExplode)
@@ -477,11 +476,11 @@
     }
     
     // 向左侧检查
-    JewelSprite *temp = source;
+    GemSprite *temp = source;
     while (temp.coord.x -1 >=0)
     {
         // 获取左侧宝石
-        JewelSprite *leftJewel = [self getCellAtCoord:ccp(temp.coord.x-1,temp.coord.y)].jewelSprite;
+        GemSprite *leftJewel = [self getCellAtCoord:ccp(temp.coord.x-1,temp.coord.y)].jewelSprite;
         
         // 不是相同类型的宝石,退出
         if (leftJewel.jewelVo.jewelId != source.jewelVo.jewelId)
@@ -507,7 +506,7 @@
     temp = source;
     while (temp.coord.x + 1 <kJewelGridWidth)
     {
-        JewelSprite *rightJewel= [self getCellAtCoord:ccp(temp.coord.x+1,temp.coord.y)].jewelSprite;
+        GemSprite *rightJewel= [self getCellAtCoord:ccp(temp.coord.x+1,temp.coord.y)].jewelSprite;
         if (rightJewel.jewelVo.jewelId != source.jewelVo.jewelId)
         {
             break;
@@ -530,7 +529,7 @@
     if (checkList.count >= 3)
     {
         BOOL isBoo; // 爆炸标识
-        for (JewelSprite *checkSprite in checkList)
+        for (GemSprite *checkSprite in checkList)
         {
             // 标记参与的横向消除
             checkSprite.jewelVo.hEliminate = checkList.count; // 横向消除数量
@@ -555,13 +554,13 @@
 }
 
 /// 检查垂直方向的可消除的宝石
--(void) checkVerticalEliminableJewels:(CCArray*)elimList withJewel:(JewelSprite*)source
+-(void) checkVerticalEliminableJewels:(CCArray*)elimList withJewel:(GemSprite*)source
 {
     // 创建一个检查列表
     CCArray *checkList = [[CCArray alloc] initWithCapacity:10];
     [checkList addObject:source];
     
-    JewelSprite *specialJewel;
+    GemSprite *specialJewel;
     
     // 检查特殊宝石
     if (source.jewelVo.special >= kJewelSpecialExplode)
@@ -570,11 +569,11 @@
     }
     
     // 上方检查
-    JewelSprite *temp = source;
+    GemSprite *temp = source;
     while (temp.coord.y-1 >=0)
     {
         // 获取上方宝石
-        JewelSprite *upJewel = [self getCellAtCoord:ccp(temp.coord.x,temp.coord.y-1)].jewelSprite;
+        GemSprite *upJewel = [self getCellAtCoord:ccp(temp.coord.x,temp.coord.y-1)].jewelSprite;
         
         // 不是相同类型,退出
         if (upJewel.jewelVo.jewelId != source.jewelVo.jewelId)
@@ -600,7 +599,7 @@
     temp = source;
     while (temp.coord.y + 1 <kJewelGridHeight)
     {
-        JewelSprite *downJewel= [self getCellAtCoord:ccp(temp.coord.x,temp.coord.y + 1)].jewelSprite;
+        GemSprite *downJewel= [self getCellAtCoord:ccp(temp.coord.x,temp.coord.y + 1)].jewelSprite;
         if (downJewel.jewelVo.jewelId!=source.jewelVo.jewelId)
         {
             break;
@@ -623,7 +622,7 @@
     if (checkList.count >= kJewelEliminateMinNeed)
     {
         BOOL isBoo;
-        for (JewelSprite *checkSprite in checkList)
+        for (GemSprite *checkSprite in checkList)
         {
             checkSprite.jewelVo.hEliminate = checkList.count; // 横向消除数量
             if (checkSprite.jewelVo.lt)
@@ -646,13 +645,13 @@
 }
 
 /// 重置上方消除状态
--(void) resetEliminateTop:(JewelSprite*)source
+-(void) resetEliminateTop:(GemSprite*)source
 {
     // 向上检查
-    JewelSprite *temp = source;
+    GemSprite *temp = source;
     while(temp.coord.y - 1 >= 0)
     {
-        JewelSprite *upJewel = [self getCellAtCoord:ccp(temp.coord.x,temp.coord.y -1)].jewelSprite;
+        GemSprite *upJewel = [self getCellAtCoord:ccp(temp.coord.x,temp.coord.y -1)].jewelSprite;
         if (upJewel.jewelVo.jewelId != source.jewelVo.jewelId)
         {
             break;
@@ -667,7 +666,7 @@
     temp = source;
     while (temp.coord.y+1 <kJewelGridHeight)
     {
-        JewelSprite *downJewel = [self getCellAtCoord:ccp(temp.coord.x,temp.coord.y +  1)].jewelSprite;
+        GemSprite *downJewel = [self getCellAtCoord:ccp(temp.coord.x,temp.coord.y +  1)].jewelSprite;
         if (downJewel.jewelVo.jewelId != source.jewelVo.jewelId)
         {
             break;
@@ -679,13 +678,13 @@
 }
 
 /// 重置右侧消除状态
--(void) resetEliminateRight:(JewelSprite*)source
+-(void) resetEliminateRight:(GemSprite*)source
 {
     // 左边
-    JewelSprite *temp = source;
+    GemSprite *temp = source;
     while(temp.coord.x - 1 >= 0)
     {
-        JewelSprite *leftJewel = [self getCellAtCoord:ccp(temp.coord.x-1,temp.coord.y)].jewelSprite;
+        GemSprite *leftJewel = [self getCellAtCoord:ccp(temp.coord.x-1,temp.coord.y)].jewelSprite;
         if (leftJewel.jewelVo.jewelId != source.jewelVo.jewelId)
         {
             break;
@@ -699,7 +698,7 @@
     temp = source;
     while (temp.coord.x+1 < kJewelGridWidth)
     {
-        JewelSprite *rightJewel = [self getCellAtCoord:ccp(temp.coord.x+1,temp.coord.y)].jewelSprite;
+        GemSprite *rightJewel = [self getCellAtCoord:ccp(temp.coord.x+1,temp.coord.y)].jewelSprite;
         if (rightJewel.jewelVo.jewelId != source.jewelVo.jewelId)
         {
             break;
@@ -714,7 +713,7 @@
 /// 检查死局
 -(BOOL) checkDead
 {
-    for (JewelSprite *js in allJewelSprites)
+    for (GemSprite *js in allJewelSprites)
     {
         if ([self checkLifeVerticalWithJewelSprite:js])
         {
@@ -731,7 +730,7 @@
 }
 
 /// 检测水平方向死局
--(BOOL) checkLifeVerticalWithJewelSprite:(JewelSprite*)center
+-(BOOL) checkLifeVerticalWithJewelSprite:(GemSprite*)center
 {
     CCArray *topList = [[CCArray alloc] initWithCapacity:kJewelGridWidth];
     CCArray *middleList = [[CCArray alloc] initWithCapacity:kJewelGridWidth];
@@ -741,7 +740,7 @@
     [middleList addObject:center];
     
     // 向上检测
-    JewelSprite *check = [self getCellAtCoord:ccp(center.coord.x,center.coord.y-1)].jewelSprite;
+    GemSprite *check = [self getCellAtCoord:ccp(center.coord.x,center.coord.y-1)].jewelSprite;
     while (check!=nil)
     {
         if (check.jewelVo.jewelId != center.jewelVo.jewelId)
@@ -816,14 +815,14 @@
 }
 
 /// 检查水平方向是否有指定标志的宝石
--(BOOL) checkHorizontalEqualJewelsWithJewelSprite:(JewelSprite*)js jewelId:(int)jewelId
+-(BOOL) checkHorizontalEqualJewelsWithJewelSprite:(GemSprite*)js jewelId:(int)jewelId
 {
-    JewelCell *leftCell = [self getCellAtCoord:ccp(js.coord.x-1,js.coord.y)];
+    GemCell *leftCell = [self getCellAtCoord:ccp(js.coord.x-1,js.coord.y)];
     if (leftCell && leftCell.jewelSprite.jewelVo.jewelId == jewelId)
     {
         return YES;
     }
-    JewelCell *rightCell = [self getCellAtCoord:ccp(js.coord.x+1,js.coord.y)];
+    GemCell *rightCell = [self getCellAtCoord:ccp(js.coord.x+1,js.coord.y)];
     if (rightCell && rightCell.jewelSprite.jewelVo.jewelId == jewelId)
     {
         return YES;
@@ -833,14 +832,14 @@
 }
 
 /// 检查垂直方向是否有指定标志的宝石
--(BOOL) checkVerticalEqualJewelsWithJewelSprite:(JewelSprite*)js jewelId:(int)jewelId
+-(BOOL) checkVerticalEqualJewelsWithJewelSprite:(GemSprite*)js jewelId:(int)jewelId
 {
-    JewelCell *topCell = [self getCellAtCoord:ccp(js.coord.x,js.coord.y-1)];
+    GemCell *topCell = [self getCellAtCoord:ccp(js.coord.x,js.coord.y-1)];
     if (topCell && topCell.jewelSprite.jewelVo.jewelId == jewelId)
     {
         return YES;
     }
-    JewelCell *bottomCell = [self getCellAtCoord:ccp(js.coord.x,js.coord.y+1)];
+    GemCell *bottomCell = [self getCellAtCoord:ccp(js.coord.x,js.coord.y+1)];
     if (bottomCell && bottomCell.jewelSprite.jewelVo.jewelId == jewelId)
     {
         return YES;
@@ -849,7 +848,7 @@
     return NO;
 }
 
--(BOOL) checkLifeHorizontalWithJewelSprite:(JewelSprite*)center
+-(BOOL) checkLifeHorizontalWithJewelSprite:(GemSprite*)center
 {
     CCArray *leftList = [[CCArray alloc] initWithCapacity:kJewelGridHeight];
     CCArray *middleList = [[CCArray alloc] initWithCapacity:kJewelGridHeight];
@@ -859,7 +858,7 @@
     [middleList addObject:center];
     
     // 向左检测
-    JewelSprite *check = [self getCellAtCoord:ccp(center.coord.x-1,center.coord.y)].jewelSprite;
+    GemSprite *check = [self getCellAtCoord:ccp(center.coord.x-1,center.coord.y)].jewelSprite;
     while (check!=nil)
     {
         if (check.jewelVo.jewelId != center.jewelVo.jewelId)

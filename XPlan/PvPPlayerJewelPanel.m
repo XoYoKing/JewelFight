@@ -7,14 +7,14 @@
 //
 
 #import "PvPPlayerJewelPanel.h"
-#import "JewelPanel.h"
+#import "GemBoard.h"
 #import "FighterVo.h"
 #import "PlayerInfo.h"
 #import "GameController.h"
 
 @implementation PvPPlayerJewelPanel
 
-@synthesize jewelPanel;
+@synthesize gemBoard;
 
 -(id) init
 {

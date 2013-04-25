@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "iPhoneGameKit.h"
-#import "JewelPanel.h"
+#import "GemBoard.h"
 #import "FightPanel.h"
 #import "PvPPlayerJewelPanel.h"
 #import "PvPOpponentJewelPanel.h"

@@ -8,7 +8,7 @@
 
 #import "GameServer.h"
 
-@class UserInfo,FighterVo,JewelVo,ServerDataEncoder;
+@class UserInfo,FighterVo,GemVo,ServerDataEncoder;
 
 /// 假冒游戏服务器
 @interface MockGameServer : GameServer
@@ -20,6 +20,6 @@
 
 +(void) compressFighterVo:(FighterVo*)fv toData:(ServerDataEncoder*)data;
 
-+(void) compressJewelVo:(JewelVo*)jv toData:(ServerDataEncoder*)data;
++(void) compressJewelVo:(GemVo*)jv toData:(ServerDataEncoder*)data;
 
 @end

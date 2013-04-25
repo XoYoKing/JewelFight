@@ -6,9 +6,9 @@
 //  Copyright (c) 2013 Hex. All rights reserved.
 //
 
-#import "JewelVo.h"
+#import "GemVo.h"
 
-@implementation JewelVo
+@implementation GemVo
 
 @synthesize globalId,jewelId,jewelType,coord,toY,time,eliminateRight,eliminateTop,state,hEliminate,yGap,special,vEliminate;
 

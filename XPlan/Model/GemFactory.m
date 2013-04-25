@@ -6,17 +6,17 @@
 //  Copyright (c) 2013 Hex. All rights reserved.
 //
 
-#import "JewelFactory.h"
+#import "GemFactory.h"
 
-@implementation JewelFactory
+@implementation GemFactory
 
-+(JewelVo*) randomJewel
++(GemVo*) randomJewel
 {
     // 获取宝石的配置文件
     NSDictionary *config = [[NSDictionary alloc] initWithContentsOfFile:[[CCFileUtils sharedFileUtils] fullPathFromRelativePath:@"jewels_config.plist"]];
     NSArray *list = [config objectForKey:@"jewels"];
     NSDictionary *jewelConfig = [list randomObject];
-    JewelVo *jewel = [[[JewelVo alloc] init] autorelease];
+    GemVo *jewel = [[[GemVo alloc] init] autorelease];
     jewel.jewelId = [[jewelConfig valueForKey:@"jewelId"] intValue];
     jewel.jewelType = [jewelConfig valueForKey:@"jewelType"];
     return jewel;

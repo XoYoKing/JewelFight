@@ -7,12 +7,12 @@
 //
 
 #import "JewelArea.h"
-#import "JewelPanel.h"
-#import "JewelCell.h"
+#import "GemBoard.h"
+#import "GemCell.h"
 
 @implementation JewelArea
 
-+(void) getAreaCellsAroundCell:(CCArray *)areaTiles panel:(JewelPanel *)panel cell:(JewelCell *)cell radius:(int)radius
++(void) getAreaCellsAroundCell:(CCArray *)areaTiles panel:(GemBoard *)panel cell:(GemCell *)cell radius:(int)radius
 {
     int startX,startY,width,height;
     startX = max(cell.coord.x - radius, 0);
@@ -24,7 +24,7 @@
     {
         for(int j = 0; j< height; j++)
         {
-            JewelCell *cell = [panel getCellAtCoord:ccp(startX + i,startY + j)];
+            GemCell *cell = [panel getCellAtCoord:ccp(startX + i,startY + j)];
             if(cell)
             {
                 [areaTiles addObject:cell];
