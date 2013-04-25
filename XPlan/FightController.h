@@ -40,6 +40,9 @@
 /// 初始化设置左侧战士集合和右侧战士集合
 -(void) setLeftFighterVos:(CCArray*)leftList rightFighterVos:(CCArray*)rightList;
 
+/// 开始
+-(void) start;
+
 #pragma mark -
 #pragma mark FighterVo
 

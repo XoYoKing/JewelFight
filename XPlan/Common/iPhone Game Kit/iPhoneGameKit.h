@@ -61,7 +61,6 @@
 #import "KITSound.h"
 #import "KITApp.h"
 #import "KITCategories.h"
-#import "KITTMXParser.h"
 
 // KITLog & KITAssert (use these instead of NSLog or NSAssert)
 // if KIT_LOG_MESSAGES is not defined...

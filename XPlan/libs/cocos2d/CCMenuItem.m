@@ -46,6 +46,9 @@ const NSInteger	kCCZoomActionTag = 0xc0c05002;
 @implementation CCMenuItem
 
 @synthesize isSelected=_isSelected;
+@synthesize releaseBlockAtCleanup=_releaseBlockAtCleanup;
+@synthesize activeArea=_activeArea;
+
 +(id) itemWithTarget:(id) r selector:(SEL) s
 {
 	return [[[self alloc] initWithTarget:r selector:s] autorelease];
@@ -84,11 +87,20 @@ const NSInteger	kCCZoomActionTag = 0xc0c05002;
 		_isEnabled = YES;
 		_isSelected = NO;
 		
-		_releaseBlockAtCleanup = NO;
+		// WARNING: Will be disabled in v2.2
+		_releaseBlockAtCleanup = YES;
 
 	}
 	return self;
 }
+
+-(void) setContentSize:(CGSize)contentSize {
+    [super setContentSize:contentSize];
+    
+    // Reset touch area to match the outside box
+    _activeArea = CGRectMake(0, 0, contentSize.width, contentSize.height);
+}
+
 
 -(void) dealloc
 {
@@ -131,13 +143,6 @@ const NSInteger	kCCZoomActionTag = 0xc0c05002;
 -(BOOL) isEnabled
 {
     return _isEnabled;
-}
-
--(CGRect) rect
-{
-	return CGRectMake( position_.x - contentSize_.width*anchorPoint_.x,
-					  position_.y - contentSize_.height*anchorPoint_.y,
-					  contentSize_.width, contentSize_.height);
 }
 
 -(void) setBlock:(void(^)(id sender))block
@@ -201,6 +206,9 @@ const NSInteger	kCCZoomActionTag = 0xc0c05002;
 		_colorBackup = ccWHITE;
 		self.disabledColor = ccc3( 126,126,126);
 		self.label = label;
+		
+		self.cascadeColorEnabled = YES;
+		self.cascadeOpacityEnabled = YES;
 	}
 
 	return self;
@@ -281,23 +289,6 @@ const NSInteger	kCCZoomActionTag = 0xc0c05002;
 	}
 
 	[super setIsEnabled:enabled];
-}
-
-- (void) setOpacity: (GLubyte)opacity
-{
-    [_label setOpacity:opacity];
-}
--(GLubyte) opacity
-{
-	return [_label opacity];
-}
--(void) setColor:(ccColor3B)color
-{
-	[_label setColor:color];
-}
--(ccColor3B) color
-{
-	return [_label color];
 }
 @end
 
@@ -467,7 +458,7 @@ const NSInteger	kCCZoomActionTag = 0xc0c05002;
 
 @implementation CCMenuItemSprite
 
-@synthesize normalImage=normalImage_, selectedImage=selectedImage_, disabledImage=disabledImage_;
+@synthesize normalImage=_normalImage, selectedImage=_selectedImage, disabledImage=_disabledImage;
 
 +(id) itemWithNormalSprite:(CCNode<CCRGBAProtocol>*)normalSprite selectedSprite:(CCNode<CCRGBAProtocol>*)selectedSprite
 {
@@ -515,22 +506,25 @@ const NSInteger	kCCZoomActionTag = 0xc0c05002;
 		self.selectedImage = selectedSprite;
 		self.disabledImage = disabledSprite;
 
-		[self setContentSize: [normalImage_ contentSize]];
+		[self setContentSize: [_normalImage contentSize]];
+		
+		self.cascadeColorEnabled = YES;
+		self.cascadeOpacityEnabled = YES;
 	}
 	return self;
 }
 
 -(void) setNormalImage:(CCNode <CCRGBAProtocol>*)image
 {
-	if( image != normalImage_ ) {
+	if( image != _normalImage ) {
 		image.anchorPoint = ccp(0,0);
 
-		[self removeChild:normalImage_ cleanup:YES];
+		[self removeChild:_normalImage cleanup:YES];
 		[self addChild:image];
 
-		normalImage_ = image;
+		_normalImage = image;
         
-        [self setContentSize: [normalImage_ contentSize]];
+        [self setContentSize: [_normalImage contentSize]];
 		
 		[self updateImagesVisibility];
 	}
@@ -538,13 +532,13 @@ const NSInteger	kCCZoomActionTag = 0xc0c05002;
 
 -(void) setSelectedImage:(CCNode <CCRGBAProtocol>*)image
 {
-	if( image != selectedImage_ ) {
+	if( image != _selectedImage ) {
 		image.anchorPoint = ccp(0,0);
 
-		[self removeChild:selectedImage_ cleanup:YES];
+		[self removeChild:_selectedImage cleanup:YES];
 		[self addChild:image];
 
-		selectedImage_ = image;
+		_selectedImage = image;
 		
 		[self updateImagesVisibility];
 	}
@@ -552,67 +546,41 @@ const NSInteger	kCCZoomActionTag = 0xc0c05002;
 
 -(void) setDisabledImage:(CCNode <CCRGBAProtocol>*)image
 {
-	if( image != disabledImage_ ) {
+	if( image != _disabledImage ) {
 		image.anchorPoint = ccp(0,0);
 
-		[self removeChild:disabledImage_ cleanup:YES];
+		[self removeChild:_disabledImage cleanup:YES];
 		[self addChild:image];
 
-		disabledImage_ = image;
+		_disabledImage = image;
 		
 		[self updateImagesVisibility];
 	}
-}
-
-#pragma mark CCMenuItemSprite - CCRGBAProtocol protocol
-
-- (void) setOpacity: (GLubyte)opacity
-{
-	[normalImage_ setOpacity:opacity];
-	[selectedImage_ setOpacity:opacity];
-	[disabledImage_ setOpacity:opacity];
-}
-
--(void) setColor:(ccColor3B)color
-{
-	[normalImage_ setColor:color];
-	[selectedImage_ setColor:color];
-	[disabledImage_ setColor:color];
-}
-
--(GLubyte) opacity
-{
-	return [normalImage_ opacity];
-}
-
--(ccColor3B) color
-{
-	return [normalImage_ color];
 }
 
 -(void) selected
 {
 	[super selected];
 
-	if( selectedImage_ ) {
-		[normalImage_ setVisible:NO];
-		[selectedImage_ setVisible:YES];
-		[disabledImage_ setVisible:NO];
+	if( _selectedImage ) {
+		[_normalImage setVisible:NO];
+		[_selectedImage setVisible:YES];
+		[_disabledImage setVisible:NO];
 
 	} else { // there is not selected image
 
-		[normalImage_ setVisible:YES];
-		[selectedImage_ setVisible:NO];
-		[disabledImage_ setVisible:NO];
+		[_normalImage setVisible:YES];
+		[_selectedImage setVisible:NO];
+		[_disabledImage setVisible:NO];
 	}
 }
 
 -(void) unselected
 {
 	[super unselected];
-	[normalImage_ setVisible:YES];
-	[selectedImage_ setVisible:NO];
-	[disabledImage_ setVisible:NO];
+	[_normalImage setVisible:YES];
+	[_selectedImage setVisible:NO];
+	[_disabledImage setVisible:NO];
 }
 
 -(void) setIsEnabled:(BOOL)enabled
@@ -629,19 +597,19 @@ const NSInteger	kCCZoomActionTag = 0xc0c05002;
 -(void) updateImagesVisibility
 {
 	if( _isEnabled ) {
-		[normalImage_ setVisible:YES];
-		[selectedImage_ setVisible:NO];
-		[disabledImage_ setVisible:NO];
+		[_normalImage setVisible:YES];
+		[_selectedImage setVisible:NO];
+		[_disabledImage setVisible:NO];
 		
 	} else {
-		if( disabledImage_ ) {
-			[normalImage_ setVisible:NO];
-			[selectedImage_ setVisible:NO];
-			[disabledImage_ setVisible:YES];
+		if( _disabledImage ) {
+			[_normalImage setVisible:NO];
+			[_selectedImage setVisible:NO];
+			[_disabledImage setVisible:YES];
 		} else {
-			[normalImage_ setVisible:YES];
-			[selectedImage_ setVisible:NO];
-			[disabledImage_ setVisible:NO];
+			[_normalImage setVisible:YES];
+			[_selectedImage setVisible:NO];
+			[_disabledImage setVisible:NO];
 		}
 	}
 }
@@ -744,8 +712,7 @@ const NSInteger	kCCZoomActionTag = 0xc0c05002;
 
 @implementation CCMenuItemToggle
 @synthesize currentItem = _currentItem;
-@synthesize subItems = subItems_;
-@synthesize opacity = opacity_, color = color_;
+@synthesize subItems = _subItems;
 
 +(id) itemWithTarget: (id)t selector: (SEL)sel items: (CCMenuItem*) item, ...
 {
@@ -799,6 +766,9 @@ const NSInteger	kCCZoomActionTag = 0xc0c05002;
         _currentItem = nil;
 		_selectedIndex = NSUIntegerMax;
 		[self setSelectedIndex:0];
+		
+		self.cascadeColorEnabled = YES;
+		self.cascadeOpacityEnabled = YES;
 	}
 
 	return self;
@@ -806,7 +776,7 @@ const NSInteger	kCCZoomActionTag = 0xc0c05002;
 
 -(void) dealloc
 {
-	[subItems_ release];
+	[_subItems release];
 	[super dealloc];
 }
 
@@ -818,7 +788,7 @@ const NSInteger	kCCZoomActionTag = 0xc0c05002;
 		if( _currentItem )
 			[_currentItem removeFromParentAndCleanup:NO];
 		
-		CCMenuItem *item = [subItems_ objectAtIndex:_selectedIndex];
+		CCMenuItem *item = [_subItems objectAtIndex:_selectedIndex];
 		[self addChild:item z:0];
         self.currentItem = item;
 
@@ -837,20 +807,20 @@ const NSInteger	kCCZoomActionTag = 0xc0c05002;
 -(void) selected
 {
 	[super selected];
-	[[subItems_ objectAtIndex:_selectedIndex] selected];
+	[[_subItems objectAtIndex:_selectedIndex] selected];
 }
 
 -(void) unselected
 {
 	[super unselected];
-	[[subItems_ objectAtIndex:_selectedIndex] unselected];
+	[[_subItems objectAtIndex:_selectedIndex] unselected];
 }
 
 -(void) activate
 {
 	// update index
 	if( _isEnabled ) {
-		NSUInteger newIndex = (_selectedIndex + 1) % [subItems_ count];
+		NSUInteger newIndex = (_selectedIndex + 1) % [_subItems count];
 		[self setSelectedIndex:newIndex];
 
 	}
@@ -862,30 +832,14 @@ const NSInteger	kCCZoomActionTag = 0xc0c05002;
 {
 	if( _isEnabled != enabled ) {
 		[super setIsEnabled:enabled];
-		for(CCMenuItem* item in subItems_)
+		for(CCMenuItem* item in _subItems)
 			[item setIsEnabled:enabled];
 	}
 }
 
 -(CCMenuItem*) selectedItem
 {
-	return [subItems_ objectAtIndex:_selectedIndex];
-}
-
-#pragma mark CCMenuItemToggle - CCRGBAProtocol protocol
-
-- (void) setOpacity: (GLubyte)opacity
-{
-	opacity_ = opacity;
-	for(CCMenuItem<CCRGBAProtocol>* item in subItems_)
-		[item setOpacity:opacity];
-}
-
-- (void) setColor:(ccColor3B)color
-{
-	color_ = color;
-	for(CCMenuItem<CCRGBAProtocol>* item in subItems_)
-		[item setColor:color];
+	return [_subItems objectAtIndex:_selectedIndex];
 }
 
 @end

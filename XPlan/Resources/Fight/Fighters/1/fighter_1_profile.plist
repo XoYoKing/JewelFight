@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>id</key>
+	<string>fighter_1</string>
+	<key>animations</key>
+	<dict>
+		<key>idle</key>
+		<dict>
+			<key>delay</key>
+			<real>0.05</real>
+			<key>format</key>
+			<string>fighter_1_idle_%03d.png</string>
+			<key>frameCount</key>
+			<integer>10</integer>
+			<key>spritesheets</key>
+			<array>
+				<string>fighter_1_idle.plist</string>
+			</array>
+		</dict>
+	</dict>
+	<key>sounds</key>
+	<dict/>
+	<key>sprites</key>
+	<dict/>
+	<key>attributes</key>
+	<dict>
+		<key>type</key>
+		<string></string>
+		<key>title</key>
+		<string>樱</string>
+		<key>description</key>
+		<string>樱</string>
+	</dict>
+</dict>
+</plist>

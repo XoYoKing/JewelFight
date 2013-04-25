@@ -137,12 +137,12 @@
         // 设置对手操控区域
         opponentJewelController = [[JewelController alloc] initWithJewelPanel:pvpLayer.player1JewelPanel.jewelPanel operatorUserId:opponentUser.userId];
     }
-    
-    // 设置战斗背景
-    [pvpLayer.fightPanel setFightStreet:streetId];
-    
+
     // 显示战斗场景
     fightController = [[FightController alloc] initWithFightPanel:pvpLayer.fightPanel];
+    
+    // 设置战斗背景
+    [fightController setFightStreet:streetId];
     
 }
 
@@ -153,6 +153,9 @@
     
     [self registerServerListener];
     [self registerMessageListener];
+    
+    // 开始
+    [fightController start];
 }
 
 -(void) exitFight

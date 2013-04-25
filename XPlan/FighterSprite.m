@@ -25,12 +25,7 @@
 
 -(id) initWithFightField:(FightField*)field fighterVo:(FighterVo*)fv
 {
-    // 设置初始化的英雄形象
-    KITProfile *profile = [KITProfile profileWithName:[NSString stringWithFormat:@"fighter_%d_graphics",fv.heroId]];
-    
-    // 初始设置静止素材
-    id ret = [self initWithSpriteFrame:[profile spriteFrameForKey:@"idle"]];
-    if (ret!=nil)
+    if ((self = [super init]))
     {
         fightField = field;
         fighterVo = [fv retain];
@@ -39,6 +34,9 @@
         state = kFighterStateIdle; // 英雄状态
         effects = [[NSMutableDictionary alloc] initWithCapacity:5];
         textEffectQueue = [[CCArray alloc] initWithCapacity:10];
+        
+        // 设置动画
+        //[self idleAnimation];
     }
     
     return self;
@@ -53,7 +51,7 @@
 
 -(KITProfile*) profile
 {
-    NSString *profileName = [NSString stringWithFormat:@"fighter_%d_profile",fighterVo.heroId];
+    NSString *profileName = [NSString stringWithFormat:@"fighter_%d",fighterVo.heroId];
     return [KITProfile profileWithName:profileName];
 }
 
@@ -61,6 +59,7 @@
 {
     return fighterVo.globalId;
 }
+
 
 -(BOOL) update:(ccTime)delta
 {
@@ -127,7 +126,7 @@
 
 -(void) die
 {
-    self.state = kFighterStateDying;
+    self.state = kFighterStateDied;
     
     // 播放死亡音效
     [self.profile playSoundSolo:@"die"];
@@ -218,6 +217,11 @@
 -(BOOL) isAnimationPlaying:(int)actionTag
 {
     return [self getActionByTag:actionTag] != nil;
+}
+
+-(void) idleAnimation
+{
+    [self setAnimation:@"idle" tag:kTagFighterAnimationIdle repeat:YES restore:NO];
 }
 
 -(void) winAnimation

@@ -82,7 +82,9 @@ static GameController *_gameControllerInstance = nil;
 -(void) initServer
 {
     server = [[GameServer alloc] init];
-    [server registerServer:SERVER_GAME host:@"127.0.0.1" port:9080];
+    //NSString *host = @"127.0.0.1";
+    NSString *host = @"192.168.1.102";
+    [server registerServer:SERVER_GAME host:host port:9080];
 }
 
 /// 获取宝石配置信息

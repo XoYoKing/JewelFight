@@ -395,21 +395,21 @@
 -(void) visit
 {
 	// quick return if not visible
-	if (!visible_)
+	if (!_visible)
 		return;
 	
 	kmGLPushMatrix();
 	
     //	glPushMatrix();
 	
-	if ( grid_ && grid_.active) {
-		[grid_ beforeDraw];
+	if ( _grid && _grid.active) {
+		[_grid beforeDraw];
 		[self transformAncestors];
 	}
 	[self transform];
     [self beforeDraw];
-	if(children_) {
-		ccArray *arrayData = children_->data;
+	if(_children) {
+		ccArray *arrayData = _children->data;
 		NSUInteger i=0;
 		
 		// draw children zOrder < 0
@@ -434,8 +434,8 @@
 		[self draw];
 	
     [self afterDraw];
-	if ( grid_ && grid_.active)
-		[grid_ afterDraw:self];
+	if ( _grid && _grid.active)
+		[_grid afterDraw:self];
 	
 	kmGLPopMatrix();
 	

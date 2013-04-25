@@ -40,35 +40,33 @@
  All features from CCNode are valid, plus the following features:
  - opacity and RGB colors
  */
-@interface CCAtlasNode : CCNode <CCRGBAProtocol, CCTextureProtocol>
+@interface CCAtlasNode : CCNodeRGBA <CCTextureProtocol>
 {
 	// texture atlas
-	CCTextureAtlas	*textureAtlas_;
+	CCTextureAtlas	*_textureAtlas;
 
 	// chars per row
-	NSUInteger		itemsPerRow_;
+	NSUInteger		_itemsPerRow;
 	// chars per column
-	NSUInteger		itemsPerColumn_;
+	NSUInteger		_itemsPerColumn;
 
 	// width of each char
-	NSUInteger		itemWidth_;
+	NSUInteger		_itemWidth;
 	// height of each char
-	NSUInteger		itemHeight_;
+	NSUInteger		_itemHeight;
 
 	// quads to draw
-	NSUInteger		quadsToDraw_;
+	NSUInteger		_quadsToDraw;
 
 	// blend function
-	ccBlendFunc		blendFunc_;
+	ccBlendFunc		_blendFunc;
 
 	// texture RGBA.
-	GLubyte		opacity_;
-	ccColor3B	color_;
-	ccColor3B	colorUnmodified_;
-	BOOL opacityModifyRGB_;
+	ccColor3B	_colorUnmodified;
+	BOOL		_opacityModifyRGB;
 
 	// color uniform
-	GLint	uniformColor_;
+	GLint	_uniformColor;
 }
 
 /** conforms to CCTextureProtocol protocol */
@@ -77,8 +75,6 @@
 /** conforms to CCTextureProtocol protocol */
 @property (nonatomic,readwrite) ccBlendFunc blendFunc;
 
-/** conforms to CCRGBAProtocol protocol */
-@property (nonatomic,readwrite) GLubyte opacity;
 /** conforms to CCRGBAProtocol protocol */
 @property (nonatomic,readwrite) ccColor3B color;
 

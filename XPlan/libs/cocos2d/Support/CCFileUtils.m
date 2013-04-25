@@ -122,6 +122,8 @@ NSInteger ccLoadFileIntoMemory(const char *filename, unsigned char **out)
 @synthesize searchResolutionsOrder = _searchResolutionsOrder;
 @synthesize suffixesDict = _suffixesDict, directoriesDict = _directoriesDict;
 @synthesize searchMode = _searchMode;
+@synthesize searchPath = _searchPath;
+@synthesize filenameLookup = _filenameLookup;
 
 + (id)sharedFileUtils
 {
@@ -149,6 +151,8 @@ NSInteger ccLoadFileIntoMemory(const char *filename, unsigned char **out)
 		_searchResolutionsOrder = [[NSMutableArray alloc] initWithCapacity:5];
 		
 		_searchPath = [[NSMutableArray alloc] initWithObjects:@"", nil];
+		
+		_filenameLookup = [[NSMutableDictionary alloc] initWithCapacity:10];
 								  
 		
 #ifdef __CC_PLATFORM_IOS
@@ -157,8 +161,8 @@ NSInteger ccLoadFileIntoMemory(const char *filename, unsigned char **out)
 						 @"-ipadhd", kCCFileUtilsiPadHD,
 						 @"", kCCFileUtilsiPhone,
 						 @"-hd", kCCFileUtilsiPhoneHD,
-						 @"-wide", kCCFileUtilsiPhone5,
-						 @"-widehd", kCCFileUtilsiPhone5HD,
+						 @"-iphone5", kCCFileUtilsiPhone5,
+						 @"-iphone5hd", kCCFileUtilsiPhone5HD,
 						 @"", kCCFileUtilsDefault,
 						 nil];
 
@@ -187,7 +191,7 @@ NSInteger ccLoadFileIntoMemory(const char *filename, unsigned char **out)
 
 #endif // __CC_PLATFORM_IOS
 
-		_searchMode = kCCFileUtilsSearchSuffix;
+		_searchMode = kCCFileUtilsSearchSuffixMode;
 		
 		[self buildSearchResolutionsOrder];
 	}
@@ -215,6 +219,7 @@ NSInteger ccLoadFileIntoMemory(const char *filename, unsigned char **out)
 	[_directoriesDict release];
 	[_searchResolutionsOrder release];
 	[_searchPath release];
+	[_filenameLookup release];
 	
 	[super dealloc];
 }
@@ -282,13 +287,24 @@ NSInteger ccLoadFileIntoMemory(const char *filename, unsigned char **out)
 
 -(NSString*) pathForResource:(NSString*)resource ofType:(NSString *)ext inDirectory:(NSString *)subpath
 {
+    // An absolute path could be used if the searchPath contains absolute paths
+    if( [subpath isAbsolutePath] ) {
+        NSString *fullpath = [subpath stringByAppendingPathComponent:resource];
+        if( ext )
+            fullpath = [fullpath stringByAppendingPathExtension:ext];
+        
+        if( [_fileManager fileExistsAtPath:fullpath] )
+            return fullpath;
+        return nil;
+    }
+    
 	// Default to normal resource directory
 	return [_bundle pathForResource:resource
 							 ofType:ext
 						inDirectory:subpath];
 }
 
--(NSString*) getPath:(NSString*)path forSuffix:(NSString*)suffix
+-(NSString*) getPathForFilename:(NSString*)path withSuffix:(NSString*)suffix
 {
 	NSString *newName = path;
 	
@@ -343,28 +359,31 @@ NSInteger ccLoadFileIntoMemory(const char *filename, unsigned char **out)
 	return ret;
 }
 
--(NSString*) getPath:(NSString*)path forDirectory:(NSString*)directory
+-(NSString*) getPathForFilename:(NSString*)filename withResourceDirectory:(NSString*)resourceDirectory withSearchPath:(NSString*)searchPath
 {	
 	NSString *ret = nil;
+	
+	NSString *file = [filename lastPathComponent];
+	NSString *file_path = [filename stringByDeletingLastPathComponent];
+
+	// searchPath + file_path + resourceDirectory
+	NSString * path = [searchPath stringByAppendingPathComponent:file_path];
+	path = [path stringByAppendingPathComponent:resourceDirectory];
+
 	// only if it is not an absolute path
-	if( ! [path isAbsolutePath] ) {
+	if( ! [filename isAbsolutePath] ) {
 		
 		// pathForResource also searches in .lproj directories. issue #1230
-		// If the file does not exist it will return nil.
-		NSString *filename = [path lastPathComponent];
-		NSString *imageDirectory = [directory stringByAppendingPathComponent: [path stringByDeletingLastPathComponent]];
-		
+		// If the file does not exist it will return nil.		
 		// on iOS it is OK to pass inDirector=nil and pass a path in "Resources",
 		// but on OS X it doesn't work.
-		ret = [self pathForResource:filename
+		ret = [self pathForResource:file
 							 ofType:nil
-						inDirectory:imageDirectory];
+						inDirectory:path];
 	}
 	else
 	{
-		NSString* newDir = [path stringByDeletingLastPathComponent];
-		NSString* newFile = [path lastPathComponent];
-		NSString *newName = [[newDir stringByAppendingPathComponent:directory] stringByAppendingPathComponent:newFile];
+		NSString *newName = [[file_path stringByAppendingPathComponent:path] stringByAppendingPathComponent:file];
 		if ([_fileManager fileExistsAtPath:newName])
 			ret = newName;
 	}
@@ -410,72 +429,108 @@ NSInteger ccLoadFileIntoMemory(const char *filename, unsigned char **out)
 }
 
 
--(NSString*) fullPathFromRelativePathIgnoringResolutions:(NSString*)relPath
+-(NSString*) fullPathForFilenameIgnoringResolutions:(NSString*)filename
 {
-	if ([relPath isAbsolutePath])
-		return relPath;
-	
-	NSString* ret = [_fullPathNoResolutionsCache objectForKey:relPath];
+	// fullpath? return it
+	if ([filename isAbsolutePath])
+		return filename;
+
+	// Already cached ?
+	NSString* ret = [_fullPathNoResolutionsCache objectForKey:filename];
 	if (ret)
 		return ret;
 	
+	// Lookup rules
+	NSString *newfilename = [_filenameLookup objectForKey:filename];
+	if( ! newfilename )
+		newfilename = filename;
+
+	
 	for( NSString *path in _searchPath ) {
 		
-		ret = [path stringByAppendingPathComponent:relPath];
-
+		ret = [path stringByAppendingPathComponent:newfilename];
+		
 		if ([_fileManager fileExistsAtPath:ret])
 			break;
 		
-		NSString *fileName = [relPath lastPathComponent];
-		NSString *filePath = [relPath stringByDeletingLastPathComponent];
+		NSString *file = [ret lastPathComponent];
+		NSString *file_path = [ret stringByDeletingLastPathComponent];
 		// Default to normal resource directory
-		ret = [_bundle pathForResource:fileName
-								 ofType:nil
-						   inDirectory:filePath];
+		ret = [_bundle pathForResource:file
+								ofType:nil
+						   inDirectory:file_path];
 		if(ret)
 			break;
 	}
-	
+
 	// Save in cache
-	if (ret)
-		[_fullPathNoResolutionsCache setObject:ret forKey:relPath];
+	if( ret )
+		[_fullPathNoResolutionsCache setObject:ret forKey:filename];
 	else
-		CCLOGINFO(@"cocos2d: CCFileUtils: file not found: %@", relPath );
+		CCLOGINFO(@"cocos2d: CCFileUtils: file not found: %@", filename );
 	
 	return ret;
 }
 
--(NSString*) fullPathFromRelativePath:(NSString*)relPath resolutionType:(ccResolutionType*)resolutionType
+-(NSString*) fullPathFromRelativePathIgnoringResolutions:(NSString*)relPath
 {
-	NSAssert(relPath != nil, @"CCFileUtils: Invalid path");
+	NSString *ret = [self fullPathForFilenameIgnoringResolutions:relPath];
+
+	if( !ret )
+		ret = relPath;
 	
-	CCCacheValue *value = [_fullPathCache objectForKey:relPath];
+	return ret;
+}
+
+-(NSString*) fullPathForFilename:(NSString*)filename
+{
+	ccResolutionType ignore;
+	return [self fullPathForFilename:filename resolutionType:&ignore];
+}
+
+-(NSString*) fullPathForFilename:(NSString*)filename resolutionType:(ccResolutionType*)resolutionType
+{
+	// fullpath? return it
+	if ([filename isAbsolutePath]) {
+		CCLOGWARN(@"cocos2d: WARNING fullPathForFilename:resolutionType: should not be called with absolute path. Instead call fullPathForFilenameIgnoringResolutions:");
+		*resolutionType = kCCResolutionUnknown;
+		return filename;
+	}
+
+	// Already Cached ?
+	CCCacheValue *value = [_fullPathCache objectForKey:filename];
 	if( value ) {
 		*resolutionType = value.resolutionType;
 		return value.fullpath;
 	}
+
+	// in Lookup Filename dictionary ?
+	NSString *newfilename = [_filenameLookup objectForKey:filename];
+	if( ! newfilename )
+		newfilename = filename;
+
 	BOOL found = NO;
 	NSString *ret = @"";
-
+	
 	for( NSString *path in _searchPath ) {
-
-		NSString *fileWithPath = [path stringByAppendingPathComponent:relPath];
 		
 		// Search with Suffixes
 		for( NSString *device in _searchResolutionsOrder ) {
 
-			if( _searchMode == kCCFileUtilsSearchSuffix ) {
+			NSString *fileWithPath = [path stringByAppendingPathComponent:newfilename];
+			
+			if( _searchMode == kCCFileUtilsSearchSuffixMode ) {
 				// Search using suffixes
 				NSString *suffix = [_suffixesDict objectForKey:device];
-				ret = [self getPath:fileWithPath forSuffix:suffix];
+				ret = [self getPathForFilename:fileWithPath withSuffix:suffix];
 				*resolutionType = [self resolutionTypeForKey:suffix inDictionary:_suffixesDict];
 			} else {
 				// Search in subdirectories
 				NSString *directory = [_directoriesDict objectForKey:device];
-				ret = [self getPath:fileWithPath forDirectory:directory];
+				ret = [self getPathForFilename:newfilename withResourceDirectory:directory withSearchPath:path];
 				*resolutionType = [self resolutionTypeForKey:directory inDictionary:_directoriesDict];
 			}
-
+			
 			if( ret ) {
 				found = YES;
 				break;
@@ -486,15 +541,31 @@ NSInteger ccLoadFileIntoMemory(const char *filename, unsigned char **out)
 		if(found)
 			break;
 	}
-	
-	if( ! found ) {
-		CCLOGWARN(@"cocos2d: Warning: File not found: %@", relPath);
-		ret = relPath;
+
+	if( found ) {
+		value = [[CCCacheValue alloc] initWithFullPath:ret resolutionType:*resolutionType];
+		[_fullPathCache setObject:value forKey:filename];
+		[value release];
+	}
+	else
+	{
+		CCLOGWARN(@"cocos2d: Warning: File not found: %@", filename);
+		ret = nil;
 	}
 	
-	value = [[CCCacheValue alloc] initWithFullPath:ret resolutionType:*resolutionType];
-	[_fullPathCache setObject:value forKey:relPath];
-	[value release];
+	
+	return ret;
+}
+
+-(NSString*) fullPathFromRelativePath:(NSString*)relPath resolutionType:(ccResolutionType*)resolutionType
+{
+	NSAssert(relPath != nil, @"CCFileUtils: Invalid path");
+
+	NSString *ret = [self fullPathForFilename:relPath resolutionType:resolutionType];
+	
+	// The only difference is that it returns nil
+	if( ! ret )
+		ret = relPath;
 	
 	return ret;
 }
@@ -505,8 +576,36 @@ NSInteger ccLoadFileIntoMemory(const char *filename, unsigned char **out)
 	return [self fullPathFromRelativePath:relPath resolutionType:&ignore];
 }
 
-#pragma mark CCFileUtils - Suffix / Directory search chain
+-(void) loadFilenameLookupDictionaryFromFile:(NSString*)filename
+{
+	NSString *fullpath = [self fullPathForFilenameIgnoringResolutions:filename];
+	if( fullpath ) {
+		NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile:fullpath];
 
+		NSDictionary *metadata = [dict objectForKey:@"metadata"];
+		NSInteger version = [[metadata objectForKey:@"version"] integerValue];
+		if( version != 1) {
+			CCLOG(@"cocos2d: ERROR: Invalid filenameLookup dictionary version: %ld. Filename: %@", (long)version, filename);
+			return;
+		}
+		
+		NSMutableDictionary *filenames = [dict objectForKey:@"filenames"];
+		self.filenameLookup = filenames;
+	}
+}
+
+#pragma mark Helpers
+
+-(NSString*) standarizePath:(NSString*)path
+{
+	NSString *ret = [path stringByStandardizingPath];
+	if( _searchMode == kCCFileUtilsSearchSuffixMode )
+		ret = [self removeSuffixFromFile:ret];
+	
+	return ret;
+}
+
+#pragma mark CCFileUtils - Suffix / Directory search chain
 
 -(void) setEnableiPhoneResourcesOniPad:(BOOL)enable
 {
@@ -605,7 +704,7 @@ NSInteger ccLoadFileIntoMemory(const char *filename, unsigned char **out)
 	if (fullpath == nil)
 		fullpath = relPath;
 
-	NSString *path = [self getPath:fullpath forSuffix:suffix];
+	NSString *path = [self getPathForFilename:fullpath withSuffix:suffix];
 
 	return ( path != nil );
 }

@@ -63,7 +63,7 @@
 {
     streetId = sId;
     
-    [self.fightField setFightStreet:streetId];
+    [fightPanel setFightStreet:streetId];
 }
 
 -(void) setLeftFighterVos:(CCArray *)leftList rightFighterVos:(CCArray *)rightList
@@ -82,6 +82,27 @@
     for (FighterVo *fv in rightList)
     {
         [allFighterVoDict setObject:fv forKey:[NSNumber numberWithLong:fv.globalId]];
+    }
+}
+
+-(void) start
+{
+    // 第一批战士出战
+    // 出战
+    [self fighterEnterFightField:[leftFighterVoList objectAtIndex:0] team:0];
+    [self fighterEnterFightField:[rightFighterVoList objectAtIndex:0] team:1];
+}
+
+/// 战士上场
+-(void) fighterEnterFightField:(FighterVo*)fv team:(int)team
+{
+    if (team == 0)
+    {
+        [fightPanel.fightField createFighterSpriteWithFighterVo:fv];
+    }
+    else
+    {
+        
     }
 }
 

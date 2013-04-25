@@ -66,7 +66,7 @@
 	if( (self=[super init]) ) {
 
 		CGSize s = [[CCDirector sharedDirector] winSize];
-		anchorPoint_ = ccp(0.5f, 0.5f);
+		_anchorPoint = ccp(0.5f, 0.5f);
 		[self setContentSize:s];
 		self.ignoreAnchorPointForPosition = YES;
 
@@ -109,7 +109,7 @@
 {
 	if( enabled != _accelerometerEnabled ) {
 		_accelerometerEnabled = enabled;
-		if( isRunning_ ) {
+		if( _isRunning ) {
 			if( enabled )
 				[[UIAccelerometer sharedAccelerometer] setDelegate:(id<UIAccelerometerDelegate>)self];
 			else
@@ -132,7 +132,7 @@
 {	
 	if( _touchEnabled != enabled ) {
 		_touchEnabled = enabled;
-		if( isRunning_) {
+		if( _isRunning) {
 			if( enabled )
 				[self registerWithTouchDispatcher];
 			else {
@@ -189,7 +189,7 @@
 	if( _mouseEnabled != enabled ) {
 		_mouseEnabled = enabled;
 		
-		if( isRunning_ ) {
+		if( _isRunning ) {
 			CCDirector *director = [CCDirector sharedDirector];
 			if( enabled )
 				[[director eventDispatcher] addMouseDelegate:self priority:_mousePriority];
@@ -225,7 +225,7 @@
 	if( _keyboardEnabled != enabled ) {
 		_keyboardEnabled = enabled;
 
-		if( isRunning_ ) {
+		if( _isRunning ) {
 			CCDirector *director = [CCDirector sharedDirector];
 			if( enabled )
 				[[director eventDispatcher] addKeyboardDelegate:self priority:_keyboardPriority ];
@@ -260,7 +260,7 @@
 {
 	if( _touchEnabled != enabled ) {
 		_touchEnabled = enabled;
-		if( isRunning_ ) {
+		if( _isRunning ) {
 			CCDirector *director = [CCDirector sharedDirector];
 			if( enabled )
 				[[director eventDispatcher] addTouchDelegate:self priority:_touchPriority];
@@ -295,7 +295,7 @@
 {
 	if( _gestureEnabled != enabled ) {
 		_gestureEnabled = enabled;
-		if( isRunning_ ) {
+		if( _isRunning ) {
 			CCDirector *director = [CCDirector sharedDirector];
 			if( enabled )
 				[[director eventDispatcher] addGestureDelegate:self priority:_gesturePriority];
@@ -408,6 +408,103 @@
 #endif
 @end
 
+
+#pragma mark - LayerRGBA
+
+@implementation CCLayerRGBA
+
+@synthesize cascadeColorEnabled = _cascadeColorEnabled;
+@synthesize cascadeOpacityEnabled = _cascadeOpacityEnabled;
+
+-(id) init
+{
+	if ( (self=[super init]) ) {
+        _displayedOpacity = _realOpacity = 255;
+        _displayedColor = _realColor = ccWHITE;
+		self.cascadeOpacityEnabled = NO;
+		self.cascadeColorEnabled = NO;
+    }
+    return self;
+}
+
+-(GLubyte) opacity
+{
+	return _realOpacity;
+}
+
+-(GLubyte) displayedOpacity
+{
+	return _displayedOpacity;
+}
+
+/** Override synthesized setOpacity to recurse items */
+- (void) setOpacity:(GLubyte)opacity
+{
+	_displayedOpacity = _realOpacity = opacity;
+
+	if( _cascadeOpacityEnabled ) {
+		GLubyte parentOpacity = 255;
+		if( [_parent conformsToProtocol:@protocol(CCRGBAProtocol)] && [(id<CCRGBAProtocol>)_parent isCascadeOpacityEnabled] )
+			parentOpacity = [(id<CCRGBAProtocol>)_parent displayedOpacity];
+		[self updateDisplayedOpacity:parentOpacity];
+	}
+}
+
+-(ccColor3B) color
+{
+	return _realColor;
+}
+
+-(ccColor3B) displayedColor
+{
+	return _displayedColor;
+}
+
+- (void) setColor:(ccColor3B)color
+{
+	_displayedColor = _realColor = color;
+	
+	if( _cascadeColorEnabled ) {
+		ccColor3B parentColor = ccWHITE;
+		if( [_parent conformsToProtocol:@protocol(CCRGBAProtocol)] && [(id<CCRGBAProtocol>)_parent isCascadeColorEnabled] )
+			parentColor = [(id<CCRGBAProtocol>)_parent displayedColor];
+		[self updateDisplayedColor:parentColor];
+	}
+}
+
+- (void)updateDisplayedOpacity:(GLubyte)parentOpacity
+{
+	_displayedOpacity = _realOpacity * parentOpacity/255.0;
+
+    if (_cascadeOpacityEnabled) {
+        id<CCRGBAProtocol> item;
+        CCARRAY_FOREACH(_children, item) {
+            if ([item conformsToProtocol:@protocol(CCRGBAProtocol)]) {
+                [item updateDisplayedOpacity:_displayedOpacity];
+            }
+        }
+    }
+}
+
+- (void)updateDisplayedColor:(ccColor3B)parentColor
+{
+	_displayedColor.r = _realColor.r * parentColor.r/255.0;
+	_displayedColor.g = _realColor.g * parentColor.g/255.0;
+	_displayedColor.b = _realColor.b * parentColor.b/255.0;
+
+    if (_cascadeColorEnabled) {
+        id<CCRGBAProtocol> item;
+        CCARRAY_FOREACH(_children, item) {
+            if ([item conformsToProtocol:@protocol(CCRGBAProtocol)]) {
+                [item updateDisplayedColor:_displayedColor];
+            }
+        }
+    }
+}
+
+@end
+
+
 #pragma mark -
 #pragma mark LayerColor
 
@@ -418,8 +515,7 @@
 @implementation CCLayerColor
 
 // Opacity and RGB color protocol
-@synthesize opacity = _opacity, color = _color;
-@synthesize blendFunc = blendFunc_;
+@synthesize blendFunc = _blendFunc;
 
 
 + (id) layerWithColor:(ccColor4B)color width:(GLfloat)w  height:(GLfloat) h
@@ -444,12 +540,12 @@
 	if( (self=[super init]) ) {
 
 		// default blend function
-		blendFunc_ = (ccBlendFunc) { GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA };
+		_blendFunc = (ccBlendFunc) { GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA };
 
-		_color.r = color.r;
-		_color.g = color.g;
-		_color.b = color.b;
-		_opacity = color.a;
+		_displayedColor.r = _realColor.r = color.r;
+		_displayedColor.g = _realColor.g = color.g;
+		_displayedColor.b = _realColor.b = color.b;
+		_displayedOpacity = _realOpacity = color.a;
 
 		for (NSUInteger i = 0; i<sizeof(_squareVertices) / sizeof( _squareVertices[0]); i++ ) {
 			_squareVertices[i].x = 0.0f;
@@ -470,6 +566,7 @@
 	return [self initWithColor:color width:s.width height:s.height];
 }
 
+
 // override contentSize
 -(void) setContentSize: (CGSize) size
 {
@@ -488,22 +585,22 @@
 
 -(void) changeWidth: (GLfloat) w
 {
-	[self setContentSize:CGSizeMake(w, contentSize_.height)];
+	[self setContentSize:CGSizeMake(w, _contentSize.height)];
 }
 
 -(void) changeHeight: (GLfloat) h
 {
-	[self setContentSize:CGSizeMake(contentSize_.width, h)];
+	[self setContentSize:CGSizeMake(_contentSize.width, h)];
 }
 
 - (void) updateColor
 {
 	for( NSUInteger i = 0; i < 4; i++ )
 	{
-		_squareColors[i].r = _color.r / 255.0f;
-		_squareColors[i].g = _color.g / 255.0f;
-		_squareColors[i].b = _color.b / 255.0f;
-		_squareColors[i].a = _opacity / 255.0f;
+		_squareColors[i].r = _displayedColor.r / 255.0f;
+		_squareColors[i].g = _displayedColor.g / 255.0f;
+		_squareColors[i].b = _displayedColor.b / 255.0f;
+		_squareColors[i].a = _displayedOpacity / 255.0f;
 	}
 }
 
@@ -519,7 +616,7 @@
 	glVertexAttribPointer(kCCVertexAttrib_Position, 2, GL_FLOAT, GL_FALSE, 0, _squareVertices);
 	glVertexAttribPointer(kCCVertexAttrib_Color, 4, GL_FLOAT, GL_FALSE, 0, _squareColors);
 
-	ccGLBlendFunc( blendFunc_.src, blendFunc_.dst );
+	ccGLBlendFunc( _blendFunc.src, _blendFunc.dst );
 
 	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 	
@@ -531,13 +628,13 @@
 
 -(void) setColor:(ccColor3B)color
 {
-	_color = color;
+    [super setColor:color];
 	[self updateColor];
 }
 
--(void) setOpacity: (GLubyte) o
+-(void) setOpacity: (GLubyte) opacity
 {
-	_opacity = o;
+    [super setOpacity:opacity];
 	[self updateColor];
 }
 @end
@@ -548,9 +645,9 @@
 
 @implementation CCLayerGradient
 
-@synthesize startOpacity = start_opacity;
-@synthesize endColor = end_color, endOpacity = end_opacity;
-@synthesize vector = vector_;
+@synthesize startOpacity = _startOpacity;
+@synthesize endColor = _endColor, endOpacity = _endOpacity;
+@synthesize vector = _vector;
 
 + (id) layerWithColor: (ccColor4B) start fadingTo: (ccColor4B) end
 {
@@ -574,13 +671,13 @@
 
 - (id) initWithColor: (ccColor4B) start fadingTo: (ccColor4B) end alongVector: (CGPoint) v
 {
-	end_color.r = end.r;
-	end_color.g = end.g;
-	end_color.b = end.b;
+	_endColor.r = end.r;
+	_endColor.g = end.g;
+	_endColor.b = end.b;
 
-	end_opacity		= end.a;
-	start_opacity	= start.a;
-	vector_ = v;
+	_endOpacity		= end.a;
+	_startOpacity	= start.a;
+	_vector = v;
 
 	start.a	= 255;
 	_compressedInterpolation = YES;
@@ -592,12 +689,12 @@
 {
     [super updateColor];
 
-	float h = ccpLength(vector_);
+	float h = ccpLength(_vector);
     if (h == 0)
 		return;
 
 	float c = sqrtf(2);
-    CGPoint u = ccp(vector_.x / h, vector_.y / h);
+    CGPoint u = ccp(_vector.x / h, _vector.y / h);
 
 	// Compressed Interpolation mode
 	if( _compressedInterpolation ) {
@@ -605,20 +702,20 @@
 		u = ccpMult(u, h2 * (float)c);
 	}
 
-	float opacityf = (float)_opacity/255.0f;
+	float opacityf = (float)_displayedOpacity/255.0f;
 
     ccColor4F S = {
-		_color.r / 255.0f,
-		_color.g / 255.0f,
-		_color.b / 255.0f,
-		start_opacity*opacityf / 255.0f,
+		_displayedColor.r / 255.0f,
+		_displayedColor.g / 255.0f,
+		_displayedColor.b / 255.0f,
+		_startOpacity*opacityf / 255.0f,
 	};
 
     ccColor4F E = {
-		end_color.r / 255.0f,
-		end_color.g / 255.0f,
-		end_color.b / 255.0f,
-		end_opacity*opacityf / 255.0f,
+		_endColor.r / 255.0f,
+		_endColor.g / 255.0f,
+		_endColor.b / 255.0f,
+		_endOpacity*opacityf / 255.0f,
 	};
 
 
@@ -646,35 +743,35 @@
 
 -(ccColor3B) startColor
 {
-	return _color;
+	return _realColor;
 }
 
--(void) setStartColor:(ccColor3B)colors
+-(void) setStartColor:(ccColor3B)color
 {
-	[self setColor:colors];
+	[self setColor:color];
 }
 
--(void) setEndColor:(ccColor3B)colors
+-(void) setEndColor:(ccColor3B)color
 {
-    end_color = colors;
+    _endColor = color;
     [self updateColor];
 }
 
 -(void) setStartOpacity: (GLubyte) o
 {
-	start_opacity = o;
+	_startOpacity = o;
     [self updateColor];
 }
 
 -(void) setEndOpacity: (GLubyte) o
 {
-    end_opacity = o;
+    _endOpacity = o;
     [self updateColor];
 }
 
 -(void) setVector: (CGPoint) v
 {
-    vector_ = v;
+    _vector = v;
     [self updateColor];
 }
 

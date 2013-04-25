@@ -42,8 +42,8 @@ extern NSString const *kCCFileUtilsMacHD;
 extern NSString const *kCCFileUtilsDefaultSearchPath;
 
 enum {
-	kCCFileUtilsSearchSuffix,
-	kCCFileUtilsSearchDirectory,
+	kCCFileUtilsSearchSuffixMode,
+	kCCFileUtilsSearchDirectoryMode,
 };
 
 
@@ -52,12 +52,15 @@ enum {
 {
 	NSFileManager		*_fileManager;
 	NSBundle			*_bundle;
+
 	NSMutableDictionary *_fullPathCache;
 	NSMutableDictionary *_fullPathNoResolutionsCache;
 	NSMutableDictionary *_removeSuffixCache;
 	
 	NSMutableDictionary	*_directoriesDict;
 	NSMutableDictionary	*_suffixesDict;
+	
+	NSMutableDictionary	*_filenameLookup;
 	
 	NSMutableArray		*_searchResolutionsOrder;
 	NSMutableArray		*_searchPath;
@@ -158,6 +161,16 @@ enum {
  */
 @property (nonatomic, readwrite) int searchMode;
 
+/** Dictionary used to lookup filenames based on a key.
+ It is used internally by the following methods:
+
+  *	-(NSString*) fullPathForFilename:(NSString*)key resolutionType:(ccResolutionType*)resolutionType;
+  *	-(NSString*) fullPathForFilenameIgnoringResolutions:(NSString*)key;
+
+ @since v2.1
+ */
+@property (nonatomic, readwrite, copy) NSMutableDictionary *filenameLookup;
+
 #ifdef __CC_PLATFORM_IOS
 /** The iPhone RetinaDisplay suffixes to load resources.
  By default it is "-hd" and "" in that order.
@@ -206,6 +219,8 @@ enum {
 
  If in iPhoneRetinaDisplay mode, and a RetinaDisplay file is found, it will return that path.
  If in iPad mode, and an iPad file is found, it will return that path.
+ 
+ If the filename can't be found, it will return "relPath" instead of nil.
 
  Examples:
 
@@ -222,6 +237,8 @@ enum {
  If in iPad mode, and an iPad file is found, it will return that path.
  If in iPhoneRetinaDisplay mode, and a RetinaDisplay file is found, it will return that path. But if it is not found, it will try load an iPhone Non-RetinaDisplay  file.
 
+ If the filename can't be found, it will return "relPath" instead of nil.
+
  Examples:
  
  * In iPad mode: "image.png" -> "/full/path/image-ipad.png" (in case the -ipad file exists)
@@ -234,26 +251,104 @@ enum {
 /** Returns the fullpath of an filename without taking into account the screen resolution suffixes or directories.
 
  It will use the "searchPath" though.
+ If the file can't be found, it will return nil.
+
  Useful for loading music files, shaders, "data" and other files that are not related to the screen resolution of the device.
  
  @since v2.1
  */
 -(NSString*) fullPathFromRelativePathIgnoringResolutions:(NSString*)relPath;
 
+/** Returns the fullpath for a given filename.
+ 
+ First it will try to get a new filename from the "filenameLookup" dictionary. If a new filename can't be found on the dictionary, it will use the original filename.
+ Then it will try obtain the full path of the filename using the CCFileUtils search rules: resolutions, and search paths
+ 
+ If in iPad mode, and an iPad file is found, it will return that path.
+ If in iPhoneRetinaDisplay mode, and a RetinaDisplay file is found, it will return that path. But if it is not found, it will try load an iPhone Non-RetinaDisplay  file.
+ 
+ If the filename can't be found on the file system, it will return nil.
+ 
+ This method was added to simplify multiplatform support. Whether you are using cocos2d-js or any cross-compilation toolchain like StellaSDK or Apportable,
+ you might need to load differerent resources for a given file in the different platforms.
+ 
+ Examples:
+ 
+ * In iPad mode: "image.png" -> "image.pvr" -> "/full/path/image-ipad.pvr" (in case the -ipad file exists)
+ * In Android: "image.png" -> "image.png" -> "/full/path/image.png"
+ 
+ @since v2.1
+ */
+-(NSString*) fullPathForFilename:(NSString*)filename;
 
+/** Returns the fullpath for a given filename.
+ 
+ First it will try to get a new filename from the "filenameLookup" dictionary. If a new filename can't be found on the dictionary, it will use the original filename.
+ Then it will try obtain the full path of the filename using the CCFileUtils search rules: resolutions, and search paths
+ 
+ If in iPad mode, and an iPad file is found, it will return that path.
+ If in iPhoneRetinaDisplay mode, and a RetinaDisplay file is found, it will return that path. But if it is not found, it will try load an iPhone Non-RetinaDisplay  file.
+ 
+ If the filename can't be found on the file system, it will return nil.
+ 
+ This method was added to simplify multiplatform support. Whether you are using cocos2d-js or any cross-compilation toolchain like StellaSDK or Apportable,
+ you might need to load differerent resources for a given file in the different platforms.
+ 
+ Examples:
+ 
+ * In iPad mode: "image.png" -> "image.pvr" -> "/full/path/image-ipad.pvr" (in case the -ipad file exists)
+ * In Android: "image.png" -> "image.png" -> "/full/path/image.png"
+ 
+ @since v2.1
+ */
+-(NSString*) fullPathForFilename:(NSString*)filename resolutionType:(ccResolutionType*)resolutionType;
 
-#ifdef __CC_PLATFORM_IOS
+/** Returns the fullpath for a given filename, without taking into account device resolution.
+ 
+ It will try to get a new filename from the "filenameLookup" dictionary. If a new filename can't be found on the dictionary, it will use the original filename.
+ 
+ Once it gets the filename, it will try to get the fullpath for the filename, using the "searchPath", but it won't use any resolution search rules.
+ If the file can't be found, it will return nil.
+ 
+ Useful for loading music files, shaders, "data" and other files that are not related to the screen resolution of the device.
+ 
+ This method was added to simplify multiplatform support. Whether you are using cocos2d-js or any cross-compilation toolchain like StellaSDK or Apportable,
+ you might need to load differerent resources for a given file in the different platforms.
+
+ Examples:
+ 
+ * On iOS: "sound.wav" -> "sound.caf" -> "/full/path/sound.caf" (in case the key dictionary says that "sound.wav" should be converted to "sound.caf")
+ * On Android: "sound.wav" -> "sound.wav" -> "/full/path/sound.caf" (in case the key dictionary says that "sound.wav" should be converted to "sound.caf")
+
+ 
+ @since v2.1
+ */
+-(NSString*) fullPathForFilenameIgnoringResolutions:(NSString*)key;
+
+/* Loads the filenameLookup dictionary from the contents of a filename.
+ 
+ @since v2.1
+ */
+-(void) loadFilenameLookupDictionaryFromFile:(NSString*)filename;
 
 /** removes the suffix from a path
  * On iPhone RetinaDisplay it will remove the -hd suffix
  * On iPad it will remove the -ipad suffix
  * On iPad RetinaDisplay it will remove the -ipadhd suffix
-
- Only valid on iOS. Not valid for OS X.
-
+ 
  @since v0.99.5
  */
 -(NSString *)removeSuffixFromFile:(NSString*) path;
+
+/* Stadarize a path.
+ 
+ It calls [string stringByStandardizingPath], and if "suffix mode" is on, it will also call [self removeSuffixFromFile:path];
+ 
+ @since v2.1
+ */
+-(NSString*) standarizePath:(NSString*)path;
+
+#ifdef __CC_PLATFORM_IOS
 
 /** Returns whether or not a given path exists with the iPhone RetinaDisplay suffix.
  Only available on iOS. Not supported on OS X.

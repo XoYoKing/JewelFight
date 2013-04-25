@@ -13,10 +13,12 @@
 typedef enum _FighterStates
 {
     kFighterStateIdle = 0, // 闲置状态
-    kFighterStateDying = 4, // 正在死亡
-    kFighterStateDied = 5 // 死掉了
+    kFighterStateHurt = 1, // 受伤状态
+    kFighterStateProvoke = 2, // 角色挑衅状态
+    kFighterStateDied = 3 // 死亡状态
 }FighterStates;
 
+#define kTagFighterAnimationIdle 29 // 闲置
 #define kTagFighterAnimationWin 30 // 胜利动画标识
 #define kTagFighterAnimationFail 31 // 失败动画标识
 
