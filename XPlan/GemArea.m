@@ -7,12 +7,12 @@
 //
 
 #import "GemArea.h"
-#import "GemBoard.h"
+#import "JewelBoard.h"
 #import "GemCell.h"
 
 @implementation GemArea
 
-+(void) getAreaCellsAroundCell:(CCArray *)areaTiles panel:(GemBoard *)panel cell:(GemCell *)cell radius:(int)radius
++(void) getAreaCellsAroundCell:(CCArray *)areaTiles panel:(JewelBoard *)panel cell:(GemCell *)cell radius:(int)radius
 {
     int startX,startY,width,height;
     startX = max(cell.coord.x - radius, 0);

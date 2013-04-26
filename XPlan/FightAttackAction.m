@@ -14,21 +14,9 @@
 #import "EffectSprite.h"
 #import "FightField.h"
 
-#define kTagFightPrepare 50
-#define kTagFightLighting 52
-#define kTagFightMoving 53
-#define kTagFightBeforeAttack 54
-#define kTagFightAttack 55 // 攻击
-#define kTagFightAttackedBy 56 // 被攻击
-#define kTagFightWin 57 // 胜利
-#define kTagFightLose 58 // 失败
-#define kTagFightRetreat 59 // 撤退
-
 @interface FightAttackAction()
 {
-    CGPoint actorStartPos;
     ccTime timer; // 计时器
-    
     EffectSprite *lighting;
 }
 
@@ -78,9 +66,6 @@
         return;
     }
     
-    // 记录出发地点
-    actorStartPos = self.actor.position;
-    
     // 设置开始状态
     newState = kFightAttackStatePrepare;
 }
@@ -92,7 +77,7 @@
 
 -(KITProfile*) skillProfile
 {
-    return [KITProfile profileWithName:[NSString stringWithFormat:@"skill%d_config.plist",attackVo.skillId]];
+    return [KITProfile profileWithName:[NSString stringWithFormat:@"skill_%d",attackVo.skillId]];
 }
 
 -(void) update:(ccTime)delta
@@ -112,85 +97,52 @@
     
     KITProfile *skillProfile = [self skillProfile];
     
+    //
     switch (state)
     {
         case kFightAttackStatePrepare:
         {
-            // 检查准备动画是否完成
-            if (![self.actor isAnimationPlaying:kTagFightPrepare])
+            // 根据技能选择动画
+            NSString *actorAnim = [skillProfile attributeForKey:@"actorPrepareAnim"];
+            if (![self.actor isAnimationRunning:actorAnim])
             {
-                // 跳到下一个状态
-                newState = kFightAttackStateMoving;
+                newState = kFightAttackStateRunning;
             }
             break;
         }
-        // 移动动画
-        case kFightAttackStateMoving:
+        case kFightAttackStateRunning:
         {
-            if (![self.actor getActionByTag:kTagFightMoving])
+            // 根据技能选择动画
+            NSString *actorAnim = [skillProfile attributeForKey:@"actorRunningAnim"];
+            if (![self.actor isAnimationRunning:actorAnim])
             {
-                // 跳到战斗准备状态
-                newState = kFightAttackStateLighting;
-            }
-            
-            break;
-        }
-        case kFightAttackStateLighting:
-        {
-            // 由lightingDone控制完成
-            break;
-        }
-        case kFightAttackStateBeforeAttack:
-        {
-            if (![self.actor getActionByTag:kTagFightBeforeAttack])
-            {
-                // 跳到战斗状态
                 newState = kFightAttackStateAttacking;
             }
             break;
         }
-        // 攻击状态
         case kFightAttackStateAttacking:
         {
-            NSDictionary *config = [skillProfile attributeForKey:@"attackingState"];
+            NSString *actorAnim = [skillProfile attributeForKey:@"actorAttackAnim"];
+            if (![self.actor isAnimationRunning:actorAnim])
+            {
+                newState = kFightAttackStateAttacked;
+            }
             
-            // 超过播放时间,跳过
-            if (timer > [[config valueForKey:@"time"] floatValue])
-            {
-                // 伤害
-                int damage = [self.actor getDamageTo:self.target];
-                // 减少生命值
-                [self.target reduceLife:damage];
-                
-                if (![self.target isAlive])
-                {
-                    // 胜利
-                    newState = kFightAttackStateWin;
-                }
-                else
-                {
-                    // 打完收工
-                    newState = kFightAttackStateRetreat;
-                }
-            }
             break;
         }
-        // 胜利状态
-        case kFightAttackStateWin:
+        case kFightAttackStateAttacked:
         {
-            if (![self.actor isWinAnimationPlaying] && ![self.actor isFailAnimationPlaying])
+            newState = kFightAttackStateBack;
+            break;
+        }
+        case kFightAttackStateBack:
+        {
+            NSString *actorAnim = [skillProfile attributeForKey:@"actorBackAnim"];
+            if (![self.actor isAnimationRunning:actorAnim])
             {
                 newState = kFightAttackStateOver;
             }
-            break;
-        }
-        // 撤退状态
-        case kFightAttackStateRetreat:
-        {
-            if (![self.actor getActionByTag:kTagFightRetreat])
-            {
-                newState = kFightAttackStateOver;
-            }
+            
             break;
         }
     }
@@ -200,90 +152,39 @@
 {
     state = newState = value;
     timer = 0;
+    
     KITProfile *skillProfile = [self skillProfile];
+    
     switch (state)
     {
-        // 准备阶段
+        // 准备状态
         case kFightAttackStatePrepare:
         {
-            // 播放准备阶段动画
-            NSDictionary *config = [skillProfile attributeForKey:@"prepareState"];
-            if (config!=nil)
+            // 根据技能选择动画
+            NSString *actorAnim = [skillProfile attributeForKey:@"actorPrepareAnim"];
+            if (actorAnim)
             {
-                // 播放指定的动画
-                [self.actor setAnimation:[config valueForKey:@"animation"] tag:kTagFightPrepare repeat:NO restore:NO];
+                [self.actor setAnimation:actorAnim];
             }
             else
             {
-                // 配置为空,跳到移动状态
-                newState = kFightAttackStateMoving;
-            }
-            
-            break;
-        }
-        // 移动
-        case kFightAttackStateMoving:
-        {
-            NSDictionary *config = [skillProfile attributeForKey:@"moveState"];
-            if (config!=nil)
-            {
-                // 移动到指定位置
-                CGPoint moveToPos = CGPointZero;
-                // 左侧站位
-                if (self.actor.team == 0)
-                {
-                    // 移动到对手的位置并距离一定位置
-                    moveToPos = ccp(self.target.position.x - [[config valueForKey:@"distance"] floatValue], self.target.position.y);
-                }
-                // 右侧站位
-                else
-                {
-                    moveToPos = ccp(self.target.position.x + [[config valueForKey:@"distance"] floatValue],self.target.position.y);
-                }
-                
-                CCAction *moveAction = [CCMoveTo actionWithDuration:[[config valueForKey:@"time"] floatValue] position:moveToPos];
-                moveAction.tag = kTagFightMoving;
-                [self.actor runAction:moveAction];
-            }
-            else
-            {
-                // 配置为空,跳到发招状态
-                newState = kFightAttackStateLighting;
+                // 否则直接跳到冲锋
+                newState = kFightAttackStateRunning;
             }
             break;
         }
-        // 发招状态
-        case kFightAttackStateLighting:
+        // 冲锋状态
+        case kFightAttackStateRunning:
         {
-            NSDictionary *config = [skillProfile attributeForKey:@"lightingState"];
-            if (config!=nil)
+            // 根据技能选择动画
+            NSString *actorAnim = [skillProfile attributeForKey:@"actorRunningAnim"];
+            if (actorAnim)
             {
-                // 播放全屏发招动画
-                if ([[config valueForKey:@"playLighting"] boolValue])
-                {
-                    [self showLighting];
-                }
+                [self.actor setAnimation:actorAnim];
             }
             else
             {
-                // 配置为空,跳到战斗准备状态
-                newState = kFightAttackStateBeforeAttack;
-            }
-            break;
-        }
-            
-        // 准备攻击状态
-        case kFightAttackStateBeforeAttack:
-        {
-            NSDictionary *config = [skillProfile attributeForKey:@"beforeAttackState"];
-            if (config!=nil)
-            {
-                // 播放指定的动画
-                [self.actor setAnimation:[config valueForKey:@"animation"] tag:kTagFightBeforeAttack repeat:NO restore:NO];
-            }
-            else
-            {
-                // 切到攻击
+                // 否则直接跳到攻击状态
                 newState = kFightAttackStateAttacking;
             }
             break;
@@ -291,117 +192,51 @@
         // 攻击状态
         case kFightAttackStateAttacking:
         {
-            NSDictionary *config = [skillProfile attributeForKey:@"attackingState"];
-            if (config!=nil)
-            {
-                // 播放攻击动画
-                [self.actor setAnimation:[config valueForKey:@"attackAnim"] tag:kTagFightAttack repeat:NO restore:NO];
-                
-                // 播放被攻击动画
-                [self.actor setAnimation:[config valueForKey:@"attackByAnim"] tag:kTagFightAttackedBy repeat:NO restore:NO];
-                
-            }
-            else
-            {
-                // 切到撤退回指定位置
-                newState = kFightAttackStateRetreat;
-            }
-            break;
-        }
-        // 胜利
-        case kFightAttackStateWin:
-        {
-            // 胜利动画
-            [self.actor winAnimation];
-            
-            // 失败动画
-            [self.target failAnimation];
+            NSString *attackAnim = [skillProfile attributeForKey:@"actorAttackAnim"];
+            [self.actor setAnimation:attackAnim];
             
             break;
         }
-            
-        // 撤退
-        case kFightAttackStateRetreat:
+        // 攻击完成
+        case kFightAttackStateAttacked:
         {
-            NSDictionary *config = [skillProfile attributeForKey:@"retreatState"];
-            if (config!=nil)
+            // TODO:执行掉血逻辑
+            
+            NSString *targetAnim = [skillProfile attributeForKey:@"targetHurtAnim"];
+            [self.target setAnimation:targetAnim];
+            
+            // 撤回
+            newState = kFightAttackStateBack;
+            break;
+        }
+            
+        // 撤退逻辑
+        case kFightAttackStateBack:
+        {
+            NSString *backAnim = [skillProfile attributeForKey:@"actorBackAnim"];
+            
+            if (backAnim)
             {
-                CCAction *moveAction = [CCMoveTo actionWithDuration:[[config valueForKey:@"time"] floatValue] position:actorStartPos];
-                moveAction.tag = kTagFightRetreat;
-                [self.actor runAction:moveAction];
+                [self.actor setAnimation:backAnim];
             }
             else
             {
+                // 结束
                 newState = kFightAttackStateOver;
             }
             break;
         }
+        case kFightAttackStateOver:
+        {
+            [self.actor setAnimation:@"idle"];
+            [self.target setAnimation:@"idle"];
+            break;
+        }
     }
+
 }
 
 
-/// 显示闪电
--(void) showLighting
-{
-    KITProfile *profile = [KITProfile profileWithName:@"fight_lighting"];
-    
-    lighting = [[EffectSprite alloc] init];
-    lighting.contentSize = CGSizeMake(768,250);
-    
-    // 背景
-    EffectSprite *bg = [[EffectSprite alloc] initWithSpriteFrame:[profile spriteFrameForKey:@"background"]];
-    [lighting addChild:bg];
-    [bg release];
-    
-    // 闪烁
-    EffectSprite *flash = [[EffectSprite alloc] init];
-    [flash animate:[profile animationForKey:@"flash"] tag:-1 repeat:YES restore:NO];
-    [lighting addChild:flash];
-    [flash release];
-    
-    // 闪电
-    EffectSprite *light = [[EffectSprite alloc] init];
-    [light animate:[profile animationForKey:@"light"] tag:-1 repeat:NO restore:NO];
-    [lighting addChild:light];
-    [light release];
-    
-    // 战士头像移动
-    EffectSprite *portrait = [[EffectSprite alloc] initWithSpriteFrame:[self.actor.profile spriteFrameForKey:@"portrait"]];
-    portrait.anchorPoint = ccp(0.5,0.5);
-    [lighting addChild:portrait];
-    CGPoint targetPos = CGPointZero;
-    if (self.actor.team == 0)
-    {
-        portrait.position = ccp(-portrait.width,125);
-        targetPos = ccp(284,125);
-    }
-    else
-    {
-        portrait.position = ccp(fightField.width+portrait.width,125);
-        targetPos = ccp(384,125);
-    }
-    
-    // 执行动作
-    [portrait runAction:[CCMoveTo actionWithDuration:0.4f position:targetPos]];
-    
-    [fightField addEffectSprite:lighting];
-    
-    [lighting runAction:[CCSequence actions:
-                         [CCDelayTime actionWithDuration:0.4f],
-                         [CCCallFunc actionWithTarget:self selector:@selector(lightingDone)]
-                         , nil]];
-}
-
--(void) lightingDone
-{
-    // 清理闪电
-    [lighting removeFromParentAndCleanup:YES];
-    [lighting release];
-    lighting = nil;
-    
-    // 准备攻击
-    newState = kFightAttackStateBeforeAttack;
-}
 
 
 @end

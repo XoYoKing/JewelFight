@@ -7,10 +7,10 @@
 //
 
 #import "JewelDropAction.h"
-#import "GemController.h"
-#import "GemBoard.h"
-#import "GemSprite.h"
-#import "GemVo.h"
+#import "JewelController.h"
+#import "JewelBoard.h"
+#import "JewelSprite.h"
+#import "JewelVo.h"
 #import "GemCell.h"
 #import "JewelEliminateAction.h"
 #import "JewelMessageData.h"
@@ -25,7 +25,7 @@
 
 @implementation JewelDropAction
 
--(id) initWithJewelController:(GemController *)contr
+-(id) initWithJewelController:(JewelController *)contr
 {
     if ((self = [super initWithJewelController:contr name:@"JewelDropAction"]))
     {
@@ -49,9 +49,9 @@
     }
     
     // 宝石面板设置为不可操作
-    [jewelController.gemBoard setIsControlEnabled:NO];
+    [jewelController.jewelBoard setIsControlEnabled:NO];
     
-    GemBoard *panel = jewelController.gemBoard;
+    JewelBoard *panel = jewelController.jewelBoard;
     dropJewels = [[CCArray alloc] initWithCapacity:10];
     
     
@@ -89,7 +89,7 @@
         [self skip];
     }
     
-    for (GemSprite *dropSprite in dropJewels)
+    for (JewelSprite *dropSprite in dropJewels)
     {
         [dropSprite drop];
     }
@@ -121,16 +121,16 @@
 -(void) execute
 {
     // 掉落完成
-    [jewelController.gemBoard updateJewelGridInfo];
+    [jewelController.jewelBoard updateJewelGridInfo];
     
     // 检查可消除性
     CCArray *elimList = [[CCArray alloc] initWithCapacity:20];
     
     // 检查可消除宝石集合
-    for (GemSprite *dropSprite in dropJewels)
+    for (JewelSprite *dropSprite in dropJewels)
     {
-        [jewelController.gemBoard checkHorizontalEliminableJewels:elimList withJewel:dropSprite];
-        [jewelController.gemBoard checkVerticalEliminableJewels:elimList withJewel:dropSprite];
+        [jewelController.jewelBoard checkHorizontalEliminableJewels:elimList withJewel:dropSprite];
+        [jewelController.jewelBoard checkVerticalEliminableJewels:elimList withJewel:dropSprite];
     }
     
     if (elimList.count>0)
@@ -144,7 +144,7 @@
     
     
     // 宝石面板设置为可操作
-    [jewelController.gemBoard setIsControlEnabled:YES];
+    [jewelController.jewelBoard setIsControlEnabled:YES];
     
     
 }
@@ -152,7 +152,7 @@
 -(BOOL) isAllJewelsDropped
 {
     BOOL done = YES;
-    for (GemSprite *dropSprite in dropJewels)
+    for (JewelSprite *dropSprite in dropJewels)
     {
         if ([dropSprite isDropping])
         {

@@ -8,7 +8,7 @@
 
 #import "FightCommand.h"
 #import "FighterVo.h"
-#import "GemVo.h"
+#import "JewelVo.h"
 #import "AttackVo.h"
 
 @implementation FightCommand
@@ -16,7 +16,7 @@
 
 
 /// 封装宝石信息
-+(void) populateJewelVo:(GemVo*)jewel data:(ServerDataDecoder*)data
++(void) populateJewelVo:(JewelVo*)jewel data:(ServerDataDecoder*)data
 {
     jewel.globalId = [data readInt32];
     jewel.jewelId = [data readInt32];
@@ -30,6 +30,7 @@
 /// 封装战士信息
 +(void) populateFighterVo:(FighterVo*)fighter data:(ServerDataDecoder*)data
 {
+    fighter.globalId = [data readInt64];
     fighter.heroId = [data readInt64];
     fighter.heroType = [data readInt32]; // 英雄类型
     fighter.userId = [data readInt64];

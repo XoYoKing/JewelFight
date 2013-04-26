@@ -16,7 +16,7 @@
 #import "UserInfo.h"
 #import "GameController.h"
 #import "GameServer.h"
-#import "GemController.h"
+#import "JewelController.h"
 #import "FightController.h"
 #import "GemAddAction.h"
 #import "JewelSwapMessageData.h"
@@ -24,6 +24,8 @@
 #import "GameMessageDispatcher.h"
 #import "NewJewelsCommandData.h"
 #import "DeadJewelsCommandData.h"
+#import "AttackVo.h"
+#import "FightAttackAction.h"
 
 @interface PvPFightController()
 {
@@ -71,6 +73,7 @@
     {
         [playerJewelController update:delta];
         [opponentJewelController update:delta];
+        [fightController update:delta];
     }
 }
 
@@ -123,19 +126,19 @@
     // 设置玩家操控区域
     if (playerTeam == 0)
     {
-        playerJewelController = [[GemController alloc] initWithGemBoard:pvpLayer.player1JewelPanel.gemBoard operatorUserId:[GameController sharedController].player.userId];
-        [playerJewelController.gemBoard active];
+        playerJewelController = [[JewelController alloc] initWithGemBoard:pvpLayer.player1JewelPanel.gemBoard operatorUserId:[GameController sharedController].player.userId];
+        [playerJewelController.jewelBoard active];
         
         // 设置对手操控区域
-        opponentJewelController = [[GemController alloc] initWithGemBoard:pvpLayer.player2JewelPanel.gemBoard operatorUserId:opponentUser.userId];
+        opponentJewelController = [[JewelController alloc] initWithGemBoard:pvpLayer.player2JewelPanel.gemBoard operatorUserId:opponentUser.userId];
     }
     else
     {
-        playerJewelController = [[GemController alloc] initWithGemBoard:pvpLayer.player2JewelPanel.gemBoard operatorUserId:[GameController sharedController].player.userId];
-        [playerJewelController.gemBoard active];
+        playerJewelController = [[JewelController alloc] initWithGemBoard:pvpLayer.player2JewelPanel.gemBoard operatorUserId:[GameController sharedController].player.userId];
+        [playerJewelController.jewelBoard active];
         
         // 设置对手操控区域
-        opponentJewelController = [[GemController alloc] initWithGemBoard:pvpLayer.player1JewelPanel.gemBoard operatorUserId:opponentUser.userId];
+        opponentJewelController = [[JewelController alloc] initWithGemBoard:pvpLayer.player1JewelPanel.gemBoard operatorUserId:opponentUser.userId];
     }
 
     // 显示战斗场景
@@ -226,7 +229,7 @@
             NewJewelsCommandData *data = (NewJewelsCommandData*)obj;
             if (data.userId == playerJewelController.userId)
             {
-                [playerJewelController addGemVoList:data.jewelVoList];
+                [playerJewelController addJewelVoList:data.jewelVoList];
                 
                 // 记录从请求消除宝石到响应宝石所花总时间
                 requestTotalCost = [[NSDate date] timeIntervalSince1970] - requestStartTime;
@@ -307,6 +310,15 @@
                 requestStartTime = [[NSDate date] timeIntervalSince1970];
                 
                 [[GameController sharedController].server.pvpCommand requestEliminateWithActionId:1 continueEliminate:0 JewelGlobalIds:data.jewelGlobalIds];
+                
+                // 做个弊,测试下攻击
+                AttackVo *av = [[[AttackVo alloc] init] autorelease];
+                av.skillId = 1;
+                av.actorGlobalId = 1;
+                av.targetGlobalId = 4;
+                FightAttackAction *action = [[FightAttackAction alloc] initWithFightField:fightController.fightField attackVo:av];
+                [fightController queueAction:action top:NO];
+                [action release];
             }
             
             break;

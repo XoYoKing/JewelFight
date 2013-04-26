@@ -9,6 +9,7 @@
 #define KITAppSubclassName @"XPlan"
 
 #define OFFLINE_MODE 1 // 离线模式
+#define MOCK_MODE 1 // 本地模拟模式
 #define COCOS_DEBUG 1 // cocos2d 调试开关
 #define KIT_LOG_MESSAGES 1
 

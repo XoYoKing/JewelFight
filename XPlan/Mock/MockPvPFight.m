@@ -33,8 +33,9 @@
         fightUser1.userInfo = [GameController sharedController].player;
         
         FighterVo *fv = [[FighterVo alloc] init];
+        fv.globalId = 1;
         fv.userId = fightUser1.userInfo.userId;
-        fv.heroId = 1001; // 英雄标识
+        fv.heroId = 1; // 英雄标识
         fv.heroType = 1; // 张飞
         fv.team = 0; // 玩家阵营
         fv.name = @"张飞";
@@ -48,8 +49,9 @@
         
         // 第2个武将
         fv = [[FighterVo alloc] init];
+        fv.globalId = 2;
         fv.userId = fightUser1.userInfo.userId;
-        fv.heroId = 1002; // 英雄标识
+        fv.heroId = 1; // 英雄标识
         fv.heroType = 2;
         fv.team = 0; // 玩家阵营
         fv.name = @"关羽";
@@ -63,8 +65,9 @@
         
         // 第3个武将
         fv = [[FighterVo alloc] init];
+        fv.globalId = 3;
         fv.userId = fightUser1.userInfo.userId;
-        fv.heroId = 1003; // 英雄标识
+        fv.heroId = 1; // 英雄标识
         fv.heroType = 3;
         fv.team = 0; // 玩家阵营
         fv.name = @"刘备";
@@ -90,8 +93,9 @@
         // 对手战士信息
         // 对手出战3个英雄
         fv = [[FighterVo alloc] init];
+        fv.globalId = 4;
         fv.userId = kMockOpponentUserId;
-        fv.heroId = 2001; // 英雄标识
+        fv.heroId = 2; // 英雄标识
         fv.heroType = 4;
         fv.team = 1; // 对手阵营
         fv.name = @"董卓";
@@ -105,8 +109,9 @@
         
         // 第2个武将
         fv = [[FighterVo alloc] init];
+        fv.globalId = 5;
         fv.userId = kMockOpponentUserId;
-        fv.heroId = 2002; // 英雄标识
+        fv.heroId = 2; // 英雄标识
         fv.heroType = 5;
         fv.team = 0; // 玩家阵营
         fv.name = @"吕布";
@@ -120,8 +125,9 @@
         
         // 第3个武将
         fv = [[FighterVo alloc] init];
+        fv.globalId = 6;
         fv.userId = kMockOpponentUserId;
-        fv.heroId = 2003; // 英雄标识
+        fv.heroId = 2; // 英雄标识
         fv.heroType = 6;
         fv.team = 1; // 对手阵营
         fv.name = @"华雄";
@@ -195,7 +201,7 @@
             
             // 玩家宝石
             [encoder writeInt32:fightUser1.jewelList.count];
-            for (GemVo *sv in fightUser1.jewelList)
+            for (JewelVo *sv in fightUser1.jewelList)
             {
                 [MockGameServer compressJewelVo:sv toData:encoder];
             }
@@ -203,7 +209,7 @@
 
             // 生成对手宝石列表
             [encoder writeInt32:fightUser2.jewelList.count];
-            for (GemVo *sv in fightUser2.jewelList)
+            for (JewelVo *sv in fightUser2.jewelList)
             {
                 [MockGameServer compressJewelVo:sv toData:encoder];
             }
@@ -264,7 +270,7 @@
             [encoder writeInt32:SERVER_ACTION_PVP_ADD_NEW_JEWELS];
             [encoder writeInt64:fightUser1.userInfo.userId]; // 标记给谁更新的
             [encoder writeInt32:filledList.count]; // 标记数量
-            for (GemVo *filledJv in filledList)
+            for (JewelVo *filledJv in filledList)
             {
                 [MockGameServer compressJewelVo:filledJv toData:encoder];
             }

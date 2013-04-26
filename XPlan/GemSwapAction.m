@@ -7,10 +7,10 @@
 //
 
 #import "GemSwapAction.h"
-#import "GemSprite.h"
-#import "GemBoard.h"
+#import "JewelSprite.h"
+#import "JewelBoard.h"
 #import "Constants.h"
-#import "GemController.h"
+#import "JewelController.h"
 #import "JewelEliminateAction.h"
 #import "GameMessageDispatcher.h"
 #import "JewelSwapMessageData.h"
@@ -28,12 +28,12 @@
 
 @synthesize jewel1,jewel2;
 
--(id) initWithJewelController:(GemController *)contr jewel1:(GemSprite *)j1 jewel2:(GemSprite *)j2
+-(id) initWithJewelController:(JewelController *)contr jewel1:(JewelSprite *)j1 jewel2:(JewelSprite *)j2
 {
     return [self initWithJewelController:contr jewel1:j1 jewel2:j2 checkElimate:YES];
 }
 
--(id) initWithJewelController:(GemController *)contr jewel1:(GemSprite *)j1 jewel2:(GemSprite *)j2 checkElimate:(BOOL)check
+-(id) initWithJewelController:(JewelController *)contr jewel1:(JewelSprite *)j1 jewel2:(JewelSprite *)j2 checkElimate:(BOOL)check
 {
     if ((self = [super initWithJewelController:contr name:@"GemSwapAction"]))
     {
@@ -50,14 +50,14 @@
     [super dealloc];
 }
 
--(GemSprite*) jewel1
+-(JewelSprite*) jewel1
 {
-    return [jewelController.gemBoard getJewelSpriteWithGlobalId:jewelGlobalId1];
+    return [jewelController.jewelBoard getJewelSpriteWithGlobalId:jewelGlobalId1];
 }
 
--(GemSprite*) jewel2
+-(JewelSprite*) jewel2
 {
-    return [jewelController.gemBoard getJewelSpriteWithGlobalId:jewelGlobalId2];
+    return [jewelController.jewelBoard getJewelSpriteWithGlobalId:jewelGlobalId2];
 }
 
 -(void) start
@@ -76,16 +76,16 @@
     }
     
     // 宝石面板设置为不可操作
-    [jewelController.gemBoard setIsControlEnabled:NO];
+    [jewelController.jewelBoard setIsControlEnabled:NO];
     
     // 交换位置
-    GemSprite *j1 = self.jewel1;
-    GemSprite *j2 = self.jewel2;
-    CCAction *action1 = [CCMoveTo actionWithDuration:0.2f position:[jewelController.gemBoard cellCoordToPosition:j2.coord]];
+    JewelSprite *j1 = self.jewel1;
+    JewelSprite *j2 = self.jewel2;
+    CCAction *action1 = [CCMoveTo actionWithDuration:0.2f position:[jewelController.jewelBoard cellCoordToPosition:j2.coord]];
     action1.tag =kTagActionJewelSwap;
     [j1 runAction:action1];
     
-    CCAction *action2 = [CCMoveTo actionWithDuration:0.2f position:[jewelController.gemBoard cellCoordToPosition:j1.coord]];
+    CCAction *action2 = [CCMoveTo actionWithDuration:0.2f position:[jewelController.jewelBoard cellCoordToPosition:j1.coord]];
     action2.tag = kTagActionJewelSwap;
     [j2 runAction:action2];
 }
@@ -93,8 +93,8 @@
 
 -(void) update:(ccTime)delta
 {
-    GemSprite *j1 = self.jewel1;
-    GemSprite *j2 = self.jewel2;
+    JewelSprite *j1 = self.jewel1;
+    JewelSprite *j2 = self.jewel2;
     if ([j1 getActionByTag:kTagActionJewelSwap]==nil && [j2 getActionByTag:kTagActionJewelSwap]==nil&&!skipped)
     {
         [self execute];
@@ -124,16 +124,16 @@
 -(void) execute
 {    
     // 交换完成,检查消除
-    [jewelController.gemBoard updateJewelGridInfo];
+    [jewelController.jewelBoard updateJewelGridInfo];
     
     if (checkElimate)
     {
         // 检查可消除性
         CCArray *elimList = [[CCArray alloc] initWithCapacity:20];
-        [jewelController.gemBoard checkHorizontalEliminableJewels:elimList withJewel:self.jewel1];
-        [jewelController.gemBoard checkVerticalEliminableJewels:elimList withJewel:self.jewel1];
-        [jewelController.gemBoard checkHorizontalEliminableJewels:elimList withJewel:self.jewel2];
-        [jewelController.gemBoard checkVerticalEliminableJewels:elimList withJewel:self.jewel2];
+        [jewelController.jewelBoard checkHorizontalEliminableJewels:elimList withJewel:self.jewel1];
+        [jewelController.jewelBoard checkVerticalEliminableJewels:elimList withJewel:self.jewel1];
+        [jewelController.jewelBoard checkHorizontalEliminableJewels:elimList withJewel:self.jewel2];
+        [jewelController.jewelBoard checkVerticalEliminableJewels:elimList withJewel:self.jewel2];
         
         // 存在可消除宝石
         if (elimList.count>0)
@@ -160,7 +160,7 @@
     }
     
     // 允许面板操作?
-    [jewelController.gemBoard setIsControlEnabled:YES];
+    [jewelController.jewelBoard setIsControlEnabled:YES];
 }
 
 

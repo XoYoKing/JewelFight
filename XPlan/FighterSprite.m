@@ -12,6 +12,7 @@
 #import "GameController.h"
 #import "PlayerInfo.h"
 #import "FightTextEffect.h"
+#import "CCBAnimationManager.h"
 
 @interface FighterSprite()
 {
@@ -40,7 +41,7 @@
         [self initGraphics];
         
         // 设置动画
-        [self idleAnimation];
+        [self setAnimation:@"idle"];
     }
     
     return self;
@@ -94,6 +95,20 @@
 -(int) getDamageTo:(FighterVo *)target
 {
     return self.fighterVo.firePower;
+}
+
+#pragma mark -
+#pragma mark Status
+
+/// 是否准备移除
+-(BOOL) isReadyToBeRemoved
+{
+    return self.state == kFighterStateDied;
+}
+
+-(BOOL) isAlive
+{
+    return self.life == 0;
 }
 
 #pragma mark -
@@ -211,54 +226,17 @@
 #pragma mark Animation
 
 /// 设置动画
--(void) setAnimation:(NSString *)animKey tag:(int)actionTag repeat:(BOOL)repeat restore:(BOOL)restore
+-(void) setAnimation:(NSString *)name
 {
-    [self setAnimation:animKey tag:actionTag repeat:repeat restore:restore cleanOthers:YES];
+    [animationManager runAnimationsForSequenceNamed:name];
+    runningAnim = name;
 }
 
-/// 设置动画
--(void) setAnimation:(NSString *)animKey tag:(int)actionTag repeat:(BOOL)repeat restore:(BOOL)restore cleanOthers:(BOOL)clean
+/// 检查给定的动画名称确认是否正在播放
+-(BOOL) isAnimationRunning:(NSString*)name
 {
-    // 是否清理其它的
-    if (clean)
-    {
-        [self stopAllActions];
-    }
-    
-    [self animate:[self.profile animationForKey:animKey] tag:actionTag repeat:repeat restore:restore];
+    return [animationManager.runningSequenceName isEqualToString:name];
 }
-
--(BOOL) isAnimationPlaying:(int)actionTag
-{
-    return [self getActionByTag:actionTag] != nil;
-}
-
-/// 静止动画
--(void) idleAnimation
-{
-    [animationManager runAnimationsForSequenceNamed:@"idle"];
-}
-
--(void) winAnimation
-{
-    [self setAnimation:@"win" tag:kTagFighterAnimationWin repeat:NO restore:YES cleanOthers:YES];
-}
-
--(BOOL) isWinAnimationPlaying
-{
-    return [self isAnimationPlaying:kTagFighterAnimationWin];
-}
-
--(void) failAnimation
-{
-    [self setAnimation:@"fail" tag:kTagFighterAnimationFail repeat:NO restore:YES cleanOthers:YES];
-}
-
--(BOOL) isFailAnimationPlaying
-{
-    return [self isAnimationPlaying:kTagFighterAnimationFail];
-}
-
 
 
 #pragma mark -

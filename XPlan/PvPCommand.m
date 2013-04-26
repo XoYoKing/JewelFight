@@ -19,7 +19,7 @@
 #import "GameCommand.h"
 #import "UserInfo.h"
 #import "PlayerInfo.h"
-#import "GemVo.h"
+#import "JewelVo.h"
 #import "NewJewelsCommandData.h"
 #import "DeadJewelsCommandData.h"
 #import "PVPOpponentAndFightersCommandData.h"
@@ -247,7 +247,7 @@
     CCArray *playerJewels = [[CCArray alloc] initWithCapacity:amount];
     for (int i = 0;i < amount; i++)
     {
-        GemVo *jewelVo = [[GemVo alloc] init];
+        JewelVo *jewelVo = [[JewelVo alloc] init];
         [FightCommand populateJewelVo:jewelVo data:data];
         [playerJewels addObject:jewelVo];
     }
@@ -258,7 +258,7 @@
     CCArray *opponentJewels = [[CCArray alloc] initWithCapacity:amount];
     for (int i = 0;i < amount; i++)
     {
-        GemVo *jewelVo = [[GemVo alloc] init];
+        JewelVo *jewelVo = [[JewelVo alloc] init];
         [FightCommand populateJewelVo:jewelVo data:data];
         [opponentJewels addObject:jewelVo];
     }
@@ -280,7 +280,7 @@
     int amount = [data readInt32]; //
     for (int i = 0;i < amount; i++)
     {
-        GemVo *jewelVo = [[GemVo alloc] init];
+        JewelVo *jewelVo = [[JewelVo alloc] init];
         [FightCommand populateJewelVo:jewelVo data:data];
         [serverData.jewelVoList addObject:jewelVo];
     }
@@ -295,7 +295,7 @@
     CCArray *jewels = [[CCArray alloc] initWithCapacity:amount];
     for (int i = 0;i < amount; i++)
     {
-        GemVo *jewelVo = [[GemVo alloc] init];
+        JewelVo *jewelVo = [[JewelVo alloc] init];
         [FightCommand populateJewelVo:jewelVo data:data];
         [jewels addObject:jewelVo];
     }

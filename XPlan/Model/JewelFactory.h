@@ -7,17 +7,17 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "GemVo.h"
+#import "JewelVo.h"
 #import "cocos2d.h"
 
 /// 宝石工厂
-@interface GemFactory : NSObject
+@interface JewelFactory : NSObject
 {
     
 }
 
 
 /// 生成随机的宝石
-+(GemVo*) randomJewel;
++(JewelVo*) randomJewel;
 
 @end

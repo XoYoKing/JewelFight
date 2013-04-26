@@ -7,10 +7,10 @@
 //
 
 #import "MockPvPFightUser.h"
-#import "GemVo.h"
+#import "JewelVo.h"
 #import "FighterVo.h"
 #import "UserInfo.h"
-#import "GemFactory.h"
+#import "JewelFactory.h"
 
 static int jewelGlobalIdGenerator = 0;
 
@@ -42,7 +42,7 @@ static int jewelGlobalIdGenerator = 0;
 }
 
 
--(GemVo*) getJewelAtCoord:(CGPoint)coord
+-(JewelVo*) getJewelAtCoord:(CGPoint)coord
 {
     if (coord.x<0 || coord.y <0 || coord.x >= kJewelGridWidth || coord.y >= kJewelGridHeight)
     {
@@ -60,7 +60,7 @@ static int jewelGlobalIdGenerator = 0;
 }
 
 /// 检查垂直方向
--(int) checkVerticalWithJewel:(GemVo*)jewel
+-(int) checkVerticalWithJewel:(JewelVo*)jewel
 {
     if (jewel==nil)
     {
@@ -70,7 +70,7 @@ static int jewelGlobalIdGenerator = 0;
     int elimateCount = 1;
     
     // 向上检测
-    GemVo *upJewel = [self getJewelAtCoord:ccp(jewel.coord.x,jewel.coord.y - 1)];
+    JewelVo *upJewel = [self getJewelAtCoord:ccp(jewel.coord.x,jewel.coord.y - 1)];
     while (upJewel!=nil)
     {
         // 宝石类型一致的话,加入到可消除队列
@@ -86,7 +86,7 @@ static int jewelGlobalIdGenerator = 0;
     }
     
     // 向下检测
-    GemVo *downJewel = [self getJewelAtCoord:ccp(jewel.coord.x,jewel.coord.y + 1)];
+    JewelVo *downJewel = [self getJewelAtCoord:ccp(jewel.coord.x,jewel.coord.y + 1)];
     while (downJewel!=nil)
     {
         // 宝石类型一致的话,加入到可消除队列
@@ -107,7 +107,7 @@ static int jewelGlobalIdGenerator = 0;
 
 
 /// 检查水平方向
--(int) checkHorizontalWithJewel:(GemVo*)jewel
+-(int) checkHorizontalWithJewel:(JewelVo*)jewel
 {
     if (jewel==nil)
     {
@@ -117,7 +117,7 @@ static int jewelGlobalIdGenerator = 0;
     int elimateCount = 1;
     
     // 向左检测
-    GemVo *leftJewel = [self getJewelAtCoord:ccp(jewel.coord.x-1,jewel.coord.y)];
+    JewelVo *leftJewel = [self getJewelAtCoord:ccp(jewel.coord.x-1,jewel.coord.y)];
     while (leftJewel!=nil)
     {
         // 宝石类型一致的话,加入到可消除队列
@@ -134,7 +134,7 @@ static int jewelGlobalIdGenerator = 0;
     }
     
     // 向右检测
-    GemVo *rightJewel = [self getJewelAtCoord:ccp(jewel.coord.x+1,jewel.coord.y)];
+    JewelVo *rightJewel = [self getJewelAtCoord:ccp(jewel.coord.x+1,jewel.coord.y)];
     while (rightJewel!=nil)
     {
         // 宝石类型一致的话,加入到可消除队列
@@ -162,12 +162,12 @@ static int jewelGlobalIdGenerator = 0;
     int n = 0;
     while (n< totalJewels)
     {
-        GemVo *sv = [GemFactory randomJewel];
+        JewelVo *sv = [JewelFactory randomJewel];
         sv.coord = ccp(n%kJewelGridWidth, n / kJewelGridWidth);
         // 如果会产生可能被消除的,则生成新的宝石
         while ([self checkHorizontalWithJewel:sv] >= kJewelEliminateMinNeed || [self checkVerticalWithJewel:sv] >= kJewelEliminateMinNeed)
         {
-            sv = [GemFactory randomJewel];
+            sv = [JewelFactory randomJewel];
             sv.coord = ccp(n%kJewelGridWidth, n / kJewelGridWidth);
         }
         
@@ -184,8 +184,8 @@ static int jewelGlobalIdGenerator = 0;
 
 -(void) swapJewel1:(int)globalId1 jewel2:(int)globalId2
 {
-    GemVo *jv1 = [jewelDict objectForKey:[NSNumber numberWithInt:globalId1]];
-    GemVo *jv2 = [jewelDict objectForKey:[NSNumber numberWithInt:globalId2]];
+    JewelVo *jv1 = [jewelDict objectForKey:[NSNumber numberWithInt:globalId1]];
+    JewelVo *jv2 = [jewelDict objectForKey:[NSNumber numberWithInt:globalId2]];
     
     
     // 切换数据坐标
@@ -205,7 +205,7 @@ static int jewelGlobalIdGenerator = 0;
     // 先清理宝石
     for (NSNumber *globalIdNum in globalIds)
     {
-        GemVo *elimJv = [jewelDict objectForKey:globalIdNum];
+        JewelVo *elimJv = [jewelDict objectForKey:globalIdNum];
         [jewelList replaceObjectAtIndex:elimJv.coord.x + elimJv.coord.y * kJewelGridWidth withObject:nil];
         [jewelDict removeObjectForKey:globalIdNum];
     }
@@ -215,13 +215,13 @@ static int jewelGlobalIdGenerator = 0;
     {
         for (int j=0; j< kJewelGridHeight; j++)
         {
-            GemVo *jv = [self getJewelAtCoord:ccp(i,j)];
+            JewelVo *jv = [self getJewelAtCoord:ccp(i,j)];
             
             if (jv == nil)
             {
                 for (int k=j-1; k>=0; k--)
                 {
-                    GemVo *upJewel = [self getJewelAtCoord:ccp(i,k)];
+                    JewelVo *upJewel = [self getJewelAtCoord:ccp(i,k)];
                     if(upJewel!=nil)
                     {
                         [upJewel addYGap];
@@ -236,7 +236,7 @@ static int jewelGlobalIdGenerator = 0;
     }
     
     // 下落
-    for (GemVo *dropJv in dropJewels)
+    for (JewelVo *dropJv in dropJewels)
     {
         dropJv.coord = ccp(dropJv.coord.x,dropJv.toY);
         dropJv.yGap = 0;
@@ -257,7 +257,7 @@ static int jewelGlobalIdGenerator = 0;
     }
     
     // 设置
-    for (GemVo *jv in jewelDict.allValues)
+    for (JewelVo *jv in jewelDict.allValues)
     {
         [jewelList replaceObjectAtIndex:jv.coord.x + jv.coord.y * kJewelGridWidth withObject:jv];
     }
@@ -276,7 +276,7 @@ static int jewelGlobalIdGenerator = 0;
             int index = i + j * kJewelGridWidth;
             if ([jewelList objectAtIndex:index]==nil)
             {
-                GemVo *newJv = [GemFactory randomJewel];
+                JewelVo *newJv = [JewelFactory randomJewel];
                 newJv.globalId = ++jewelGlobalIdGenerator;
                 newJv.coord = ccp(i,j);
                 

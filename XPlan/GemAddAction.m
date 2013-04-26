@@ -7,11 +7,11 @@
 //
 
 #import "GemAddAction.h"
-#import "GemController.h"
-#import "GemBoard.h"
-#import "GemVo.h"
-#import "GemSprite.h"
-#import "GemController.h"
+#import "JewelController.h"
+#import "JewelBoard.h"
+#import "JewelVo.h"
+#import "JewelSprite.h"
+#import "JewelController.h"
 #import "JewelEliminateAction.h"
 #import "JewelMessageData.h"
 #import "GameMessageDispatcher.h"
@@ -30,7 +30,7 @@
 @synthesize continueDispose;
 
 
--(id) initWithJewelController:(GemController *)contr jewelVoList:(CCArray *)list
+-(id) initWithJewelController:(JewelController *)contr jewelVoList:(CCArray *)list
 {
     if ((self = [super initWithJewelController:contr name:@"GemAddAction"]))
     {
@@ -58,19 +58,19 @@
     }
     
     // 宝石面板设置为不可操作
-    [jewelController.gemBoard setIsControlEnabled:NO];
+    [jewelController.jewelBoard setIsControlEnabled:NO];
     
     // 创建宝石
-    for (GemVo *jv in jewelVoList)
+    for (JewelVo *jv in jewelVoList)
     {
         // 创建宝石
-        GemSprite *jewel = [jewelController.gemBoard createJewelSpriteWithJewelVo:jv];
+        JewelSprite *jewel = [jewelController.jewelBoard createJewelSpriteWithJewelVo:jv];
         
         [jewelSpriteList addObject:jewel];
         
         // 获取宝石最终坐标
-        CGPoint targetPos = [jewelController.gemBoard cellCoordToPosition:jv.coord];
-        CGPoint startPos = ccp(targetPos.x,jewelController.gemBoard.boundingBox.size.height + targetPos.y);
+        CGPoint targetPos = [jewelController.jewelBoard cellCoordToPosition:jv.coord];
+        CGPoint startPos = ccp(targetPos.x,jewelController.jewelBoard.boundingBox.size.height + targetPos.y);
         
         jewel.position = startPos;
         
@@ -122,22 +122,22 @@
 -(void) execute
 {
     // 宝石添加完成,更新JewelController的JewelVo列表
-    for (GemVo *jv in jewelVoList)
+    for (JewelVo *jv in jewelVoList)
     {
         [jewelController addGemVo:jv];
     }
     
-    [jewelController.gemBoard updateJewelGridInfo];
+    [jewelController.jewelBoard updateJewelGridInfo];
     
     
     // 检查可消除性
     CCArray *elimList = [[CCArray alloc] initWithCapacity:20];
     
     // 检查可消除宝石集合
-    for (GemSprite *dropSprite in jewelSpriteList)
+    for (JewelSprite *dropSprite in jewelSpriteList)
     {
-        [jewelController.gemBoard checkHorizontalEliminableJewels:elimList withJewel:dropSprite];
-        [jewelController.gemBoard checkVerticalEliminableJewels:elimList withJewel:dropSprite];
+        [jewelController.jewelBoard checkHorizontalEliminableJewels:elimList withJewel:dropSprite];
+        [jewelController.jewelBoard checkVerticalEliminableJewels:elimList withJewel:dropSprite];
     }
     
     if (elimList.count>0)
@@ -150,7 +150,7 @@
     {
         // 检查死局
         // 当宝石为满时,检查死局
-        if ([jewelController.gemBoard isFull] && [jewelController.gemBoard checkDead])
+        if ([jewelController.jewelBoard isFull] && [jewelController.jewelBoard checkDead])
         {
             // 发送死局通知
             JewelMessageData *msg = [[[JewelMessageData alloc] initWithUserId:jewelController.userId] autorelease];
@@ -162,7 +162,7 @@
     
     
     // 允许面板操作?
-    [jewelController.gemBoard setIsControlEnabled:YES];
+    [jewelController.jewelBoard setIsControlEnabled:YES];
 }
 
 @end

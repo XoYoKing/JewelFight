@@ -7,15 +7,15 @@
 //
 
 #import "GemCell.h"
-#import "GemBoard.h"
-#import "GemSprite.h"
-#import "GemVo.h"
-#import "GemController.h"
+#import "JewelBoard.h"
+#import "JewelSprite.h"
+#import "JewelVo.h"
+#import "JewelController.h"
 
 @implementation GemCell
 @synthesize board,coord,gemGlobalId,gemSprite,comingGemGlobalId;
 
--(id) initWithJewelPanel:(GemBoard *)thePanel coord:(CGPoint)theCoord
+-(id) initWithJewelPanel:(JewelBoard *)thePanel coord:(CGPoint)theCoord
 {
     if ((self = [super init]))
     {
@@ -31,7 +31,7 @@
     [super dealloc];
 }
 
--(GemSprite*) gemSprite
+-(JewelSprite*) gemSprite
 {
     if (gemGlobalId!=0)
     {

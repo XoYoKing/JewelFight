@@ -7,14 +7,14 @@
 //
 
 #import "GemAction.h"
-#import "GemBoard.h"
-#import "GemController.h"
-#import "GemSprite.h"
-#import "GemVo.h"
+#import "JewelBoard.h"
+#import "JewelController.h"
+#import "JewelSprite.h"
+#import "JewelVo.h"
 
 @implementation GemAction
 
--(id) initWithJewelController:(GemController *)contr name:(NSString*)n
+-(id) initWithJewelController:(JewelController *)contr name:(NSString*)n
 {
     if ((self = [super init]))
     {

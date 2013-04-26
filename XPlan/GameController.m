@@ -81,10 +81,17 @@ static GameController *_gameControllerInstance = nil;
 /// 初始化服务器连接
 -(void) initServer
 {
-    server = [[GameServer alloc] init];
-    //NSString *host = @"127.0.0.1";
-    NSString *host = @"192.168.1.102";
-    [server registerServer:SERVER_GAME host:host port:9080];
+    if (MOCK_MODE)
+    {
+        server = [[MockGameServer alloc] init];
+    }
+    else
+    {
+        server = [[GameServer alloc] init];
+        //NSString *host = @"127.0.0.1";
+        NSString *host = @"192.168.1.102";
+        [server registerServer:SERVER_GAME host:host port:9080];
+    }
 }
 
 /// 获取宝石配置信息

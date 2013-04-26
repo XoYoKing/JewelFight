@@ -27,7 +27,7 @@ typedef enum _FighterStates
 @class FighterVo,FightField;
 
 /// 战士Sprite
-@interface FighterSprite : CCSprite
+@interface FighterSprite : CCNode
 {
     FightField *fightField; // 战场
     FighterVo *fighterVo; // 关联战士数据
@@ -36,6 +36,7 @@ typedef enum _FighterStates
     int state; // 状态
     int newState;
     int team; // 阵营
+    NSString *runningAnim;
 }
 
 /// 全局标识
@@ -59,6 +60,9 @@ typedef enum _FighterStates
 @property (readwrite,nonatomic) int life;
 
 @property (readonly,nonatomic) int maxLife;
+
+/// 正在执行的动画
+@property (readonly,nonatomic) NSString *runningAnim;
 
 /// 初始化
 -(id) initWithFightField:(FightField*)field fighterVo:(FighterVo*)fv;
@@ -85,23 +89,10 @@ typedef enum _FighterStates
 #pragma mark Animation
 
 /// 设置动画
--(void) setAnimation:(NSString *)animKey tag:(int)actionTag repeat:(BOOL)repeat restore:(BOOL)restore;
+-(void) setAnimation:(NSString *)name;
 
-/// 设置动画
--(void) setAnimation:(NSString *)animKey tag:(int)actionTag repeat:(BOOL)repeat restore:(BOOL)restore cleanOthers:(BOOL)clean;
+/// 检查给定的动画名称确认是否正在播放
+-(BOOL) isAnimationRunning:(NSString*)name;
 
--(BOOL) isAnimationPlaying:(int)actionTag;
-
-/// 胜利动画
--(void) winAnimation;
-
-/// 胜利动画是否正在播放
--(BOOL) isWinAnimationPlaying;
-
-/// 失败动画
--(void) failAnimation;
-
-/// 失败动画是否正在播放
--(BOOL) isFailAnimationPlaying;
 
 @end

@@ -6,26 +6,26 @@
 //  Copyright (c) 2013 Hex. All rights reserved.
 //
 
-#import "GemSprite.h"
-#import "GemVo.h"
+#import "JewelSprite.h"
+#import "JewelVo.h"
 #import "GameController.h"
 #import "GemCell.h"
-#import "GemBoard.h"
+#import "JewelBoard.h"
 #import "Constants.h"
 #import "GameController.h"
 
 
-@interface GemSprite()
+@interface JewelSprite()
 
 -(void) updateGraphics;
 
 @end
 
-@implementation GemSprite
+@implementation JewelSprite
 
 @synthesize globalId, jewelVo,coord,state,newState,gemBoard,cell,eliminateRight,eliminateTop;
 
--(id) initWithGemBoard:(GemBoard *)thePanel gemVo:(GemVo *)sd
+-(id) initWithGemBoard:(JewelBoard *)thePanel gemVo:(JewelVo *)sd
 {
     id ret = [self initWithSpriteFrameName:[NSString stringWithFormat: @"jewel%d.png",sd.jewelId]];
     

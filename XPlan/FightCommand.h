@@ -8,13 +8,13 @@
 
 #import "BaseCommand.h"
 
-@class GemVo,FighterVo,AttackVo;
+@class JewelVo,FighterVo,AttackVo;
 
 @interface FightCommand : BaseCommand
 
 
 /// 封装宝石信息
-+(void) populateJewelVo:(GemVo*)jewel data:(ServerDataDecoder*)data;
++(void) populateJewelVo:(JewelVo*)jewel data:(ServerDataDecoder*)data;
 
 /// 封装战士信息
 +(void) populateFighterVo:(FighterVo*)fighter data:(ServerDataDecoder*)data;

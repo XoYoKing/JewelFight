@@ -50,6 +50,13 @@
 		E24308F81711E056003A7595 /* ServerDataUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E24308F71711E056003A7595 /* ServerDataUtil.m */; };
 		E24782A71723BD9400F9F84F /* FightSkill.m in Sources */ = {isa = PBXBuildFile; fileRef = E24782A61723BD9400F9F84F /* FightSkill.m */; };
 		E24A129A1727C92A00522BA6 /* fighter_1_profile.plist in Resources */ = {isa = PBXBuildFile; fileRef = E24A12951727C92A00522BA6 /* fighter_1_profile.plist */; };
+		E24B13151729A0A6001E3C51 /* skill_1.plist in Resources */ = {isa = PBXBuildFile; fileRef = E24B13141729A0A6001E3C51 /* skill_1.plist */; };
+		E24B13171729A0C8001E3C51 /* skill_2.plist in Resources */ = {isa = PBXBuildFile; fileRef = E24B13161729A0C8001E3C51 /* skill_2.plist */; };
+		E24B13191729A0CF001E3C51 /* skill_3.plist in Resources */ = {isa = PBXBuildFile; fileRef = E24B13181729A0CF001E3C51 /* skill_3.plist */; };
+		E24B131E1729A8AE001E3C51 /* fighter_2_hurt1_fl-ipadhd.plist in Resources */ = {isa = PBXBuildFile; fileRef = E24B131A1729A8AD001E3C51 /* fighter_2_hurt1_fl-ipadhd.plist */; };
+		E24B131F1729A8AE001E3C51 /* fighter_2_hurt1_fl-ipadhd.pvr.ccz in Resources */ = {isa = PBXBuildFile; fileRef = E24B131B1729A8AD001E3C51 /* fighter_2_hurt1_fl-ipadhd.pvr.ccz */; };
+		E24B13201729A8AE001E3C51 /* fighter_2_hurt1_fl.plist in Resources */ = {isa = PBXBuildFile; fileRef = E24B131C1729A8AD001E3C51 /* fighter_2_hurt1_fl.plist */; };
+		E24B13211729A8AE001E3C51 /* fighter_2_hurt1_fl.pvr.ccz in Resources */ = {isa = PBXBuildFile; fileRef = E24B131D1729A8AE001E3C51 /* fighter_2_hurt1_fl.pvr.ccz */; };
 		E24D35DB170B24820055D23E /* BagCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = E24D35DA170B24820055D23E /* BagCommand.m */; };
 		E24D35E2170B24C90055D23E /* BaseCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = E24D35DD170B24C90055D23E /* BaseCommand.m */; };
 		E24D35E3170B24C90055D23E /* GameCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = E24D35DF170B24C90055D23E /* GameCommand.m */; };
@@ -171,17 +178,17 @@
 		E2D7FF331709BF1100E79BF6 /* GameUpdateFilesLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = E2D7FF321709BF1100E79BF6 /* GameUpdateFilesLayer.m */; };
 		E2D7FF3A1709E07D00E79BF6 /* GameCreateHeroLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = E2D7FF391709E07C00E79BF6 /* GameCreateHeroLayer.m */; };
 		E2D9AAF01705EF86008D0311 /* GameServer.m in Sources */ = {isa = PBXBuildFile; fileRef = E2D9AAEF1705EF86008D0311 /* GameServer.m */; };
-		E2DD8806170D8F2900F2D065 /* GemBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = E2DD8805170D8F2900F2D065 /* GemBoard.m */; };
+		E2DD8806170D8F2900F2D065 /* JewelBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = E2DD8805170D8F2900F2D065 /* JewelBoard.m */; };
 		E2DD880C170D9CF300F2D065 /* FightActionQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = E2DD880B170D9CF300F2D065 /* FightActionQueue.m */; };
 		E2DD8810170D9EC300F2D065 /* GemAction.m in Sources */ = {isa = PBXBuildFile; fileRef = E2DD880F170D9EC300F2D065 /* GemAction.m */; };
 		E2DD8813170D9ED300F2D065 /* GemActionQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = E2DD8812170D9ED300F2D065 /* GemActionQueue.m */; };
 		E2DD8816170D9F7800F2D065 /* GemAddAction.m in Sources */ = {isa = PBXBuildFile; fileRef = E2DD8815170D9F7800F2D065 /* GemAddAction.m */; };
-		E2DD881D170DA13000F2D065 /* GemController.m in Sources */ = {isa = PBXBuildFile; fileRef = E2DD881C170DA13000F2D065 /* GemController.m */; };
+		E2DD881D170DA13000F2D065 /* JewelController.m in Sources */ = {isa = PBXBuildFile; fileRef = E2DD881C170DA13000F2D065 /* JewelController.m */; };
 		E2E2665817044C2600550425 /* EquipmentVo.m in Sources */ = {isa = PBXBuildFile; fileRef = E2E2665117044C2600550425 /* EquipmentVo.m */; };
 		E2E2665917044C2600550425 /* FighterVo.m in Sources */ = {isa = PBXBuildFile; fileRef = E2E2665317044C2600550425 /* FighterVo.m */; };
 		E2E2665A17044C2600550425 /* FriendInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = E2E2665517044C2600550425 /* FriendInfo.m */; };
 		E2E2665B17044C2600550425 /* HeroVo.m in Sources */ = {isa = PBXBuildFile; fileRef = E2E2665717044C2600550425 /* HeroVo.m */; };
-		E2E2666317044C7100550425 /* GemVo.m in Sources */ = {isa = PBXBuildFile; fileRef = E2E2666217044C7100550425 /* GemVo.m */; };
+		E2E2666317044C7100550425 /* JewelVo.m in Sources */ = {isa = PBXBuildFile; fileRef = E2E2666217044C7100550425 /* JewelVo.m */; };
 		E2E2666817044DDA00550425 /* TaskData.m in Sources */ = {isa = PBXBuildFile; fileRef = E2E2666717044DDA00550425 /* TaskData.m */; };
 		E2E266701704530100550425 /* InventoryBase.m in Sources */ = {isa = PBXBuildFile; fileRef = E2E2666F1704530100550425 /* InventoryBase.m */; };
 		E2E2667417045A3F00550425 /* ItemData.m in Sources */ = {isa = PBXBuildFile; fileRef = E2E2667317045A3F00550425 /* ItemData.m */; };
@@ -193,7 +200,7 @@
 		E2E75C571721178B00A15BE5 /* DDFileLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = E2E75C4E1721178B00A15BE5 /* DDFileLogger.m */; };
 		E2E75C581721178B00A15BE5 /* DDLog.m in Sources */ = {isa = PBXBuildFile; fileRef = E2E75C501721178B00A15BE5 /* DDLog.m */; };
 		E2E75C591721178B00A15BE5 /* DDTTYLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = E2E75C521721178B00A15BE5 /* DDTTYLogger.m */; };
-		E2EBCFF51717EB5B00567AB8 /* GemFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = E2EBCFF41717EB5B00567AB8 /* GemFactory.m */; };
+		E2EBCFF51717EB5B00567AB8 /* JewelFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = E2EBCFF41717EB5B00567AB8 /* JewelFactory.m */; };
 		E2EC6B7C17183B9C0033F81E /* MockGameServer.m in Sources */ = {isa = PBXBuildFile; fileRef = E2EC6B7B17183B9C0033F81E /* MockGameServer.m */; };
 		E2EC6B80171841440033F81E /* FightCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = E2EC6B7F171841440033F81E /* FightCommand.m */; };
 		E2F19FB817054E9A009F0C8B /* UserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = E2F19FB717054E9A009F0C8B /* UserInfo.m */; };
@@ -361,7 +368,7 @@
 		E2FAFE9317076F5C00868C63 /* BagItem.m in Sources */ = {isa = PBXBuildFile; fileRef = E2FAFE9217076F5C00868C63 /* BagItem.m */; };
 		E2FAFE9617076FE800868C63 /* PopupWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = E2FAFE9517076FE800868C63 /* PopupWindow.m */; };
 		E2FAFE991707718D00868C63 /* BagWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = E2FAFE981707718D00868C63 /* BagWindow.m */; };
-		E2FAFEA4170773C100868C63 /* GemSprite.m in Sources */ = {isa = PBXBuildFile; fileRef = E2FAFEA3170773C100868C63 /* GemSprite.m */; };
+		E2FAFEA4170773C100868C63 /* JewelSprite.m in Sources */ = {isa = PBXBuildFile; fileRef = E2FAFEA3170773C100868C63 /* JewelSprite.m */; };
 		E2FAFECB17077D0F00868C63 /* ChatUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E2FAFECA17077D0F00868C63 /* ChatUtil.m */; };
 /* End PBXBuildFile section */
 
@@ -427,6 +434,13 @@
 		E24782A51723BD9400F9F84F /* FightSkill.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FightSkill.h; sourceTree = "<group>"; };
 		E24782A61723BD9400F9F84F /* FightSkill.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FightSkill.m; sourceTree = "<group>"; };
 		E24A12951727C92A00522BA6 /* fighter_1_profile.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = fighter_1_profile.plist; sourceTree = "<group>"; };
+		E24B13141729A0A6001E3C51 /* skill_1.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = skill_1.plist; sourceTree = "<group>"; };
+		E24B13161729A0C8001E3C51 /* skill_2.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = skill_2.plist; sourceTree = "<group>"; };
+		E24B13181729A0CF001E3C51 /* skill_3.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = skill_3.plist; sourceTree = "<group>"; };
+		E24B131A1729A8AD001E3C51 /* fighter_2_hurt1_fl-ipadhd.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "fighter_2_hurt1_fl-ipadhd.plist"; sourceTree = "<group>"; };
+		E24B131B1729A8AD001E3C51 /* fighter_2_hurt1_fl-ipadhd.pvr.ccz */ = {isa = PBXFileReference; lastKnownFileType = file; path = "fighter_2_hurt1_fl-ipadhd.pvr.ccz"; sourceTree = "<group>"; };
+		E24B131C1729A8AD001E3C51 /* fighter_2_hurt1_fl.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = fighter_2_hurt1_fl.plist; sourceTree = "<group>"; };
+		E24B131D1729A8AE001E3C51 /* fighter_2_hurt1_fl.pvr.ccz */ = {isa = PBXFileReference; lastKnownFileType = file; path = fighter_2_hurt1_fl.pvr.ccz; sourceTree = "<group>"; };
 		E24D35D9170B24820055D23E /* BagCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BagCommand.h; path = XPlan/BagCommand.h; sourceTree = SOURCE_ROOT; };
 		E24D35DA170B24820055D23E /* BagCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BagCommand.m; path = XPlan/BagCommand.m; sourceTree = SOURCE_ROOT; };
 		E24D35DC170B24C90055D23E /* BaseCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BaseCommand.h; path = XPlan/BaseCommand.h; sourceTree = SOURCE_ROOT; };
@@ -521,7 +535,7 @@
 		E2B4C35D1707849600E11F22 /* PlayerNameUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerNameUtil.h; sourceTree = "<group>"; };
 		E2B4C35E1707849600E11F22 /* PlayerNameUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerNameUtil.m; sourceTree = "<group>"; };
 		E2C0F18E170C34F000A699D0 /* CommandListener.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CommandListener.h; path = XPlan/CommandListener.h; sourceTree = SOURCE_ROOT; };
-		E2CFF2D6170326D1006D2A60 /* XPlan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = XPlan.app; path = "XPlan NoMock.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E2CFF2D6170326D1006D2A60 /* XPlan Mock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "XPlan Mock.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2CFF2D9170326D1006D2A60 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		E2CFF2DB170326D1006D2A60 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		E2CFF2DD170326D1006D2A60 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
@@ -608,8 +622,8 @@
 		E2D7FF391709E07C00E79BF6 /* GameCreateHeroLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameCreateHeroLayer.m; sourceTree = "<group>"; };
 		E2D9AAEE1705EF86008D0311 /* GameServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameServer.h; path = XPlan/GameServer.h; sourceTree = SOURCE_ROOT; };
 		E2D9AAEF1705EF86008D0311 /* GameServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GameServer.m; path = XPlan/GameServer.m; sourceTree = SOURCE_ROOT; };
-		E2DD8804170D8F2900F2D065 /* GemBoard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GemBoard.h; sourceTree = "<group>"; };
-		E2DD8805170D8F2900F2D065 /* GemBoard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GemBoard.m; sourceTree = "<group>"; };
+		E2DD8804170D8F2900F2D065 /* JewelBoard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JewelBoard.h; sourceTree = "<group>"; };
+		E2DD8805170D8F2900F2D065 /* JewelBoard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JewelBoard.m; sourceTree = "<group>"; };
 		E2DD880A170D9CF300F2D065 /* FightActionQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FightActionQueue.h; sourceTree = "<group>"; };
 		E2DD880B170D9CF300F2D065 /* FightActionQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FightActionQueue.m; sourceTree = "<group>"; };
 		E2DD880E170D9EC300F2D065 /* GemAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GemAction.h; sourceTree = "<group>"; };
@@ -618,8 +632,8 @@
 		E2DD8812170D9ED300F2D065 /* GemActionQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GemActionQueue.m; sourceTree = "<group>"; };
 		E2DD8814170D9F7800F2D065 /* GemAddAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GemAddAction.h; sourceTree = "<group>"; };
 		E2DD8815170D9F7800F2D065 /* GemAddAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GemAddAction.m; sourceTree = "<group>"; };
-		E2DD881B170DA13000F2D065 /* GemController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GemController.h; sourceTree = "<group>"; };
-		E2DD881C170DA13000F2D065 /* GemController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GemController.m; sourceTree = "<group>"; };
+		E2DD881B170DA13000F2D065 /* JewelController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JewelController.h; sourceTree = "<group>"; };
+		E2DD881C170DA13000F2D065 /* JewelController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JewelController.m; sourceTree = "<group>"; };
 		E2E2665017044C2600550425 /* EquipmentVo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EquipmentVo.h; sourceTree = "<group>"; };
 		E2E2665117044C2600550425 /* EquipmentVo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EquipmentVo.m; sourceTree = "<group>"; };
 		E2E2665217044C2600550425 /* FighterVo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FighterVo.h; sourceTree = "<group>"; };
@@ -628,8 +642,8 @@
 		E2E2665517044C2600550425 /* FriendInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendInfo.m; sourceTree = "<group>"; };
 		E2E2665617044C2600550425 /* HeroVo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeroVo.h; sourceTree = "<group>"; };
 		E2E2665717044C2600550425 /* HeroVo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeroVo.m; sourceTree = "<group>"; };
-		E2E2666117044C7100550425 /* GemVo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GemVo.h; sourceTree = "<group>"; };
-		E2E2666217044C7100550425 /* GemVo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GemVo.m; sourceTree = "<group>"; };
+		E2E2666117044C7100550425 /* JewelVo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JewelVo.h; sourceTree = "<group>"; };
+		E2E2666217044C7100550425 /* JewelVo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JewelVo.m; sourceTree = "<group>"; };
 		E2E2666617044DDA00550425 /* TaskData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskData.h; sourceTree = "<group>"; };
 		E2E2666717044DDA00550425 /* TaskData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskData.m; sourceTree = "<group>"; };
 		E2E2666A17044E2500550425 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
@@ -652,8 +666,8 @@
 		E2E75C501721178B00A15BE5 /* DDLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDLog.m; sourceTree = "<group>"; };
 		E2E75C511721178B00A15BE5 /* DDTTYLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDTTYLogger.h; sourceTree = "<group>"; };
 		E2E75C521721178B00A15BE5 /* DDTTYLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDTTYLogger.m; sourceTree = "<group>"; };
-		E2EBCFF31717EB5B00567AB8 /* GemFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GemFactory.h; sourceTree = "<group>"; };
-		E2EBCFF41717EB5B00567AB8 /* GemFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GemFactory.m; sourceTree = "<group>"; };
+		E2EBCFF31717EB5B00567AB8 /* JewelFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JewelFactory.h; sourceTree = "<group>"; };
+		E2EBCFF41717EB5B00567AB8 /* JewelFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JewelFactory.m; sourceTree = "<group>"; };
 		E2EC6B7A17183B9C0033F81E /* MockGameServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MockGameServer.h; sourceTree = "<group>"; };
 		E2EC6B7B17183B9C0033F81E /* MockGameServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MockGameServer.m; sourceTree = "<group>"; };
 		E2EC6B7E171841440033F81E /* FightCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FightCommand.h; path = XPlan/FightCommand.h; sourceTree = SOURCE_ROOT; };
@@ -1008,8 +1022,8 @@
 		E2FAFE9517076FE800868C63 /* PopupWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopupWindow.m; sourceTree = "<group>"; };
 		E2FAFE971707718D00868C63 /* BagWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BagWindow.h; sourceTree = "<group>"; };
 		E2FAFE981707718D00868C63 /* BagWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BagWindow.m; sourceTree = "<group>"; };
-		E2FAFEA2170773C100868C63 /* GemSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GemSprite.h; sourceTree = "<group>"; };
-		E2FAFEA3170773C100868C63 /* GemSprite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GemSprite.m; sourceTree = "<group>"; };
+		E2FAFEA2170773C100868C63 /* JewelSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JewelSprite.h; sourceTree = "<group>"; };
+		E2FAFEA3170773C100868C63 /* JewelSprite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JewelSprite.m; sourceTree = "<group>"; };
 		E2FAFEC917077D0F00868C63 /* ChatUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatUtil.h; sourceTree = "<group>"; };
 		E2FAFECA17077D0F00868C63 /* ChatUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatUtil.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1067,7 +1081,7 @@
 				E26C1E4A1720560900F458E3 /* Fight */,
 				E205085C171E8DB40082556E /* Messages */,
 				E277FD5A17159CB4005E50C0 /* Loading */,
-				E27E1A9A171AA67700AC6FDB /* Gems */,
+				E27E1A9A171AA67700AC6FDB /* Jewels */,
 			);
 			name = Core;
 			sourceTree = "<group>";
@@ -1113,6 +1127,10 @@
 		E216ADFF17292713002D2A59 /* 2 */ = {
 			isa = PBXGroup;
 			children = (
+				E24B131A1729A8AD001E3C51 /* fighter_2_hurt1_fl-ipadhd.plist */,
+				E24B131B1729A8AD001E3C51 /* fighter_2_hurt1_fl-ipadhd.pvr.ccz */,
+				E24B131C1729A8AD001E3C51 /* fighter_2_hurt1_fl.plist */,
+				E24B131D1729A8AE001E3C51 /* fighter_2_hurt1_fl.pvr.ccz */,
 				E216AE0017292713002D2A59 /* fighter_2_idle_fl-ipadhd.plist */,
 				E216AE0117292713002D2A59 /* fighter_2_idle_fl-ipadhd.pvr.ccz */,
 				E216AE0217292713002D2A59 /* fighter_2_idle_fl.plist */,
@@ -1214,6 +1232,16 @@
 			path = 1;
 			sourceTree = "<group>";
 		};
+		E24B13131729A098001E3C51 /* Skills */ = {
+			isa = PBXGroup;
+			children = (
+				E24B13141729A0A6001E3C51 /* skill_1.plist */,
+				E24B13161729A0C8001E3C51 /* skill_2.plist */,
+				E24B13181729A0CF001E3C51 /* skill_3.plist */,
+			);
+			path = Skills;
+			sourceTree = "<group>";
+		};
 		E24D35F4170B66B60055D23E /* Common */ = {
 			isa = PBXGroup;
 			children = (
@@ -1290,17 +1318,17 @@
 			name = Scenes;
 			sourceTree = "<group>";
 		};
-		E27E1A9A171AA67700AC6FDB /* Gems */ = {
+		E27E1A9A171AA67700AC6FDB /* Jewels */ = {
 			isa = PBXGroup;
 			children = (
 				E2050866171E95CF0082556E /* Messages */,
 				E2DD880D170D9E0200F2D065 /* Actions */,
 				E2FAFEC11707786200868C63 /* Sprite */,
-				E2FAFEA11707736F00868C63 /* GemBoard */,
-				E2DD881B170DA13000F2D065 /* GemController.h */,
-				E2DD881C170DA13000F2D065 /* GemController.m */,
+				E2FAFEA11707736F00868C63 /* JewelBoard */,
+				E2DD881B170DA13000F2D065 /* JewelController.h */,
+				E2DD881C170DA13000F2D065 /* JewelController.m */,
 			);
-			name = Gems;
+			name = Jewels;
 			sourceTree = "<group>";
 		};
 		E27E1A9B171AB1DD00AC6FDB /* jewels */ = {
@@ -1344,6 +1372,7 @@
 		E28724971726704C00CE8003 /* Fight */ = {
 			isa = PBXGroup;
 			children = (
+				E24B13131729A098001E3C51 /* Skills */,
 				E28724BF1726CD2700CE8003 /* Streets */,
 				E28724B517269FA100CE8003 /* fight_panel.ccb */,
 				E28724B617269FA100CE8003 /* fight_panel.ccbi */,
@@ -1412,7 +1441,7 @@
 		E2CFF2D7170326D1006D2A60 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				E2CFF2D6170326D1006D2A60 /* XPlan.app */,
+				E2CFF2D6170326D1006D2A60 /* XPlan Mock.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1689,7 +1718,7 @@
 				E2E2667117045A3100550425 /* Item */,
 				E2E2666D170452F400550425 /* Bag */,
 				E2E2666517044DCC00550425 /* Tasks */,
-				E2E2666017044C5700550425 /* Gem */,
+				E2E2666017044C5700550425 /* Jewels */,
 				E2E2665E17044C4400550425 /* Equip */,
 			);
 			path = Model;
@@ -1713,15 +1742,15 @@
 			name = Equip;
 			sourceTree = "<group>";
 		};
-		E2E2666017044C5700550425 /* Gem */ = {
+		E2E2666017044C5700550425 /* Jewels */ = {
 			isa = PBXGroup;
 			children = (
-				E2E2666117044C7100550425 /* GemVo.h */,
-				E2E2666217044C7100550425 /* GemVo.m */,
-				E2EBCFF31717EB5B00567AB8 /* GemFactory.h */,
-				E2EBCFF41717EB5B00567AB8 /* GemFactory.m */,
+				E2E2666117044C7100550425 /* JewelVo.h */,
+				E2E2666217044C7100550425 /* JewelVo.m */,
+				E2EBCFF31717EB5B00567AB8 /* JewelFactory.h */,
+				E2EBCFF41717EB5B00567AB8 /* JewelFactory.m */,
 			);
-			name = Gem;
+			name = Jewels;
 			sourceTree = "<group>";
 		};
 		E2E2666517044DCC00550425 /* Tasks */ = {
@@ -2474,24 +2503,24 @@
 			name = Normal;
 			sourceTree = "<group>";
 		};
-		E2FAFEA11707736F00868C63 /* GemBoard */ = {
+		E2FAFEA11707736F00868C63 /* JewelBoard */ = {
 			isa = PBXGroup;
 			children = (
-				E2DD8804170D8F2900F2D065 /* GemBoard.h */,
-				E2DD8805170D8F2900F2D065 /* GemBoard.m */,
+				E2DD8804170D8F2900F2D065 /* JewelBoard.h */,
+				E2DD8805170D8F2900F2D065 /* JewelBoard.m */,
 				E292A1A2170F21B500859F7B /* GemCell.h */,
 				E292A1A3170F21B500859F7B /* GemCell.m */,
 				E265C018171C67E00008FB40 /* GemArea.h */,
 				E265C019171C67E00008FB40 /* GemArea.m */,
 			);
-			name = GemBoard;
+			name = JewelBoard;
 			sourceTree = "<group>";
 		};
 		E2FAFEC11707786200868C63 /* Sprite */ = {
 			isa = PBXGroup;
 			children = (
-				E2FAFEA2170773C100868C63 /* GemSprite.h */,
-				E2FAFEA3170773C100868C63 /* GemSprite.m */,
+				E2FAFEA2170773C100868C63 /* JewelSprite.h */,
+				E2FAFEA3170773C100868C63 /* JewelSprite.m */,
 			);
 			name = Sprite;
 			sourceTree = "<group>";
@@ -2527,7 +2556,7 @@
 			);
 			name = " ";
 			productName = XPlan;
-			productReference = E2CFF2D6170326D1006D2A60 /* XPlan.app */;
+			productReference = E2CFF2D6170326D1006D2A60 /* XPlan Mock.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -2654,6 +2683,13 @@
 				E216AE0D17292770002D2A59 /* fighter_1_fr.ccbi in Resources */,
 				E216AE0E17292770002D2A59 /* fighter_2_fl.ccb in Resources */,
 				E216AE0F17292770002D2A59 /* fighter_2_fl.ccbi in Resources */,
+				E24B13151729A0A6001E3C51 /* skill_1.plist in Resources */,
+				E24B13171729A0C8001E3C51 /* skill_2.plist in Resources */,
+				E24B13191729A0CF001E3C51 /* skill_3.plist in Resources */,
+				E24B131E1729A8AE001E3C51 /* fighter_2_hurt1_fl-ipadhd.plist in Resources */,
+				E24B131F1729A8AE001E3C51 /* fighter_2_hurt1_fl-ipadhd.pvr.ccz in Resources */,
+				E24B13201729A8AE001E3C51 /* fighter_2_hurt1_fl.plist in Resources */,
+				E24B13211729A8AE001E3C51 /* fighter_2_hurt1_fl.pvr.ccz in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2686,7 +2722,7 @@
 				E2E2665917044C2600550425 /* FighterVo.m in Sources */,
 				E2E2665A17044C2600550425 /* FriendInfo.m in Sources */,
 				E2E2665B17044C2600550425 /* HeroVo.m in Sources */,
-				E2E2666317044C7100550425 /* GemVo.m in Sources */,
+				E2E2666317044C7100550425 /* JewelVo.m in Sources */,
 				E2E2666817044DDA00550425 /* TaskData.m in Sources */,
 				E2E266701704530100550425 /* InventoryBase.m in Sources */,
 				E2E2667417045A3F00550425 /* ItemData.m in Sources */,
@@ -2713,7 +2749,7 @@
 				E2FAFE9317076F5C00868C63 /* BagItem.m in Sources */,
 				E2FAFE9617076FE800868C63 /* PopupWindow.m in Sources */,
 				E2FAFE991707718D00868C63 /* BagWindow.m in Sources */,
-				E2FAFEA4170773C100868C63 /* GemSprite.m in Sources */,
+				E2FAFEA4170773C100868C63 /* JewelSprite.m in Sources */,
 				E2FAFECB17077D0F00868C63 /* ChatUtil.m in Sources */,
 				E2B4C359170782EB00E11F22 /* GridUtil.m in Sources */,
 				E2B4C35C1707846A00E11F22 /* LocalSave.m in Sources */,
@@ -2749,12 +2785,12 @@
 				E24D35FD170B67A30055D23E /* ServerDataDecoder.m in Sources */,
 				E24170FA170C6B1F003B6644 /* PvPCommand.m in Sources */,
 				E24170FD170C6B30003B6644 /* ServerDataEncoder.m in Sources */,
-				E2DD8806170D8F2900F2D065 /* GemBoard.m in Sources */,
+				E2DD8806170D8F2900F2D065 /* JewelBoard.m in Sources */,
 				E2DD880C170D9CF300F2D065 /* FightActionQueue.m in Sources */,
 				E2DD8810170D9EC300F2D065 /* GemAction.m in Sources */,
 				E2DD8813170D9ED300F2D065 /* GemActionQueue.m in Sources */,
 				E2DD8816170D9F7800F2D065 /* GemAddAction.m in Sources */,
-				E2DD881D170DA13000F2D065 /* GemController.m in Sources */,
+				E2DD881D170DA13000F2D065 /* JewelController.m in Sources */,
 				E292A1A4170F21B500859F7B /* GemCell.m in Sources */,
 				E24308F117117F2F003A7595 /* LoadingLayer.m in Sources */,
 				E24308F81711E056003A7595 /* ServerDataUtil.m in Sources */,
@@ -2764,7 +2800,7 @@
 				E25E8A7D17145A0200DF4CD7 /* HonsterBar.m in Sources */,
 				E277FD591715885F005E50C0 /* PvPLoadingController.m in Sources */,
 				E277FD5F1715A296005E50C0 /* PvPFightController.m in Sources */,
-				E2EBCFF51717EB5B00567AB8 /* GemFactory.m in Sources */,
+				E2EBCFF51717EB5B00567AB8 /* JewelFactory.m in Sources */,
 				E2EC6B7C17183B9C0033F81E /* MockGameServer.m in Sources */,
 				E2EC6B80171841440033F81E /* FightCommand.m in Sources */,
 				E27E1AA8171AB90000AC6FDB /* GemFireAction.m in Sources */,
@@ -3008,7 +3044,7 @@
 					"-lz",
 					"-ObjC",
 				);
-				PRODUCT_NAME = "XPlan NoMock";
+				PRODUCT_NAME = "XPlan Mock";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -3026,7 +3062,7 @@
 					"-lz",
 					"-ObjC",
 				);
-				PRODUCT_NAME = "XPlan NoMock";
+				PRODUCT_NAME = "XPlan Mock";
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
 			};

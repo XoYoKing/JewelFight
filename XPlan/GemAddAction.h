@@ -18,6 +18,6 @@
 @property (readonly,nonatomic) int continueDispose;
 
 /// 构造函数
--(id) initWithJewelController:(GemController *)contr  jewelVoList:(CCArray*)list;
+-(id) initWithJewelController:(JewelController *)contr  jewelVoList:(CCArray*)list;
 
 @end

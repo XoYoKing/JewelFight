@@ -9,10 +9,10 @@
 #import <Foundation/Foundation.h>
 #import "iPhoneGameKit.h"
 
-@class GemBoard,GemCell;
+@class JewelBoard,GemCell;
 @interface GemArea : NSObject
 
-+(void) getAreaCellsAroundCell:(CCArray*)areaTiles panel:(GemBoard*)panel cell:(GemCell*)cell radius:(int)radius;
++(void) getAreaCellsAroundCell:(CCArray*)areaTiles panel:(JewelBoard*)panel cell:(GemCell*)cell radius:(int)radius;
 
 
 @end

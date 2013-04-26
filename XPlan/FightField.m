@@ -85,7 +85,7 @@
             [leftFighterSprite release];
         }
         leftFighterSprite = fighterSprite;
-        [fighterLayer addChild:leftFighterSprite];
+        [fighterLayer addChild:leftFighterSprite z:2];
     }
     else
     {
@@ -95,7 +95,7 @@
             [rightFighterSprite release];
         }
         rightFighterSprite = fighterSprite;
-        [fighterLayer addChild:rightFighterSprite];
+        [fighterLayer addChild:rightFighterSprite z:1];
     }
     
 }

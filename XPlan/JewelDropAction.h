@@ -15,6 +15,6 @@
 }
 
 /// 初始化
--(id) initWithJewelController:(GemController *)contr;
+-(id) initWithJewelController:(JewelController *)contr;
 
 @end

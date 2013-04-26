@@ -8,7 +8,7 @@
 
 #import "GemAction.h"
 
-@class GemSprite;
+@class JewelSprite;
 
 /// 宝石交换动作
 @interface GemSwapAction : GemAction
@@ -21,14 +21,14 @@
     int newState;
 }
 
-@property (readonly,nonatomic) GemSprite *jewel1;
+@property (readonly,nonatomic) JewelSprite *jewel1;
 
-@property (readonly,nonatomic) GemSprite *jewel2;
+@property (readonly,nonatomic) JewelSprite *jewel2;
 
 /// 构造函数
--(id) initWithJewelController:(GemController *)contr  jewel1:(GemSprite*)j1 jewel2:(GemSprite*)j2;
+-(id) initWithJewelController:(JewelController *)contr  jewel1:(JewelSprite*)j1 jewel2:(JewelSprite*)j2;
 
--(id) initWithJewelController:(GemController *)contr jewel1:(GemSprite *)j1 jewel2:(GemSprite *)j2 checkElimate:(BOOL)check;
+-(id) initWithJewelController:(JewelController *)contr jewel1:(JewelSprite *)j1 jewel2:(JewelSprite *)j2 checkElimate:(BOOL)check;
 
 
 @end

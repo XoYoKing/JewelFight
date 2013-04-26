@@ -21,6 +21,6 @@
     int newState;
 }
 
--(id) initWithJewelController:(GemController *)contr jewelVoList:(CCArray*)list;
+-(id) initWithJewelController:(JewelController *)contr jewelVoList:(CCArray*)list;
 
 @end

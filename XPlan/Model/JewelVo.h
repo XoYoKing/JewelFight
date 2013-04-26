@@ -11,7 +11,7 @@
 
 
 /// 宝石数据对象 Jewel Value Object
-@interface GemVo : NSObject
+@interface JewelVo : NSObject
 {
     int globalId; // 全局标识
     int jewelId; // 宝石Item标识

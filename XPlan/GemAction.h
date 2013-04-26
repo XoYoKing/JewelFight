@@ -9,16 +9,16 @@
 #import <Foundation/Foundation.h>
 #import "iPhoneGameKit.h"
 
-@class GemController;
+@class JewelController;
 
 @interface GemAction : NSObject
 {
-    GemController *jewelController; //宝石控制器
+    JewelController *jewelController; //宝石控制器
     NSString *name; // 宝石动作名称
     BOOL skipped; // 是否跳过
 }
 
--(id) initWithJewelController:(GemController*)contr name:(NSString*)n;
+-(id) initWithJewelController:(JewelController*)contr name:(NSString*)n;
 
 
 /// 开始

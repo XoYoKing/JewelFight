@@ -7,13 +7,13 @@
 //
 
 #import "JewelEliminateAction.h"
-#import "GemController.h"
+#import "JewelController.h"
 #import "GemCell.h"
-#import "GemSprite.h"
-#import "GemVo.h"
+#import "JewelSprite.h"
+#import "JewelVo.h"
 #import "Constants.h"
 #import "JewelDropAction.h"
-#import "GemBoard.h"
+#import "JewelBoard.h"
 #import "JewelEliminateMessageData.h"
 #import "GameMessageDispatcher.h"
 
@@ -23,7 +23,7 @@
 
 @implementation JewelEliminateAction
 
--(id) initWithJewelController:(GemController *)contr elimList:(CCArray *)list
+-(id) initWithJewelController:(JewelController *)contr elimList:(CCArray *)list
 {
     if ((self = [super initWithJewelController:contr name:@"JewelEliminateAction"]))
     {
@@ -48,9 +48,9 @@
     }
     
     // 宝石面板设置为不可操作
-    [jewelController.gemBoard setIsControlEnabled:NO];
+    [jewelController.jewelBoard setIsControlEnabled:NO];
     
-    for (GemSprite * elimSprite in elimList)
+    for (JewelSprite * elimSprite in elimList)
     {
         // 执行消除动画
         [elimSprite eliminate:1];
@@ -86,7 +86,7 @@
     // 发送消除消息
     
     CCArray *elimIds = [[CCArray alloc] initWithCapacity:elimList.count];
-    for (GemSprite *js in elimList)
+    for (JewelSprite *js in elimList)
     {
         [elimIds addObject:[NSNumber numberWithInt:js.globalId]];
     }
@@ -105,7 +105,7 @@
     [dropAction release];
     
     // 宝石面板设置为可操作
-    [jewelController.gemBoard setIsControlEnabled:YES];
+    [jewelController.jewelBoard setIsControlEnabled:YES];
     
 }
 
@@ -113,7 +113,7 @@
 -(BOOL) isAllJewelEliminated
 {
     BOOL eliminated = YES;
-    for (GemSprite * elimSprite in elimList)
+    for (JewelSprite * elimSprite in elimList)
     {
         if (elimSprite.state!=kJewelStateEliminated)
         {

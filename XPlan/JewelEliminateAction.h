@@ -14,6 +14,6 @@
 }
 
 /// 构造函数
--(id) initWithJewelController:(GemController *)contr  elimList:(CCArray*)list;
+-(id) initWithJewelController:(JewelController *)contr  elimList:(CCArray*)list;
 
 @end

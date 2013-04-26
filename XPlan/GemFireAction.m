@@ -8,10 +8,10 @@
 
 #import "GemFireAction.h"
 #import "EffectSprite.h"
-#import "GemSprite.h"
-#import "GemController.h"
-#import "GemBoard.h"
-#import "GemVo.h"
+#import "JewelSprite.h"
+#import "JewelController.h"
+#import "JewelBoard.h"
+#import "JewelVo.h"
 
 @interface GemFireAction()
 {
@@ -24,7 +24,7 @@
 
 @implementation GemFireAction
 
--(id) initWithJewelController:(GemController *)contr jewelVoList:(CCArray *)list
+-(id) initWithJewelController:(JewelController *)contr jewelVoList:(CCArray *)list
 {
     if ((self = [super initWithJewelController:contr name:@"GemFireAction"]))
     {
@@ -83,7 +83,7 @@
             // 更新坐标
             CGPoint nextPos = ccp(fireBall.position.x, fireBall.position.y + vel);
             fireBall.position = nextPos;
-            GemSprite *js = [jewelController.gemBoard getJewelSpriteWithGlobalId:[[jewelVoList objectAtIndex:0] globalId]];
+            JewelSprite *js = [jewelController.jewelBoard getJewelSpriteWithGlobalId:[[jewelVoList objectAtIndex:0] globalId]];
             if (fireBall.position.y > js.position.y)
             {
                 // 燃烧
@@ -128,11 +128,11 @@
             [fireBall animate:fireAnim tag:-1 repeat:YES restore:NO];
             
             // 设置坐标
-            CGPoint pos = [jewelController.gemBoard cellCoordToPosition:[[jewelVoList objectAtIndex:0] coord]];
+            CGPoint pos = [jewelController.jewelBoard cellCoordToPosition:[[jewelVoList objectAtIndex:0] coord]];
             fireBall.position = pos;
             
             // 添加火龙效果
-            [jewelController.gemBoard addEffectSprite:fireBall];
+            [jewelController.jewelBoard addEffectSprite:fireBall];
             
             
             // 设置新状态
@@ -159,9 +159,9 @@
     fireBall = nil;
     
     // 清除剩余队列
-    for(GemVo *jv in jewelVoList)
+    for(JewelVo *jv in jewelVoList)
     {
-        GemSprite *js = [jewelController.gemBoard getJewelSpriteWithGlobalId:jv.globalId];
+        JewelSprite *js = [jewelController.jewelBoard getJewelSpriteWithGlobalId:jv.globalId];
         js.jewelVo.state = kJewelStateEliminated;
         [firingJewelGlobalIds addObject:[NSNumber numberWithInt:js.globalId]];
     }
@@ -169,7 +169,7 @@
     // 点燃的宝石燃烧成灰烬
     for (NSNumber *idNumber in firingJewelGlobalIds)
     {
-        GemSprite *js = [jewelController.gemBoard getJewelSpriteWithGlobalId:[idNumber intValue]];
+        JewelSprite *js = [jewelController.jewelBoard getJewelSpriteWithGlobalId:[idNumber intValue]];
         
         // 播放火焰消除动画
         [js animateFireEliminate];

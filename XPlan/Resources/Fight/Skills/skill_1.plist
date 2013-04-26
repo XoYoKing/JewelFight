@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>id</key>
+	<string>skill_1</string>
+	<key>sprites</key>
+	<dict/>
+	<key>animations</key>
+	<dict/>
+	<key>sounds</key>
+	<dict/>
+	<key>attributes</key>
+	<dict>
+		<key>actorRunningAnim</key>
+		<string>moveOn</string>
+		<key>actorAttackAnim</key>
+		<string>1hits</string>
+		<key>targetHurtAnim</key>
+		<string>hurt1</string>
+		<key>actorBackAnim</key>
+		<string>moveBack</string>
+	</dict>
+</dict>
+</plist>

@@ -10,15 +10,15 @@
 #import "iPhoneGameKit.h"
 #import "EffectSprite.h"
 
-@class GemSprite,GemVo,GemController,GemCell,GemAction;
+@class JewelSprite,JewelVo,JewelController,GemCell,GemAction;
 
 /// 宝石面板
-@interface GemBoard : CCLayer
+@interface JewelBoard : CCLayer
 {
-    CCSpriteBatchNode *gemBatchNode; // 宝石层
+    CCSpriteBatchNode *jewelBatchNode; // 宝石层
     CCLayer *effectLayer; // 效果层
     
-    GemController *jewelController; // 宝石面板控制器
+    JewelController *jewelController; // 宝石面板控制器
     NSMutableDictionary *allJewelSpriteDict; // 宝石字典
     CCArray *allJewelSprites; // 宝石集合
     CCArray *cellGrid; // 宝石格子
@@ -43,7 +43,7 @@
 @property (readwrite,nonatomic) BOOL isControlEnabled;
 
 /// 宝石控制器
-@property (readwrite,nonatomic,assign) GemController *jewelController;
+@property (readwrite,nonatomic,assign) JewelController *jewelController;
 
 /// 所属阵营 0:玩家; 1:对手
 @property (readwrite,nonatomic) int team;
@@ -60,16 +60,16 @@
 #pragma mark -
 #pragma mark JewelSprite
 
--(GemSprite*) getJewelSpriteWithGlobalId:(int)globalId;
+-(JewelSprite*) getJewelSpriteWithGlobalId:(int)globalId;
 
 /// 创建宝石
--(GemSprite*) createJewelSpriteWithJewelVo:(GemVo*)jewelVo;
+-(JewelSprite*) createJewelSpriteWithJewelVo:(JewelVo*)jewelVo;
 
 /// 添加宝石
--(void) addJewelSprite:(GemSprite*)jewelSprite;
+-(void) addJewelSprite:(JewelSprite*)jewelSprite;
 
 /// 删除宝石
--(void) removeJewelSprite:(GemSprite*)jewelSprite;
+-(void) removeJewelSprite:(JewelSprite*)jewelSprite;
 
 /// 删除全部宝石
 -(void) removeAllJewels;
@@ -118,16 +118,16 @@
 -(void) updateJewelGridInfo;
 
 /// 检查水平方向的可消除的宝石
--(void) checkHorizontalEliminableJewels:(CCArray*)elimList withJewel:(GemSprite*)source;
+-(void) checkHorizontalEliminableJewels:(CCArray*)elimList withJewel:(JewelSprite*)source;
 
 /// 检查垂直方向的可消除的宝石
--(void) checkVerticalEliminableJewels:(CCArray*)elimList withJewel:(GemSprite*)source;
+-(void) checkVerticalEliminableJewels:(CCArray*)elimList withJewel:(JewelSprite*)source;
 
 /// 重置上方消除状态
--(void) resetEliminateTop:(GemSprite*)source;
+-(void) resetEliminateTop:(JewelSprite*)source;
 
 /// 重置右侧消除状态
--(void) resetEliminateRight:(GemSprite*)source;
+-(void) resetEliminateRight:(JewelSprite*)source;
 
 /// 检查死局
 -(BOOL) checkDead;

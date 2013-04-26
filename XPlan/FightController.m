@@ -29,6 +29,7 @@
         allFighterVoDict = [[NSMutableDictionary alloc] initWithCapacity:8];
         leftFighterVoList = [[CCArray alloc] initWithCapacity:5];
         rightFighterVoList = [[CCArray alloc] initWithCapacity:5];
+        actionQueue = [[FightActionQueue alloc] init];
     }
     
     return self;

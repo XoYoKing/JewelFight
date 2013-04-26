@@ -7,7 +7,7 @@
 //
 
 #import "PvPPlayerJewelPanel.h"
-#import "GemBoard.h"
+#import "JewelBoard.h"
 #import "FighterVo.h"
 #import "PlayerInfo.h"
 #import "GameController.h"
