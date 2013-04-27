@@ -10,4 +10,6 @@
 
 @implementation InventoryBase
 
+@synthesize items,type;
+
 @end

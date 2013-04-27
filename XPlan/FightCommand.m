@@ -29,7 +29,7 @@
 
 /// 封装战士信息
 +(void) populateFighterVo:(FighterVo*)fighter data:(ServerDataDecoder*)data
-{
+{    
     fighter.globalId = [data readInt64];
     fighter.heroId = [data readInt64];
     fighter.heroType = [data readInt32]; // 英雄类型

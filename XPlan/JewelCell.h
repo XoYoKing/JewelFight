@@ -12,12 +12,12 @@
 @class JewelSprite,JewelBoard;
 
 /// 宝石面板的格子
-@interface GemCell : NSObject
+@interface JewelCell : NSObject
 {
     JewelBoard *board; // 对应宝石面板
     CGPoint coord; // 格子坐标
-    int gemGlobalId; // 宝石唯一标识
-    int comingGemGlobalId; // 即将到来的宝石标识
+    int jewelGlobalId; // 宝石唯一标识
+    int comingJewelGlobalId; // 即将到来的宝石标识
 }
 
 /// 格子坐标
@@ -27,18 +27,18 @@
 @property (readonly,nonatomic) JewelBoard *board;
 
 /// 宝石面板
-@property (readwrite,nonatomic) int gemGlobalId;
+@property (readwrite,nonatomic) int jewelGlobalId;
 
 /// 即将到来的宝石标识
-@property (readwrite,nonatomic) int comingGemGlobalId;
+@property (readwrite,nonatomic) int comingJewelGlobalId;
 
 /// 宝石
-@property (readonly,nonatomic) JewelSprite *gemSprite;
+@property (readonly,nonatomic) JewelSprite *jewelSprite;
 
 /// 在宝石面板上的范围
-@property (readonly,nonatomic) CGRect panelRect;
+@property (readonly,nonatomic) CGRect boardRect;
 
 /// 初始化
--(id) initWithJewelPanel:(JewelBoard*)thePanel coord:(CGPoint)theCoord;
+-(id) initWithJewelBoard:(JewelBoard*)jb coord:(CGPoint)cd;
 
 @end

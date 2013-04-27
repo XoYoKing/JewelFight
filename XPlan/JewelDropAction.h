@@ -6,10 +6,10 @@
 //  Copyright (c) 2013 Hex. All rights reserved.
 //
 
-#import "GemAction.h"
+#import "JewelAction.h"
 
 /// 宝石掉落动作
-@interface JewelDropAction : GemAction
+@interface JewelDropAction : JewelAction
 {
     
 }

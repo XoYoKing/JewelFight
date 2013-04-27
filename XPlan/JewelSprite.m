@@ -9,7 +9,7 @@
 #import "JewelSprite.h"
 #import "JewelVo.h"
 #import "GameController.h"
-#import "GemCell.h"
+#import "JewelCell.h"
 #import "JewelBoard.h"
 #import "Constants.h"
 #import "GameController.h"
@@ -23,15 +23,15 @@
 
 @implementation JewelSprite
 
-@synthesize globalId, jewelVo,coord,state,newState,gemBoard,cell,eliminateRight,eliminateTop;
+@synthesize globalId,jewelVo,jewelId,coord,state,newState,jewelBoard,cell,eliminateRight,eliminateTop;
 
--(id) initWithGemBoard:(JewelBoard *)thePanel gemVo:(JewelVo *)sd
+-(id) initWithJewelBoard:(JewelBoard *)thePanel jewelVo:(JewelVo *)sd
 {
     id ret = [self initWithSpriteFrameName:[NSString stringWithFormat: @"jewel%d.png",sd.jewelId]];
     
     if (ret!=nil)
     {
-        gemBoard = thePanel; // 设置隶属宝石面板
+        jewelBoard = thePanel; // 设置隶属宝石面板
         jewelVo = sd; // 设置对应宝石数据对象
         state = kJewelStateIdle; // 宝石状态
         effects = [[NSMutableDictionary alloc] initWithCapacity:5];
@@ -61,9 +61,14 @@
     [jewelVo setCoord:value];
 }
 
--(GemCell*) cell
+-(int) jewelId
 {
-    return [gemBoard getCellAtCoord:self.coord];
+    return jewelVo.jewelId;
+}
+
+-(JewelCell*) cell
+{
+    return [jewelBoard getCellAtCoord:self.coord];
 }
 
 #pragma mark -
@@ -78,9 +83,9 @@
 
 
 /// 获取宝石格子
--(GemCell*) getCell
+-(JewelCell*) getCell
 {
-    return [self.gemBoard getCellAtPosition:self.position];
+    return [self.jewelBoard getCellAtPosition:self.position];
 }
 
 /// 设置坐标
@@ -89,8 +94,8 @@
     if (!CGPointEqualToPoint(position, self.position))
     {
         
-        CGPoint oldCoord = [self.gemBoard positionToCellCoord:self.position];
-        CGPoint newCoord = [self.gemBoard positionToCellCoord:position];
+        CGPoint oldCoord = [self.jewelBoard positionToCellCoord:self.position];
+        CGPoint newCoord = [self.jewelBoard positionToCellCoord:position];
         [super setPosition:position];
         
         // 更新格子坐标
@@ -355,7 +360,7 @@
     newState = kJewelStateDropping;
     
     // 获取掉落坐标
-    CGPoint targetPos = [self.gemBoard cellCoordToPosition:ccp(self.jewelVo.coord.x,self.jewelVo.toY)];
+    CGPoint targetPos = [self.jewelBoard cellCoordToPosition:ccp(self.jewelVo.coord.x,self.jewelVo.toY)];
     CCAction *action = [CCSequence actions:
     [CCMoveTo actionWithDuration:jewelVo.time position:targetPos],
     [CCCallFunc actionWithTarget:self selector:@selector(dropComplete)]
@@ -393,7 +398,7 @@
 /// 移动
 -(void) move
 {
-    CGPoint targetPos = [jewelPanel cellCoordToPosition:self.jewelVo.coord];
+    CGPoint targetPos = [JewelBoard cellCoordToPosition:self.jewelVo.coord];
     CCAction *action = [CCMoveTo actionWithDuration:0.6f position:targetPos];
     action.tag = kJewelItemActionMove;
     
@@ -419,7 +424,7 @@
 -(void) addEffect:(EffectSprite*)effect withKey:(NSString*)key
 {
     // 还是添加到宝石面板吧!!
-    [self.gemBoard addEffectSprite:effect];
+    [self.jewelBoard addEffectSprite:effect];
     
     [effects setValue:effect forKey:key];
 }

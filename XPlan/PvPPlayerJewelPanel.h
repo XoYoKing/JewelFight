@@ -1,5 +1,5 @@
 //
-//  PlayerJewelPanel.h
+//  PlayerjewelBoard.h
 //  XPlan
 //
 //  Created by Hex on 4/9/13.
@@ -14,10 +14,10 @@
 @interface PvPPlayerJewelPanel : CCLayer
 {
     CCLabelTTF *nameLabel; // 玩家名字
-    JewelBoard *gemBoard; // 宝石面板
+    JewelBoard *jewelBoard; // 宝石面板
     
 }
 
-@property (readonly,nonatomic) JewelBoard *gemBoard;
+@property (readonly,nonatomic) JewelBoard *jewelBoard;
 
 @end

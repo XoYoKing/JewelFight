@@ -14,8 +14,8 @@
 /// 基础背包
 @interface InventoryBase : NSObject
 {
-    int type; //背包类型
-    CCArray *items; // 背包物品集合
+    int _type; //背包类型
+    CCArray *_items; // 背包物品集合
 }
 
 /// 背包类型

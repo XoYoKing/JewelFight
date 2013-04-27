@@ -14,6 +14,7 @@ typedef enum _LayerTags
     kTagHudLayer = 100,
     kTagFadeLayer,
     kTagEffectLayer,
+    kTagHintLayer,
     kTagFighterLayer, // 战士层
     kTagStreetLayer, // 街道层
     kTagObjectPlaceButtonsBar
@@ -21,8 +22,8 @@ typedef enum _LayerTags
 
 typedef enum _FightLayerTags
 {
-    kTagLeftJewelPanel = 10, // 左侧面板Tag
-    kTagRightJewelPanel, // 右侧面板Tag
+    kTagLeftjewelBoard = 10, // 左侧面板Tag
+    kTagRightjewelBoard, // 右侧面板Tag
     kTagFighterUI, // 战士UI
     kTagTopUI, // 顶层UI
     kTagBottomUI // 底部UI
@@ -39,8 +40,8 @@ typedef enum _FightLayerTags
 #define kSkillTypeEx3 // ex3 技能
 
 // 宝石格子数
-#define kJewelGridWidth 5 // 宝石格子宽数量
-#define kJewelGridHeight 7 // 宝石格子高数量
+#define kJewelBoardWidth 7 // 宝石格子宽数量
+#define kJewelBoardHeight 10 // 宝石格子高数量
 
 #define kJewelCellSizeWidth 41
 #define kJewelCellSizeHeight 41
@@ -69,6 +70,7 @@ typedef enum _FightLayerTags
 
 // 宝石效果
 #define kJewelEffectSelected @"selected" // 宝石选中
+#define kJewelEffectHint @"hint" // 提示
 #define kJewelEffectEliminate @"eliminate" // 普通消除
 #define kJewelEffectFire @"fire" // 燃烧效果
 #define kJewelEffectFireElimate @"fireElimate" // 燃烧消失效果

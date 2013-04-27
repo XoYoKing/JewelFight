@@ -76,7 +76,7 @@
 
 -(BOOL) isRight
 {
-    return self.coord.x == kJewelGridWidth-1;
+    return self.coord.x == kJewelBoardWidth-1;
 }
 
 -(BOOL) isBottom
@@ -86,7 +86,7 @@
 
 -(BOOL) isTop
 {
-    return self.coord.y == kJewelGridHeight-1;
+    return self.coord.y == kJewelBoardHeight-1;
 }
 
 @end

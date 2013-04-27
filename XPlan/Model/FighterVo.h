@@ -7,9 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "HeroVo.h"
 
-/// 战场情况下的实际英雄数据对象 Value Object
+/// 战场情况下的实际英雄数据对象
 @interface FighterVo : NSObject
 {
     long globalId; // 唯一标识

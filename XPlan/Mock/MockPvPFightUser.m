@@ -44,11 +44,11 @@ static int jewelGlobalIdGenerator = 0;
 
 -(JewelVo*) getJewelAtCoord:(CGPoint)coord
 {
-    if (coord.x<0 || coord.y <0 || coord.x >= kJewelGridWidth || coord.y >= kJewelGridHeight)
+    if (coord.x<0 || coord.y <0 || coord.x >= kJewelBoardWidth || coord.y >= kJewelBoardHeight)
     {
         return nil;
     }
-    int index = coord.y * kJewelGridWidth + coord.x;
+    int index = coord.y * kJewelBoardWidth + coord.x;
     if (index < jewelList.count)
     {
         return [jewelList objectAtIndex:(index)];
@@ -158,17 +158,17 @@ static int jewelGlobalIdGenerator = 0;
 {
     
     // WARNING: mock测试!死局检测就免了!!!
-    int totalJewels = kJewelGridWidth * kJewelGridHeight;
+    int totalJewels = kJewelBoardWidth * kJewelBoardHeight;
     int n = 0;
     while (n< totalJewels)
     {
         JewelVo *sv = [JewelFactory randomJewel];
-        sv.coord = ccp(n%kJewelGridWidth, n / kJewelGridWidth);
+        sv.coord = ccp(n%kJewelBoardWidth, n / kJewelBoardWidth);
         // 如果会产生可能被消除的,则生成新的宝石
         while ([self checkHorizontalWithJewel:sv] >= kJewelEliminateMinNeed || [self checkVerticalWithJewel:sv] >= kJewelEliminateMinNeed)
         {
             sv = [JewelFactory randomJewel];
-            sv.coord = ccp(n%kJewelGridWidth, n / kJewelGridWidth);
+            sv.coord = ccp(n%kJewelBoardWidth, n / kJewelBoardWidth);
         }
         
         sv.globalId = ++jewelGlobalIdGenerator;
@@ -194,8 +194,8 @@ static int jewelGlobalIdGenerator = 0;
     jv2.coord = temp;
     
     // 切换集合
-    [jewelList replaceObjectAtIndex:jv1.coord.x + jv1.coord.y * kJewelGridWidth withObject:jv2];
-    [jewelList replaceObjectAtIndex:jv2.coord.x + jv2.coord.y * kJewelGridWidth withObject:jv1];
+    [jewelList replaceObjectAtIndex:jv1.coord.x + jv1.coord.y * kJewelBoardWidth withObject:jv2];
+    [jewelList replaceObjectAtIndex:jv2.coord.x + jv2.coord.y * kJewelBoardWidth withObject:jv1];
 }
 
 -(void) eliminateJewelsWithGlobalIds:(CCArray*)globalIds
@@ -206,14 +206,14 @@ static int jewelGlobalIdGenerator = 0;
     for (NSNumber *globalIdNum in globalIds)
     {
         JewelVo *elimJv = [jewelDict objectForKey:globalIdNum];
-        [jewelList replaceObjectAtIndex:elimJv.coord.x + elimJv.coord.y * kJewelGridWidth withObject:nil];
+        [jewelList replaceObjectAtIndex:elimJv.coord.x + elimJv.coord.y * kJewelBoardWidth withObject:nil];
         [jewelDict removeObjectForKey:globalIdNum];
     }
     
     // 循环遍历全部宝石格子
-    for (int i = 0; i< kJewelGridWidth;i++)
+    for (int i = 0; i< kJewelBoardWidth;i++)
     {
-        for (int j=0; j< kJewelGridHeight; j++)
+        for (int j=0; j< kJewelBoardHeight; j++)
         {
             JewelVo *jv = [self getJewelAtCoord:ccp(i,j)];
             
@@ -259,7 +259,7 @@ static int jewelGlobalIdGenerator = 0;
     // 设置
     for (JewelVo *jv in jewelDict.allValues)
     {
-        [jewelList replaceObjectAtIndex:jv.coord.x + jv.coord.y * kJewelGridWidth withObject:jv];
+        [jewelList replaceObjectAtIndex:jv.coord.x + jv.coord.y * kJewelBoardWidth withObject:jv];
     }
 }
 
@@ -269,11 +269,11 @@ static int jewelGlobalIdGenerator = 0;
     KITLog(@"%@",jewelList);
     
     // 找出空出来的宝石位置,向上寻找宝石
-    for (int i =0;i <kJewelGridWidth; i++)
+    for (int i =0;i <kJewelBoardWidth; i++)
     {
-        for (int j = 0; j< kJewelGridHeight; j++)
+        for (int j = 0; j< kJewelBoardHeight; j++)
         {
-            int index = i + j * kJewelGridWidth;
+            int index = i + j * kJewelBoardWidth;
             if ([jewelList objectAtIndex:index]==nil)
             {
                 JewelVo *newJv = [JewelFactory randomJewel];

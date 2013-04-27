@@ -1,5 +1,5 @@
 //
-//  OpponentJewelPanel.h
+//  OpponentjewelBoard.h
 //  XPlan
 //
 //  Created by Hex on 4/9/13.
@@ -14,10 +14,10 @@
 @interface PvPOpponentJewelPanel : CCLayer
 {
     CCLabelTTF *nameLabel; // 名字标签
-    JewelBoard *gemBoard; // 宝石面板
+    JewelBoard *jewelBoard; // 宝石面板
 }
 
-@property (readonly,nonatomic) JewelBoard *gemBoard;
+@property (readonly,nonatomic) JewelBoard *jewelBoard;
 
 /// 设置对手信息
 -(void) setOpponent:(UserInfo*)opp;

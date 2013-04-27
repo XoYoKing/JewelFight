@@ -11,7 +11,7 @@
 #import "JewelBoard.h"
 #import "JewelSprite.h"
 #import "JewelVo.h"
-#import "GemCell.h"
+#import "JewelCell.h"
 #import "JewelEliminateAction.h"
 #import "JewelMessageData.h"
 #import "GameMessageDispatcher.h"
@@ -51,6 +51,8 @@
     // 宝石面板设置为不可操作
     [jewelController.jewelBoard setIsControlEnabled:NO];
     
+    jewelController.jewelBoard.lastMoveTime = [[NSDate date] timeIntervalSince1970];
+    
     JewelBoard *panel = jewelController.jewelBoard;
     dropJewels = [[CCArray alloc] initWithCapacity:10];
     
@@ -60,22 +62,22 @@
     {
         for (int j=0; j< panel.gridSize.height; j++)
         {
-            GemCell *cell = [panel getCellAtCoord:ccp(i,j)];
-            if (cell!=nil && cell.gemSprite == nil)
+            JewelCell *cell = [panel getCellAtCoord:ccp(i,j)];
+            if (cell!=nil && cell.jewelSprite == nil)
             {
                 for (int k = j-1; k >= 0;k--)
                 {
                     // 宝石下落逻辑
-                    GemCell *upCell = [panel getCellAtCoord:ccp(i,k)];
-                    if (upCell.gemSprite!=nil)
+                    JewelCell *upCell = [panel getCellAtCoord:ccp(i,k)];
+                    if (upCell.jewelSprite!=nil)
                     {
                         // 掉落距离计数
-                        [upCell.gemSprite.jewelVo addYGap];
+                        [upCell.jewelSprite.jewelVo addYGap];
                         
                         // 检查是否在下落列表中
-                        if (![dropJewels containsObject:upCell.gemSprite])
+                        if (![dropJewels containsObject:upCell.jewelSprite])
                         {
-                            [dropJewels addObject:upCell.gemSprite];
+                            [dropJewels addObject:upCell.jewelSprite];
                         }
                     }
                 }
@@ -129,8 +131,8 @@
     // 检查可消除宝石集合
     for (JewelSprite *dropSprite in dropJewels)
     {
-        [jewelController.jewelBoard checkHorizontalEliminableJewels:elimList withJewel:dropSprite];
-        [jewelController.jewelBoard checkVerticalEliminableJewels:elimList withJewel:dropSprite];
+        [jewelController.jewelBoard findHorizontalEliminableJewels:elimList withJewel:dropSprite];
+        [jewelController.jewelBoard findVerticalEliminableJewels:elimList withJewel:dropSprite];
     }
     
     if (elimList.count>0)

@@ -78,6 +78,8 @@
     // 宝石面板设置为不可操作
     [jewelController.jewelBoard setIsControlEnabled:NO];
     
+    jewelController.jewelBoard.lastMoveTime = [[NSDate date] timeIntervalSince1970];
+    
     // 交换位置
     JewelSprite *j1 = self.jewel1;
     JewelSprite *j2 = self.jewel2;

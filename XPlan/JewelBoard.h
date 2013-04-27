@@ -1,5 +1,5 @@
 //
-//  JewelPanel.h
+//  jewelBoard.h
 //  XPlan
 //
 //  Created by Hex on 4/4/13.
@@ -10,18 +10,27 @@
 #import "iPhoneGameKit.h"
 #import "EffectSprite.h"
 
-@class JewelSprite,JewelVo,JewelController,GemCell,GemAction;
+@class JewelSprite,JewelVo,JewelController,JewelCell,JewelAction;
 
 /// 宝石面板
 @interface JewelBoard : CCLayer
 {
+    JewelController *jewelController; // 宝石控制器
     CCSpriteBatchNode *jewelBatchNode; // 宝石层
     CCLayer *effectLayer; // 效果层
-    
-    JewelController *jewelController; // 宝石面板控制器
+    CCLayer *hintLayer; // 提示层
+
     NSMutableDictionary *allJewelSpriteDict; // 宝石字典
     CCArray *allJewelSprites; // 宝石集合
-    CCArray *cellGrid; // 宝石格子
+    CCArray *cellGrid; // 宝石格子集合
+    CCArray *numJewelsInColumn; // 宝石列中的宝石数量
+    CCArray *timeSinceAddInColumn; // 加入到宝石列中后过去的时间
+    CCArray *fallingJewels; // 下落的宝石集合
+    BOOL boardChangedSinceEvaluation;
+    CCArray *possibleEliminates;
+    BOOL _isDisplayingHint; // 是否正在显示提示
+    double lastMoveTime; // 上次移动时间
+    
     CGSize totalSize; // 总像素宽高
     CGSize gridSize; // 格子数量宽高
     CGSize cellSize; // 宝石地格像素宽高
@@ -47,6 +56,9 @@
 
 /// 所属阵营 0:玩家; 1:对手
 @property (readwrite,nonatomic) int team;
+
+/// 宝石上次移动时间
+@property (readwrite,nonatomic) double lastMoveTime;
 
 
 -(void) active;
@@ -81,10 +93,10 @@
 #pragma mark JewelCell
 
 /// 获取指定坐标的宝石格子
--(GemCell*) getCellAtCoord:(CGPoint)coord;
+-(JewelCell*) getCellAtCoord:(CGPoint)coord;
 
 /// 获取指定像素的宝石格子
--(GemCell*) getCellAtPosition:(CGPoint)position;
+-(JewelCell*) getCellAtPosition:(CGPoint)position;
 
 /// 将像素转变为坐标
 -(CGPoint) positionToCellCoord:(CGPoint)pos;
@@ -111,17 +123,17 @@
 #pragma mark -
 #pragma mark Jewel Action
 
--(void) queueAction:(GemAction*)action top:(BOOL)top;
+-(void) queueAction:(JewelAction*)action top:(BOOL)top;
 
 -(void) resetActions;
 
 -(void) updateJewelGridInfo;
 
 /// 检查水平方向的可消除的宝石
--(void) checkHorizontalEliminableJewels:(CCArray*)elimList withJewel:(JewelSprite*)source;
+-(void) findHorizontalEliminableJewels:(CCArray*)elimList withJewel:(JewelSprite*)source;
 
 /// 检查垂直方向的可消除的宝石
--(void) checkVerticalEliminableJewels:(CCArray*)elimList withJewel:(JewelSprite*)source;
+-(void) findVerticalEliminableJewels:(CCArray*)elimList withJewel:(JewelSprite*)source;
 
 /// 重置上方消除状态
 -(void) resetEliminateTop:(JewelSprite*)source;

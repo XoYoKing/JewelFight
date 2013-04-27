@@ -60,6 +60,8 @@
     // 宝石面板设置为不可操作
     [jewelController.jewelBoard setIsControlEnabled:NO];
     
+    jewelController.jewelBoard.lastMoveTime = [[NSDate date] timeIntervalSince1970];
+    
     // 创建宝石
     for (JewelVo *jv in jewelVoList)
     {

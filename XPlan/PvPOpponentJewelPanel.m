@@ -1,5 +1,5 @@
 //
-//  OpponentJewelPanel.m
+//  OpponentjewelBoard.m
 //  XPlan
 //
 //  Created by Hex on 4/9/13.
@@ -12,7 +12,7 @@
 
 @implementation PvPOpponentJewelPanel
 
-@synthesize gemBoard;
+@synthesize jewelBoard;
 
 -(id) init
 {

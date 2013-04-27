@@ -6,21 +6,21 @@
 //  Copyright (c) 2013 Hex. All rights reserved.
 //
 
-#import "GemCell.h"
+#import "JewelCell.h"
 #import "JewelBoard.h"
 #import "JewelSprite.h"
 #import "JewelVo.h"
 #import "JewelController.h"
 
-@implementation GemCell
-@synthesize board,coord,gemGlobalId,gemSprite,comingGemGlobalId;
+@implementation JewelCell
+@synthesize board,coord,jewelGlobalId,jewelSprite,comingJewelGlobalId;
 
--(id) initWithJewelPanel:(JewelBoard *)thePanel coord:(CGPoint)theCoord
+-(id) initWithJewelBoard:(JewelBoard *)jb coord:(CGPoint)cd
 {
     if ((self = [super init]))
     {
-        board = thePanel;
-        coord = theCoord;
+        board = jb;
+        coord = cd;
     }
     
     return self;
@@ -31,17 +31,17 @@
     [super dealloc];
 }
 
--(JewelSprite*) gemSprite
+-(JewelSprite*) jewelSprite
 {
-    if (gemGlobalId!=0)
+    if (jewelGlobalId!=0)
     {
-        return [board getJewelSpriteWithGlobalId:gemGlobalId];
+        return [board getJewelSpriteWithGlobalId:jewelGlobalId];
     }
     
     return nil;
 }
 
--(CGRect) panelRect
+-(CGRect) boardRect
 {
     return CGRectMake(coord.x * board.cellSize.width, (board.gridSize.height - coord.y -1) * board.cellSize.height, board.cellSize.width, board.cellSize.height);
 }

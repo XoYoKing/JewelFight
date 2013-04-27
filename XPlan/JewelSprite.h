@@ -10,7 +10,7 @@
 #import "iPhoneGameKit.h"
 #import "EffectSprite.h"
 
-@class JewelVo,JewelBoard,GemCell;
+@class JewelVo,JewelBoard,JewelCell;
 
 typedef enum JewelSpriteStates
 {
@@ -23,7 +23,7 @@ typedef enum JewelSpriteStates
 /// 宝石节点
 @interface JewelSprite : CCSprite
 {
-    JewelBoard *gemBoard; // 隶属宝石面板
+    JewelBoard *jewelBoard; // 隶属宝石面板
     JewelVo *jewelVo; // 对应宝石数据
     NSMutableDictionary *effects; // 宝石效果
     BOOL isBack; // ??
@@ -34,7 +34,7 @@ typedef enum JewelSpriteStates
 }
 
 /// 宝石面板
-@property (readonly,nonatomic) JewelBoard *gemBoard;
+@property (readonly,nonatomic) JewelBoard *jewelBoard;
 
 /// 宝石全局标识
 @property (readonly,nonatomic) int globalId;
@@ -42,10 +42,12 @@ typedef enum JewelSpriteStates
 /// 宝石数据
 @property (readonly,nonatomic) JewelVo *jewelVo;
 
+@property (readonly,nonatomic) int jewelId;
+
 /// 所处坐标
 @property (readwrite,nonatomic) CGPoint coord;
 
-@property (readonly,nonatomic) GemCell *cell;
+@property (readonly,nonatomic) JewelCell *cell;
 
 /// 消除上方宝石
 @property (readwrite,nonatomic) BOOL eliminateTop;
@@ -60,7 +62,7 @@ typedef enum JewelSpriteStates
 @property (readwrite,nonatomic) int newState;
 
 /// 初始化
--(id) initWithGemBoard:(JewelBoard*)thePanel gemVo:(JewelVo*)sd;
+-(id) initWithJewelBoard:(JewelBoard*)thePanel jewelVo:(JewelVo*)sd;
 
 #pragma mark -
 #pragma mark Status

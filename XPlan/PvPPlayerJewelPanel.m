@@ -1,5 +1,5 @@
 //
-//  PlayerJewelPanel.m
+//  PlayerjewelBoard.m
 //  XPlan
 //
 //  Created by Hex on 4/9/13.
@@ -14,7 +14,7 @@
 
 @implementation PvPPlayerJewelPanel
 
-@synthesize gemBoard;
+@synthesize jewelBoard;
 
 -(id) init
 {

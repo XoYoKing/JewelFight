@@ -8,7 +8,7 @@
 
 #import "JewelEliminateAction.h"
 #import "JewelController.h"
-#import "GemCell.h"
+#import "JewelCell.h"
 #import "JewelSprite.h"
 #import "JewelVo.h"
 #import "Constants.h"
@@ -49,6 +49,8 @@
     
     // 宝石面板设置为不可操作
     [jewelController.jewelBoard setIsControlEnabled:NO];
+    
+    jewelController.jewelBoard.lastMoveTime = [[NSDate date] timeIntervalSince1970];
     
     for (JewelSprite * elimSprite in elimList)
     {
@@ -97,8 +99,6 @@
     elimIds = nil;
     [[GameMessageDispatcher sharedDispatcher] dispatchWithSender:jewelController message:JEWEL_MESSAGE_ELIMINATE_JEWELS object:msg];
 
-    
-    // 宝石更新时会自动删除宝石,所以这块不处理
     // 宝石下落
     JewelDropAction *dropAction = [[JewelDropAction alloc] initWithJewelController:jewelController];
     [jewelController queueAction:dropAction top:YES];

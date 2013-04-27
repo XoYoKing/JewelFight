@@ -6,9 +6,9 @@
 //  Copyright (c) 2013 Hex. All rights reserved.
 //
 
-#import "GemAction.h"
+#import "JewelAction.h"
 
-@interface JewelEliminateAction : GemAction
+@interface JewelEliminateAction : JewelAction
 {
     CCArray *elimList; // 待消除宝石列表
 }
