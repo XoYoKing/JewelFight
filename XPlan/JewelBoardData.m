@@ -14,7 +14,7 @@
 
 @implementation JewelBoardData
 
-@synthesize jewelController,cellGrid,numJewelsInColumn,timeSinceAddInColumn,boardChangedSinceEvaluation,boardJewelVoGrid,boardJewelVoDict,fallingJewelVos;
+@synthesize jewelController,cellGrid,numJewelsInColumn,timeSinceAddInColumn,boardChangedSinceEvaluation,boardJewelVoList,boardJewelVoDict,fallingJewelVos;
 
 -(id) initWithJewelController:(JewelController *)jc
 {
@@ -27,7 +27,7 @@
         
         // 设置数据对象集合
         boardJewelVoDict = [[NSMutableDictionary alloc] initWithCapacity:50];
-        boardJewelVoGrid = [[CCArray alloc] initWithCapacity:100];
+        boardJewelVoList = [[CCArray alloc] initWithCapacity:100];
 
         // 初始化宝石格子
         int totalCells = boardWidth * boardHeight;
@@ -88,26 +88,26 @@
     if (![boardJewelVoDict.allKeys containsObject:[NSNumber numberWithInt:vo.globalId]])
     {
         [boardJewelVoDict setObject:vo forKey:[NSNumber numberWithInt:vo.globalId]];
-        [boardJewelVoGrid addObject:vo];
+        [boardJewelVoList addObject:vo];
     }
 }
 
 -(void) removeJewelVo:(JewelVo *)vo
 {
     // 重置宝石地格
-    [[self getCellAtCoord:vo.coord] setJewelGlobalId:0];
+   // [[self getCellAtCoord:vo.coord] setJewelGlobalId:0];
     
     // 从字典中删除
     [boardJewelVoDict removeObjectForKey:[NSNumber numberWithInt:vo.globalId]];
     
     // 从列表中删除
-    [boardJewelVoGrid removeObject:vo];
+    [boardJewelVoList removeObject:vo];
 }
 
 -(void) removeAllJewelVos
 {
     [boardJewelVoDict removeAllObjects];
-    [boardJewelVoGrid removeAllObjects];
+    [boardJewelVoList removeAllObjects];
     
     // 清理地格
     for (JewelCell *cell in cellGrid)
@@ -144,7 +144,7 @@
 /// 检查死局
 -(BOOL) checkDead
 {
-    for (JewelVo *jv in boardJewelVoGrid)
+    for (JewelVo *jv in boardJewelVoList)
     {
         // 检查纵向是否有可能消除的宝石
         if ([self isVerticalPossibleEliminate:jv])
@@ -395,7 +395,7 @@
 /// 宝石是否满的
 -(BOOL) isJewelFull
 {
-    return boardJewelVoGrid.count == boardWidth * boardHeight;
+    return boardJewelVoList.count == boardWidth * boardHeight;
 }
 
 /// 
@@ -454,7 +454,7 @@
 /// 寻找可消除的宝石
 -(void) findEliminableJewels:(CCArray*)elimList
 {
-    for (JewelVo *jv in boardJewelVoGrid)
+    for (JewelVo *jv in boardJewelVoList)
     {
         [self findHorizontalEliminableJewels:elimList withJewel:jv];
         [self findVerticalEliminableJewels:elimList withJewel:jv];
@@ -748,10 +748,24 @@
     }
     
     // 设置
-    for (JewelVo *jv in boardJewelVoGrid)
+    for (JewelVo *jv in boardJewelVoList)
     {
         JewelCell *cell = [self getCellAtCoord:jv.coord];
         cell.jewelGlobalId = jv.globalId;
+    }
+    
+    for (int x=0;x<boardWidth;x++)
+    {
+        numJewelsInColumn[x] = 0;
+        for (int y=0;y<boardHeight;y++)
+        {
+            int idx = x + y *boardWidth;
+            JewelCell *cell = [cellGrid objectAtIndex:idx];
+            if (cell.jewelGlobalId>0)
+            {
+                numJewelsInColumn[x]++;
+            }
+        }
     }
 }
 

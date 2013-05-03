@@ -17,10 +17,11 @@
 
 
     NSMutableDictionary *boardJewelVoDict; // 宝石格子字典
-    CCArray *boardJewelVoGrid; // 宝石格子集合
+    CCArray *boardJewelVoList; // 宝石格子集合
     int boardWidth;
     int boardHeight;
     CCArray *cellGrid; // 宝石格子列表
+    int *numJewelsInColumn; // 宝石列中的宝石数量
     float *timeSinceAddInColumn; // 加入到宝石列中后过去的时间
     CCArray *fallingJewelVos; // 下落的宝石集合
     CCArray *possibleEliminates; // 允许消除的宝石列表
@@ -36,7 +37,7 @@
 
 @property (readonly,nonatomic) NSMutableDictionary *boardJewelVoDict;
 
-@property (readonly,nonatomic) CCArray *boardJewelVoGrid;
+@property (readonly,nonatomic) CCArray *boardJewelVoList;
 
 /// 下落的宝石数量集合
 @property (readonly,nonatomic) CCArray *fallingJewelVos;
