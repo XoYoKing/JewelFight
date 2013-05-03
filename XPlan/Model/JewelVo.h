@@ -39,6 +39,11 @@
 /// 宝石坐标
 @property (readwrite,nonatomic) CGPoint coord;
 
+@property (readwrite,nonatomic) float yPos;
+
+/// 宝石下落速度
+@property (readwrite,nonatomic) float ySpeed;
+
 ///
 @property (readwrite,nonatomic) int yGap;
 

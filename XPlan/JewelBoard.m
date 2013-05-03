@@ -10,12 +10,12 @@
 #import "JewelSprite.h"
 #import "JewelVo.h"
 #import "JewelCell.h"
-#import "JewelArea.h"
 #import "Constants.h"
 #import "GameController.h"
 #import "PlayerInfo.h"
 #import "JewelController.h"
 #import "JewelSwapAction.h"
+#import "JewelBoardData.h"
 
 #define kDelayBeforeHint 3 // 提示前等待时间
 
@@ -36,7 +36,7 @@
 
 @implementation JewelBoard
 
-@synthesize gridSize,cellSize,continueDispose,isControlEnabled,jewelController,team,lastMoveTime;
+@synthesize cellSize,continueDispose,isControlEnabled,jewelController,team,lastMoveTime;
 
 -(id) init
 {
@@ -50,6 +50,10 @@
 
 -(void) didLoadFromCCB
 {
+    // 添加闪烁层
+    shimmerLayer = [CCLayer node];
+    [self addChild:shimmerLayer z:-1];
+    
     // 添加BatchNode
     jewelBatchNode = [CCSpriteBatchNode batchNodeWithFile:@"jewel_resources.png"];
     [self addChild:jewelBatchNode z:1 tag:-1];
@@ -67,61 +71,27 @@
     
     lastMoveTime = [[NSDate date] timeIntervalSince1970];
     
+    //[self setupShimmer];
 }
 
 /// 初始化宝石面板
 -(void) setupBoard
 {
+    // 设置宝石精灵字典和列表
     allJewelSpriteDict = [[NSMutableDictionary alloc] init];
     allJewelSprites = [[CCArray alloc] initWithCapacity:30];
     
-    // 设置格子宽高
-    gridSize = CGSizeMake(kJewelBoardWidth, kJewelBoardHeight);
-    cellSize = CGSizeMake(41,41);
+    boardWidth = kJewelBoardWidth;
+    boardHeight = kJewelBoardHeight;
     
-    // 初始化宝石格子
-    int totalCells = gridSize.width * gridSize.height;
-    cellGrid = [[CCArray alloc] initWithCapacity:totalCells];
-    int n = 0;
-    while (n < totalCells)
-    {
-        JewelCell *cell = [[JewelCell alloc] initWithJewelBoard:self coord:ccp(n %  (int)gridSize.width, n / (int)gridSize.width)];
-        [cellGrid addObject:cell];
-        [cell release];
-        
-        n++;
-    }
-
-    // 
-    numJewelsInColumn = [[CCArray alloc] initWithCapacity:gridSize.width];
-    timeSinceAddInColumn = [[CCArray alloc] initWithCapacity:gridSize.width];
-    for (int i = 0; i< gridSize.width; i++)
-    {
-        [numJewelsInColumn addObject:[NSNumber numberWithInt:0]];
-        [timeSinceAddInColumn addObject:[NSNumber numberWithFloat:0]];
-    }
-
-    // 下落宝石集合
-    fallingJewels = [[CCArray alloc] initWithCapacity:gridSize.width];
-    for (int i =0; i< gridSize.width;i++)
-    {
-        CCArray *list = [[CCArray alloc] initWithCapacity:5];
-        [fallingJewels addObject:list];
-        [list release];
-    }
-    boardChangedSinceEvaluation = YES;
-    possibleEliminates = [[CCArray alloc] initWithCapacity:5];
+    // 设置格子宽高
+    cellSize = CGSizeMake(40,40);
 }
 
 -(void) dealloc
 {
-    [cellGrid release];
     [allJewelSpriteDict release];
     [allJewelSprites release];
-    [fallingJewels release];
-    [numJewelsInColumn release];
-    [timeSinceAddInColumn release];
-    [possibleEliminates release];
     [super dealloc];
 }
 
@@ -158,7 +128,8 @@
    
         // 获取触摸点坐标
     CGPoint local = [self convertTouchToNodeSpace:touch];
-    JewelSprite *js = [self getCellAtPosition:local].jewelSprite;
+    int touchJewelGlobalId = [self getCellAtPosition:local].jewelGlobalId;
+    JewelSprite *js = [self getJewelSpriteWithGlobalId:touchJewelGlobalId];
     if (js!=nil)
     {
         // 记录已经选中
@@ -189,7 +160,7 @@
         JewelCell *cell = [self getCellAtPosition:touchPos];
         if (cell && ccpDistance(cell.coord, selectedJewel.coord)==1)
         {
-            [self doSwapJewel1:selectedJewel withJewel2:cell.jewelSprite];
+            [self doSwapJewel1:selectedJewel withJewel2:[self getJewelSpriteWithGlobalId:cell.jewelGlobalId]];
             [self unselectJewel];
         }
     }
@@ -220,6 +191,7 @@
     EffectSprite *selectedEffect = [[EffectSprite alloc] init];
     [selectedEffect animate:selectedAnim tag:-1 repeat:YES restore:NO];
     selectedEffect.position = js.position;
+    selectedEffect.anchorPoint = ccp(0,0);
     [js addEffect:selectedEffect withKey:kJewelEffectSelected];
     [selectedEffect release];
     
@@ -294,29 +266,26 @@
 /// 添加宝石
 -(void) addJewelSprite:(JewelSprite*)jewelSprite
 {
+    jewelSprite.anchorPoint = ccp(0,0);
+    
     // 添加宝石到ewelsBatchNode
     [jewelBatchNode addChild:jewelSprite];
     // 添加到字典
     [allJewelSpriteDict setObject:jewelSprite forKey:[NSNumber numberWithInt:jewelSprite.globalId]];
     // 添加到集合
     [allJewelSprites addObject:jewelSprite];
-    
-    // 记录
-    JewelCell *cell = [self getCellAtCoord:jewelSprite.jewelVo.coord];
-    cell.comingJewelGlobalId = jewelSprite.globalId;
-    
 }
 
 /// 删除宝石
 -(void) removeJewelSprite:(JewelSprite*)jewelSprite
-{
-    // 删除对应数据
-    [self.jewelController removeJewelVo:jewelSprite.jewelVo];
-    
+{    
     // 删除表现物
     [allJewelSpriteDict removeObjectForKey:[NSNumber numberWithInt:jewelSprite.globalId]];
     [allJewelSprites removeObject:jewelSprite];
     [jewelBatchNode removeChild:jewelSprite cleanup:YES];
+    
+    // 删除数据对象
+    [jewelController.boardData removeJewelVo:jewelSprite.jewelVo];
 }
 
 /// 删除全部宝石
@@ -348,15 +317,9 @@
 #pragma mark -
 #pragma mark JewelCell
 
-/// 获取指定坐标的宝石格子
 -(JewelCell*) getCellAtCoord:(CGPoint)coord
 {
-    if (coord.x < 0 || coord.y < 0 || coord.x >= gridSize.width || coord.y >= gridSize.height)
-    {
-        return nil;
-    }
-    
-    return [cellGrid objectAtIndex:coord.x + coord.y * gridSize.width];
+    return [jewelController.boardData getCellAtCoord:coord];
 }
 
 /// 获取指定像素的宝石格子
@@ -364,24 +327,26 @@
 {
     CGPoint coord = [self positionToCellCoord:position];
     return [self getCellAtCoord:coord];
+
 }
 
 /// 将像素转变为坐标
 -(CGPoint) positionToCellCoord:(CGPoint)pos
 {
     int coordX = pos.x / cellSize.width;
-    int coordY = ((gridSize.height * cellSize.height) - pos.y) / cellSize.height;
+    int coordY = pos.y / cellSize.height;
     return ccp(coordX,coordY);
 }
 
 -(CGPoint) cellCoordToPosition:(CGPoint)coord
 {
-    return ccp(coord.x * cellSize.width + cellSize.width/2, ((gridSize.height - coord.y -1) * cellSize.height) + cellSize.height/2);
+    return ccp(coord.x * cellSize.width, coord.y * cellSize.height);
 }
 
 
 -(void) update:(ccTime)delta
 {
+    /// 更新宝石自身逻辑
     [self updateJewelSprites:delta];
     
     if (jewelController.userId == [GameController sharedController].player.userId)
@@ -396,6 +361,9 @@
             [self displayHint];
         }
     }
+    
+    // 宝石闪耀效果
+    [self updateSparkle];
 }
 
 -(void) updateJewelSprites:(ccTime)delta
@@ -417,11 +385,10 @@
             // 清除JewelSprite
             [self removeJewelSprite:jr];
         }
-        
-        [self updateJewelGridInfo];
     }
 
     [jewelsToRemove release];
+    
 }
 
 /**
@@ -500,573 +467,119 @@
     //	glPopMatrix();
 }
 
--(void) updateJewelGridInfo
-{
-    // 清理
-    for (JewelCell *cell in cellGrid)
-    {
-        cell.jewelGlobalId = 0;
-    }
-    
-    // 设置
-    for (JewelSprite *js in allJewelSprites)
-    {
-        JewelCell *cell = [self getCellAtCoord:js.jewelVo.coord];
-        cell.jewelGlobalId = js.globalId;
-    }
-}
 
-#pragma mark -
-#pragma mark Eliminate Jewels
-
-/// 检查水平方向的可消除的宝石
--(void) findHorizontalEliminableJewels:(CCArray*)elimList withJewel:(JewelSprite*)source
-{
-    CCArray *connectedList = [[CCArray alloc] initWithCapacity:10];
-    
-    // 自身加入进去
-    [connectedList addObject:source];
-    
-    JewelSprite *specialJewel; // 特殊宝石
-    
-    // 检查特殊宝石
-    if (source.jewelVo.special >= kJewelSpecialExplode)
-    {
-        specialJewel = source;
-    }
-    
-    // 向左侧检查
-    JewelSprite *leftJewel = [self getCellAtCoord:ccp(source.coord.x-1,source.coord.y)].jewelSprite;
-    while (leftJewel!=nil && leftJewel.jewelVo.jewelId == source.jewelVo.jewelId)
-    {
-        // 检查特殊宝石
-        if (leftJewel.jewelVo.special >= kJewelSpecialExplode)
-        {
-            if (specialJewel == nil || specialJewel.jewelVo.special < leftJewel.jewelVo.special)
-            {
-                specialJewel = leftJewel;
-            }
-        }
-        
-        // 添加到相同类型集合中
-        [connectedList insertObject:leftJewel atIndex:0];
-        leftJewel = [self getCellAtCoord:ccp(leftJewel.coord.x-1,leftJewel.coord.y)].jewelSprite;
-    }
-    
-    // 向右侧检查
-    JewelSprite *rightJewel= [self getCellAtCoord:ccp(source.coord.x+1,source.coord.y)].jewelSprite;
-    while (rightJewel!=nil && rightJewel.jewelId == source.jewelId)
-    {
-        if (rightJewel.jewelVo.special >= kJewelSpecialExplode)
-        {
-            if (specialJewel == nil || specialJewel.jewelVo.special < rightJewel.jewelVo.special)
-            {
-                specialJewel = rightJewel;
-            }
-        }
-        
-        // 添加到检查列表
-        [connectedList addObject:rightJewel];
-        rightJewel= [self getCellAtCoord:ccp(rightJewel.coord.x+1,rightJewel.coord.y)].jewelSprite;
-    }
-    
-    // 至少3个相同类型的宝石才能消除
-    if (connectedList.count >= kJewelEliminateMinNeed)
-    {
-        BOOL isBoo = NO; // 爆炸标识
-        for (JewelSprite *connectSprite in connectedList)
-        {
-            // 标记参与的横向消除
-            connectSprite.jewelVo.hEliminate = connectedList.count; // 横向消除数量
-            if (connectSprite.jewelVo.lt)
-            {
-                // 产生一个爆炸
-                isBoo = YES;
-                [self resetEliminateTop:connectSprite];
-            }
-        }
-        
-        if (connectedList.count >= kJewelSpecialExplode && isBoo == NO)
-        {
-            [[connectedList lastObject] setEliminateRight:YES];
-        }
-        
-        // 加入消除列表
-        [elimList addObjectsFromArray:connectedList];
-    }
-    
-    [connectedList release];
-}
-
-/// 检查垂直方向的可消除的宝石
--(void) findVerticalEliminableJewels:(CCArray*)elimList withJewel:(JewelSprite*)source
-{
-    // 创建一个检查列表
-    CCArray *connectedList = [[CCArray alloc] initWithCapacity:10];
-    [connectedList addObject:source];
-    
-    JewelSprite *specialJewel;
-    
-    // 检查特殊宝石
-    if (source.jewelVo.special >= kJewelSpecialExplode)
-    {
-        specialJewel = source;
-    }
-    
-    // 上方检查
-    // 获取上方宝石
-    JewelSprite *upJewel = [self getCellAtCoord:ccp(source.coord.x,source.coord.y-1)].jewelSprite;
-    while (upJewel!=nil && upJewel.jewelId == source.jewelId)
-    {
-        // 检查特殊宝石
-        if (upJewel.jewelVo.special >= kJewelSpecialExplode)
-        {
-            if (upJewel == nil || specialJewel.jewelVo.special < upJewel.jewelVo.special)
-            {
-                specialJewel = upJewel;
-            }
-        }
-        
-        // 符合条件,加入检查列表
-        [connectedList insertObject:upJewel atIndex:0];
-        upJewel = [self getCellAtCoord:ccp(upJewel.coord.x,upJewel.coord.y-1)].jewelSprite;
-    }
-    
-    // 检测下方
-    JewelSprite *downJewel= [self getCellAtCoord:ccp(source.coord.x,source.coord.y + 1)].jewelSprite;
-    while (downJewel!=nil && downJewel.jewelId == source.jewelId)
-    {
-        if (downJewel.jewelVo.special >= kJewelSpecialExplode)
-        {
-            if (specialJewel == nil || specialJewel.jewelVo.special < downJewel.jewelVo.special)
-            {
-                specialJewel = downJewel;
-            }
-        }
-        
-        // 符合条件,加入检查列表
-        [connectedList addObject:downJewel];
-        downJewel= [self getCellAtCoord:ccp(downJewel.coord.x,downJewel.coord.y + 1)].jewelSprite;
-    }
-    
-    // 至少3个相同类型的宝石才能消除
-    if (connectedList.count >= kJewelEliminateMinNeed)
-    {
-        BOOL isBoo;
-        for (JewelSprite *checkSprite in connectedList)
-        {
-            checkSprite.jewelVo.hEliminate = connectedList.count; // 横向消除数量
-            if (checkSprite.jewelVo.lt)
-            {
-                isBoo = YES;
-                [self resetEliminateRight:checkSprite];
-            }
-        }
-        
-        if (connectedList.count >= kJewelSpecialExplode && isBoo == NO)
-        {
-            [[connectedList lastObject] setEliminateTop:YES];
-        }
-        
-        // 加入消除列表
-        [elimList addObjectsFromArray:connectedList];
-    }
-    
-    [connectedList release];
-}
-
-/// 重置上方消除状态
--(void) resetEliminateTop:(JewelSprite*)source
-{
-    // 向上检查
-    JewelSprite *upJewel = [self getCellAtCoord:ccp(source.coord.x,source.coord.y -1)].jewelSprite;
-    while(upJewel!=nil && upJewel.jewelId == source.jewelId)
-    {
-        upJewel.jewelVo.eliminateTop = NO;
-        upJewel = [self getCellAtCoord:ccp(upJewel.coord.x,upJewel.coord.y -1)].jewelSprite;
-    }
-    
-    
-    // 向下检查
-    JewelSprite *downJewel = [self getCellAtCoord:ccp(source.coord.x,source.coord.y +  1)].jewelSprite;
-    while (downJewel!=nil && downJewel.jewelId == source.jewelId)
-    {
-        downJewel.jewelVo.eliminateTop = YES;
-        downJewel = [self getCellAtCoord:ccp(downJewel.coord.x,downJewel.coord.y +  1)].jewelSprite;
-    }
-}
-
-/// 重置右侧消除状态
--(void) resetEliminateRight:(JewelSprite*)source
-{
-    // 左边
-    JewelSprite *leftJewel = [self getCellAtCoord:ccp(source.coord.x-1,source.coord.y)].jewelSprite;
-    while(leftJewel!=nil && leftJewel.jewelId == source.jewelId)
-    {   
-        leftJewel.jewelVo.eliminateRight = NO;
-        leftJewel = [self getCellAtCoord:ccp(leftJewel.coord.x-1,leftJewel.coord.y)].jewelSprite;
-    }
-    
-    // 右侧
-    JewelSprite *rightJewel = [self getCellAtCoord:ccp(source.coord.x+1,source.coord.y)].jewelSprite;
-    while (rightJewel!=nil && rightJewel.jewelId == source.jewelId)
-    {
-        rightJewel.jewelVo.eliminateRight = NO;
-        rightJewel = [self getCellAtCoord:ccp(rightJewel.coord.x+1,rightJewel.coord.y)].jewelSprite;
-    }
-}
-
-
-/// 检查死局
--(BOOL) checkDead
-{
-    for (JewelSprite *js in allJewelSprites)
-    {
-        if ([self isVerticalPossibleEliminateWithJewelSprite:js])
-        {
-            return NO;
-        }
-        
-        if ([self isHorizontalPossibleEliminateWithJewelSprite:js])
-        {
-            return NO;
-        }
-    }
-    
-    return YES;
-}
-
-/// 检查水平方向是否有可消除的宝石
--(BOOL) isHorizontalPossibleEliminateWithJewelSprite:(JewelSprite*)center
-{
-    CCArray *leftList = [[CCArray alloc] initWithCapacity:gridSize.height];
-    CCArray *middleList = [[CCArray alloc] initWithCapacity:gridSize.height];
-    CCArray *rightList = [[CCArray alloc] initWithCapacity:gridSize.height];
-   
-    BOOL can = [self isHorizontalPossibleEliminateWithJewelSprite:center leftList:leftList middleList:middleList rightList:rightList];
-
-    [middleList release];
-    [leftList release];
-    [rightList release];
-    
-    return can;
-}
-
-/// 检查水平方向是否有可消除的宝石并填充相同宝石集合
--(BOOL) isHorizontalPossibleEliminateWithJewelSprite:(JewelSprite*)center leftList:(CCArray*)leftList middleList:(CCArray*)middleList rightList:(CCArray*)rightList
-{
-    // 获取可消除的宝石集合
-    int skipCount = 0;
-    
-    // 添加自身
-    [middleList addObject:center];
-    
-    // 向左检测
-    JewelSprite *check = [self getCellAtCoord:ccp(center.coord.x-1,center.coord.y)].jewelSprite;
-    while (check!=nil)
-    {
-        if (check.jewelId != center.jewelId)
-        {
-            skipCount++;
-            
-            // 只能跳过一个
-            if (skipCount>1)
-            {
-                break;
-            }
-            
-            // 检测垂直方向是否有相同类型的宝石
-            JewelCell *topCell = [self getCellAtCoord:ccp(check.coord.x,check.coord.y-1)];
-            if (topCell && topCell.jewelSprite.jewelId == center.jewelId)
-            {
-                [leftList addObject:topCell.jewelSprite];
-            }
-            else
-            {
-                JewelCell *bottomCell = [self getCellAtCoord:ccp(check.coord.x,check.coord.y+1)];
-                if (bottomCell && bottomCell.jewelSprite.jewelId == center.jewelId)
-                {
-                    [leftList addObject:bottomCell.jewelSprite];
-                }
-            }
-        }
-        else
-        {
-            if (skipCount == 0)
-            {
-                [middleList addObject:check];
-            }
-            else if (skipCount == 1)
-            {
-                [leftList addObject:check];
-            }
-        }
-        
-        check = [self getCellAtCoord:ccp(check.coord.x-1,check.coord.y)].jewelSprite;
-    }
-    
-    // 向右检测
-    //skipCount = 0;
-    check = [self getCellAtCoord:ccp(center.coord.x+1,center.coord.y)].jewelSprite;
-    while (check!=nil)
-    {
-        if (check.jewelVo.jewelId != center.jewelVo.jewelId)
-        {
-            skipCount++;
-            if (skipCount>1)
-            {
-                break;
-            }
-            
-            // 检测垂直方向是否有相同类型的宝石
-            JewelCell *topCell = [self getCellAtCoord:ccp(check.coord.x,check.coord.y-1)];
-            if (topCell && topCell.jewelSprite.jewelId == center.jewelId)
-            {
-                [rightList addObject:topCell.jewelSprite];
-            }
-            else
-            {
-                JewelCell *bottomCell = [self getCellAtCoord:ccp(check.coord.x,check.coord.y+1)];
-                if (bottomCell && bottomCell.jewelSprite.jewelId == center.jewelId)
-                {
-                    [rightList addObject:bottomCell.jewelSprite];
-                }
-            }
-        }
-        else
-        {
-            if (skipCount == 0)
-            {
-                [middleList addObject:check];
-            }
-            else if (skipCount == 1)
-            {
-                [rightList addObject:check];
-            }
-        }
-        
-        check = [self getCellAtCoord:ccp(check.coord.x+1,check.coord.y)].jewelSprite;
-    }
-
-    BOOL life = middleList.count>=kJewelEliminateMinNeed || leftList.count + middleList.count >= kJewelEliminateMinNeed || rightList.count + middleList.count >= kJewelEliminateMinNeed;
-    
-    return life;
-}
-
-/// 检测水平方向死局
--(BOOL) isVerticalPossibleEliminateWithJewelSprite:(JewelSprite*)center
-{
-    CCArray *topList = [[CCArray alloc] initWithCapacity:gridSize.width];
-    CCArray *middleList = [[CCArray alloc] initWithCapacity:gridSize.width];
-    CCArray *bottomList = [[CCArray alloc] initWithCapacity:gridSize.width];
-    
-    BOOL can = [self isVerticalPossibleEliminateWithJewelSprite:center topList:topList middleList:middleList bottomList:bottomList];
-    
-    [middleList release];
-    [topList release];
-    [bottomList release];
-    
-    return can;
-}
-
-/// 寻找垂直方向的相同类型的宝石集合并填充相同宝石集合
--(BOOL) isVerticalPossibleEliminateWithJewelSprite:(JewelSprite*)center topList:(CCArray*)topList middleList:(CCArray*)middleList bottomList:(CCArray*)bottomList
-{
-    int skipCount = 0;
-    [middleList addObject:center];
-    
-    // 向上检测
-    JewelSprite *check = [self getCellAtCoord:ccp(center.coord.x,center.coord.y-1)].jewelSprite;
-    while (check!=nil)
-    {
-        if (check.jewelVo.jewelId != center.jewelVo.jewelId)
-        {
-            skipCount++;
-            if (skipCount>1)
-            {
-                break;
-            }
-            
-            // 检测水平方向是否有相同类型的宝石
-            JewelCell *leftCell = [self getCellAtCoord:ccp(check.coord.x-1,check.coord.y)];
-            if (leftCell && leftCell.jewelSprite.jewelId == center.jewelId)
-            {
-                [topList addObject:leftCell.jewelSprite];
-            }
-            else
-            {
-                JewelCell *rightCell = [self getCellAtCoord:ccp(check.coord.x+1,check.coord.y)];
-                if (rightCell && rightCell.jewelSprite.jewelId == center.jewelId)
-                {
-                    [topList addObject:rightCell.jewelSprite];
-                }
-            }
-        }
-        else
-        {
-            if (skipCount == 0)
-            {
-                [middleList addObject:check];
-            }
-            else if (skipCount == 1)
-            {
-                [topList addObject:check];
-            }
-        }
-        
-        check = [self getCellAtCoord:ccp(check.coord.x,check.coord.y-1)].jewelSprite;
-    }
-    
-    // 向下检测
-    //skipCount = 0;
-    check = [self getCellAtCoord:ccp(center.coord.x,center.coord.y+1)].jewelSprite;
-    while (check!=nil)
-    {
-        if (check.jewelVo.jewelId != center.jewelVo.jewelId)
-        {
-            skipCount++;
-            if (skipCount>1)
-            {
-                break;
-            }
-            
-            // 检测水平方向是否有相同类型的宝石
-            JewelCell *leftCell = [self getCellAtCoord:ccp(check.coord.x-1,check.coord.y)];
-            if (leftCell && leftCell.jewelSprite.jewelId == center.jewelId)
-            {
-                [bottomList addObject:leftCell.jewelSprite];
-            }
-            else
-            {
-                JewelCell *rightCell = [self getCellAtCoord:ccp(check.coord.x+1,check.coord.y)];
-                if (rightCell && rightCell.jewelSprite.jewelId == center.jewelId)
-                {
-                    [bottomList addObject:rightCell.jewelSprite];
-                }
-            }
-        }
-        else
-        {
-            if (skipCount == 0)
-            {
-                [middleList addObject:check];
-            }
-            else if (skipCount == 1)
-            {
-                [bottomList addObject:check];
-            }
-        }
-        
-        check = [self getCellAtCoord:ccp(check.coord.x,check.coord.y+1)].jewelSprite;
-    }
-    
-    BOOL life = middleList.count>=kJewelEliminateMinNeed || topList.count + middleList.count >= kJewelEliminateMinNeed || bottomList.count + middleList.count >= kJewelEliminateMinNeed;
-    
-    return life;
-}
-
-
-/// 宝石是否满的
--(BOOL) isFull
-{
-    return allJewelSprites.count == gridSize.width * gridSize.height;
-}
-
-
-/// 寻找可消除的宝石
--(CCArray*) findPossibleEliminateJewels
-{
-    if (!boardChangedSinceEvaluation)
-    {
-        return possibleEliminates;
-    }
-    
-    // 清理
-    [possibleEliminates removeAllObjects];
-    
-    for (int i = 0; i < gridSize.width; i++)
-    {
-        for (int j = 0; j < gridSize.height; j++)
-        {
-            JewelCell *cell = [self getCellAtCoord:ccp(i,j)];
-            // 检查是否有宝石
-            if (!cell.jewelSprite)
-            {
-                continue;
-            }
-            
-            // 检查水平方向是否可消除
-            CCArray *leftList = [[CCArray alloc] initWithCapacity:5];
-            CCArray *middleList = [[CCArray alloc] initWithCapacity:5];
-            CCArray *rightList = [[CCArray alloc] initWithCapacity:5];
-            
-            // 检查水平方向可消除的宝石
-            if ([self isHorizontalPossibleEliminateWithJewelSprite:cell.jewelSprite leftList:leftList middleList:middleList rightList:rightList])
-            {
-                [possibleEliminates addObjectsFromArray:leftList];
-                [possibleEliminates addObjectsFromArray:middleList];
-                [possibleEliminates addObjectsFromArray:rightList];
-            }
-            
-            [leftList release];
-            [middleList release];
-            [rightList release];
-            
-            // 检查可移动宝石是否已经找到
-            if (possibleEliminates.count>0)
-            {
-                return possibleEliminates;
-            }
-            
-            // 检查垂直方向是否可消除
-            // 检查水平方向是否可消除
-            CCArray *topList = [[CCArray alloc] initWithCapacity:5];
-            middleList = [[CCArray alloc] initWithCapacity:5];
-            CCArray *bottomList = [[CCArray alloc] initWithCapacity:5];
-            
-            // 检查垂直方向可消除的宝石
-            if ([self isVerticalPossibleEliminateWithJewelSprite:cell.jewelSprite topList:topList middleList:middleList bottomList:rightList])
-            {
-                [possibleEliminates addObjectsFromArray:topList];
-                [possibleEliminates addObjectsFromArray:middleList];
-                [possibleEliminates addObjectsFromArray:bottomList];
-            }
-            
-            [topList release];
-            [middleList release];
-            [bottomList release];
-            
-            // 检查可移动宝石是否已经找到
-            if (possibleEliminates.count > 0)
-            {
-                return possibleEliminates;
-            }
-        }
-    }
-    
-    // 未找到
-    boardChangedSinceEvaluation = NO;
-    [possibleEliminates removeAllObjects];
-    return possibleEliminates;
-}
 
 /// 显示宝石消除提示
 -(void) displayHint
 {
-    CCArray *jewels = [self findPossibleEliminateJewels];
+    CCArray *jewels = [self.jewelController.boardData findPossibleEliminateJewels];
         _isDisplayingHint = YES;
         
-    for (JewelSprite *js in jewels)
+    for (JewelVo *jv in jewels)
     {
+        JewelSprite *js = [self getJewelSpriteWithGlobalId:jv.globalId];
         CCAction *action = [CCRepeatForever actionWithAction:[CCSequence actions:
                              [CCFadeIn actionWithDuration:0.5f],
                              [CCFadeOut actionWithDuration:0.5f],
                             nil]];
         EffectSprite *hintSprite = [[EffectSprite alloc] initWithFile:@"hint.png"];
         hintSprite.position = js.position;
+        hintSprite.anchorPoint = ccp(0,0);
         [hintLayer addChild:hintSprite];
         [hintSprite runAction:action];
     }
 }
+
+/// 更新闪烁 (宝石反光效果)
+-(void) updateSparkle
+{
+    /// 有概率
+    if (CCRANDOM_0_1() > 0.1f)
+    {
+        return;
+    }
+    // 随机获取一个宝石
+    JewelSprite *js = [allJewelSprites randomObject];
+    EffectSprite *effect = [[EffectSprite alloc] initWithFile:@"jewel_sparkle.png"];
+    [effect runAction:[CCRepeatForever actionWithAction:[CCRotateBy actionWithDuration:3 angle:360]]];
+    [effect setOpacity:0];
+    [effect runAction:[CCSequence actions:
+                       [CCFadeIn actionWithDuration:0.5f],
+                       [CCFadeOut actionWithDuration:2.0f],
+                       [CCCallFunc actionWithTarget:effect selector:@selector(removeFromParent)],
+                       nil]];
+    [effect setPosition:ccp(js.position.x + cellSize.width/2.0f * 2.0/6.0, js.position.y + cellSize.height/2.0f * 4.0/6.0)];
+    [self addEffectSprite:effect];
+    [effect release];
+}
+
+-(void) setupShimmer
+{
+    // 预加载
+    [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"shimmer.plist"];
+    for (int i = 0; i < 2; i++)
+    {
+        EffectSprite *sprt = [[EffectSprite alloc] initWithSpriteFrameName:[NSString stringWithFormat:@"bg-shimmer-%d.png",i]];
+        
+        CCAction *seqRot = nil;
+        CCAction *seqMov = nil;
+        CCAction *seqSca = nil;
+        
+        for (int j = 0; j< 10; j++)
+        {
+            float time = CCRANDOM_0_1() * 10 + 5;
+            float x = boardWidth * cellSize.width/2.0f;
+            float y = CCRANDOM_0_1() * boardHeight * cellSize.height;
+            
+            float rot = CCRANDOM_0_1() * 180 - 90;
+            float scale = CCRANDOM_0_1() * 3 + 3;
+            
+            CCAction *actionRot = [CCEaseInOut actionWithAction:[CCRotateTo actionWithDuration:time angle:rot] rate:2];
+            CCAction *actionMov = [CCEaseInOut actionWithAction:[CCMoveTo actionWithDuration:time position:ccp(x,y)] rate:2];
+            CCAction *actionSca = [CCScaleTo actionWithDuration:time scale:scale];
+            
+            if (!seqRot)
+            {
+                seqRot = actionRot;
+                seqMov = actionMov;
+                seqSca = actionSca;
+            }
+            else
+            {
+                seqRot = [CCSequence actionOne:seqRot two:actionRot];
+                seqMov = [CCSequence actionOne:seqMov two:actionMov];
+                seqSca = [CCSequence actionOne:seqSca two:actionSca];
+            }
+        }
+        
+        int x = boardWidth * cellSize.width / 2.0f;
+        int y = CCRANDOM_0_1() * boardHeight * cellSize.height;
+        float rot = CCRANDOM_0_1() * 180 - 90;
+        [sprt setPosition:ccp(x,y)];
+        [sprt setRotation:rot];
+        
+        [sprt setPosition:ccp(boardWidth * cellSize.width / 2.0f, boardHeight * cellSize.height / 2.0f)];
+        [sprt setBlendFunc:(ccBlendFunc){GL_SRC_ALPHA,GL_ONE}];
+        [sprt setScale:3.0f];
+        
+        [shimmerLayer addChild:sprt];
+        [sprt setOpacity:0];
+        [sprt runAction:[CCRepeatForever actionWithAction:seqRot]];
+        [sprt runAction:[CCRepeatForever actionWithAction:seqMov]];
+        [sprt runAction:[CCRepeatForever actionWithAction:seqSca]];
+        
+        [sprt runAction:[CCFadeIn actionWithDuration:2.0f]];
+    }
+}
+
+-(void) removeShimmer
+{
+    CCArray *children = [shimmerLayer children];
+    for (int i = 0; i < children.count; i++)
+    {
+        [[children objectAtIndex:i] runAction:[CCFadeOut actionWithDuration:1.0f]];
+    }
+}
+
 
 @end

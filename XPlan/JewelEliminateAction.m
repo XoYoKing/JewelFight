@@ -12,10 +12,11 @@
 #import "JewelSprite.h"
 #import "JewelVo.h"
 #import "Constants.h"
-#import "JewelDropAction.h"
+#import "JewelFallAction.h"
 #import "JewelBoard.h"
 #import "JewelEliminateMessageData.h"
 #import "GameMessageDispatcher.h"
+#import "JewelBoardData.h"
 
 @interface JewelEliminateAction()
 
@@ -48,17 +49,14 @@
     }
     
     // 宝石面板设置为不可操作
-    [jewelController.jewelBoard setIsControlEnabled:NO];
+    [jewelController.board setIsControlEnabled:NO];
     
-    jewelController.jewelBoard.lastMoveTime = [[NSDate date] timeIntervalSince1970];
-    
-    for (JewelSprite * elimSprite in elimList)
+    for (JewelVo * elimVo in elimList)
     {
+        JewelSprite *elimSprite = [jewelController.board getJewelSpriteWithGlobalId:elimVo.globalId];
         // 执行消除动画
         [elimSprite eliminate:1];
     }
-    
-    
 }
 
 -(BOOL) isOver
@@ -68,10 +66,6 @@
         return YES;
     }
     
-    if ([self isAllJewelEliminated])
-    {
-        return YES;
-    }
     return NO;
 }
 
@@ -79,33 +73,46 @@
 {
     if ([self isAllJewelEliminated])
     {
+        [self skip];
         [self execute];
     }
 }
 
 -(void) execute
-{    
-    // 发送消除消息
+{
+    [jewelController.boardData updateJewelGridInfo];
     
-    CCArray *elimIds = [[CCArray alloc] initWithCapacity:elimList.count];
-    for (JewelSprite *js in elimList)
+    // 清理已经标记为删除的宝石
+    [jewelController.boardData removeMarkedJewels];
+    
+    
+    // 玩家操作的情况下, 处理下落逻辑,否则是等待
+    if ([jewelController isPlayerControl])
     {
-        [elimIds addObject:[NSNumber numberWithInt:js.globalId]];
+        // 发送消除消息
+        CCArray *elimIds = [[CCArray alloc] initWithCapacity:elimList.count];
+        for (JewelSprite *js in elimList)
+        {
+            [elimIds addObject:[NSNumber numberWithInt:js.globalId]];
+        }
+        
+        JewelEliminateMessageData *msg = [JewelEliminateMessageData dataWithUserId:jewelController.userId jewelGlobalIds:elimIds];
+        
+        [elimIds release];
+        elimIds = nil;
+        [[GameMessageDispatcher sharedDispatcher] dispatchWithSender:jewelController message:JEWEL_MESSAGE_ELIMINATE_JEWELS object:msg];
+            
+        // TODO:补充缺失的宝石
+        
+        // 宝石下落
+        JewelFallAction *dropAction = [[JewelFallAction alloc] initWithJewelController:jewelController addList:nil];
+        [jewelController queueAction:dropAction top:YES];
+        [dropAction release];
+         
     }
     
-    JewelEliminateMessageData *msg = [JewelEliminateMessageData dataWithUserId:jewelController.userId jewelGlobalIds:elimIds];
-    
-    [elimIds release];
-    elimIds = nil;
-    [[GameMessageDispatcher sharedDispatcher] dispatchWithSender:jewelController message:JEWEL_MESSAGE_ELIMINATE_JEWELS object:msg];
-
-    // 宝石下落
-    JewelDropAction *dropAction = [[JewelDropAction alloc] initWithJewelController:jewelController];
-    [jewelController queueAction:dropAction top:YES];
-    [dropAction release];
-    
     // 宝石面板设置为可操作
-    [jewelController.jewelBoard setIsControlEnabled:YES];
+    [jewelController.board setIsControlEnabled:YES];
     
 }
 
@@ -113,9 +120,10 @@
 -(BOOL) isAllJewelEliminated
 {
     BOOL eliminated = YES;
-    for (JewelSprite * elimSprite in elimList)
+    for (JewelVo * elimVo in elimList)
     {
-        if (elimSprite.state!=kJewelStateEliminated)
+        JewelSprite *elimSprite = [jewelController.board getJewelSpriteWithGlobalId:elimVo.globalId];
+        if (elimSprite && elimSprite.state!=kJewelStateEliminated)
         {
             eliminated = NO;
             break;

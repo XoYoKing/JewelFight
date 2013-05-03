@@ -18,7 +18,6 @@
 #import "GameServer.h"
 #import "JewelController.h"
 #import "FightController.h"
-#import "JewelAddAction.h"
 #import "JewelSwapMessageData.h"
 #import "JewelEliminateMessageData.h"
 #import "GameMessageDispatcher.h"
@@ -127,7 +126,7 @@
     if (playerTeam == 0)
     {
         playerJewelController = [[JewelController alloc] initWithJewelBoard:pvpLayer.player1JewelPanel.jewelBoard operatorUserId:[GameController sharedController].player.userId];
-        [playerJewelController.jewelBoard active];
+        [playerJewelController.board active];
         
         // 设置对手操控区域
         opponentJewelController = [[JewelController alloc] initWithJewelBoard:pvpLayer.player2JewelPanel.jewelBoard operatorUserId:opponentUser.userId];
@@ -135,7 +134,7 @@
     else
     {
         playerJewelController = [[JewelController alloc] initWithJewelBoard:pvpLayer.player2JewelPanel.jewelBoard operatorUserId:[GameController sharedController].player.userId];
-        [playerJewelController.jewelBoard active];
+        [playerJewelController.board active];
         
         // 设置对手操控区域
         opponentJewelController = [[JewelController alloc] initWithJewelBoard:pvpLayer.player1JewelPanel.jewelBoard operatorUserId:opponentUser.userId];

@@ -10,6 +10,8 @@
 #import "iPhoneGameKit.h"
 #import "EffectSprite.h"
 
+#define kTimeBetweenJewelAdds 8 // 添加宝石间隔时间
+
 @class JewelSprite,JewelVo,JewelController,JewelCell,JewelAction;
 
 /// 宝石面板
@@ -19,31 +21,24 @@
     CCSpriteBatchNode *jewelBatchNode; // 宝石层
     CCLayer *effectLayer; // 效果层
     CCLayer *hintLayer; // 提示层
+    CCLayer *shimmerLayer; // 微光层
 
     NSMutableDictionary *allJewelSpriteDict; // 宝石字典
     CCArray *allJewelSprites; // 宝石集合
-    CCArray *cellGrid; // 宝石格子集合
-    CCArray *numJewelsInColumn; // 宝石列中的宝石数量
-    CCArray *timeSinceAddInColumn; // 加入到宝石列中后过去的时间
-    CCArray *fallingJewels; // 下落的宝石集合
-    BOOL boardChangedSinceEvaluation;
-    CCArray *possibleEliminates;
     BOOL _isDisplayingHint; // 是否正在显示提示
     double lastMoveTime; // 上次移动时间
-    
-    CGSize totalSize; // 总像素宽高
-    CGSize gridSize; // 格子数量宽高
+    int boardWidth; // 宝石面板格子宽数量
+    int boardHeight; // 宝石面板格子高数量
     CGSize cellSize; // 宝石地格像素宽高
     int continueDispose; // 连续消除次数
     int team; // 阵营 0:玩家阵营;1 对手阵营
     BOOL isControlEnabled; // 是否可以操作
+    
+    
 }
 
 /// 连续消除次数
 @property (readwrite,nonatomic) int continueDispose;
-
-/// 格子宽高数量
-@property (readonly,nonatomic) CGSize gridSize;
 
 /// 格子宽高
 @property (readonly,nonatomic) CGSize cellSize;
@@ -129,22 +124,5 @@
 
 -(void) updateJewelGridInfo;
 
-/// 检查水平方向的可消除的宝石
--(void) findHorizontalEliminableJewels:(CCArray*)elimList withJewel:(JewelSprite*)source;
-
-/// 检查垂直方向的可消除的宝石
--(void) findVerticalEliminableJewels:(CCArray*)elimList withJewel:(JewelSprite*)source;
-
-/// 重置上方消除状态
--(void) resetEliminateTop:(JewelSprite*)source;
-
-/// 重置右侧消除状态
--(void) resetEliminateRight:(JewelSprite*)source;
-
-/// 检查死局
--(BOOL) checkDead;
-
-/// 宝石是否满的
--(BOOL) isFull;
 
 @end

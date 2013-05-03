@@ -7,132 +7,132 @@
 		<key>jewelSelected_000.png</key>
 		<dict>
 			<key>frame</key>
-			<string>{{2,2},{93,93}}</string>
+			<string>{{2,2},{78,78}}</string>
 			<key>offset</key>
 			<string>{0,0}</string>
 			<key>rotated</key>
 			<false/>
 			<key>sourceColorRect</key>
-			<string>{{1,1},{93,93}}</string>
+			<string>{{1,1},{78,78}}</string>
 			<key>sourceSize</key>
-			<string>{95,95}</string>
+			<string>{80,80}</string>
 		</dict>
 		<key>jewelSelected_001.png</key>
 		<dict>
 			<key>frame</key>
-			<string>{{2,2},{93,93}}</string>
+			<string>{{2,2},{78,78}}</string>
 			<key>offset</key>
 			<string>{0,0}</string>
 			<key>rotated</key>
 			<false/>
 			<key>sourceColorRect</key>
-			<string>{{1,1},{93,93}}</string>
+			<string>{{1,1},{78,78}}</string>
 			<key>sourceSize</key>
-			<string>{95,95}</string>
+			<string>{80,80}</string>
 		</dict>
 		<key>jewelSelected_002.png</key>
 		<dict>
 			<key>frame</key>
-			<string>{{2,2},{93,93}}</string>
+			<string>{{2,2},{78,78}}</string>
 			<key>offset</key>
 			<string>{0,0}</string>
 			<key>rotated</key>
 			<false/>
 			<key>sourceColorRect</key>
-			<string>{{1,1},{93,93}}</string>
+			<string>{{1,1},{78,78}}</string>
 			<key>sourceSize</key>
-			<string>{95,95}</string>
+			<string>{80,80}</string>
 		</dict>
 		<key>jewelSelected_003.png</key>
 		<dict>
 			<key>frame</key>
-			<string>{{2,2},{93,93}}</string>
+			<string>{{2,2},{78,78}}</string>
 			<key>offset</key>
 			<string>{0,0}</string>
 			<key>rotated</key>
 			<false/>
 			<key>sourceColorRect</key>
-			<string>{{1,1},{93,93}}</string>
+			<string>{{1,1},{78,78}}</string>
 			<key>sourceSize</key>
-			<string>{95,95}</string>
+			<string>{80,80}</string>
 		</dict>
 		<key>jewelSelected_004.png</key>
 		<dict>
 			<key>frame</key>
-			<string>{{2,2},{93,93}}</string>
+			<string>{{2,2},{78,78}}</string>
 			<key>offset</key>
 			<string>{0,0}</string>
 			<key>rotated</key>
 			<false/>
 			<key>sourceColorRect</key>
-			<string>{{1,1},{93,93}}</string>
+			<string>{{1,1},{78,78}}</string>
 			<key>sourceSize</key>
-			<string>{95,95}</string>
+			<string>{80,80}</string>
 		</dict>
 		<key>jewelSelected_005.png</key>
 		<dict>
 			<key>frame</key>
-			<string>{{2,97},{91,91}}</string>
+			<string>{{2,82},{76,76}}</string>
 			<key>offset</key>
 			<string>{0,0}</string>
 			<key>rotated</key>
 			<false/>
 			<key>sourceColorRect</key>
-			<string>{{2,2},{91,91}}</string>
+			<string>{{2,2},{76,76}}</string>
 			<key>sourceSize</key>
-			<string>{95,95}</string>
+			<string>{80,80}</string>
 		</dict>
 		<key>jewelSelected_006.png</key>
 		<dict>
 			<key>frame</key>
-			<string>{{2,97},{91,91}}</string>
+			<string>{{2,82},{76,76}}</string>
 			<key>offset</key>
 			<string>{0,0}</string>
 			<key>rotated</key>
 			<false/>
 			<key>sourceColorRect</key>
-			<string>{{2,2},{91,91}}</string>
+			<string>{{2,2},{76,76}}</string>
 			<key>sourceSize</key>
-			<string>{95,95}</string>
+			<string>{80,80}</string>
 		</dict>
 		<key>jewelSelected_007.png</key>
 		<dict>
 			<key>frame</key>
-			<string>{{2,97},{91,91}}</string>
+			<string>{{2,82},{76,76}}</string>
 			<key>offset</key>
 			<string>{0,0}</string>
 			<key>rotated</key>
 			<false/>
 			<key>sourceColorRect</key>
-			<string>{{2,2},{91,91}}</string>
+			<string>{{2,2},{76,76}}</string>
 			<key>sourceSize</key>
-			<string>{95,95}</string>
+			<string>{80,80}</string>
 		</dict>
 		<key>jewelSelected_008.png</key>
 		<dict>
 			<key>frame</key>
-			<string>{{2,97},{91,91}}</string>
+			<string>{{2,82},{76,76}}</string>
 			<key>offset</key>
 			<string>{0,0}</string>
 			<key>rotated</key>
 			<false/>
 			<key>sourceColorRect</key>
-			<string>{{2,2},{91,91}}</string>
+			<string>{{2,2},{76,76}}</string>
 			<key>sourceSize</key>
-			<string>{95,95}</string>
+			<string>{80,80}</string>
 		</dict>
 		<key>jewelSelected_009.png</key>
 		<dict>
 			<key>frame</key>
-			<string>{{2,97},{91,91}}</string>
+			<string>{{2,82},{76,76}}</string>
 			<key>offset</key>
 			<string>{0,0}</string>
 			<key>rotated</key>
 			<false/>
 			<key>sourceColorRect</key>
-			<string>{{2,2},{91,91}}</string>
+			<string>{{2,2},{76,76}}</string>
 			<key>sourceSize</key>
-			<string>{95,95}</string>
+			<string>{80,80}</string>
 		</dict>
 	</dict>
 	<key>metadata</key>
@@ -142,9 +142,9 @@
 		<key>realTextureFileName</key>
 		<string>jewelSelected-ipadhd.pvr.ccz</string>
 		<key>size</key>
-		<string>{97,190}</string>
+		<string>{82,160}</string>
 		<key>smartupdate</key>
-		<string>$TexturePacker:SmartUpdate:cc81e78b32da76c7b36ab66b0a85d8c8$</string>
+		<string>$TexturePacker:SmartUpdate:501837ef99063d68c8576a5b37a1e899$</string>
 		<key>textureFileName</key>
 		<string>jewelSelected-ipadhd.pvr.ccz</string>
 	</dict>

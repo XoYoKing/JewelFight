@@ -333,7 +333,10 @@
 
 -(void) eliminateComplete
 {
-     [self deleteEffectWithKey:kJewelEffectEliminate];   
+    // 删除效果
+     [self deleteEffectWithKey:kJewelEffectEliminate];
+    
+    // 更新状态为删除状态
     newState = kJewelStateEliminated;
 }
 

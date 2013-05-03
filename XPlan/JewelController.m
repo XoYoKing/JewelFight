@@ -14,32 +14,38 @@
 #import "JewelBoard.h"
 #import "JewelActionQueue.h"
 #import "JewelAction.h"
-#import "JewelAddAction.h"
+#import "JewelFallAction.h"
 #import "JewelFactory.h"
 #import "GameMessageDispatcher.h"
 #import "JewelMessageData.h"
 #import "Constants.h"
-
-static int jewelGlobalIdGenerator = 10000;
+#import "GameController.h"
+#import "PlayerInfo.h"
+#import "JewelBoardData.h"
 
 @interface JewelController()
-
+{
+}
 @end
 
 @implementation JewelController
 
-@synthesize jewelBoard,userId;
+@synthesize board,boardData,userId,boardWidth,boardHeight;
 
 -(id) initWithJewelBoard:(JewelBoard *)jb operatorUserId:(long)uId
 {
     if ((self = [super init]))
     {
-        jewelBoard = jb;
-        jewelBoard.jewelController = self;
+        board = jb;
+        board.jewelController = self;
         userId = uId;
         
-        jewelVoDict = [[NSMutableDictionary alloc] init];
-        jewelVoList = [[CCArray alloc] initWithCapacity:60];
+        // 设置格子宽高
+        boardWidth = kJewelBoardWidth;
+        boardHeight = kJewelBoardHeight;
+        
+        boardData = [[JewelBoardData alloc] initWithJewelController:self];
+        
         actionQueue = [[JewelActionQueue alloc] init];
     }
     
@@ -49,22 +55,28 @@ static int jewelGlobalIdGenerator = 10000;
 -(void) dealloc
 {
     [actionQueue release];
-    [jewelVoDict release];
-    [jewelVoList release];
-    
+    [boardData release];
     [super dealloc];
 }
 
 -(void) update:(ccTime)delta
-{
+{    
     [self updateJewelActions:delta];
-    [self.jewelBoard update:delta];
+    [self.board update:delta];
 }
 
 /// 检查连续消除
 -(void) checkContinue
 {
     
+}
+
+#pragma mark -
+#pragma mark Status
+
+-(BOOL) isPlayerControl
+{
+    return self.userId == [GameController sharedController].player.userId;
 }
 
 #pragma mark -
@@ -92,25 +104,6 @@ static int jewelGlobalIdGenerator = 10000;
             [actionQueue.actions removeObjectAtIndex:0];
             [currentAction start];
         }
-        else
-        {
-            if(jewelVoList.count<kJewelBoardWidth*kJewelBoardHeight)
-            {
-                // 补充宝石
-                [self fillEmptyJewels];
-            }
-            else
-            {
-                // 检查死局
-                // 当宝石为满时,检查死局
-                if ([jewelBoard isFull] && [jewelBoard checkDead])
-                {
-                    // 发送死局通知
-                    JewelMessageData *msg = [[[JewelMessageData alloc] initWithUserId:userId] autorelease];
-                    [[GameMessageDispatcher sharedDispatcher] dispatchWithSender:self message:JEWEL_MESSAGE_DEAD object:msg];
-                }
-            }
-        }
     }
 }
 
@@ -132,77 +125,59 @@ static int jewelGlobalIdGenerator = 10000;
     currentAction = nil;
 }
 
+#pragma mark -
+#pragma mark JewelVo
+
 -(void) newJewelVoList:(CCArray *)list
 {
     // 清除原来的全部宝石
     [self removeAllJewels];
     
-    // Action
-    JewelAddAction *action = [[JewelAddAction alloc] initWithJewelController:self jewelVoList:list];
-    [self queueAction:action top:NO];
-    [action release];
-    
-}
-
--(void) addJewelVoList:(CCArray*)list
-{
-    JewelAddAction *action = [[JewelAddAction alloc] initWithJewelController:self jewelVoList:list];
-    [self queueAction:action top:NO];
-    [action release];
+    [self addJewelVoList:list];
 }
 
 
 /// 添加宝石数据
 -(void) addJewelVo:(JewelVo*)jv
 {
-    // 添加JewelVo
-    if (![jewelVoDict.allKeys containsObject:[NSNumber numberWithInt:jv.globalId]])
-    {
-        [jewelVoDict setObject:jv forKey:[NSNumber numberWithInt:jv.globalId]];
-        [jewelVoList addObject:jv];
-    }
+    [boardData addJewelVo:jv];
 }
 
 /// 删除宝石数据
 -(void) removeJewelVo:(JewelVo*)jv
 {
-    [jewelVoDict removeObjectForKey:[NSNumber numberWithInt:jv.globalId]];
-    [jewelVoList removeObject:jv];
+    [boardData removeJewelVo:jv];
 }
 
 -(void) removeAllJewels
 {
-    // 清除Jewel Sprite
-    [self.jewelBoard removeAllJewels];
+    // 清除宝石面板的全部宝石Sprite
+    [self.board removeAllJewels];
     
-    // 清除
-    [jewelVoDict removeAllObjects];
-    [jewelVoList removeAllObjects];
+    // 清除全部数据
+    [boardData removeAllJewelVos];
 }
 
 
-/// 填充空白宝石
--(void) fillEmptyJewels
+/// 添加宝石队列
+-(void) addJewelVoList:(CCArray*)list
 {
-    CCArray *fillJewels = [[CCArray alloc] initWithCapacity:10];
-    // 找出空出来的宝石位置,向上寻找宝石
-    for (int i =0;i <kJewelBoardWidth; i++)
-    {
-        for (int j = 0; j< kJewelBoardHeight; j++)
-        {
-            if ([jewelBoard getCellAtCoord:ccp(i,j)].jewelSprite==nil)
-            {
-                JewelVo *newJv = [JewelFactory randomJewel];
-                newJv.globalId = ++jewelGlobalIdGenerator;
-                newJv.coord = ccp(i,j);
-                [fillJewels addObject:newJv];
-            }
-        }
-    }
-    JewelAddAction *action = [[JewelAddAction alloc] initWithJewelController:self jewelVoList:fillJewels];
+    // 执行下落动作
+    JewelFallAction *action = [[JewelFallAction alloc] initWithJewelController:self addList:list];
     [self queueAction:action top:NO];
     [action release];
-    [fillJewels release];
+}
+
+/// 执行爆炸效果
+-(void) doExplodeEffectWithJewelVoList:(CCArray*)jewelVoList
+{
+    
+}
+
+/// 执行闪电消除效果
+-(void) doLightEffectWithJewelVoList:(CCArray*)jewelVoList
+{
+    
 }
 
 

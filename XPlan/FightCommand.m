@@ -46,12 +46,12 @@
 /// 封装攻击信息
 +(void) populateAttackVo:(AttackVo*)av data:(ServerDataDecoder*)data
 {
-    av.actorGlobalId = [data readInt64];
-    av.targetGlobalId = [data readInt64];
-    av.skillId = [data readInt32];
-    av.combos = [data readInt32];
-    av.hurt = [data readInt32];
-    av.dead = [data readBoolean];
+    av.actorGlobalId = [data readInt64]; // 攻击者标识
+    av.targetGlobalId = [data readInt64]; // 被攻击者标识
+    av.skillId = [data readInt32]; // 技能标识
+    av.combos = [data readInt32]; // 连击计算
+    av.hurt = [data readInt32]; // 伤害值
+    av.dead = [data readBoolean]; // 是否死亡
 }
 
 @end

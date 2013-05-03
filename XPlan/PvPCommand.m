@@ -243,24 +243,40 @@
     
     // 先获取玩家宝石数量
     // 数量
-    int amount = [data readInt32]; //
-    CCArray *playerJewels = [[CCArray alloc] initWithCapacity:amount];
-    for (int i = 0;i < amount; i++)
+    int boardWidth = [data readInt32]; //
+    CCArray *playerJewels = [[CCArray alloc] initWithCapacity:boardWidth];
+    for (int x = 0;x < boardWidth; x++)
     {
-        JewelVo *jewelVo = [[JewelVo alloc] init];
-        [FightCommand populateJewelVo:jewelVo data:data];
-        [playerJewels addObject:jewelVo];
+        CCArray *column = [[CCArray alloc] initWithCapacity:10];
+        [playerJewels addObject:column];
+        [column release];
+        
+        int columnCount = [data readInt32];
+        for (int i = 0; i < columnCount; i++)
+        {
+            JewelVo *jewelVo = [[JewelVo alloc] init];
+            [FightCommand populateJewelVo:jewelVo data:data];
+            [column addObject:jewelVo];
+        }
     }
     [dict setObject:playerJewels forKey:@"player_jewels"];
     
     // 再获取对手宝石数量
-    amount = [data readInt32];
-    CCArray *opponentJewels = [[CCArray alloc] initWithCapacity:amount];
-    for (int i = 0;i < amount; i++)
+    boardWidth = [data readInt32]; //
+    CCArray *opponentJewels = [[CCArray alloc] initWithCapacity:boardWidth];
+    for (int x = 0;x < boardWidth; x++)
     {
-        JewelVo *jewelVo = [[JewelVo alloc] init];
-        [FightCommand populateJewelVo:jewelVo data:data];
-        [opponentJewels addObject:jewelVo];
+        CCArray *column = [[CCArray alloc] initWithCapacity:10];
+        [opponentJewels addObject:column];
+        [column release];
+        
+        int columnCount = [data readInt32];
+        for (int i = 0; i < columnCount; i++)
+        {
+            JewelVo *jewelVo = [[JewelVo alloc] init];
+            [FightCommand populateJewelVo:jewelVo data:data];
+            [column addObject:jewelVo];
+        }
     }
     [dict setObject:opponentJewels forKey:@"opponent_jewels"];
     
@@ -276,13 +292,21 @@
     serverData.userId = [data readInt64]; // 关联用户标识
     
     // 先获取玩家宝石数量
-    // 数量
-    int amount = [data readInt32]; //
-    for (int i = 0;i < amount; i++)
+    
+    int boardWidth = [data readInt32]; //
+    for (int x = 0;x < boardWidth; x++)
     {
-        JewelVo *jewelVo = [[JewelVo alloc] init];
-        [FightCommand populateJewelVo:jewelVo data:data];
-        [serverData.jewelVoList addObject:jewelVo];
+        CCArray *column = [[CCArray alloc] initWithCapacity:11];
+        [serverData.jewelVoList addObject:column];
+        [column release];
+        
+        int columnCount = [data readInt32];
+        for (int i = 0; i < columnCount; i++)
+        {
+            JewelVo *jewelVo = [[JewelVo alloc] init];
+            [FightCommand populateJewelVo:jewelVo data:data];
+            [column addObject:jewelVo];
+        }
     }
     
     [self responseToListenerWithActionId:SERVER_ACTION_PVP_DEAD_JEWELS object:serverData];
@@ -291,13 +315,22 @@
 -(void) handleNewJewels:(ServerDataDecoder*)data
 {
     long userId = [data readInt64]; // 玩家标识
-    int amount = [data readInt32]; // 新增宝石数量
-    CCArray *jewels = [[CCArray alloc] initWithCapacity:amount];
-    for (int i = 0;i < amount; i++)
+    
+    int boardWidth = [data readInt32]; //
+    CCArray *jewels = [[CCArray alloc] initWithCapacity:boardWidth];
+    for (int x = 0;x < boardWidth; x++)
     {
-        JewelVo *jewelVo = [[JewelVo alloc] init];
-        [FightCommand populateJewelVo:jewelVo data:data];
-        [jewels addObject:jewelVo];
+        CCArray *column = [[CCArray alloc] initWithCapacity:10];
+        [jewels addObject:column];
+        [column release];
+        
+        int columnCount = [data readInt32];
+        for (int i = 0; i < columnCount; i++)
+        {
+            JewelVo *jewelVo = [[JewelVo alloc] init];
+            [FightCommand populateJewelVo:jewelVo data:data];
+            [column addObject:jewelVo];
+        }
     }
     
     NewJewelsCommandData *obj = [[[NewJewelsCommandData alloc] init] autorelease];

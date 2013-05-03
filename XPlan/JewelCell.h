@@ -9,36 +9,31 @@
 #import <Foundation/Foundation.h>
 
 
-@class JewelSprite,JewelBoard;
+@class JewelSprite,JewelController,JewelVo;
 
-/// 宝石面板的格子
+/// 宝石格子
 @interface JewelCell : NSObject
 {
-    JewelBoard *board; // 对应宝石面板
+    JewelController *controller; // 宝石控制器
     CGPoint coord; // 格子坐标
     int jewelGlobalId; // 宝石唯一标识
-    int comingJewelGlobalId; // 即将到来的宝石标识
 }
+
+/// 控制器
+@property (readonly,nonatomic) JewelController *controller;
 
 /// 格子坐标
 @property (readwrite,nonatomic,assign) CGPoint coord;
 
-/// 对应宝石面板
-@property (readonly,nonatomic) JewelBoard *board;
-
-/// 宝石面板
 @property (readwrite,nonatomic) int jewelGlobalId;
 
-/// 即将到来的宝石标识
-@property (readwrite,nonatomic) int comingJewelGlobalId;
+/// 关联宝石数据对象
+@property (readonly,nonatomic) JewelVo *jewelVo;
 
 /// 宝石
 @property (readonly,nonatomic) JewelSprite *jewelSprite;
 
-/// 在宝石面板上的范围
-@property (readonly,nonatomic) CGRect boardRect;
-
 /// 初始化
--(id) initWithJewelBoard:(JewelBoard*)jb coord:(CGPoint)cd;
+-(id) initWithJewelController:(JewelController*)jc coord:(CGPoint)cd;
 
 @end

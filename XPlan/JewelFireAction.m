@@ -83,7 +83,7 @@
             // 更新坐标
             CGPoint nextPos = ccp(fireBall.position.x, fireBall.position.y + vel);
             fireBall.position = nextPos;
-            JewelSprite *js = [jewelController.jewelBoard getJewelSpriteWithGlobalId:[[jewelVoList objectAtIndex:0] globalId]];
+            JewelSprite *js = [jewelController.board getJewelSpriteWithGlobalId:[[jewelVoList objectAtIndex:0] globalId]];
             if (fireBall.position.y > js.position.y)
             {
                 // 燃烧
@@ -128,11 +128,11 @@
             [fireBall animate:fireAnim tag:-1 repeat:YES restore:NO];
             
             // 设置坐标
-            CGPoint pos = [jewelController.jewelBoard cellCoordToPosition:[[jewelVoList objectAtIndex:0] coord]];
+            CGPoint pos = [jewelController.board cellCoordToPosition:[[jewelVoList objectAtIndex:0] coord]];
             fireBall.position = pos;
             
             // 添加火龙效果
-            [jewelController.jewelBoard addEffectSprite:fireBall];
+            [jewelController.board addEffectSprite:fireBall];
             
             
             // 设置新状态
@@ -161,7 +161,7 @@
     // 清除剩余队列
     for(JewelVo *jv in jewelVoList)
     {
-        JewelSprite *js = [jewelController.jewelBoard getJewelSpriteWithGlobalId:jv.globalId];
+        JewelSprite *js = [jewelController.board getJewelSpriteWithGlobalId:jv.globalId];
         js.jewelVo.state = kJewelStateEliminated;
         [firingJewelGlobalIds addObject:[NSNumber numberWithInt:js.globalId]];
     }
@@ -169,7 +169,7 @@
     // 点燃的宝石燃烧成灰烬
     for (NSNumber *idNumber in firingJewelGlobalIds)
     {
-        JewelSprite *js = [jewelController.jewelBoard getJewelSpriteWithGlobalId:[idNumber intValue]];
+        JewelSprite *js = [jewelController.board getJewelSpriteWithGlobalId:[idNumber intValue]];
         
         // 播放火焰消除动画
         [js animateFireEliminate];

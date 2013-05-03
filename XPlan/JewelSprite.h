@@ -61,6 +61,7 @@ typedef enum JewelSpriteStates
 /// 宝石新状态
 @property (readwrite,nonatomic) int newState;
 
+
 /// 初始化
 -(id) initWithJewelBoard:(JewelBoard*)thePanel jewelVo:(JewelVo*)sd;
 

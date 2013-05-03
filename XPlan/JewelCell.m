@@ -7,19 +7,19 @@
 //
 
 #import "JewelCell.h"
-#import "JewelBoard.h"
-#import "JewelSprite.h"
-#import "JewelVo.h"
 #import "JewelController.h"
+#import "JewelBoardData.h"
+#import "JewelBoard.h"
+#import "JewelVo.h"
 
 @implementation JewelCell
-@synthesize board,coord,jewelGlobalId,jewelSprite,comingJewelGlobalId;
+@synthesize controller,coord,jewelGlobalId;
 
--(id) initWithJewelBoard:(JewelBoard *)jb coord:(CGPoint)cd
+-(id) initWithJewelController:(JewelController *)jc coord:(CGPoint)cd
 {
     if ((self = [super init]))
     {
-        board = jb;
+        controller = jc;
         coord = cd;
     }
     
@@ -31,19 +31,25 @@
     [super dealloc];
 }
 
--(JewelSprite*) jewelSprite
+
+-(JewelVo*) jewelVo
 {
     if (jewelGlobalId!=0)
     {
-        return [board getJewelSpriteWithGlobalId:jewelGlobalId];
+        return [controller.boardData getJewelVoByGlobalId:jewelGlobalId];
     }
     
     return nil;
 }
 
--(CGRect) boardRect
+-(JewelSprite*) jewelSprite
 {
-    return CGRectMake(coord.x * board.cellSize.width, (board.gridSize.height - coord.y -1) * board.cellSize.height, board.cellSize.width, board.cellSize.height);
+    if (jewelGlobalId!=0)
+    {
+        return [controller.board getJewelSpriteWithGlobalId:jewelGlobalId];
+    }
+    
+    return nil;
 }
 
 @end
