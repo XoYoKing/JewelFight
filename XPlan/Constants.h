@@ -14,6 +14,7 @@ typedef enum _LayerTags
     kTagHudLayer = 100,
     kTagFadeLayer,
     kTagEffectLayer,
+    kTagParticleLayer,
     kTagHintLayer,
     kTagFighterLayer, // 战士层
     kTagStreetLayer, // 街道层
@@ -40,8 +41,8 @@ typedef enum _FightLayerTags
 #define kSkillTypeEx3 // ex3 技能
 
 // 宝石格子数
-#define kJewelBoardWidth 5 // 宝石格子宽数量
-#define kJewelBoardHeight 5 // 宝石格子高数量
+#define kJewelBoardWidth 8 // 宝石格子宽数量
+#define kJewelBoardHeight 11 // 宝石格子高数量
 
 #define kJewelCellSizeWidth 41
 #define kJewelCellSizeHeight 41

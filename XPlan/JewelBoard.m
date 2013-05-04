@@ -54,13 +54,17 @@
     shimmerLayer = [CCLayer node];
     [self addChild:shimmerLayer z:-1];
     
-    // 添加BatchNode
-    jewelBatchNode = [CCSpriteBatchNode batchNodeWithFile:@"jewel_resources.png"];
-    [self addChild:jewelBatchNode z:1 tag:-1];
+    // 添加JewelLayer
+    jewelLayer = [CCSpriteBatchNode batchNodeWithFile:@"jewel_resources.png"];
+    [self addChild:jewelLayer z:0 tag:-1];
+    
+    particleLayer = [CCParticleBatchNode batchNodeWithFile:@"taken_jewel.png" capacity:250];
+    [self addChild:particleLayer z:21 tag:kTagParticleLayer];
     
     // 添加效果层
     effectLayer = [CCLayer node];
     [self addChild:effectLayer z:2 tag:kTagEffectLayer];
+    
     
     // 添加提示层
     hintLayer = [CCLayer node];
@@ -71,7 +75,7 @@
     
     lastMoveTime = [[NSDate date] timeIntervalSince1970];
     
-    //[self setupShimmer];
+    [self setupShimmer];
 }
 
 /// 初始化宝石面板
@@ -93,6 +97,38 @@
     [allJewelSpriteDict release];
     [allJewelSprites release];
     [super dealloc];
+}
+
+-(void) onEnter
+{
+    [self loadSounds];
+    [super onEnter];
+}
+
+-(void) onExit
+{
+    [self unloadSounds];
+    [super onExit];
+}
+
+#pragma mark -
+#pragma mark Sound
+
+-(void) loadSounds
+{
+    // 预加载音效
+    [[KITSound sharedSound] loadSound:@"tap-1.wav"];
+    [[KITSound sharedSound] loadSound:@"tap-2.wav"];
+    [[KITSound sharedSound] loadSound:@"tap-3.wav"];
+    [[KITSound sharedSound] loadSound:@"tap-0.wav"];
+}
+
+-(void) unloadSounds
+{
+    [[KITSound sharedSound] unloadSound:@"tap-1.wav"];
+    [[KITSound sharedSound] unloadSound:@"tap-2.wav"];
+    [[KITSound sharedSound] unloadSound:@"tap-3.wav"];
+    [[KITSound sharedSound] unloadSound:@"tap-0.wav"];
 }
 
 #pragma mark -
@@ -237,6 +273,11 @@
     [effectLayer addChild:effectSprite];
 }
 
+-(void) addParticle:(CCParticleSystem *)particle
+{
+    [particleLayer addChild:particle];
+}
+
 -(void) disposeJewelsWithJewelVoList:(CCArray *)disList specialType:(int)specialType specialJewelVoList:(CCArray *)speList
 {
     
@@ -269,7 +310,7 @@
     jewelSprite.anchorPoint = ccp(0,0);
     
     // 添加宝石到ewelsBatchNode
-    [jewelBatchNode addChild:jewelSprite];
+    [jewelLayer addChild:jewelSprite];
     // 添加到字典
     [allJewelSpriteDict setObject:jewelSprite forKey:[NSNumber numberWithInt:jewelSprite.globalId]];
     // 添加到集合
@@ -282,7 +323,7 @@
     // 删除表现物
     [allJewelSpriteDict removeObjectForKey:[NSNumber numberWithInt:jewelSprite.globalId]];
     [allJewelSprites removeObject:jewelSprite];
-    [jewelBatchNode removeChild:jewelSprite cleanup:YES];
+    [jewelLayer removeChild:jewelSprite cleanup:YES];
     
     // 删除数据对象
     [jewelController.boardData removeJewelVo:jewelSprite.jewelVo];
@@ -293,7 +334,7 @@
 {
     for (JewelSprite *js in allJewelSprites)
     {
-        [jewelBatchNode removeChild:js cleanup:YES];
+        [jewelLayer removeChild:js cleanup:YES];
     }
     
     [allJewelSpriteDict removeAllObjects];
@@ -394,7 +435,8 @@
 /**
  * clip this view so that outside of the visible bounds can be hidden.
  */
--(void)beforeDraw {
+
+ -(void)beforeDraw {
 
 		
 		// TODO: This scrollview should respect parents' positions
@@ -414,6 +456,7 @@
  * retract what's done in beforeDraw so that there's no side effect to
  * other nodes.
  */
+
 -(void)afterDraw {
         glDisable(GL_SCISSOR_TEST);
 }

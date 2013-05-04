@@ -81,13 +81,10 @@
     {
         for (int x = 0; x < jewelController.boardWidth; x++)
         {
-            KITLog(@"boardData:numJewelsInColumn:%d amount:%d",x,boardData.numJewelsInColumn[x]);
-            KITLog(@"fallingJewelVos:%d amount:%d",x,[[boardData.fallingJewelVos objectAtIndex:x] count]);
-            
-            if (boardData.numJewelsInColumn[x] + [[boardData.fallingJewelVos objectAtIndex:x] count] < jewelController.boardHeight && boardData.timeSinceAddInColumn[x] >= jewelController.boardWidth)
+            CCArray *column = [addList objectAtIndex:x];
+            if (column.count>0)
             {
-                CCArray *column = [addList objectAtIndex:x];
-                if (column.count>0)
+                if (boardData.numJewelsInColumn[x] + [[boardData.fallingJewelVos objectAtIndex:x] count] < jewelController.boardHeight && boardData.timeSinceAddInColumn[x] >= jewelController.boardWidth)
                 {
                     // 自上向下反序获取
                     JewelVo *jv = [column objectAtIndex:0];
@@ -130,7 +127,6 @@
                 if (!jewelLanded)
                 {
                     NSString *soundName = [NSString stringWithFormat:@"tap-%d.wav", (int)CCRANDOM_0_1() * 4];
-                    [[KITSound sharedSound] loadSound:soundName];
                     [[KITSound sharedSound] playSound:soundName];
                     
                     jewelLanded = YES;

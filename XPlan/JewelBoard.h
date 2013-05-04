@@ -18,8 +18,9 @@
 @interface JewelBoard : CCLayer
 {
     JewelController *jewelController; // 宝石控制器
-    CCSpriteBatchNode *jewelBatchNode; // 宝石层
+    CCSpriteBatchNode *jewelLayer; // 宝石层
     CCLayer *effectLayer; // 效果层
+    CCParticleBatchNode *particleLayer; // 粒子效果层
     CCLayer *hintLayer; // 提示层
     CCLayer *shimmerLayer; // 微光层
 
@@ -63,6 +64,9 @@
 
 /// 添加效果
 -(void) addEffectSprite:(EffectSprite*)effectSprite;
+
+/// 添加粒子特效
+-(void) addParticle:(CCParticleSystem*)particle;
 
 #pragma mark -
 #pragma mark JewelSprite

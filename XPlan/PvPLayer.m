@@ -23,8 +23,6 @@
 {
     if ((self = [super init]))
     {
-        
-        
         [self initUI];
     }
     

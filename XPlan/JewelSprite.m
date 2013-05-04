@@ -317,27 +317,13 @@
     
     [self setVisible:NO];
     
-    KITProfile *profile = [KITProfile profileWithName:@"jewel_graphics"];
-    
-    // 播放燃烧销毁动画
-    CCAnimation *eliminateAnim = [profile animationForKey:[NSString stringWithFormat:@"eliminate%d",effectId]];
-    
-    EffectSprite *effect = [[EffectSprite alloc] init];
-    [self addEffect:effect withKey:kJewelEffectEliminate];
-    effect.position = self.position; // 覆盖
-    [effect runAction:[CCSequence actions:
-                       [CCAnimate actionWithAnimation:eliminateAnim],
-                       [CCCallFunc actionWithTarget:self selector:@selector(eliminateComplete)]
-                       , nil]];
-}
-
--(void) eliminateComplete
-{
-    // 删除效果
-     [self deleteEffectWithKey:kJewelEffectEliminate];
-    
     // 更新状态为删除状态
     newState = kJewelStateEliminated;
+    
+    CCParticleSystem *particle = [CCParticleSystemQuad particleWithFile:@"taken_jewel.plist"];
+    particle.position = ccp(self.position.x + jewelBoard.cellSize.width/2,self.position.y + jewelBoard.cellSize.height/2);
+    [particle setAutoRemoveOnFinish:YES];
+    [jewelBoard addParticle:particle];
 }
 
 
