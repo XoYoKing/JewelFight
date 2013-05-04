@@ -63,6 +63,17 @@
 {    
     [self updateJewelActions:delta];
     [self.board update:delta];
+    
+    
+    // 针对玩家自身
+    if (self.userId == [GameController sharedController].player.userId)
+    {
+        // 没有动作的时候才更新
+        if (actionQueue.actions.count == 0)
+        {
+            [board updateHint];
+        }
+    }
 }
 
 /// 检查连续消除

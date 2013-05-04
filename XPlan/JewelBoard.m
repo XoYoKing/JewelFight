@@ -59,7 +59,7 @@
     [self addChild:jewelLayer z:0 tag:-1];
     
     particleLayer = [CCParticleBatchNode batchNodeWithFile:@"taken_jewel.png" capacity:250];
-    [self addChild:particleLayer z:21 tag:kTagParticleLayer];
+    [self addChild:particleLayer z:1 tag:kTagParticleLayer];
     
     // 添加效果层
     effectLayer = [CCLayer node];
@@ -390,21 +390,22 @@
     /// 更新宝石自身逻辑
     [self updateJewelSprites:delta];
     
-    if (jewelController.userId == [GameController sharedController].player.userId)
-    {
-        // 计时器
-        NSDate *currentDate = [NSDate date];
-        double currentTime = [currentDate timeIntervalSince1970];
-        
-        // 显示提示
-        if (currentTime - lastMoveTime > kDelayBeforeHint && !_isDisplayingHint)
-        {
-            [self displayHint];
-        }
-    }
-    
     // 宝石闪耀效果
     [self updateSparkle];
+}
+
+/// 更新提示信息
+-(void) updateHint
+{
+    // 计时器
+    NSDate *currentDate = [NSDate date];
+    double currentTime = [currentDate timeIntervalSince1970];
+    
+    // 显示提示
+    if (currentTime - lastMoveTime > kDelayBeforeHint && !_isDisplayingHint)
+    {
+        [self displayHint];
+    }
 }
 
 -(void) updateJewelSprites:(ccTime)delta

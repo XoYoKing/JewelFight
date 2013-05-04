@@ -34,8 +34,6 @@
     int continueDispose; // 连续消除次数
     int team; // 阵营 0:玩家阵营;1 对手阵营
     BOOL isControlEnabled; // 是否可以操作
-    
-    
 }
 
 /// 连续消除次数
@@ -118,6 +116,9 @@
 
 /// 逻辑更新
 -(void) update:(ccTime)delta;
+
+/// 更新提示信息
+-(void) updateHint;
 
 #pragma mark -
 #pragma mark Jewel Action
