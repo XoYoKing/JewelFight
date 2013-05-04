@@ -216,6 +216,8 @@
                      [CCAnimate actionWithAnimation:fireAnim],
                      [CCCallFunc actionWithTarget:self selector:@selector(fireComplete:)]
                       , nil]];
+    
+    [fireEffect release];
 }
 
 /// 效果动画执行完毕
@@ -337,70 +339,6 @@
     
     return NO;
 }
-
-
-/// 掉落
--(void) drop
-{
-    if (jewelVo.yGap <= 0)
-    {
-        return;
-    }
-    newState = kJewelStateDropping;
-    
-    // 获取掉落坐标
-    CGPoint targetPos = [self.jewelBoard cellCoordToPosition:ccp(self.jewelVo.coord.x,self.jewelVo.toY)];
-    CCAction *action = [CCSequence actions:
-    [CCMoveTo actionWithDuration:jewelVo.time position:targetPos],
-    [CCCallFunc actionWithTarget:self selector:@selector(dropComplete)]
-                        , nil];
-    
-    // 执行掉落动作
-    [self runAction:action];
-}
-
--(void) dropComplete
-{
-    newState = kJewelStateIdle;
-    jewelVo.yGap = 0; // 重置y轴间隙
-}
-
-
-/// 是否正在下落
--(BOOL) isDropping
-{
-    return self.state==kJewelStateDropping;
-}
-
-/*
-/// 死局 下落到最低
--(void) moveToDead
-{
-    CGPoint targetPos = ccp(coord.x * jewelSize.width, - coord.y * jewelSize.height);
-    [self runAction:[CCSequence actions:
-                     [CCMoveTo actionWithDuration:0.6f position:targetPos],
-                     [CCCallFunc actionWithTarget:self selector:@selector(removeFromParent)]
-                     , nil]];
-    
-}
-
-/// 移动
--(void) move
-{
-    CGPoint targetPos = [JewelBoard cellCoordToPosition:self.jewelVo.coord];
-    CCAction *action = [CCMoveTo actionWithDuration:0.6f position:targetPos];
-    action.tag = kJewelItemActionMove;
-    
-    [self runAction:action];
-}
-
-/// 是否在移动
--(BOOL) isMoving
-{
-    return [self getActionByTag:kJewelItemActionMove] != nil;
-}
- 
- */
 
 #pragma mark - 
 #pragma mark Effects

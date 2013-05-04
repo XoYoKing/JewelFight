@@ -57,8 +57,6 @@
 		E23FED171734070300BB3DEA /* ccbParticleSnow.png in Resources */ = {isa = PBXBuildFile; fileRef = E23FED0D1734070300BB3DEA /* ccbParticleSnow.png */; };
 		E23FED181734070300BB3DEA /* ccbParticleStars.png in Resources */ = {isa = PBXBuildFile; fileRef = E23FED0E1734070300BB3DEA /* ccbParticleStars.png */; };
 		E2400DD217322B77001CDBF7 /* JewelBoardData.m in Sources */ = {isa = PBXBuildFile; fileRef = E2400DD117322B77001CDBF7 /* JewelBoardData.m */; };
-		E240118B171EF6280060DB50 /* MockPvPFightUser.m in Sources */ = {isa = PBXBuildFile; fileRef = E240118A171EF6280060DB50 /* MockPvPFightUser.m */; };
-		E240118E171EFA2F0060DB50 /* MockPvPFight.m in Sources */ = {isa = PBXBuildFile; fileRef = E240118D171EFA2F0060DB50 /* MockPvPFight.m */; };
 		E240119D171F28D80060DB50 /* NewJewelsCommandData.m in Sources */ = {isa = PBXBuildFile; fileRef = E240119C171F28D80060DB50 /* NewJewelsCommandData.m */; };
 		E2411EC1171EA8AA00E9249E /* JewelEliminateMessageData.m in Sources */ = {isa = PBXBuildFile; fileRef = E2411EC0171EA8AA00E9249E /* JewelEliminateMessageData.m */; };
 		E24170FA170C6B1F003B6644 /* PvPCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = E24170F9170C6B1F003B6644 /* PvPCommand.m */; };
@@ -130,7 +128,6 @@
 		E27F81D7172B8FC3006F5B5A /* JewelFireAction.m in Sources */ = {isa = PBXBuildFile; fileRef = E27F81CE172B8FC3006F5B5A /* JewelFireAction.m */; };
 		E27F81D8172B8FC3006F5B5A /* JewelSwapAction.m in Sources */ = {isa = PBXBuildFile; fileRef = E27F81D0172B8FC3006F5B5A /* JewelSwapAction.m */; };
 		E2832CB11712F54400F4F0E1 /* PvPController.m in Sources */ = {isa = PBXBuildFile; fileRef = E2832CB01712F54400F4F0E1 /* PvPController.m */; };
-		E286A61A1718497B00EAFAB4 /* jewels_config.plist in Resources */ = {isa = PBXBuildFile; fileRef = E286A6191718497B00EAFAB4 /* jewels_config.plist */; };
 		E287249617266E9B00CE8003 /* FightPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = E287249517266E9B00CE8003 /* FightPanel.m */; };
 		E28724A31726704C00CE8003 /* fight_light-ipadhd.plist in Resources */ = {isa = PBXBuildFile; fileRef = E28724991726704C00CE8003 /* fight_light-ipadhd.plist */; };
 		E28724A41726704C00CE8003 /* fight_light-ipadhd.pvr.ccz in Resources */ = {isa = PBXBuildFile; fileRef = E287249A1726704C00CE8003 /* fight_light-ipadhd.pvr.ccz */; };
@@ -243,7 +240,6 @@
 		E2E75C581721178B00A15BE5 /* DDLog.m in Sources */ = {isa = PBXBuildFile; fileRef = E2E75C501721178B00A15BE5 /* DDLog.m */; };
 		E2E75C591721178B00A15BE5 /* DDTTYLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = E2E75C521721178B00A15BE5 /* DDTTYLogger.m */; };
 		E2EBCFF51717EB5B00567AB8 /* JewelFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = E2EBCFF41717EB5B00567AB8 /* JewelFactory.m */; };
-		E2EC6B7C17183B9C0033F81E /* MockGameServer.m in Sources */ = {isa = PBXBuildFile; fileRef = E2EC6B7B17183B9C0033F81E /* MockGameServer.m */; };
 		E2F19FB817054E9A009F0C8B /* UserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = E2F19FB717054E9A009F0C8B /* UserInfo.m */; };
 		E2F19FBB17054FB8009F0C8B /* PlayerInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = E2F19FBA17054FB8009F0C8B /* PlayerInfo.m */; };
 		E2F19FBF1705515A009F0C8B /* GameLoginLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = E2F19FBE1705515A009F0C8B /* GameLoginLayer.m */; };
@@ -472,11 +468,6 @@
 		E23FED0E1734070300BB3DEA /* ccbParticleStars.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ccbParticleStars.png; sourceTree = "<group>"; };
 		E2400DD017322B77001CDBF7 /* JewelBoardData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JewelBoardData.h; sourceTree = "<group>"; };
 		E2400DD117322B77001CDBF7 /* JewelBoardData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JewelBoardData.m; sourceTree = "<group>"; };
-		E2401189171EF6280060DB50 /* MockPvPFightUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MockPvPFightUser.h; sourceTree = "<group>"; };
-		E240118A171EF6280060DB50 /* MockPvPFightUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MockPvPFightUser.m; sourceTree = "<group>"; };
-		E240118C171EFA2F0060DB50 /* MockPvPFight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MockPvPFight.h; sourceTree = "<group>"; };
-		E240118D171EFA2F0060DB50 /* MockPvPFight.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MockPvPFight.m; sourceTree = "<group>"; };
-		E2401199171F008A0060DB50 /* MockConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MockConstants.h; sourceTree = "<group>"; };
 		E240119B171F28D80060DB50 /* NewJewelsCommandData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewJewelsCommandData.h; path = XPlan/NewJewelsCommandData.h; sourceTree = SOURCE_ROOT; };
 		E240119C171F28D80060DB50 /* NewJewelsCommandData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NewJewelsCommandData.m; path = XPlan/NewJewelsCommandData.m; sourceTree = SOURCE_ROOT; };
 		E2411EBF171EA8AA00E9249E /* JewelEliminateMessageData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JewelEliminateMessageData.h; sourceTree = "<group>"; };
@@ -580,7 +571,6 @@
 		E27F81D0172B8FC3006F5B5A /* JewelSwapAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JewelSwapAction.m; sourceTree = "<group>"; };
 		E2832CAF1712F54400F4F0E1 /* PvPController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PvPController.h; sourceTree = "<group>"; };
 		E2832CB01712F54400F4F0E1 /* PvPController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PvPController.m; sourceTree = "<group>"; };
-		E286A6191718497B00EAFAB4 /* jewels_config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = jewels_config.plist; sourceTree = "<group>"; };
 		E287249417266E9A00CE8003 /* FightPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FightPanel.h; sourceTree = "<group>"; };
 		E287249517266E9B00CE8003 /* FightPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FightPanel.m; sourceTree = "<group>"; };
 		E28724991726704C00CE8003 /* fight_light-ipadhd.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "fight_light-ipadhd.plist"; sourceTree = "<group>"; };
@@ -751,8 +741,6 @@
 		E2E75C521721178B00A15BE5 /* DDTTYLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDTTYLogger.m; sourceTree = "<group>"; };
 		E2EBCFF31717EB5B00567AB8 /* JewelFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JewelFactory.h; sourceTree = "<group>"; };
 		E2EBCFF41717EB5B00567AB8 /* JewelFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JewelFactory.m; sourceTree = "<group>"; };
-		E2EC6B7A17183B9C0033F81E /* MockGameServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MockGameServer.h; sourceTree = "<group>"; };
-		E2EC6B7B17183B9C0033F81E /* MockGameServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MockGameServer.m; sourceTree = "<group>"; };
 		E2F19FB617054E9A009F0C8B /* UserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfo.h; sourceTree = "<group>"; };
 		E2F19FB717054E9A009F0C8B /* UserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfo.m; sourceTree = "<group>"; };
 		E2F19FB917054FB8009F0C8B /* PlayerInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerInfo.h; sourceTree = "<group>"; };
@@ -1255,25 +1243,6 @@
 			path = Resources/ccbResources;
 			sourceTree = "<group>";
 		};
-		E2401188171EF5A10060DB50 /* PvP */ = {
-			isa = PBXGroup;
-			children = (
-				E240118C171EFA2F0060DB50 /* MockPvPFight.h */,
-				E240118D171EFA2F0060DB50 /* MockPvPFight.m */,
-				E2401189171EF6280060DB50 /* MockPvPFightUser.h */,
-				E240118A171EF6280060DB50 /* MockPvPFightUser.m */,
-			);
-			name = PvP;
-			sourceTree = "<group>";
-		};
-		E240118F171EFA9D0060DB50 /* Common */ = {
-			isa = PBXGroup;
-			children = (
-				E2401199171F008A0060DB50 /* MockConstants.h */,
-			);
-			name = Common;
-			sourceTree = "<group>";
-		};
 		E240119A171F28BC0060DB50 /* CommandData */ = {
 			isa = PBXGroup;
 			children = (
@@ -1620,7 +1589,6 @@
 			children = (
 				E2F73CC217284E4600AAB715 /* libs */,
 				E208D2E3172009CB00C9F22A /* GUI */,
-				E2EC6B7917183B9C0033F81E /* Mock */,
 				E208D2E21720098300C9F22A /* Core */,
 				E27E1A99171AA62C00AC6FDB /* Scenes */,
 				E2AC078B170DBAF7004A33D9 /* View */,
@@ -1970,18 +1938,6 @@
 				E2E75C521721178B00A15BE5 /* DDTTYLogger.m */,
 			);
 			path = Logging;
-			sourceTree = "<group>";
-		};
-		E2EC6B7917183B9C0033F81E /* Mock */ = {
-			isa = PBXGroup;
-			children = (
-				E240118F171EFA9D0060DB50 /* Common */,
-				E2401188171EF5A10060DB50 /* PvP */,
-				E2EC6B7A17183B9C0033F81E /* MockGameServer.h */,
-				E2EC6B7B17183B9C0033F81E /* MockGameServer.m */,
-				E286A6191718497B00EAFAB4 /* jewels_config.plist */,
-			);
-			path = Mock;
 			sourceTree = "<group>";
 		};
 		E2F19FAC17053740009F0C8B /* Player */ = {
@@ -2767,7 +2723,6 @@
 				E2D12C961713E9A60025296D /* stoneBg-ipadhd.png in Resources */,
 				E2D12C971713E9A60025296D /* stoneBg.png in Resources */,
 				E25E8A7F1714638400DF4CD7 /* pvp_loading.ccbi in Resources */,
-				E286A61A1718497B00EAFAB4 /* jewels_config.plist in Resources */,
 				E27E1AA0171AB1DD00AC6FDB /* jewel_resources-ipadhd.plist in Resources */,
 				E27E1AA1171AB1DD00AC6FDB /* jewel_resources-ipadhd.png in Resources */,
 				E27E1AA2171AB1DD00AC6FDB /* jewel_resources.plist in Resources */,
@@ -2986,14 +2941,11 @@
 				E277FD591715885F005E50C0 /* PvPLoadingController.m in Sources */,
 				E277FD5F1715A296005E50C0 /* PvPFightController.m in Sources */,
 				E2EBCFF51717EB5B00567AB8 /* JewelFactory.m in Sources */,
-				E2EC6B7C17183B9C0033F81E /* MockGameServer.m in Sources */,
 				E265C020171C726F0008FB40 /* JewelEliminateAction.m in Sources */,
 				E2050865171E92550082556E /* GameMessageDispatcher.m in Sources */,
 				E2050869171E96000082556E /* JewelSwapMessageData.m in Sources */,
 				E205086C171E96110082556E /* MessageData.m in Sources */,
 				E2411EC1171EA8AA00E9249E /* JewelEliminateMessageData.m in Sources */,
-				E240118B171EF6280060DB50 /* MockPvPFightUser.m in Sources */,
-				E240118E171EFA2F0060DB50 /* MockPvPFight.m in Sources */,
 				E240119D171F28D80060DB50 /* NewJewelsCommandData.m in Sources */,
 				E208D2E91720134000C9F22A /* FighterSprite.m in Sources */,
 				E26C1E501720564500F458E3 /* FightField.m in Sources */,

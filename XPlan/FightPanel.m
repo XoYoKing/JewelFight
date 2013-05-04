@@ -25,7 +25,6 @@
     // 街道使用CocosBuilder实现, 可以做矢量动画
     CCNode *bg = [CCBReader nodeGraphFromFile:[NSString stringWithFormat:@"street%d.ccbi",sId]];
     [streetLayer addChild:bg];
-    [bg release];
 }
 
 @end

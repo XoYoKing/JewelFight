@@ -53,6 +53,9 @@
     
     for (JewelVo * elimVo in elimList)
     {
+        // 从消除宝石列表中寻找特殊宝石,并点燃特殊宝石
+        
+        
         JewelSprite *elimSprite = [jewelController.board getJewelSpriteWithGlobalId:elimVo.globalId];
         // 执行消除动画
         [elimSprite eliminate:1];

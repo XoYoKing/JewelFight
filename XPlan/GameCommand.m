@@ -66,6 +66,7 @@
     [encoder writeInt16:101];
     [encoder writeInt16:1100];
     [encoder writeInt8:2];
+    [encoder release];
     
     [[GameController sharedController].server send:SERVER_GAME data:data];
 }

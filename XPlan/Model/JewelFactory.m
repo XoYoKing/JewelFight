@@ -19,6 +19,9 @@
     JewelVo *jewel = [[[JewelVo alloc] init] autorelease];
     jewel.jewelId = [[jewelConfig valueForKey:@"jewelId"] intValue];
     jewel.jewelType = [jewelConfig valueForKey:@"jewelType"];
+    
+    [config release];
+    
     return jewel;
 }
 

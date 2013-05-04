@@ -124,6 +124,7 @@
     [encoder writeInt16:101];
     [encoder writeInt16:1200];
     [encoder writeInt8:6];
+    [encoder release];
     
     [[GameController sharedController].server send:SERVER_GAME data:data];
 }
@@ -257,9 +258,11 @@
             JewelVo *jewelVo = [[JewelVo alloc] init];
             [FightCommand populateJewelVo:jewelVo data:data];
             [column addObject:jewelVo];
+            [jewelVo release];
         }
     }
     [dict setObject:playerJewels forKey:@"player_jewels"];
+    [playerJewels release];
     
     // 再获取对手宝石数量
     boardWidth = [data readInt32]; //
@@ -276,9 +279,11 @@
             JewelVo *jewelVo = [[JewelVo alloc] init];
             [FightCommand populateJewelVo:jewelVo data:data];
             [column addObject:jewelVo];
+            [jewelVo release];
         }
     }
     [dict setObject:opponentJewels forKey:@"opponent_jewels"];
+    [opponentJewels release];
     
     [self responseToListenerWithActionId:SERVER_ACTION_PVP_INIT_JEWELS object:dict];
 }
@@ -306,6 +311,7 @@
             JewelVo *jewelVo = [[JewelVo alloc] init];
             [FightCommand populateJewelVo:jewelVo data:data];
             [column addObject:jewelVo];
+            [jewelVo release];
         }
     }
     
@@ -330,12 +336,14 @@
             JewelVo *jewelVo = [[JewelVo alloc] init];
             [FightCommand populateJewelVo:jewelVo data:data];
             [column addObject:jewelVo];
+            [jewelVo release];
         }
     }
     
     NewJewelsCommandData *obj = [[[NewJewelsCommandData alloc] init] autorelease];
     obj.userId = userId;
-    obj.jewelVoList = jewels;
+    [obj setJewelVoList:jewels];
+    [jewels release];
     [self responseToListenerWithActionId:SERVER_ACTION_PVP_ADD_NEW_JEWELS object:obj];
 }
 

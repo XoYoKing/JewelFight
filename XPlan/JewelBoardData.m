@@ -469,27 +469,11 @@
     // 自身加入进去
     [connectedList addObject:source];
     
-    JewelVo *specialJewel; // 特殊宝石
-    
-    // 检查特殊宝石
-    if (source.special >= kJewelSpecialExplode)
-    {
-        specialJewel = source;
-    }
     
     // 向左侧检查
     JewelVo *leftJewel = [self getCellAtCoord:ccp(source.coord.x-1,source.coord.y)].jewelVo;
     while (leftJewel!=nil && leftJewel.jewelId == source.jewelId)
-    {
-        // 检查特殊宝石
-        if (leftJewel.special >= kJewelSpecialExplode)
-        {
-            if (specialJewel == nil || specialJewel.special < leftJewel.special)
-            {
-                specialJewel = leftJewel;
-            }
-        }
-        
+    {        
         // 添加到相同类型集合中
         [connectedList insertObject:leftJewel atIndex:0];
         leftJewel = [self getCellAtCoord:ccp(leftJewel.coord.x-1,leftJewel.coord.y)].jewelVo;
@@ -499,14 +483,6 @@
     JewelVo *rightJewel= [self getCellAtCoord:ccp(source.coord.x+1,source.coord.y)].jewelVo;
     while (rightJewel!=nil && rightJewel.jewelId == source.jewelId)
     {
-        if (rightJewel.special >= kJewelSpecialExplode)
-        {
-            if (specialJewel == nil || specialJewel.special < rightJewel.special)
-            {
-                specialJewel = rightJewel;
-            }
-        }
-        
         // 添加到检查列表
         [connectedList addObject:rightJewel];
         rightJewel= [self getCellAtCoord:ccp(rightJewel.coord.x+1,rightJewel.coord.y)].jewelVo;
@@ -515,24 +491,6 @@
     // 至少3个相同类型的宝石才能消除
     if (connectedList.count >= kJewelEliminateMinNeed)
     {
-        BOOL isBoo = NO; // 爆炸标识
-        for (JewelVo *connected in connectedList)
-        {
-            // 标记参与的横向消除
-            connected.hEliminate = connectedList.count; // 横向消除数量
-            if (connected.lt)
-            {
-                // 产生一个爆炸
-                isBoo = YES;
-                [self resetEliminateTop:connected];
-            }
-        }
-        
-        if (connectedList.count >= kJewelSpecialExplode && isBoo == NO)
-        {
-            [[connectedList lastObject] setEliminateRight:YES];
-        }
-        
         // 加入消除列表
         [elimList addObjectsFromArray:connectedList];
     }
@@ -547,28 +505,11 @@
     CCArray *connectedList = [[CCArray alloc] initWithCapacity:10];
     [connectedList addObject:source];
     
-    JewelVo *specialJewel;
-    
-    // 检查特殊宝石
-    if (source.special >= kJewelSpecialExplode)
-    {
-        specialJewel = source;
-    }
-    
     // 上方检查
     // 获取上方宝石
     JewelVo *upJewel = [self getCellAtCoord:ccp(source.coord.x,source.coord.y+1)].jewelVo;
     while (upJewel!=nil && upJewel.jewelId == source.jewelId)
     {
-        // 检查特殊宝石
-        if (upJewel.special >= kJewelSpecialExplode)
-        {
-            if (upJewel == nil || specialJewel.special < upJewel.special)
-            {
-                specialJewel = upJewel;
-            }
-        }
-        
         // 符合条件,加入检查列表
         [connectedList insertObject:upJewel atIndex:0];
         upJewel = [self getCellAtCoord:ccp(upJewel.coord.x,upJewel.coord.y+1)].jewelVo;
@@ -578,14 +519,6 @@
     JewelVo *downJewel= [self getCellAtCoord:ccp(source.coord.x,source.coord.y - 1)].jewelVo;
     while (downJewel!=nil && downJewel.jewelId == source.jewelId)
     {
-        if (downJewel.special >= kJewelSpecialExplode)
-        {
-            if (specialJewel == nil || specialJewel.special < downJewel.special)
-            {
-                specialJewel = downJewel;
-            }
-        }
-        
         // 符合条件,加入检查列表
         [connectedList addObject:downJewel];
         downJewel= [self getCellAtCoord:ccp(downJewel.coord.x,downJewel.coord.y - 1)].jewelVo;
@@ -594,70 +527,12 @@
     // 至少3个相同类型的宝石才能消除
     if (connectedList.count >= kJewelEliminateMinNeed)
     {
-        BOOL isBoo;
-        for (JewelVo *connected in connectedList)
-        {
-            connected.hEliminate = connectedList.count; // 横向消除数量
-            if (connected.lt)
-            {
-                isBoo = YES;
-                [self resetEliminateRight:connected];
-            }
-        }
-        
-        if (connectedList.count >= kJewelSpecialExplode && isBoo == NO)
-        {
-            [[connectedList lastObject] setEliminateTop:YES];
-        }
-        
         // 加入消除列表
         [elimList addObjectsFromArray:connectedList];
     }
     
     [connectedList release];
 }
-
-/// 重置上方消除状态
--(void) resetEliminateTop:(JewelVo*)source
-{
-    // 向上检查
-    JewelVo *upJewel = [self getCellAtCoord:ccp(source.coord.x,source.coord.y -1)].jewelVo;
-    while(upJewel!=nil && upJewel.jewelId == source.jewelId)
-    {
-        upJewel.eliminateTop = NO;
-        upJewel = [self getCellAtCoord:ccp(upJewel.coord.x,upJewel.coord.y -1)].jewelVo;
-    }
-    
-    
-    // 向下检查
-    JewelVo *downJewel = [self getCellAtCoord:ccp(source.coord.x,source.coord.y +  1)].jewelVo;
-    while (downJewel!=nil && downJewel.jewelId == source.jewelId)
-    {
-        downJewel.eliminateTop = YES;
-        downJewel = [self getCellAtCoord:ccp(downJewel.coord.x,downJewel.coord.y +  1)].jewelVo;
-    }
-}
-
-/// 重置右侧消除状态
--(void) resetEliminateRight:(JewelVo*)source
-{
-    // 左边
-    JewelVo *leftJewel = [self getCellAtCoord:ccp(source.coord.x-1,source.coord.y)].jewelVo;
-    while(leftJewel!=nil && leftJewel.jewelId == source.jewelId)
-    {
-        leftJewel.eliminateRight = NO;
-        leftJewel = [self getCellAtCoord:ccp(leftJewel.coord.x-1,leftJewel.coord.y)].jewelVo;
-    }
-    
-    // 右侧
-    JewelVo *rightJewel = [self getCellAtCoord:ccp(source.coord.x+1,source.coord.y)].jewelVo;
-    while (rightJewel!=nil && rightJewel.jewelId == source.jewelId)
-    {
-        rightJewel.eliminateRight = NO;
-        rightJewel = [self getCellAtCoord:ccp(rightJewel.coord.x+1,rightJewel.coord.y)].jewelVo;
-    }
-}
-
 
 
 /// 寻找可消除的宝石
@@ -671,6 +546,11 @@
     // 清理
     [possibleEliminates removeAllObjects];
     
+    // 初始化数组
+    CCArray *list1 = [[CCArray alloc] initWithCapacity:5];
+    CCArray *list2 = [[CCArray alloc] initWithCapacity:5];
+    CCArray *list3 = [[CCArray alloc] initWithCapacity:5];
+    
     for (int i = 0; i < boardWidth; i++)
     {
         for (int j = 0; j < boardHeight; j++)
@@ -682,54 +562,57 @@
                 continue;
             }
             
-            // 检查水平方向是否可消除
-            CCArray *leftList = [[CCArray alloc] initWithCapacity:5];
-            CCArray *middleList = [[CCArray alloc] initWithCapacity:5];
-            CCArray *rightList = [[CCArray alloc] initWithCapacity:5];
-            
             // 检查水平方向可消除的宝石
-            if ([self isHorizontalPossibleEliminateWithJewelVo:cell.jewelVo leftList:leftList middleList:middleList rightList:rightList])
+            if ([self isHorizontalPossibleEliminateWithJewelVo:cell.jewelVo leftList:list1 middleList:list2 rightList:list3])
             {
-                [possibleEliminates addObjectsFromArray:leftList];
-                [possibleEliminates addObjectsFromArray:middleList];
-                [possibleEliminates addObjectsFromArray:rightList];
+                [possibleEliminates addObjectsFromArray:list1];
+                [possibleEliminates addObjectsFromArray:list2];
+                [possibleEliminates addObjectsFromArray:list3];
             }
-            
-            [leftList release];
-            [middleList release];
-            [rightList release];
+        
+            [list1 removeAllObjects];
+            [list2 removeAllObjects];
+            [list3 removeAllObjects];
             
             // 检查可移动宝石是否已经找到
             if (possibleEliminates.count>0)
             {
+                [list1 release];
+                [list2 release];
+                [list3 release];
+                
                 return possibleEliminates;
             }
             
             // 检查垂直方向是否可消除
-            // 检查水平方向是否可消除
-            CCArray *topList = [[CCArray alloc] initWithCapacity:5];
-            middleList = [[CCArray alloc] initWithCapacity:5];
-            CCArray *bottomList = [[CCArray alloc] initWithCapacity:5];
             
             // 检查垂直方向可消除的宝石
-            if ([self isVerticalPossibleEliminateWithJewelVo:cell.jewelVo topList:topList middleList:middleList bottomList:rightList])
+            if ([self isVerticalPossibleEliminateWithJewelVo:cell.jewelVo topList:list1 middleList:list2 bottomList:list3])
             {
-                [possibleEliminates addObjectsFromArray:topList];
-                [possibleEliminates addObjectsFromArray:middleList];
-                [possibleEliminates addObjectsFromArray:bottomList];
+                [possibleEliminates addObjectsFromArray:list1];
+                [possibleEliminates addObjectsFromArray:list2];
+                [possibleEliminates addObjectsFromArray:list3];
             }
             
-            [topList release];
-            [middleList release];
-            [bottomList release];
+            [list1 removeAllObjects];
+            [list2 removeAllObjects];
+            [list3 removeAllObjects];
             
             // 检查可移动宝石是否已经找到
             if (possibleEliminates.count > 0)
             {
+                [list1 release];
+                [list2 release];
+                [list3 release];
+                
                 return possibleEliminates;
             }
         }
     }
+    
+    [list1 release];
+    [list2 release];
+    [list3 release];
     
     // 未找到
     boardChangedSinceEvaluation = NO;

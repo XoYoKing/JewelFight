@@ -531,6 +531,7 @@
         hintSprite.anchorPoint = ccp(0,0);
         [hintLayer addChild:hintSprite];
         [hintSprite runAction:action];
+        [hintSprite release];
     }
 }
 
