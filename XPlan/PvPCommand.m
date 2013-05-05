@@ -83,8 +83,11 @@
 }
 
 /// 消除宝石
--(void) requestEliminateWithActionId:(long)actionId continueEliminate:(int)continueEliminate JewelGlobalIds:(CCArray*)globalIds
+-(void) requestEliminateWithActionId:(long)actionId continueEliminate:(int)continueEliminate eliminateGroup:(CCArray*)group
 {
+    
+    KITLog(@"group: %@",group);
+    
     NSMutableData *data = [NSMutableData data];
     ServerDataEncoder *encoder = [[ServerDataEncoder alloc] initWithData:data];
     [encoder writeInt16:101];
@@ -92,11 +95,18 @@
     [encoder writeInt8:5];
     [encoder writeInt64:actionId];
     [encoder writeInt32:continueEliminate];
-    [encoder writeInt32:globalIds.count];
     
-    for (NSNumber *globalIdNum in globalIds)
+    // 写入连接宝石组数量
+    [encoder writeInt32:group.count];
+    
+    for (CCArray *connectedList in group)
     {
-        [encoder writeInt32:[globalIdNum intValue]];
+        // 写入连接宝石数量
+        [encoder writeInt32:connectedList.count];
+        for (JewelVo *connected in connectedList)
+        {
+            [encoder writeInt32:connected.globalId];
+        }
     }
     
     [encoder release];

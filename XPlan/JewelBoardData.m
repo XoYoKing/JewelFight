@@ -410,7 +410,6 @@
             JewelCell *cell = [cellGrid objectAtIndex:idx];
             if (![checked containsObject:cell] && cell.jewelGlobalId==0)
             {
-                KITLog(@"JewelBoardData:numJewelsInColumn %d : amount:%d",x,numJewelsInColumn[x]);
                 numJewelsInColumn[x]--;
                 [checked addObject:cell];
                 boardChangedSinceEvaluation = YES;
@@ -423,7 +422,7 @@
                     JewelCell *aboveCell = [cellGrid objectAtIndex:idxAbove];
                     if (aboveCell.jewelGlobalId==0)
                     {
-                        KITLog(@"JewelBoardData:numJewelsInColumn %d : amount:%d",x,numJewelsInColumn[x]);
+
                         numJewelsInColumn[x]--;
                         [checked addObject:aboveCell];
                         continue;
@@ -436,7 +435,6 @@
                     [[fallingJewelVos objectAtIndex:x] addObject:aboveJv];
                     [self removeJewelVo:aboveCell.jewelVo];
                     
-                    KITLog(@"JewelBoardData:numJewelsInColumn %d : amount:%d",x,numJewelsInColumn[x]);
                     numJewelsInColumn[x]--;
                     [checked addObject:aboveCell];
                 }
@@ -452,18 +450,19 @@
 #pragma mark Eliminate Jewels
 
 /// 寻找可消除的宝石
--(void) findEliminableJewels:(CCArray*)elimList
+-(void) findEliminableJewels:(CCArray*)connectedGroup
 {
     for (JewelVo *jv in boardJewelVoList)
     {
-        [self findHorizontalEliminableJewels:elimList withJewel:jv];
-        [self findVerticalEliminableJewels:elimList withJewel:jv];
+        [self findHorizontalEliminableJewels:connectedGroup withJewel:jv];
+        [self findVerticalEliminableJewels:connectedGroup withJewel:jv];
     }
 }
 
 /// 检查水平方向的可消除的宝石
--(void) findHorizontalEliminableJewels:(CCArray*)elimList withJewel:(JewelVo*)source
+-(void) findHorizontalEliminableJewels:(CCArray*)connectedGroup withJewel:(JewelVo*)source
 {
+    
     CCArray *connectedList = [[CCArray alloc] initWithCapacity:10];
     
     // 自身加入进去
@@ -492,14 +491,26 @@
     if (connectedList.count >= kJewelEliminateMinNeed)
     {
         // 加入消除列表
-        [elimList addObjectsFromArray:connectedList];
+        BOOL found = NO;
+        for (CCArray *child in connectedGroup)
+        {
+            if ([child isEqualToArray:connectedList])
+            {
+                found = YES;
+            }
+        }
+        
+        if (!found)
+        {
+            [connectedGroup addObject:connectedList];
+        }
     }
     
     [connectedList release];
 }
 
 /// 检查垂直方向的可消除的宝石
--(void) findVerticalEliminableJewels:(CCArray*)elimList withJewel:(JewelVo*)source
+-(void) findVerticalEliminableJewels:(CCArray*)connectedGroup withJewel:(JewelVo*)source
 {
     // 创建一个检查列表
     CCArray *connectedList = [[CCArray alloc] initWithCapacity:10];
@@ -528,7 +539,19 @@
     if (connectedList.count >= kJewelEliminateMinNeed)
     {
         // 加入消除列表
-        [elimList addObjectsFromArray:connectedList];
+        BOOL found = NO;
+        for (CCArray *child in connectedGroup)
+        {
+            if ([child isEqualToArray:connectedList])
+            {
+                found = YES;
+            }
+        }
+        
+        if (!found)
+        {
+            [connectedGroup addObject:connectedList];
+        }
     }
     
     [connectedList release];

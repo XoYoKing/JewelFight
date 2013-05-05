@@ -30,7 +30,7 @@
 
 @implementation JewelController
 
-@synthesize board,boardData,userId,boardWidth,boardHeight;
+@synthesize board,boardData,userId,boardWidth,boardHeight,score;
 
 -(id) initWithJewelBoard:(JewelBoard *)jb operatorUserId:(long)uId
 {
@@ -57,6 +57,12 @@
     [actionQueue release];
     [boardData release];
     [super dealloc];
+}
+
+-(int) addScore:(int)value
+{
+    score+=value;
+    return score;
 }
 
 -(void) update:(ccTime)delta
@@ -103,6 +109,7 @@
         // 检查宝石动作是否完成
         if ([currentAction isOver])
         {
+            [currentAction release];
             currentAction = nil;
         }
     }
@@ -178,20 +185,6 @@
     [self queueAction:action top:NO];
     [action release];
 }
-
-/// 执行爆炸效果
--(void) doExplodeEffectWithJewelVoList:(CCArray*)jewelVoList
-{
-    
-}
-
-/// 执行闪电消除效果
--(void) doLightEffectWithJewelVoList:(CCArray*)jewelVoList
-{
-    
-}
-
-
 
 
 @end

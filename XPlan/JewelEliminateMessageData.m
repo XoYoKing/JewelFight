@@ -10,18 +10,18 @@
 
 @implementation JewelEliminateMessageData
 
-@synthesize jewelGlobalIds;
+@synthesize eliminateGroup;
 
-+(id) dataWithUserId:(long)uid jewelGlobalIds:(CCArray *)globalIds
++(id) dataWithUserId:(long)uid eliminateGroups:(CCArray *)group
 {
-    return [[[self alloc] initWithUserId:uid jewelGlobalIds:globalIds] autorelease];
+    return [[[self alloc] initWithUserId:uid eliminateGroups:group] autorelease];
 }
 
--(id) initWithUserId:(long)uid jewelGlobalIds:(CCArray *)globalIds
+-(id) initWithUserId:(long)uid eliminateGroups:(CCArray *)group
 {
     if ((self = [super initWithUserId:uid]))
     {
-        jewelGlobalIds = [globalIds retain];
+        eliminateGroup = [group retain];
     }
     
     return self;
@@ -29,7 +29,7 @@
 
 -(void) dealloc
 {
-    [jewelGlobalIds release];
+    [eliminateGroup release];
     [super dealloc];
 }
 

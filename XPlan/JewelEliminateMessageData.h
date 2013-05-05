@@ -11,14 +11,14 @@
 /// 宝石消除数据
 @interface JewelEliminateMessageData : JewelMessageData
 {
-    CCArray *jewelGlobalIds; // 消除宝石标识集合
+    CCArray *eliminateGroup; // 消除宝石标识集合组
 }
 
-@property (readonly,nonatomic) CCArray *jewelGlobalIds;
+@property (readonly,nonatomic) CCArray *eliminateGroup;
 
-+(id) dataWithUserId:(long)uid jewelGlobalIds:(CCArray*)globalIds;
++(id) dataWithUserId:(long)uid eliminateGroups:(CCArray*)group;
 
--(id) initWithUserId:(long)uid jewelGlobalIds:(CCArray*)globalIds;
+-(id) initWithUserId:(long)uid eliminateGroups:(CCArray*)group;
 
 
 @end

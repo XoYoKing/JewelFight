@@ -70,7 +70,7 @@
 -(JewelVo*) getJewelVoByGlobalId:(int)jewelGlobalId;
 
 /// 寻找可消除的宝石
--(void) findEliminableJewels:(CCArray*)elimList;
+-(void) findEliminableJewels:(CCArray*)connectedGroup;
 
 /// 检查水平方向的可消除的宝石
 -(void) findHorizontalEliminableJewels:(CCArray*)elimList withJewel:(JewelVo*)source;

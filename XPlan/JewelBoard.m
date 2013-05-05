@@ -36,7 +36,7 @@
 
 @implementation JewelBoard
 
-@synthesize cellSize,continueDispose,isControlEnabled,jewelController,team,lastMoveTime;
+@synthesize cellSize,continueDispose,isControlEnabled,jewelController,team,lastMoveTime,boardWidth,boardHeight;
 
 -(id) init
 {
@@ -397,6 +397,11 @@
 /// 更新提示信息
 -(void) updateHint
 {
+    if (!self.isControlEnabled)
+    {
+        return;
+    }
+    
     // 计时器
     NSDate *currentDate = [NSDate date];
     double currentTime = [currentDate timeIntervalSince1970];

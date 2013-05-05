@@ -18,6 +18,7 @@
 @interface JewelBoard : CCLayer
 {
     JewelController *jewelController; // 宝石控制器
+
     CCSpriteBatchNode *jewelLayer; // 宝石层
     CCLayer *effectLayer; // 效果层
     CCParticleBatchNode *particleLayer; // 粒子效果层
@@ -53,6 +54,10 @@
 
 /// 宝石上次移动时间
 @property (readwrite,nonatomic) double lastMoveTime;
+
+@property (readwrite,nonatomic) int boardWidth;
+
+@property (readwrite,nonatomic) int boardHeight;
 
 
 -(void) active;

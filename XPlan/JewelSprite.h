@@ -25,6 +25,7 @@ typedef enum JewelSpriteStates
 {
     JewelBoard *jewelBoard; // 隶属宝石面板
     JewelVo *jewelVo; // 对应宝石数据
+    int special; // 宝石特殊效果
     NSMutableDictionary *effects; // 宝石效果
     BOOL isBack; // ??
     BOOL eliminateTop; // 消除上方宝石
@@ -75,6 +76,8 @@ typedef enum JewelSpriteStates
 /// 逻辑更新
 -(BOOL) update:(ccTime)delta;
 
+-(void) activate;
+
 
 /// 指定效果标识的火焰方块燃烧动画
 -(void) fire:(int)effectId;
@@ -82,14 +85,7 @@ typedef enum JewelSpriteStates
 /// 指定效果标识的宝石消除动画
 -(void) eliminate:(int)effectId;
 
-/// 死局,下落到最底部
--(void) moveToDead;
-
-/// 掉落
--(void) drop;
-
-/// 是否正在下落
--(BOOL) isDropping;
+-(void) explodeEliminate;
 
 #pragma mark -
 #pragma mark Effects
@@ -101,6 +97,6 @@ typedef enum JewelSpriteStates
 -(void) deleteEffectWithKey:(NSString*)key;
 
 /// 清除全部特效
--(void) detatchEffects;
+-(void) detachEffects;
 
 @end

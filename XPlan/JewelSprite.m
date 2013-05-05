@@ -11,6 +11,7 @@
 #import "GameController.h"
 #import "JewelCell.h"
 #import "JewelBoard.h"
+#import "JewelController.h"
 #import "Constants.h"
 #import "GameController.h"
 
@@ -33,6 +34,7 @@
     {
         jewelBoard = thePanel; // 设置隶属宝石面板
         jewelVo = sd; // 设置对应宝石数据对象
+        special = jewelVo.special;
         state = kJewelStateIdle; // 宝石状态
         effects = [[NSMutableDictionary alloc] initWithCapacity:5];
     }
@@ -42,6 +44,7 @@
 
 -(void) dealloc
 {
+    [self detachEffects];
     [effects release];
     [super dealloc];
 }
@@ -118,6 +121,20 @@
 -(void) changeState:(int)value
 {
     self.state = self.newState = value;
+}
+
+#pragma mark -
+#pragma mark Explode Effects
+
+
+/// 爆炸方块消失特效
+-(void) explodeEliminate
+{
+    self.cell.jewelGlobalId = 0;
+    
+    [self setVisible:NO];
+    
+    newState = kJewelStateEliminated; // 标记为删除
 }
 
 
@@ -234,7 +251,7 @@
 {
     
     // 清理全部特殊效果
-    [self detatchEffects];
+    [self detachEffects];
     
     KITProfile *profile = [KITProfile profileWithName:@"jewels_graphics"];
     
@@ -261,7 +278,7 @@
 -(void) animateLightElimate:(int)effectId
 {
     // 清理全部特殊效果
-    [self detatchEffects];
+    [self detachEffects];
     
     KITProfile *profile = [KITProfile profileWithName:@"jewels_graphics"];
     
@@ -285,38 +302,10 @@
 }
 
 
-/// 爆炸方块消失特效
--(void) explodeEliminate:(int)effectId
-{
-    // 清理全部特殊效果
-    [self detatchEffects];
-    
-    KITProfile *profile = [KITProfile profileWithName:@"jewels_graphics"];
-    
-    // 播放燃烧销毁动画
-    CCAnimation *elimateAnim = [profile animationForKey:[NSString stringWithFormat:@"explodeElimate%d",effectId]];
-    
-    EffectSprite *effect = [[EffectSprite alloc] initWithSpriteFrame:[elimateAnim.frames objectAtIndex:0]];
-    [self addEffect:effect withKey:kJewelEffectExplodeElimate];
-    effect.position = self.position; // 覆盖
-    [effect runAction:[CCSequence actions:
-                       [CCAnimate actionWithAnimation:elimateAnim],
-                       [CCCallFunc actionWithTarget:self selector:@selector(explodeEliminateComplete:)]
-                       , nil]];
-}
-
--(void) explodeEliminateComplete
-{
-    [self deleteEffectWithKey:kJewelEffectExplodeElimate];
-    newState = kJewelStateEliminated; // 标记为删除
-}
 
 /// 执行消除
 -(void) eliminate:(int)effectId
 {
-    // 清理全部特殊效果
-    [self detatchEffects];
-    
     [self setVisible:NO];
     
     // 更新状态为删除状态
@@ -337,7 +326,36 @@
         [self changeState:newState];
     }
     
+    if (special!=jewelVo.special)
+    {
+        special = jewelVo.special;
+        
+        // 更新素材
+        [self updateGraphics];
+        
+    }
+    
     return NO;
+}
+
+-(void) updateGraphics
+{
+    switch (special)
+    {
+        case kJewelSpecialExplode:
+        {
+            KITProfile *profile = [KITProfile profileWithName:@"jewel_graphics"];
+            CCAnimation *fireAnim = [profile animationForKey:@"fire"];
+            
+            EffectSprite *fireEffect = [[EffectSprite alloc] init];
+            [fireEffect animate:fireAnim tag:-1 repeat:YES restore:NO];
+            fireEffect.position = self.position;
+            fireEffect.anchorPoint = ccp(0,0);
+            [self addEffect:fireEffect withKey:kJewelEffectFire];
+            [fireEffect release];
+            break;
+        }
+    }
 }
 
 #pragma mark - 
@@ -364,7 +382,7 @@
 }
 
 /// 清除全部特效
--(void) detatchEffects
+-(void) detachEffects
 {
     for (NSString *key in [effects allKeys])
     {

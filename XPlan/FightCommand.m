@@ -21,6 +21,7 @@
     jewel.globalId = [data readInt32];
     jewel.jewelId = [data readInt32];
     jewel.jewelType = [data readInt32];
+    jewel.special = [data readInt32];
     int coordX = [data readInt32];
     int coordY = [data readInt32];
     jewel.coord = ccp(coordX,coordY);

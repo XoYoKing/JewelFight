@@ -6,8 +6,8 @@
 //  Copyright (c) 2013 Hex. All rights reserved.
 //
 
-#import "EliminateEffect.h"
+#import "EliminateEffectAction.h"
 
-@interface FireEliminateEffect : EliminateEffect
+@interface FireEliminateEffectAction : EliminateEffectAction
 
 @end

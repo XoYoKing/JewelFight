@@ -9,7 +9,6 @@
 #import "GameController.h"
 #import "GameServer.h"
 #import "PvPScene.h"
-#import "MockGameServer.h"
 #import "Constants.h"
 #import "DDLog.h"
 #import "PlayerInfo.h"
@@ -81,17 +80,10 @@ static GameController *_gameControllerInstance = nil;
 /// 初始化服务器连接
 -(void) initServer
 {
-    if (MOCK_MODE)
-    {
-        server = [[MockGameServer alloc] init];
-    }
-    else
-    {
-        server = [[GameServer alloc] init];
-        //NSString *host = @"127.0.0.1";
-        NSString *host = @"192.168.1.102";
-        [server registerServer:SERVER_GAME host:host port:9080];
-    }
+    server = [[GameServer alloc] init];
+    //NSString *host = @"127.0.0.1";
+    NSString *host = @"192.168.1.102";
+    [server registerServer:SERVER_GAME host:host port:9080];
 }
 
 /// 获取宝石配置信息

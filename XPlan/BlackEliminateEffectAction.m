@@ -6,8 +6,8 @@
 //  Copyright (c) 2013 Hex. All rights reserved.
 //
 
-#import "BlackEliminateEffect.h"
+#import "BlackEliminateEffectAction.h"
 
-@implementation BlackEliminateEffect
+@implementation BlackEliminateEffectAction
 
 @end

@@ -308,7 +308,7 @@
                 requestTotalCost = 0;
                 requestStartTime = [[NSDate date] timeIntervalSince1970];
                 
-                [[GameController sharedController].server.pvpCommand requestEliminateWithActionId:1 continueEliminate:0 JewelGlobalIds:data.jewelGlobalIds];
+                [[GameController sharedController].server.pvpCommand requestEliminateWithActionId:1 continueEliminate:0 eliminateGroup:data.eliminateGroup];
                 
                 // 做个弊,测试下攻击
                 AttackVo *av = [[[AttackVo alloc] init] autorelease];

@@ -15,6 +15,7 @@
 @interface JewelController : NSObject
 {
     long userId; // 操作者用户标识
+    int score; // 得分
     JewelBoardData *boardData; // 宝石面板数据
     JewelBoard *board; //对应宝石面板
     
@@ -29,6 +30,9 @@
 /// 操作者用户标识
 @property (readonly,nonatomic) long userId;
 
+/// 得分
+@property (readonly,nonatomic) int score;
+
 /// 宝石数据
 @property (readonly,nonatomic) JewelBoardData *boardData;
 
@@ -39,6 +43,8 @@
 
 @property (readwrite,nonatomic) int boardHeight;
 
+
+
 /// 初始化
 -(id) initWithJewelBoard:(JewelBoard*)jb operatorUserId:(long)uId;
 
@@ -47,6 +53,9 @@
 
 /// 是否玩家在操作
 -(BOOL) isPlayerControl;
+
+///
+-(int) addScore:(int)value;
 
 #pragma mark -
 #pragma mark Jewel Actions
@@ -63,7 +72,6 @@
 -(void) newJewelVoList:(CCArray*)list;
 
 -(void) addJewelVoList:(CCArray*)list;
-
 
 
 @end

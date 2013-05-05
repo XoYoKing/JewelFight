@@ -73,6 +73,11 @@
 
 -(void) update:(ccTime)delta
 {
+    if (skipped)
+    {
+        return;
+    }
+    
     JewelBoardData *boardData = jewelController.boardData;
     JewelBoard *board = jewelController.board;
     
@@ -193,19 +198,19 @@
     [jewelController.boardData updateJewelGridInfo];
     
     // 检查可消除性
-    CCArray *elimList = [[CCArray alloc] initWithCapacity:20];
+    CCArray *connectedGroup = [[CCArray alloc] initWithCapacity:20];
     
     // 检查可消除宝石集合
-    [jewelController.boardData findEliminableJewels:elimList];
+    [jewelController.boardData findEliminableJewels:connectedGroup];
     
-    if (elimList.count>0)
+    if (connectedGroup.count>0)
     {
-        JewelEliminateAction *elimateAction = [[JewelEliminateAction alloc] initWithJewelController:jewelController connectedList:elimList];
+        JewelEliminateAction *elimateAction = [[JewelEliminateAction alloc] initWithJewelController:jewelController connectedGroup:connectedGroup];
         [jewelController queueAction:elimateAction top:NO];
         [elimateAction release];
     }
     
-    [elimList release];
+    [connectedGroup release];
     
     if ([jewelController isPlayerControl])
     {
@@ -221,7 +226,10 @@
     }
     
     // 宝石面板设置为可操作
-    [jewelController.board setIsControlEnabled:YES];
+    if ([jewelController.boardData isJewelFull])
+    {
+        [jewelController.board setIsControlEnabled:YES];
+    }
     
 }
 

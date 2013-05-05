@@ -10,10 +10,12 @@
 
 @interface JewelEliminateAction : JewelAction
 {
-    CCArray *connectedList; // 待消除宝石列表
+    CCArray *connectedGroup; // 待消除宝石序列组
+    
+    BOOL allJewelsEliminated; // 全部宝石消除完毕标记
 }
 
 /// 构造函数
--(id) initWithJewelController:(JewelController *)contr  connectedList:(CCArray*)list;
+-(id) initWithJewelController:(JewelController *)contr  connectedGroup:(CCArray*)group;
 
 @end

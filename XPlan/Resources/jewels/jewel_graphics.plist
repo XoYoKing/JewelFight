@@ -46,6 +46,19 @@
 				<string>jewelSelected.plist</string>
 			</array>
 		</dict>
+        <key>fire</key>
+		<dict>
+			<key>delay</key>
+			<string>0.04</string>
+			<key>format</key>
+			<string>fire_jewel_%03d.png</string>
+			<key>frameCount</key>
+			<integer>18</integer>
+			<key>spritesheets</key>
+			<array>
+				<string>jewel_fire.plist</string>
+			</array>
+		</dict>
 	</dict>
 	<key>sounds</key>
 	<dict/>
