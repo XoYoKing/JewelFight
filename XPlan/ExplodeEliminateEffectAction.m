@@ -64,12 +64,14 @@
         [self skip];
         return;
     }
+    
+    [[KITSound sharedSound] playSound:@"explode.wav"];
 
     
     // 移除水平方向的宝石
     for (int xRemove = 0; xRemove < board.boardWidth; xRemove++)
     {
-        JewelCell *jc = [board getCellAtCoord:ccp(xRemove,actorSprite.coord.y)];
+        JewelCell *jc = [board getCellAtCoord:ccp(xRemove,actorVo.coord.y)];
         if (jc.jewelGlobalId>0 && (jc.jewelVo.special==0 || jc.jewelGlobalId == actorVo.globalId))
         {
             [jc.jewelSprite explodeEliminate];
@@ -79,7 +81,7 @@
     // 移除垂直方向的宝石
     for (int yRemove = 0; yRemove < board.boardHeight; yRemove++)
     {
-        JewelCell *jc = [board getCellAtCoord:ccp(actorSprite.coord.x,yRemove)];
+        JewelCell *jc = [board getCellAtCoord:ccp(actorVo.coord.x,yRemove)];
         if (jc.jewelGlobalId>0 && (jc.jewelVo.special==0 || jc.jewelGlobalId == actorVo.globalId))
         {
             [jc.jewelSprite explodeEliminate];

@@ -12,12 +12,12 @@
 
 @synthesize eliminateGroup;
 
-+(id) dataWithUserId:(long)uid eliminateGroups:(CCArray *)group
++(id) dataWithUserId:(long)uid eliminateGroups:(NSMutableArray *)group
 {
     return [[[self alloc] initWithUserId:uid eliminateGroups:group] autorelease];
 }
 
--(id) initWithUserId:(long)uid eliminateGroups:(CCArray *)group
+-(id) initWithUserId:(long)uid eliminateGroups:(NSMutableArray *)group
 {
     if ((self = [super initWithUserId:uid]))
     {

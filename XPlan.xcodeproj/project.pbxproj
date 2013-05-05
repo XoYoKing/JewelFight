@@ -98,7 +98,7 @@
 		E26839831732C07000B59EAD /* jewel-4.wav in Resources */ = {isa = PBXBuildFile; fileRef = E26839741732C07000B59EAD /* jewel-4.wav */; };
 		E26839841732C07000B59EAD /* loop.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E26839751732C07000B59EAD /* loop.mp3 */; };
 		E26839851732C07000B59EAD /* miss.wav in Resources */ = {isa = PBXBuildFile; fileRef = E26839761732C07000B59EAD /* miss.wav */; };
-		E26839861732C07000B59EAD /* powerup.wav in Resources */ = {isa = PBXBuildFile; fileRef = E26839771732C07000B59EAD /* powerup.wav */; };
+		E26839861732C07000B59EAD /* explode.wav in Resources */ = {isa = PBXBuildFile; fileRef = E26839771732C07000B59EAD /* explode.wav */; };
 		E26839871732C07000B59EAD /* tap-0.wav in Resources */ = {isa = PBXBuildFile; fileRef = E26839781732C07000B59EAD /* tap-0.wav */; };
 		E26839881732C07000B59EAD /* tap-1.wav in Resources */ = {isa = PBXBuildFile; fileRef = E26839791732C07000B59EAD /* tap-1.wav */; };
 		E26839891732C07000B59EAD /* tap-2.wav in Resources */ = {isa = PBXBuildFile; fileRef = E268397A1732C07000B59EAD /* tap-2.wav */; };
@@ -538,7 +538,7 @@
 		E26839741732C07000B59EAD /* jewel-4.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "jewel-4.wav"; sourceTree = "<group>"; };
 		E26839751732C07000B59EAD /* loop.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = loop.mp3; sourceTree = "<group>"; };
 		E26839761732C07000B59EAD /* miss.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = miss.wav; sourceTree = "<group>"; };
-		E26839771732C07000B59EAD /* powerup.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = powerup.wav; sourceTree = "<group>"; };
+		E26839771732C07000B59EAD /* explode.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = explode.wav; sourceTree = "<group>"; };
 		E26839781732C07000B59EAD /* tap-0.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "tap-0.wav"; sourceTree = "<group>"; };
 		E26839791732C07000B59EAD /* tap-1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "tap-1.wav"; sourceTree = "<group>"; };
 		E268397A1732C07000B59EAD /* tap-2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "tap-2.wav"; sourceTree = "<group>"; };
@@ -1384,7 +1384,7 @@
 				E26839741732C07000B59EAD /* jewel-4.wav */,
 				E26839751732C07000B59EAD /* loop.mp3 */,
 				E26839761732C07000B59EAD /* miss.wav */,
-				E26839771732C07000B59EAD /* powerup.wav */,
+				E26839771732C07000B59EAD /* explode.wav */,
 				E26839781732C07000B59EAD /* tap-0.wav */,
 				E26839791732C07000B59EAD /* tap-1.wav */,
 				E268397A1732C07000B59EAD /* tap-2.wav */,
@@ -2862,7 +2862,7 @@
 				E26839831732C07000B59EAD /* jewel-4.wav in Resources */,
 				E26839841732C07000B59EAD /* loop.mp3 in Resources */,
 				E26839851732C07000B59EAD /* miss.wav in Resources */,
-				E26839861732C07000B59EAD /* powerup.wav in Resources */,
+				E26839861732C07000B59EAD /* explode.wav in Resources */,
 				E26839871732C07000B59EAD /* tap-0.wav in Resources */,
 				E26839881732C07000B59EAD /* tap-1.wav in Resources */,
 				E26839891732C07000B59EAD /* tap-2.wav in Resources */,

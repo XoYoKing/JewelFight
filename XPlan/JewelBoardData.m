@@ -450,7 +450,7 @@
 #pragma mark Eliminate Jewels
 
 /// 寻找可消除的宝石
--(void) findEliminableJewels:(CCArray*)connectedGroup
+-(void) findEliminableJewels:(NSMutableArray*)connectedGroup
 {
     for (JewelVo *jv in boardJewelVoList)
     {
@@ -460,10 +460,11 @@
 }
 
 /// 检查水平方向的可消除的宝石
--(void) findHorizontalEliminableJewels:(CCArray*)connectedGroup withJewel:(JewelVo*)source
+-(void) findHorizontalEliminableJewels:(NSMutableArray*)connectedGroup withJewel:(JewelVo*)source
 {
     
-    CCArray *connectedList = [[CCArray alloc] initWithCapacity:10];
+    
+    NSMutableArray *connectedList = [[NSMutableArray alloc] initWithCapacity:10];
     
     // 自身加入进去
     [connectedList addObject:source];
@@ -492,7 +493,7 @@
     {
         // 加入消除列表
         BOOL found = NO;
-        for (CCArray *child in connectedGroup)
+        for (NSMutableArray *child in connectedGroup)
         {
             if ([child isEqualToArray:connectedList])
             {
@@ -510,10 +511,10 @@
 }
 
 /// 检查垂直方向的可消除的宝石
--(void) findVerticalEliminableJewels:(CCArray*)connectedGroup withJewel:(JewelVo*)source
+-(void) findVerticalEliminableJewels:(NSMutableArray*)connectedGroup withJewel:(JewelVo*)source
 {
     // 创建一个检查列表
-    CCArray *connectedList = [[CCArray alloc] initWithCapacity:10];
+    NSMutableArray *connectedList = [[NSMutableArray alloc] initWithCapacity:10];
     [connectedList addObject:source];
     
     // 上方检查
@@ -540,7 +541,7 @@
     {
         // 加入消除列表
         BOOL found = NO;
-        for (CCArray *child in connectedGroup)
+        for (NSMutableArray *child in connectedGroup)
         {
             if ([child isEqualToArray:connectedList])
             {

@@ -121,6 +121,7 @@
     [[KITSound sharedSound] loadSound:@"tap-2.wav"];
     [[KITSound sharedSound] loadSound:@"tap-3.wav"];
     [[KITSound sharedSound] loadSound:@"tap-0.wav"];
+    [[KITSound sharedSound] loadSound:@"explode.wav"];
 }
 
 -(void) unloadSounds
@@ -129,6 +130,7 @@
     [[KITSound sharedSound] unloadSound:@"tap-2.wav"];
     [[KITSound sharedSound] unloadSound:@"tap-3.wav"];
     [[KITSound sharedSound] unloadSound:@"tap-0.wav"];
+    [[KITSound sharedSound] unloadSound:@"explode.wav"];
 }
 
 #pragma mark -
@@ -435,6 +437,8 @@
     }
 
     [jewelsToRemove release];
+    
+    [jewelController.boardData updateJewelGridInfo];
     
 }
 

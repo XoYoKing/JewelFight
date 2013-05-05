@@ -70,19 +70,14 @@
 -(JewelVo*) getJewelVoByGlobalId:(int)jewelGlobalId;
 
 /// 寻找可消除的宝石
--(void) findEliminableJewels:(CCArray*)connectedGroup;
+-(void) findEliminableJewels:(NSMutableArray*)connectedGroup;
 
 /// 检查水平方向的可消除的宝石
--(void) findHorizontalEliminableJewels:(CCArray*)elimList withJewel:(JewelVo*)source;
+-(void) findHorizontalEliminableJewels:(NSMutableArray*)connectedGroup withJewel:(JewelVo*)source;
 
 /// 检查垂直方向的可消除的宝石
--(void) findVerticalEliminableJewels:(CCArray*)elimList withJewel:(JewelVo*)source;
+-(void) findVerticalEliminableJewels:(NSMutableArray*)connectedGroup withJewel:(JewelVo*)source;
 
-/// 重置上方消除状态
--(void) resetEliminateTop:(JewelVo*)source;
-
-/// 重置右侧消除状态
--(void) resetEliminateRight:(JewelVo*)source;
 
 /// 寻找可消除的宝石
 -(CCArray*) findPossibleEliminateJewels;

@@ -198,7 +198,7 @@
     [jewelController.boardData updateJewelGridInfo];
     
     // 检查可消除性
-    CCArray *connectedGroup = [[CCArray alloc] initWithCapacity:20];
+    NSMutableArray *connectedGroup = [[NSMutableArray alloc] initWithCapacity:20];
     
     // 检查可消除宝石集合
     [jewelController.boardData findEliminableJewels:connectedGroup];

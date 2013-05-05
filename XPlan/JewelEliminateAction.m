@@ -33,7 +33,7 @@
 
 @implementation JewelEliminateAction
 
--(id) initWithJewelController:(JewelController *)contr connectedGroup:(CCArray *)group
+-(id) initWithJewelController:(JewelController *)contr connectedGroup:(NSMutableArray *)group
 {
     if ((self = [super initWithJewelController:contr name:@"JewelEliminateAction"]))
     {
@@ -73,7 +73,7 @@
     [[GameMessageDispatcher sharedDispatcher] dispatchWithSender:jewelController message:JEWEL_MESSAGE_ELIMINATE_JEWELS object:msg];
     
     // 分析宝石序列组
-    for (CCArray *connectedList in connectedGroup)
+    for (NSMutableArray *connectedList in connectedGroup)
     {
         // 分析消除宝石序列
         [self analyze:connectedList];
@@ -82,7 +82,7 @@
 }
 
 
--(void) analyze:(CCArray*)connectedList
+-(void) analyze:(NSMutableArray*)connectedList
 {
     JewelBoard *board = jewelController.board;
     
