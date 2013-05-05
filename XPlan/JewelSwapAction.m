@@ -143,7 +143,7 @@
         // 存在可消除宝石
         if (elimList.count>0)
         {
-            JewelEliminateAction *elimateAction = [[JewelEliminateAction alloc] initWithJewelController:jewelController elimList:elimList];
+            JewelEliminateAction *elimateAction = [[JewelEliminateAction alloc] initWithJewelController:jewelController connectedList:elimList];
             [jewelController queueAction:elimateAction top:NO];
             [elimateAction release];
             

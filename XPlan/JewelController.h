@@ -65,4 +65,5 @@
 -(void) addJewelVoList:(CCArray*)list;
 
 
+
 @end

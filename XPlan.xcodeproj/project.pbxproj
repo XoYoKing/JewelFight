@@ -224,6 +224,10 @@
 		E2DD8806170D8F2900F2D065 /* JewelBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = E2DD8805170D8F2900F2D065 /* JewelBoard.m */; };
 		E2DD880C170D9CF300F2D065 /* FightActionQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = E2DD880B170D9CF300F2D065 /* FightActionQueue.m */; };
 		E2DD881D170DA13000F2D065 /* JewelController.m in Sources */ = {isa = PBXBuildFile; fileRef = E2DD881C170DA13000F2D065 /* JewelController.m */; };
+		E2E058D0173569FF006A4ECB /* EliminateEffect.m in Sources */ = {isa = PBXBuildFile; fileRef = E2E058CF173569FF006A4ECB /* EliminateEffect.m */; };
+		E2E058D317356A55006A4ECB /* FireEliminateEffect.m in Sources */ = {isa = PBXBuildFile; fileRef = E2E058D217356A55006A4ECB /* FireEliminateEffect.m */; };
+		E2E058D617356A66006A4ECB /* ExplodeEliminateEffect.m in Sources */ = {isa = PBXBuildFile; fileRef = E2E058D517356A66006A4ECB /* ExplodeEliminateEffect.m */; };
+		E2E058D917356A80006A4ECB /* BlackEliminateEffect.m in Sources */ = {isa = PBXBuildFile; fileRef = E2E058D817356A80006A4ECB /* BlackEliminateEffect.m */; };
 		E2E2665817044C2600550425 /* EquipmentVo.m in Sources */ = {isa = PBXBuildFile; fileRef = E2E2665117044C2600550425 /* EquipmentVo.m */; };
 		E2E2665A17044C2600550425 /* FriendInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = E2E2665517044C2600550425 /* FriendInfo.m */; };
 		E2E2665B17044C2600550425 /* HeroVo.m in Sources */ = {isa = PBXBuildFile; fileRef = E2E2665717044C2600550425 /* HeroVo.m */; };
@@ -709,6 +713,14 @@
 		E2DD880B170D9CF300F2D065 /* FightActionQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FightActionQueue.m; sourceTree = "<group>"; };
 		E2DD881B170DA13000F2D065 /* JewelController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JewelController.h; sourceTree = "<group>"; };
 		E2DD881C170DA13000F2D065 /* JewelController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JewelController.m; sourceTree = "<group>"; };
+		E2E058CE173569FF006A4ECB /* EliminateEffect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EliminateEffect.h; sourceTree = "<group>"; };
+		E2E058CF173569FF006A4ECB /* EliminateEffect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EliminateEffect.m; sourceTree = "<group>"; };
+		E2E058D117356A55006A4ECB /* FireEliminateEffect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FireEliminateEffect.h; sourceTree = "<group>"; };
+		E2E058D217356A55006A4ECB /* FireEliminateEffect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FireEliminateEffect.m; sourceTree = "<group>"; };
+		E2E058D417356A66006A4ECB /* ExplodeEliminateEffect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExplodeEliminateEffect.h; sourceTree = "<group>"; };
+		E2E058D517356A66006A4ECB /* ExplodeEliminateEffect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExplodeEliminateEffect.m; sourceTree = "<group>"; };
+		E2E058D717356A7F006A4ECB /* BlackEliminateEffect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlackEliminateEffect.h; sourceTree = "<group>"; };
+		E2E058D817356A80006A4ECB /* BlackEliminateEffect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlackEliminateEffect.m; sourceTree = "<group>"; };
 		E2E2665017044C2600550425 /* EquipmentVo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EquipmentVo.h; sourceTree = "<group>"; };
 		E2E2665117044C2600550425 /* EquipmentVo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EquipmentVo.m; sourceTree = "<group>"; };
 		E2E2665417044C2600550425 /* FriendInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendInfo.h; sourceTree = "<group>"; };
@@ -1429,6 +1441,7 @@
 		E27E1A9A171AA67700AC6FDB /* Jewels */ = {
 			isa = PBXGroup;
 			children = (
+				E2E058CD173569E7006A4ECB /* EliminateEffects */,
 				E2050866171E95CF0082556E /* Messages */,
 				E2DD880D170D9E0200F2D065 /* Actions */,
 				E2FAFEC11707786200868C63 /* Sprite */,
@@ -1790,10 +1803,6 @@
 				E27F81C2172B8FC3006F5B5A /* JewelAction.m */,
 				E27F81C3172B8FC3006F5B5A /* JewelActionQueue.h */,
 				E27F81C4172B8FC3006F5B5A /* JewelActionQueue.m */,
-				E27F81C7172B8FC3006F5B5A /* JewelBlackAction.h */,
-				E27F81C8172B8FC3006F5B5A /* JewelBlackAction.m */,
-				E27F81CD172B8FC3006F5B5A /* JewelFireAction.h */,
-				E27F81CE172B8FC3006F5B5A /* JewelFireAction.m */,
 				E27F81CF172B8FC3006F5B5A /* JewelSwapAction.h */,
 				E27F81D0172B8FC3006F5B5A /* JewelSwapAction.m */,
 				E265C01E171C726F0008FB40 /* JewelEliminateAction.h */,
@@ -1802,6 +1811,25 @@
 				E2CD90DF173220750019E1AE /* JewelFallAction.m */,
 			);
 			name = Actions;
+			sourceTree = "<group>";
+		};
+		E2E058CD173569E7006A4ECB /* EliminateEffects */ = {
+			isa = PBXGroup;
+			children = (
+				E2E058CE173569FF006A4ECB /* EliminateEffect.h */,
+				E2E058CF173569FF006A4ECB /* EliminateEffect.m */,
+				E2E058D117356A55006A4ECB /* FireEliminateEffect.h */,
+				E2E058D217356A55006A4ECB /* FireEliminateEffect.m */,
+				E2E058D417356A66006A4ECB /* ExplodeEliminateEffect.h */,
+				E2E058D517356A66006A4ECB /* ExplodeEliminateEffect.m */,
+				E2E058D717356A7F006A4ECB /* BlackEliminateEffect.h */,
+				E2E058D817356A80006A4ECB /* BlackEliminateEffect.m */,
+				E27F81C7172B8FC3006F5B5A /* JewelBlackAction.h */,
+				E27F81C8172B8FC3006F5B5A /* JewelBlackAction.m */,
+				E27F81CD172B8FC3006F5B5A /* JewelFireAction.h */,
+				E27F81CE172B8FC3006F5B5A /* JewelFireAction.m */,
+			);
+			name = EliminateEffects;
 			sourceTree = "<group>";
 		};
 		E2E26637170448CB00550425 /* Net */ = {
@@ -3110,6 +3138,10 @@
 				E27F81D8172B8FC3006F5B5A /* JewelSwapAction.m in Sources */,
 				E2CD90E0173220750019E1AE /* JewelFallAction.m in Sources */,
 				E2400DD217322B77001CDBF7 /* JewelBoardData.m in Sources */,
+				E2E058D0173569FF006A4ECB /* EliminateEffect.m in Sources */,
+				E2E058D317356A55006A4ECB /* FireEliminateEffect.m in Sources */,
+				E2E058D617356A66006A4ECB /* ExplodeEliminateEffect.m in Sources */,
+				E2E058D917356A80006A4ECB /* BlackEliminateEffect.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

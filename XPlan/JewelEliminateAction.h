@@ -10,10 +10,10 @@
 
 @interface JewelEliminateAction : JewelAction
 {
-    CCArray *elimList; // 待消除宝石列表
+    CCArray *connectedList; // 待消除宝石列表
 }
 
 /// 构造函数
--(id) initWithJewelController:(JewelController *)contr  elimList:(CCArray*)list;
+-(id) initWithJewelController:(JewelController *)contr  connectedList:(CCArray*)list;
 
 @end

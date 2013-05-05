@@ -19,16 +19,19 @@
 #import "JewelBoardData.h"
 
 @interface JewelEliminateAction()
+{
+    
+}
 
 @end
 
 @implementation JewelEliminateAction
 
--(id) initWithJewelController:(JewelController *)contr elimList:(CCArray *)list
+-(id) initWithJewelController:(JewelController *)contr connectedList:(CCArray *)list
 {
     if ((self = [super initWithJewelController:contr name:@"JewelEliminateAction"]))
     {
-        elimList = [list retain];
+        connectedList = [list retain];
     }
     
     return self;
@@ -36,7 +39,7 @@
 
 -(void) dealloc
 {
-    [elimList release];
+    [connectedList release];
     [super dealloc];
 }
 
@@ -51,11 +54,9 @@
     // 宝石面板设置为不可操作
     [jewelController.board setIsControlEnabled:NO];
     
-    for (JewelVo * elimVo in elimList)
+    
+    for (JewelVo * elimVo in connectedList)
     {
-        // 从消除宝石列表中寻找特殊宝石,并点燃特殊宝石
-        
-        
         JewelSprite *elimSprite = [jewelController.board getJewelSpriteWithGlobalId:elimVo.globalId];
         // 执行消除动画
         [elimSprite eliminate:1];
@@ -93,8 +94,8 @@
     if ([jewelController isPlayerControl])
     {
         // 发送消除消息
-        CCArray *elimIds = [[CCArray alloc] initWithCapacity:elimList.count];
-        for (JewelSprite *js in elimList)
+        CCArray *elimIds = [[CCArray alloc] initWithCapacity:connectedList.count];
+        for (JewelSprite *js in connectedList)
         {
             [elimIds addObject:[NSNumber numberWithInt:js.globalId]];
         }
@@ -123,7 +124,7 @@
 -(BOOL) isAllJewelEliminated
 {
     BOOL eliminated = YES;
-    for (JewelVo * elimVo in elimList)
+    for (JewelVo * elimVo in connectedList)
     {
         JewelSprite *elimSprite = [jewelController.board getJewelSpriteWithGlobalId:elimVo.globalId];
         if (elimSprite && elimSprite.state!=kJewelStateEliminated)
@@ -135,5 +136,6 @@
     
     return eliminated;
 }
+
 
 @end
