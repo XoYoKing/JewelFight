@@ -463,7 +463,6 @@
 -(void) findHorizontalEliminableJewels:(NSMutableArray*)connectedGroup withJewel:(JewelVo*)source
 {
     
-    
     NSMutableArray *connectedList = [[NSMutableArray alloc] initWithCapacity:10];
     
     // 自身加入进去

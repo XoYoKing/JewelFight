@@ -83,7 +83,7 @@
 }
 
 /// 消除宝石
--(void) requestEliminateWithActionId:(long)actionId continueEliminate:(int)continueEliminate eliminateGroup:(CCArray*)group
+-(void) requestEliminateWithActionId:(long)actionId continueEliminate:(int)continueEliminate eliminateGroup:(NSMutableArray*)group
 {
     
     KITLog(@"group: %@",group);
