@@ -98,4 +98,6 @@
 
 -(void) updateJewelGridInfo;
 
+-(void) printJewelVoMap;
+
 @end

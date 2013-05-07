@@ -26,7 +26,7 @@
         boardHeight = jewelController.boardHeight;
         
         // 设置数据对象集合
-        boardJewelVoDict = [[NSMutableDictionary alloc] initWithCapacity:50];
+        boardJewelVoDict = [[NSMutableDictionary alloc] initWithCapacity:100];
         boardJewelVoList = [[CCArray alloc] initWithCapacity:100];
 
         // 初始化宝石格子
@@ -58,7 +58,7 @@
         fallingJewelVos = [[CCArray alloc] initWithCapacity:boardWidth];
         for (int i =0; i< boardWidth;i++)
         {
-            CCArray *list = [[CCArray alloc] initWithCapacity:5];
+            CCArray *list = [[CCArray alloc] initWithCapacity:boardHeight];
             [fallingJewelVos addObject:list];
             [list release];
         }
@@ -74,11 +74,13 @@
 
 -(void) dealloc
 {
-    [cellGrid release];
     [fallingJewelVos release];
     [possibleEliminates release];
     free(numJewelsInColumn); // 释放c数组
     free(timeSinceAddInColumn); // 释放c数组
+    [boardJewelVoDict release];
+    [boardJewelVoList release];
+    [cellGrid release];
     [super dealloc];
 }
 
@@ -119,6 +121,7 @@
     {
         numJewelsInColumn[x] = 0;
         timeSinceAddInColumn[x] = 0;
+        [[fallingJewelVos objectAtIndex:x] removeAllObjects];
     }
 }
 
@@ -420,7 +423,7 @@
                     int idxAbove = x + yAbove * boardWidth;
                     
                     JewelCell *aboveCell = [cellGrid objectAtIndex:idxAbove];
-                    if (aboveCell.jewelGlobalId==0)
+                    if (![checked containsObject:aboveCell] && aboveCell.jewelGlobalId==0)
                     {
 
                         numJewelsInColumn[x]--;
@@ -433,7 +436,7 @@
                     aboveJv.ySpeed = 0;
                     aboveJv.yPos = yAbove;
                     [[fallingJewelVos objectAtIndex:x] addObject:aboveJv];
-                    [self removeJewelVo:aboveCell.jewelVo];
+                    [self removeJewelVo:aboveJv];
                     
                     numJewelsInColumn[x]--;
                     [checked addObject:aboveCell];
@@ -443,6 +446,8 @@
     }
     
     [checked release];
+    
+    // 更新宝石格子信息
     [self updateJewelGridInfo];
 }
 
@@ -471,7 +476,7 @@
     
     // 向左侧检查
     JewelVo *leftJewel = [self getCellAtCoord:ccp(source.coord.x-1,source.coord.y)].jewelVo;
-    while (leftJewel!=nil && leftJewel.jewelId == source.jewelId)
+    while (leftJewel!=nil && leftJewel.state==0 && leftJewel.jewelId == source.jewelId)
     {        
         // 添加到相同类型集合中
         [connectedList insertObject:leftJewel atIndex:0];
@@ -480,7 +485,7 @@
     
     // 向右侧检查
     JewelVo *rightJewel= [self getCellAtCoord:ccp(source.coord.x+1,source.coord.y)].jewelVo;
-    while (rightJewel!=nil && rightJewel.jewelId == source.jewelId)
+    while (rightJewel!=nil && rightJewel.state==0 && rightJewel.jewelId == source.jewelId)
     {
         // 添加到检查列表
         [connectedList addObject:rightJewel];
@@ -519,7 +524,7 @@
     // 上方检查
     // 获取上方宝石
     JewelVo *upJewel = [self getCellAtCoord:ccp(source.coord.x,source.coord.y+1)].jewelVo;
-    while (upJewel!=nil && upJewel.jewelId == source.jewelId)
+    while (upJewel!=nil && upJewel.state == 0 && upJewel.jewelId == source.jewelId)
     {
         // 符合条件,加入检查列表
         [connectedList insertObject:upJewel atIndex:0];
@@ -528,7 +533,7 @@
     
     // 检测下方
     JewelVo *downJewel= [self getCellAtCoord:ccp(source.coord.x,source.coord.y - 1)].jewelVo;
-    while (downJewel!=nil && downJewel.jewelId == source.jewelId)
+    while (downJewel!=nil && downJewel.state==0 && downJewel.jewelId == source.jewelId)
     {
         // 符合条件,加入检查列表
         [connectedList addObject:downJewel];
@@ -580,7 +585,7 @@
         {
             JewelCell *cell = [self getCellAtCoord:ccp(i,j)];
             // 检查是否有宝石
-            if (cell.jewelGlobalId==0)
+            if (cell.jewelGlobalId==0 || cell.jewelVo.state==1)
             {
                 continue;
             }
@@ -675,5 +680,20 @@
     }
 }
 
+
+-(void) printJewelVoMap
+{
+    for (int x = 0; x< boardWidth; x++)
+    {
+        for (int y = boardHeight-1; y >=0; y--)
+        {
+            int idx = x+ y *boardWidth;
+            JewelCell *cell = [cellGrid objectAtIndex:idx];
+            printf("%d,",cell.jewelGlobalId);
+        }
+        
+        printf("\n");
+    }
+}
 
 @end

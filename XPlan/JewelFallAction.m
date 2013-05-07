@@ -53,12 +53,7 @@
     
     // 宝石面板设置为不可操作
     [jewelController.board setIsControlEnabled:NO];
-    
-    // 检查下落宝石数量
-    if (jewelController.boardData.fallingJewelVos.count==0)
-    {
-        [self skip];
-    }
+
 }
 
 -(BOOL) isOver
@@ -107,15 +102,13 @@
         }
     }
     
-    
     BOOL jewelLanded = NO; // 
     
     // 移动下落的宝石
     for (int x = 0; x < jewelController.boardWidth; x++)
     {
         CCArray *column = [boardData.fallingJewelVos objectAtIndex:x];
-        int numFallingJewels = column.count;
-        for (int i = numFallingJewels-1; i >= 0; i--)
+        for (int i = 0; i< column.count;i++)
         {
             JewelVo *jewel = [column objectAtIndex:i];
             
@@ -126,7 +119,6 @@
             // 宝石
             if (jewel.yPos <= boardData.numJewelsInColumn[x])
             {
-                KITLog(@"numJewelsInColumn %d : amount:%d",x,boardData.numJewelsInColumn[x]);
                 
                 // 宝石撞击到地面或宝石
                 if (!jewelLanded)
@@ -152,12 +144,11 @@
                 // 加入到面板数组中
                 [boardData addJewelVo:jewel];
                 
-                // 从下拉列表中移除已经完成的
-                [column removeObjectAtIndex:i];
-                
                 // Update fixed position
                 [jewelController.board getJewelSpriteWithGlobalId:jewel.globalId].position = ccp(x * board.cellSize.width, y * jewelController.board.cellSize.height);
-                boardData.numJewelsInColumn[x]++;             
+                boardData.numJewelsInColumn[x]++;
+                [column removeObject:jewel];
+                i--;
                 boardData.boardChangedSinceEvaluation = YES;
             }
             else

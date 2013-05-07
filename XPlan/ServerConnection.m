@@ -13,7 +13,7 @@
 #import "DDASLLogger.h"
 
 // Log levels: off, error, warn, info, verbose
-static const int ddLogLevel = LOG_LEVEL_VERBOSE;
+static const int ddLogLevel = LOG_LEVEL_OFF;
 
 #define USE_SECURE_CONNECTION 1
 #define ENABLE_BACKGROUNDING  0

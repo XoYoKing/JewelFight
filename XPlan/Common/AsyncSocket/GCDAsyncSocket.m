@@ -38,7 +38,7 @@
 // It allows us to do a lot of logging without significantly slowing down the code.
 #import "DDLog.h"
 
-#define LogAsync   YES
+#define LogAsync   NO
 #define LogContext 65535
 
 #define LogObjc(flg, frmt, ...) LOG_OBJC_MAYBE(LogAsync, logLevel, flg, LogContext, frmt, ##__VA_ARGS__)

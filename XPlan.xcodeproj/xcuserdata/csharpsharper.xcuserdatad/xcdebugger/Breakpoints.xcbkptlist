@@ -746,19 +746,6 @@
          shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "XPlan/JewelSwapAction.m"
-         timestampString = "389244155.934472"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "148"
-         endingLineNumber = "148"
-         landmarkName = "-execute"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
          filePath = "XPlan/JewelDropAction.m"
          timestampString = "388786382.164046"
          startingColumnNumber = "9223372036854775807"
@@ -1535,11 +1522,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "XPlan/JewelFallAction.m"
-         timestampString = "389456624.027293"
+         timestampString = "389549127.318227"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "81"
-         endingLineNumber = "81"
+         startingLineNumber = "76"
+         endingLineNumber = "76"
          landmarkName = "-update:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1548,11 +1535,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "XPlan/JewelFallAction.m"
-         timestampString = "389456624.027293"
+         timestampString = "389586337.919317"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "118"
-         endingLineNumber = "118"
+         startingLineNumber = "111"
+         endingLineNumber = "111"
          landmarkName = "-update:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1574,11 +1561,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "XPlan/JewelFallAction.m"
-         timestampString = "389456624.027293"
+         timestampString = "389586505.011172"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "161"
-         endingLineNumber = "161"
+         startingLineNumber = "152"
+         endingLineNumber = "152"
          landmarkName = "-update:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1587,11 +1574,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "XPlan/JewelFallAction.m"
-         timestampString = "389456624.027293"
+         timestampString = "389586337.919317"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "120"
-         endingLineNumber = "120"
+         startingLineNumber = "113"
+         endingLineNumber = "113"
          landmarkName = "-update:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1600,11 +1587,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "XPlan/JewelFallAction.m"
-         timestampString = "389456624.027293"
+         timestampString = "389549127.318227"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "87"
-         endingLineNumber = "87"
+         startingLineNumber = "82"
+         endingLineNumber = "82"
          landmarkName = "-update:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1613,11 +1600,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "XPlan/JewelEliminateAction.m"
-         timestampString = "389475096.937617"
+         timestampString = "389596322.095187"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "184"
-         endingLineNumber = "184"
+         startingLineNumber = "224"
+         endingLineNumber = "224"
          landmarkName = "-update:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1626,11 +1613,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "XPlan/JewelEliminateAction.m"
-         timestampString = "389475096.937617"
+         timestampString = "389596322.095187"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "188"
-         endingLineNumber = "188"
+         startingLineNumber = "228"
+         endingLineNumber = "228"
          landmarkName = "-update:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1639,11 +1626,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "XPlan/JewelEliminateAction.m"
-         timestampString = "389475096.937617"
+         timestampString = "389596322.095187"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "189"
-         endingLineNumber = "189"
+         startingLineNumber = "229"
+         endingLineNumber = "229"
          landmarkName = "-update:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1691,11 +1678,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "XPlan/JewelFallAction.m"
-         timestampString = "389456624.027293"
+         timestampString = "389586337.919317"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "114"
-         endingLineNumber = "114"
+         startingLineNumber = "108"
+         endingLineNumber = "108"
          landmarkName = "-update:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1704,11 +1691,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "XPlan/JewelFallAction.m"
-         timestampString = "389456624.027293"
+         timestampString = "389549127.318227"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "95"
-         endingLineNumber = "95"
+         startingLineNumber = "90"
+         endingLineNumber = "90"
          landmarkName = "-update:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1717,11 +1704,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "XPlan/JewelFallAction.m"
-         timestampString = "389456624.027293"
+         timestampString = "389549127.318227"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "106"
-         endingLineNumber = "106"
+         startingLineNumber = "101"
+         endingLineNumber = "101"
          landmarkName = "-update:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1730,11 +1717,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "XPlan/JewelFallAction.m"
-         timestampString = "389456624.027293"
+         timestampString = "389549127.318227"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "96"
-         endingLineNumber = "96"
+         startingLineNumber = "91"
+         endingLineNumber = "91"
          landmarkName = "-update:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1743,76 +1730,50 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "XPlan/JewelFallAction.m"
-         timestampString = "389456624.027293"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "123"
-         endingLineNumber = "123"
-         landmarkName = "-update:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "XPlan/JewelSwapAction.m"
-         timestampString = "389219768.973578"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "98"
-         endingLineNumber = "98"
-         landmarkName = "-update:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "XPlan/JewelSwapAction.m"
-         timestampString = "389244155.934472"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "143"
-         endingLineNumber = "143"
-         landmarkName = "-execute"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "XPlan/JewelSwapAction.m"
-         timestampString = "389244155.934472"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "146"
-         endingLineNumber = "146"
-         landmarkName = "-execute"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "XPlan/JewelFallAction.m"
-         timestampString = "389456624.027293"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "201"
-         endingLineNumber = "201"
-         landmarkName = "-execute"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "XPlan/JewelFallAction.m"
-         timestampString = "389456624.027293"
+         timestampString = "389586337.919317"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "116"
          endingLineNumber = "116"
+         landmarkName = "-update:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "XPlan/JewelSwapAction.m"
+         timestampString = "389509176.812928"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "99"
+         endingLineNumber = "99"
+         landmarkName = "-update:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "XPlan/JewelFallAction.m"
+         timestampString = "389586505.011172"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "192"
+         endingLineNumber = "192"
+         landmarkName = "-execute"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "XPlan/JewelFallAction.m"
+         timestampString = "389586337.919317"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "110"
+         endingLineNumber = "110"
          landmarkName = "-update:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1847,11 +1808,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "XPlan/JewelFallAction.m"
-         timestampString = "389456624.027293"
+         timestampString = "389586337.919317"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "129"
-         endingLineNumber = "129"
+         startingLineNumber = "121"
+         endingLineNumber = "121"
          landmarkName = "-update:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1860,11 +1821,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "XPlan/JewelFallAction.m"
-         timestampString = "389456624.027293"
+         timestampString = "389586505.011172"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "173"
-         endingLineNumber = "173"
+         startingLineNumber = "164"
+         endingLineNumber = "164"
          landmarkName = "-update:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1873,11 +1834,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "XPlan/JewelFallAction.m"
-         timestampString = "389456624.027293"
+         timestampString = "389586505.011172"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "175"
-         endingLineNumber = "175"
+         startingLineNumber = "166"
+         endingLineNumber = "166"
          landmarkName = "-update:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1899,11 +1860,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "XPlan/JewelFallAction.m"
-         timestampString = "389456624.027293"
+         timestampString = "389549127.318227"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "85"
-         endingLineNumber = "85"
+         startingLineNumber = "80"
+         endingLineNumber = "80"
          landmarkName = "-update:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1912,11 +1873,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "XPlan/JewelFallAction.m"
-         timestampString = "389456624.027293"
+         timestampString = "389549127.318227"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "82"
-         endingLineNumber = "82"
+         startingLineNumber = "77"
+         endingLineNumber = "77"
          landmarkName = "-update:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1925,11 +1886,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "XPlan/JewelFallAction.m"
-         timestampString = "389456624.027293"
+         timestampString = "389549127.318227"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "92"
-         endingLineNumber = "92"
+         startingLineNumber = "87"
+         endingLineNumber = "87"
          landmarkName = "-update:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -2080,25 +2041,12 @@
          shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "XPlan/ExplodeEliminateEffectAction.m"
-         timestampString = "389456624.027293"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "60"
-         endingLineNumber = "60"
-         landmarkName = "-activateExplode"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
          filePath = "XPlan/JewelFallAction.m"
-         timestampString = "389456679.825603"
+         timestampString = "389549127.318227"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "76"
-         endingLineNumber = "76"
+         startingLineNumber = "71"
+         endingLineNumber = "71"
          landmarkName = "-update:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -2107,11 +2055,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "XPlan/JewelEliminateAction.m"
-         timestampString = "389475096.937617"
+         timestampString = "389596322.095187"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "212"
-         endingLineNumber = "212"
+         startingLineNumber = "252"
+         endingLineNumber = "252"
          landmarkName = "-update:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -2120,11 +2068,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "XPlan/JewelEliminateAction.m"
-         timestampString = "389475096.937617"
+         timestampString = "389596322.095187"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "211"
-         endingLineNumber = "211"
+         startingLineNumber = "251"
+         endingLineNumber = "251"
          landmarkName = "-update:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -2133,11 +2081,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "XPlan/JewelEliminateAction.m"
-         timestampString = "389469623.585341"
+         timestampString = "389595525.217155"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "98"
-         endingLineNumber = "98"
+         startingLineNumber = "102"
+         endingLineNumber = "102"
          landmarkName = "-analyze:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -2146,11 +2094,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "XPlan/JewelFallAction.m"
-         timestampString = "389471560.480739"
+         timestampString = "389549127.318227"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "90"
-         endingLineNumber = "90"
+         startingLineNumber = "85"
+         endingLineNumber = "85"
          landmarkName = "-update:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -2159,11 +2107,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "XPlan/JewelEliminateAction.m"
-         timestampString = "389472351.131317"
+         timestampString = "389595525.217155"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "96"
-         endingLineNumber = "96"
+         startingLineNumber = "100"
+         endingLineNumber = "100"
          landmarkName = "-analyze:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -2172,11 +2120,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "XPlan/JewelEliminateAction.m"
-         timestampString = "389475096.937617"
+         timestampString = "389596322.095187"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "205"
-         endingLineNumber = "205"
+         startingLineNumber = "245"
+         endingLineNumber = "245"
          landmarkName = "-update:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -2185,11 +2133,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "XPlan/JewelEliminateAction.m"
-         timestampString = "389475096.937617"
+         timestampString = "389596322.095187"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "186"
-         endingLineNumber = "186"
+         startingLineNumber = "226"
+         endingLineNumber = "226"
          landmarkName = "-update:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -2198,11 +2146,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "XPlan/JewelFallAction.m"
-         timestampString = "389475893.896736"
+         timestampString = "389586505.011172"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "170"
-         endingLineNumber = "170"
+         startingLineNumber = "161"
+         endingLineNumber = "161"
          landmarkName = "-update:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -2224,25 +2172,142 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "XPlan/JewelEliminateAction.m"
-         timestampString = "389481045.773196"
+         timestampString = "389517321.275985"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "72"
-         endingLineNumber = "72"
+         startingLineNumber = "75"
+         endingLineNumber = "75"
          landmarkName = "-start"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
-         shouldBeEnabled = "Yes"
+         shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "XPlan/JewelEliminateAction.m"
-         timestampString = "389481049.302236"
+         timestampString = "389517321.275985"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "76"
-         endingLineNumber = "76"
+         startingLineNumber = "82"
+         endingLineNumber = "82"
          landmarkName = "-start"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "XPlan/JewelSwapAction.m"
+         timestampString = "389509297.964941"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "140"
+         endingLineNumber = "140"
+         landmarkName = "-execute"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "XPlan/JewelBoardData.m"
+         timestampString = "389549127.318227"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "465"
+         endingLineNumber = "465"
+         landmarkName = "-findEliminableJewels:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "XPlan/JewelBoardData.m"
+         timestampString = "389549127.318227"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "470"
+         endingLineNumber = "470"
+         landmarkName = "-findHorizontalEliminableJewels:withJewel:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "XPlan/JewelBoardData.m"
+         timestampString = "389549127.318227"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "519"
+         endingLineNumber = "519"
+         landmarkName = "-findVerticalEliminableJewels:withJewel:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "XPlan/JewelBoard.m"
+         timestampString = "389552104.84062"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "423"
+         endingLineNumber = "423"
+         landmarkName = "-updateJewelSprites:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "XPlan/JewelFallAction.m"
+         timestampString = "389586505.011172"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "181"
+         endingLineNumber = "181"
+         landmarkName = "-update:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "XPlan/JewelBoardData.m"
+         timestampString = "389552309.584854"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "90"
+         endingLineNumber = "90"
+         landmarkName = "-addJewelVo:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "XPlan/JewelFallAction.m"
+         timestampString = "389592925.772256"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "84"
+         endingLineNumber = "84"
+         landmarkName = "-update:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "XPlan/JewelEliminateAction.m"
+         timestampString = "389596322.095187"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "149"
+         endingLineNumber = "149"
+         landmarkName = "-eliminateSpecialJewel:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

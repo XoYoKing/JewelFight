@@ -68,9 +68,15 @@
     // 初始化宝石消除完成标记
     allJewelsEliminated = NO;
     
+    [jewelController.boardData printJewelVoMap];
+
+    
     // 在动画执行前发送准备消除消息
     JewelEliminateMessageData *msg = [JewelEliminateMessageData dataWithUserId:jewelController.userId eliminateGroups:connectedGroup];
     [[GameMessageDispatcher sharedDispatcher] dispatchWithSender:jewelController message:JEWEL_MESSAGE_ELIMINATE_JEWELS object:msg];
+    
+    
+    
     
     // 分析宝石序列组
     for (NSMutableArray *connectedList in connectedGroup)
@@ -84,8 +90,6 @@
 
 -(void) analyze:(NSMutableArray*)connectedList
 {
-    JewelBoard *board = jewelController.board;
-    
     // 先点燃特殊宝石
     // 自下向上寻找特殊宝石,并点燃
     BOOL hasSpecial = NO;
@@ -96,39 +100,7 @@
         if (jv.special>0)
         {
             hasSpecial = YES;
-            switch (jv.special)
-            {
-                // 爆炸效果
-                case kJewelSpecialExplode:
-                {
-                    
-                    // 移除水平方向的宝石
-                    for (int xRemove = 0; xRemove < board.boardWidth; xRemove++)
-                    {
-                        JewelCell *jc = [board getCellAtCoord:ccp(xRemove,jv.coord.y)];
-                        if (jc.jewelGlobalId>0 && (jc.jewelVo.special==0 || jc.jewelGlobalId == jv.globalId))
-                        {
-                            jc.jewelSprite.jewelVo.eliminateType = kJewelSpecialExplode;
-                        }
-                    }
-                    
-                    // 移除垂直方向的宝石
-                    for (int yRemove = 0; yRemove < board.boardHeight; yRemove++)
-                    {
-                        JewelCell *jc = [board getCellAtCoord:ccp(jv.coord.x,yRemove)];
-                        if (jc.jewelGlobalId>0 && (jc.jewelVo.special==0 || jc.jewelGlobalId == jv.globalId))
-                        {
-                            jc.jewelSprite.jewelVo.eliminateType = kJewelSpecialExplode;
-                        }
-                    }
-                    
-                    // 爆炸动作
-                    ExplodeEliminateEffectAction *effect = [[ExplodeEliminateEffectAction alloc] initWithJewelController:jewelController eliminateAction:self jewel:jv];
-                    [effectActionQueue addObject:effect];
-                    [effect release];
-                    break;
-                }
-            }
+            [self eliminateSpecialJewel:jv];
         }
     }
     
@@ -165,6 +137,74 @@
             // 普通消除,每个宝石100得分
             [jewelController addScore:100];
             [[jewelController.board getJewelSpriteWithGlobalId:jv.globalId] eliminate:0];
+        }
+    }
+}
+
+/// 清理特殊宝石
+-(void) eliminateSpecialJewel:(JewelVo*)jv
+{
+    JewelBoard *board = jewelController.board;
+    
+    if (jv.eliminateType>0)
+        return;
+    
+    switch (jv.special)
+    {
+            // 爆炸效果
+        case kJewelSpecialExplode:
+        {
+            // 移除水平方向的宝石
+            for (int xRemove = 0; xRemove < board.boardWidth; xRemove++)
+            {
+                JewelCell *jc = [board getCellAtCoord:ccp(xRemove,jv.coord.y)];
+                if (jc.jewelGlobalId>0)
+                {
+                    if(jc.jewelGlobalId == jv.globalId)
+                    {
+                        jc.jewelSprite.jewelVo.eliminateType = kJewelSpecialExplode;
+                        continue;
+                    }
+                    
+                    if (jc.jewelVo.special==0)
+                    {
+                        jc.jewelSprite.jewelVo.eliminateType = kJewelSpecialExplode;
+                        
+                    }
+                    else
+                    {
+                        [self eliminateSpecialJewel:jc.jewelVo];
+                    }
+                }
+                
+            }
+            
+            // 移除垂直方向的宝石
+            for (int yRemove = 0; yRemove < board.boardHeight; yRemove++)
+            {
+                JewelCell *jc = [board getCellAtCoord:ccp(jv.coord.x,yRemove)];
+                if(jc.jewelGlobalId == jv.globalId)
+                {
+                    jc.jewelSprite.jewelVo.eliminateType = kJewelSpecialExplode;
+                    continue;
+                }
+                
+                if (jc.jewelVo.special==0)
+                {
+                    jc.jewelSprite.jewelVo.eliminateType = kJewelSpecialExplode;
+                    
+                }
+                else
+                {
+                    [self eliminateSpecialJewel:jc.jewelVo];
+                }
+            }
+            
+            // 爆炸动作
+            ExplodeEliminateEffectAction *effect = [[ExplodeEliminateEffectAction alloc] initWithJewelController:jewelController eliminateAction:self jewel:jv];
+            [effectActionQueue addObject:effect];
+            [effect release];
+            break;
         }
     }
 }
@@ -223,17 +263,16 @@
     [jewelController.boardData removeMarkedJewels];
     
     
+    
     // 玩家操作的情况下, 处理下落逻辑,否则是等待
     if ([jewelController isPlayerControl])
     {
-
-            
         // TODO:补充缺失的宝石
         
-        // 宝石下落
-        JewelFallAction *dropAction = [[JewelFallAction alloc] initWithJewelController:jewelController addList:nil];
-        [jewelController queueAction:dropAction top:YES];
-        [dropAction release];
+//        // 宝石下落
+//        JewelFallAction *dropAction = [[JewelFallAction alloc] initWithJewelController:jewelController addList:nil];
+//        [jewelController queueAction:dropAction top:YES];
+//        [dropAction release];
         
     }
     

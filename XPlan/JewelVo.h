@@ -24,6 +24,7 @@
     int eliminateType; // 消除类型
     int state; // 宝石状态 0为未消除, 1为消除
     
+    
 }
 
 /// 全局标识

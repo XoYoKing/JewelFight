@@ -131,7 +131,7 @@
 -(void) explodeEliminate
 {
     self.cell.jewelGlobalId = 0;
-    
+    self.jewelVo.state = 1;
     [self setVisible:NO];
     
     newState = kJewelStateEliminated; // 标记为删除
@@ -307,6 +307,8 @@
 -(void) eliminate:(int)effectId
 {
     [self setVisible:NO];
+    
+    self.jewelVo.state = 1;
     
     // 更新状态为删除状态
     newState = kJewelStateEliminated;

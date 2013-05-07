@@ -9,6 +9,7 @@
 #import "JewelSwapAction.h"
 #import "JewelSprite.h"
 #import "JewelBoard.h"
+#import "JewelBoardData.h"
 #import "Constants.h"
 #import "JewelController.h"
 #import "JewelEliminateAction.h"
@@ -133,23 +134,23 @@
     if (checkElimate)
     {
         // 检查可消除性
-        CCArray *elimList = [[CCArray alloc] initWithCapacity:20];
-        [jewelController.boardData findHorizontalEliminableJewels:elimList withJewel:self.jewel1.jewelVo];
-        [jewelController.boardData findVerticalEliminableJewels:elimList withJewel:self.jewel1.jewelVo];
+        NSMutableArray *connectedGroup = [[NSMutableArray alloc] initWithCapacity:20];
         
-        [jewelController.boardData findHorizontalEliminableJewels:elimList withJewel:self.jewel2.jewelVo];
-        [jewelController.boardData findVerticalEliminableJewels:elimList withJewel:self.jewel2.jewelVo];
+        // 检查可消除宝石集合
+        [jewelController.boardData findEliminableJewels:connectedGroup];
         
-        // 存在可消除宝石
-        if (elimList.count>0)
+        if (connectedGroup.count>0)
         {
-            JewelEliminateAction *elimateAction = [[JewelEliminateAction alloc] initWithJewelController:jewelController connectedGroup:elimList];
+            // 执行销毁动作
+            JewelEliminateAction *elimateAction = [[JewelEliminateAction alloc] initWithJewelController:jewelController connectedGroup:connectedGroup];
             [jewelController queueAction:elimateAction top:NO];
             [elimateAction release];
+            
             
             // 发送切换消息
             JewelSwapMessageData *msg = [JewelSwapMessageData dataWithUserId:jewelController.userId jewelGlobalId1:jewelGlobalId1 jewelGlobalId2:jewelGlobalId2];
             [[GameMessageDispatcher sharedDispatcher] dispatchWithSender:jewelController message:JEWEL_MESSAGE_SWAP_JEWELS object:msg];
+            
         }
         else
         {
@@ -159,9 +160,8 @@
             [swapAction release];
         }
         
-        // 重置消除列表
-        [elimList release];
-        elimList = nil;
+        // release
+        [connectedGroup release];
     }
     
     // 允许面板操作?
